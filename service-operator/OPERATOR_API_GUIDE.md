@@ -26,10 +26,17 @@ export JWT_TOKEN="your-jwt-token-from-ui-operator-tab"
 # Use in API calls
 curl -H "Authorization: Bearer $JWT_TOKEN" \
      -H "Content-Type: application/json" \
-     "${API_BASE_URL}/api/users"
+     "${API_BASE_URL}/api/users/me"
 ```
 
 ## API Reference
+
+Complete API documentation is available on your running IaaS server:
+
+- **Swagger UI**: `${API_BASE_URL}/api/docs`
+- **OpenAPI spec**: `${API_BASE_URL}/api/openapi.json`
+
+These provide the most current documentation for your deployed version.
 
 ### User Management APIs
 

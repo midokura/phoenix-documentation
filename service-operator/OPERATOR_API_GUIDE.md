@@ -18,7 +18,7 @@ To access the Operator APIs, you need to obtain an authentication token from the
 ### JWT Token Authentication
 ```bash
 # Set your API base URL (adjust for your environment)
-export API_BASE_URL="http://base-url"
+export API_BASE_URL="http://base-url/api"
 
 # Set your JWT token (obtained from UI Operator tab)
 export JWT_TOKEN="your-jwt-token-from-ui-operator-tab"
@@ -26,15 +26,15 @@ export JWT_TOKEN="your-jwt-token-from-ui-operator-tab"
 # Use in API calls
 curl -H "Authorization: Bearer $JWT_TOKEN" \
      -H "Content-Type: application/json" \
-     "${API_BASE_URL}/api/users/me"
+     "${API_BASE_URL}/users/me"
 ```
 
 ## API Reference
 
 Complete API documentation is available on your running IaaS server:
 
-- **Swagger UI**: `${API_BASE_URL}/api/docs`
-- **OpenAPI spec**: `${API_BASE_URL}/api/openapi.json`
+- **Swagger UI**: `${API_BASE_URL}/docs`
+- **OpenAPI spec**: `${API_BASE_URL}/openapi.json`
 
 These provide the most current documentation for your deployed version.
 
@@ -43,7 +43,7 @@ These provide the most current documentation for your deployed version.
 #### List All Users
 ```bash
 curl -H "Authorization: Bearer $JWT_TOKEN" \
-     "${API_BASE_URL}/api/users"
+     "${API_BASE_URL}/users"
 ```
 
 #### Create a New User
@@ -56,13 +56,13 @@ curl -X POST \
        "role": "member",
        "ssh_key_id": null
      }' \
-     "${API_BASE_URL}/api/users"
+     "${API_BASE_URL}/users"
 ```
 
 #### Get Current User Information
 ```bash
 curl -H "Authorization: Bearer $JWT_TOKEN" \
-     "${API_BASE_URL}/api/users/me"
+     "${API_BASE_URL}/users/me"
 ```
 
 #### Update User Information
@@ -75,14 +75,14 @@ curl -X PUT \
        "role": "operator",
        "ssh_key_id": null
      }' \
-     "${API_BASE_URL}/api/users/{user_id}"
+     "${API_BASE_URL}/users/{user_id}"
 ```
 
 #### Delete a User
 ```bash
 curl -X DELETE \
      -H "Authorization: Bearer $JWT_TOKEN" \
-     "${API_BASE_URL}/api/users/{user_id}"
+     "${API_BASE_URL}/users/{user_id}"
 ```
 
 ### Tenant Management APIs
@@ -90,7 +90,7 @@ curl -X DELETE \
 #### List All Tenants
 ```bash
 curl -H "Authorization: Bearer $JWT_TOKEN" \
-     "${API_BASE_URL}/api/tenants"
+     "${API_BASE_URL}/tenants"
 ```
 
 #### Create a New Tenant
@@ -102,28 +102,28 @@ curl -X POST \
        "name": "development-team",
        "user_ids": []
      }' \
-     "${API_BASE_URL}/api/tenants"
+     "${API_BASE_URL}/tenants"
 ```
 
 #### Delete a Tenant
 ```bash
 curl -X DELETE \
      -H "Authorization: Bearer $JWT_TOKEN" \
-     "${API_BASE_URL}/api/tenants/{tenant_id}"
+     "${API_BASE_URL}/tenants/{tenant_id}"
 ```
 
 #### Add User to Tenant
 ```bash
 curl -X PUT \
      -H "Authorization: Bearer $JWT_TOKEN" \
-     "${API_BASE_URL}/api/tenants/{tenant_id}/users/{user_id}"
+     "${API_BASE_URL}/tenants/{tenant_id}/users/{user_id}"
 ```
 
 #### Remove User from Tenant
 ```bash
 curl -X DELETE \
      -H "Authorization: Bearer $JWT_TOKEN" \
-     "${API_BASE_URL}/api/tenants/{tenant_id}/users/{user_id}"
+     "${API_BASE_URL}/tenants/{tenant_id}/users/{user_id}"
 ```
 
 ## Common Use Cases and Workflows
@@ -146,16 +146,16 @@ curl -X POST \
     "role": "member",
     "ssh_key_id": null
   }' \
-  ${API_BASE_URL}/api/users
+  ${API_BASE_URL}/users
 
 # Step 2: List tenants to find the target tenant ID
 curl -H "Authorization: Bearer $JWT_TOKEN" \
-     ${API_BASE_URL}/api/tenants
+     ${API_BASE_URL}/tenants
 
 # Step 3: Add user to tenant (replace USER_ID and TENANT_ID with actual values)
 curl -X PUT \
   -H "Authorization: Bearer $JWT_TOKEN" \
-  ${API_BASE_URL}/api/tenants/TENANT_ID/users/USER_ID
+  ${API_BASE_URL}/tenants/TENANT_ID/users/USER_ID
 ```
 
 ### Use Case 2: Move User Between Tenants
@@ -170,12 +170,12 @@ curl -X PUT \
 # Step 1: Remove from old tenant
 curl -X DELETE \
      -H "Authorization: Bearer $JWT_TOKEN" \
-     ${API_BASE_URL}/api/tenants/OLD_TENANT_ID/users/USER_ID
+     ${API_BASE_URL}/tenants/OLD_TENANT_ID/users/USER_ID
 
 # Step 2: Add to new tenant
 curl -X PUT \
      -H "Authorization: Bearer $JWT_TOKEN" \
-     ${API_BASE_URL}/api/tenants/NEW_TENANT_ID/users/USER_ID
+     ${API_BASE_URL}/tenants/NEW_TENANT_ID/users/USER_ID
 ```
 
 ### Use Case 3: Create New Project with Team
@@ -194,14 +194,14 @@ curl -X POST \
     "name": "project-alpha",
     "user_ids": ["USER_ID_1", "USER_ID_2"]
   }' \
-  ${API_BASE_URL}/api/tenants
+  ${API_BASE_URL}/tenants
 ```
 
 **Note**: You can also add users to existing tenants later:
 ```bash
 curl -X PUT \
   -H "Authorization: Bearer $JWT_TOKEN" \
-  ${API_BASE_URL}/api/tenants/PROJECT_TENANT_ID/users/ADDITIONAL_USER_ID
+  ${API_BASE_URL}/tenants/PROJECT_TENANT_ID/users/ADDITIONAL_USER_ID
 ```
 
 ### Use Case 4: Employee Offboarding
@@ -215,12 +215,12 @@ curl -X PUT \
 ```bash
 # Step 1: Check current tenants (optional, for verification)
 curl -H "Authorization: Bearer $JWT_TOKEN" \
-     ${API_BASE_URL}/api/tenants
+     ${API_BASE_URL}/tenants
 
 # Step 2: Delete the user (automatically removes from all tenants)
 curl -X DELETE \
      -H "Authorization: Bearer $JWT_TOKEN" \
-     ${API_BASE_URL}/api/users/USER_ID
+     ${API_BASE_URL}/users/USER_ID
 ```
 
 **Note**: When you delete a user, the system automatically removes that user from all tenants they belong to. There's no need to manually remove the user from each tenant first.
@@ -236,7 +236,7 @@ curl -X DELETE \
 ```bash
 # Step 1: Check current user details
 curl -H "Authorization: Bearer $JWT_TOKEN" \
-     ${API_BASE_URL}/api/users
+     ${API_BASE_URL}/users
 
 # Step 2: Update user role
 curl -X PUT \
@@ -247,5 +247,5 @@ curl -X PUT \
        "role": "operator",
        "ssh_key_id": null
      }' \
-     ${API_BASE_URL}/api/users/USER_ID
+     ${API_BASE_URL}/users/USER_ID
 ```

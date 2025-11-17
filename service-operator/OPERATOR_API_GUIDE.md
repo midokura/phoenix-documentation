@@ -100,10 +100,12 @@ curl -X POST \
      -H "Content-Type: application/json" \
      -d '{
        "name": "development-team",
-       "user_ids": []
+       "users": []
      }' \
      "${API_BASE_URL}/tenants"
 ```
+
+**Note**: Each user can belong to only one tenant at a time. When assigning users during tenant creation, you must provide their WireGuard public key for VPN access.
 
 #### Delete a Tenant
 ```bash
@@ -116,8 +118,14 @@ curl -X DELETE \
 ```bash
 curl -X PUT \
      -H "Authorization: Bearer $JWT_TOKEN" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "pubkey": "user-wireguard-public-key"
+     }' \
      "${API_BASE_URL}/tenants/{tenant_id}/users/{user_id}"
 ```
+
+**Note**: You must provide the user's WireGuard public key to configure VPN access. Each user can belong to only one tenant at a time.
 
 #### Remove User from Tenant
 ```bash
@@ -152,9 +160,13 @@ curl -X POST \
 curl -H "Authorization: Bearer $JWT_TOKEN" \
      ${API_BASE_URL}/tenants
 
-# Step 3: Add user to tenant (replace USER_ID and TENANT_ID with actual values)
+# Step 3: Add user to tenant (replace USER_ID, TENANT_ID, and PUBKEY with actual values)
 curl -X PUT \
   -H "Authorization: Bearer $JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "pubkey": "WIREGUARD_PUBLIC_KEY"
+  }' \
   ${API_BASE_URL}/tenants/TENANT_ID/users/USER_ID
 ```
 
@@ -176,6 +188,11 @@ curl -X DELETE \
 curl -X PUT \
      -H "Authorization: Bearer $JWT_TOKEN" \
      ${API_BASE_URL}/tenants/NEW_TENANT_ID/users/USER_ID
+     -H "Content-Type: application/json" \
+     -d '{
+       "pubkey": "WIREGUARD_PUBLIC_KEY"
+     }' \
+     ${API_BASE_URL}/tenants/NEW_TENANT_ID/users/USER_ID
 ```
 
 ### Use Case 3: Create New Project with Team
@@ -192,7 +209,10 @@ curl -X POST \
   -H "Content-Type: application/json" \
   -d '{
     "name": "project-alpha",
-    "user_ids": ["USER_ID_1", "USER_ID_2"]
+    "users": [
+      {"user_id": "USER_ID_1", "pubkey": "WIREGUARD_PUBLIC_KEY_1"},
+      {"user_id": "USER_ID_2", "pubkey": "WIREGUARD_PUBLIC_KEY_2"}
+    ]
   }' \
   ${API_BASE_URL}/tenants
 ```
@@ -201,6 +221,10 @@ curl -X POST \
 ```bash
 curl -X PUT \
   -H "Authorization: Bearer $JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "pubkey": "WIREGUARD_PUBLIC_KEY"
+  }' \
   ${API_BASE_URL}/tenants/PROJECT_TENANT_ID/users/ADDITIONAL_USER_ID
 ```
 

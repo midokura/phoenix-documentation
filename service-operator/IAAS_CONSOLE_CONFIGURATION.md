@@ -75,9 +75,30 @@ Defines available networks for VMs.
 - **display_name**: Name shown in UI
 - **ost_name**: OpenStack/Neutron network name
 
+### 5. Hedgehog Kubeconfig
+
+The `hedgehog_kubeconfig_b64` in the inventory allows the IaaS Console to interact with the Hedgehog Kubernetes cluster. It must be provided as a base64-encoded kubeconfig containing the public IP of the control node.
+
+Steps to generate:
+
+```sh
+# Connect to the control node
+ssh core@control-1.bcn
+
+# Get the public IP of eth0 (used to access the cluster from IaaS)
+IP=$(ip -4 addr show eth0 | grep inet | awk '{print $2}' | cut -d/ -f1)
+
+# Generate base64-encoded kubeconfig with public IP
+kubectl config view --flatten \
+  | sed "s#server: https://127.0.0.1:6443#server: https://$IP:6443#" \
+  | base64 -w0
+```
+
 ## Setup Workflow
 
 1. Configure flavors, images, and networks for tenant use
 2. Edit `user_tenant_map` to add initial operators
-3. Operators log in and manage users via the [Operator API](./OPERATOR_API_GUIDE.md)
-4. Users create VMs by selecting from available resources
+3. Configure `hedgehog_kubeconfig_b64` in the inventory.
+4. Provision IaaS Console (ansible playbook).
+5. Operators log in and manage users via the [Operator API](./OPERATOR_API_GUIDE.md)
+6. Users create VMs by selecting from available resources

@@ -48,7 +48,9 @@ This guide shows how to generate Google SSO credentials.
 A dialog will show your credentials:
 
 - **Client ID**: `GOOGLE_CLIENT_ID`
+  - Example: `123456789012-abcdefghijklmnopqrstuvwxyz123456.apps.googleusercontent.com`
 - **Client Secret**: `GOOGLE_CLIENT_SECRET`
+  - Example: `GOCSPX-abcdefghijklmnopqrstuvwxyz`
 
 **Important**: Copy and store these securely. The redirect URI you configured is your `GOOGLE_REDIRECT_URI`.
 

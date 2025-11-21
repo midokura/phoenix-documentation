@@ -69,10 +69,10 @@ Test your authentication by pulling a public image:
 
 ```bash
 # Docker
-docker pull ghcr.io/OWNER/IMAGE_NAME:TAG
+docker pull ghcr.io/midokura/gpu-infra-ansible:v0.1
 
 # Podman
-podman pull ghcr.io/OWNER/IMAGE_NAME:TAG
+podman pull ghcr.io/midokura/gpu-infra-ansible:v0.1
 ```
 
 ## Token Storage Location

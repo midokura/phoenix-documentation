@@ -73,7 +73,7 @@ Quick verification checklist. Click any item for detailed setup instructions bel
 ### SSH Keys
 
 - **What it is:** SSH private keys to access cluster nodes
-- **Location:** `~/.ssh/` directory
+- **Location:** `~/.ssh/` directory and `~/.ssh/id_ed25519` as default private key
 - **Purpose:**
   - Used for: Deploying OpenStack on physical controller nodes and accessing management VMs (K3s cluster, observability services)
   - Variable in inventory.yml: `ansible_ssh_private_key_file`
@@ -120,6 +120,7 @@ Quick verification checklist. Click any item for detailed setup instructions bel
 
 - **What it is:** Configuration file defining OpenStack cloud connection and resources (networks, flavors, images, VMs)
 - **Location:** `./inventory.yml` in the release-assets directory
+- **Template:** See `inventory.example.yml` for an example with configuration options
 - **Purpose:** Tells Ansible how to connect to your OpenStack deployment and what resources to provision. Contains:
   - OpenStack authentication credentials
   - Network configuration (external networks, subnets, IP ranges)

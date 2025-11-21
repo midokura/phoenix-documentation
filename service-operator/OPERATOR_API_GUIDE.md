@@ -247,7 +247,7 @@ curl -X DELETE \
      ${API_BASE_URL}/users/USER_ID
 ```
 
-**Note**: When you delete a user, the system automatically removes that user from all tenants they belong to. There's no need to manually remove the user from each tenant first.
+**Note**: When you delete a user, the system automatically removes that user from all tenants to which they belong. There's no need for manual removal from each tenant.
 
 ### Use Case 5: Update User Role
 

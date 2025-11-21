@@ -1,9 +1,11 @@
 # Deployment Scripts
 
-This directory contains scripts for deploying GPU infrastructure clusters using containerized Ansible automation.
+This guide walks you through deploying GPU infrastructure clusters using containerized Ansible automation.
+The deployment scripts handle the complete setup of OpenStack, K3s, and observability stack on physical infrastructure.
 
-**Context:** These scripts are provided as part of the release package (`release-assets.tar.gz`) and contain
-everything needed to deploy a complete OpenStack + K3s + observability stack on physical infrastructure.
+**Getting the Release Package:**
+
+Download the latest release: [release-assets-0.0.0-512-69529aa.tar.gz](https://midokura.blob.core.windows.net/phoenix-vms/release-assets-0.0.0-512-69529aa.tar.gz?sp=r&st=2025-11-21T10:46:17Z&se=2026-12-31T22:59:59Z&spr=https&sv=2024-11-04&sr=b&sig=XIuBMhFjidxJWZMPgz52L0R7B2Ol9AHANTp5p2qsNLM%3D)
 
 ## Before You Start
 
@@ -16,10 +18,11 @@ Before running the deployment, you need to prepare several things. We'll go thro
 Quick verification checklist. Click any item for detailed setup instructions below.
 
 - [ ] **Container Runtime** - Podman or Docker installed → [Details](#container-runtime)
+- [ ] **Registry Authentication** - Authenticated to ghcr.io for pulling private images → [Details](#registry-authentication)
 - [ ] **Vault Password** - Know the password (will be prompted) → [Details](#vault-password)
 - [ ] **SSH Keys** - Have controller access key in `~/.ssh/` → [Details](#ssh-keys)
-- [ ] **Ceph Keyrings** - 3 keyring files in `./keyrings/` (cinder, cinder-backup, glance) → [Details](#ceph-keyrings)
-- [ ] **Disk Space** - 30GB free in `~/.cache/gpu-infrastructure/` for VM images → [Details](#vm-images)
+- [ ] **Ceph Keyrings** - three keyring files in `./keyrings/` (cinder, cinder-backup, glance) → [Details](#ceph-keyrings)
+- [ ] **Disk Space** - 30 GB free in `~/.cache/gpu-infrastructure/` for VM images → [Details](#vm-images)
 - [ ] **Inventory File** - `./inventory.yml` present and valid → [Details](#inventory-file)
 
 ### Container Runtime
@@ -27,6 +30,34 @@ Quick verification checklist. Click any item for detailed setup instructions bel
 - **What it is:** Container runtime (Podman or Docker) to run the deployment automation
 - **Purpose:** Runs the Ansible container with all deployment tools pre-installed
 - **Where to get it:** Install [Podman](https://podman.io/docs/installation) or [Docker](https://docs.docker.com/get-started/get-docker/)
+
+### Registry Authentication
+
+- **What it is:** GitHub Container Registry (GHCR) credentials for pulling private container images
+- **Purpose:** Required for deployment OSt and IaaS Console / Observability containers
+- **Setup steps:**
+  1. Create GitHub Personal Access Token with `read:packages` scope ([Token Settings](https://github.com/settings/tokens))
+  2. Authenticate to registry:
+
+     ```bash
+     export CR_PAT=YOUR_TOKEN
+     echo $CR_PAT | podman login ghcr.io -u USERNAME --password-stdin
+     ```
+
+  3. Encrypt token: `ansible-vault encrypt_string 'ghp_YourToken' --name 'ghcr_pat' --ask-vault-password`
+  4. Add to `inventory.yml`:
+
+     ```yaml
+     all:
+       vars:
+         iaas_console:
+           ghcr_user: "your-github-username"
+           ghcr_pat: !vault |
+             $ANSIBLE_VAULT;1.1;AES256
+             ... encrypted token ...
+     ```
+
+- **Important:** Always encrypt PAT in inventory.yml, never commit unencrypted secrets
 
 ### Vault Password
 
@@ -72,7 +103,7 @@ Quick verification checklist. Click any item for detailed setup instructions bel
   ceph_nova_keyring: "{{ playbook_dir }}/../../keyrings/ceph.client.cinder.keyring"
   ```
 
-- **Important:** The local `./keyrings` will be mounted inside the container as `/keyrings` read-only directory
+- **Important:** The local `./keyrings` will be mounted inside the container as `/keyrings` read-only directory.
 
 ### VM Images
 
@@ -88,7 +119,7 @@ Quick verification checklist. Click any item for detailed setup instructions bel
 ### Inventory File
 
 - **What it is:** Configuration file defining OpenStack cloud connection and resources (networks, flavors, images, VMs)
-- **Location:** `./inventory.yml` (in the release-assets directory)
+- **Location:** `./inventory.yml` in the release-assets directory
 - **Purpose:** Tells Ansible how to connect to your OpenStack deployment and what resources to provision. Contains:
   - OpenStack authentication credentials
   - Network configuration (external networks, subnets, IP ranges)
@@ -103,9 +134,11 @@ Quick verification checklist. Click any item for detailed setup instructions bel
 
 ### First-Time Setup
 
-1. Extract release package: `tar -xf release-assets.tar.gz --one-top-level`
-2. Change to release directory: `cd release-assets`
-3. Verify checksums: `sha256sum -c SHA256SUMS`
+1. Download the release package from the provided URL
+2. Extract the tar.gz archive into a folder called `release-assets`:
+`mkdir release-assets && tar -xzf release-assets-*.tar.gz -C release-assets`
+3. Change to release directory: `cd release-assets`
+4. Verify checksums: `sha256sum -c SHA256SUMS`
 
 ### Complete Deployment
 
@@ -121,7 +154,7 @@ After deployment completes, verify that all services are running correctly:
 
 ```bash
 # Check that deployment completed successfully
-tail -50 logs/main-*.log | grep -i "success\|complete\|failed"
+tail -50 logs/main-*.log | grep -i "success\\|complete\\|failed"
 
 # Verify OpenStack services (if OpenStack was deployed)
 ./scripts/main.sh --shell
@@ -175,7 +208,7 @@ export INVENTORY=old.yml
 ./scripts/main.sh --inventory new.yml  # Uses new.yml
 ```
 
-### Script-Specific Options
+### Script-specific Options
 
 #### main.sh
 
@@ -218,7 +251,7 @@ All other arguments are passed directly to `ansible-playbook`:
 
 - `--tags TAG1,TAG2` - Run specific tagged steps ([docs](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_tags.html#selecting-or-skipping-tags-when-you-run-a-playbook))
 - `--skip-tags TAG1,TAG2` - Skip specific tagged steps
-- `--extra-vars KEY=VALUE` - Pass additional variables to playbook (e.g., `--extra-vars "debug=true"`) ([docs](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#defining-variables-at-runtime))
+- `--extra-vars KEY=VALUE` - Pass additional variables to playbook (for example, `--extra-vars "debug=true"`) ([docs](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#defining-variables-at-runtime))
 - `-v`, `-vv`, `-vvv` - Verbose output
 - Any other ansible-playbook flags
 

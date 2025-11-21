@@ -121,12 +121,7 @@ Quick verification checklist. Click any item for detailed setup instructions bel
 - **What it is:** Configuration file defining OpenStack cloud connection and resources (networks, flavors, images, VMs)
 - **Location:** `./inventory.yml` in the release-assets directory
 - **Template:** See `inventory.example.yml` for an example with configuration options
-- **Purpose:** Tells Ansible how to connect to your OpenStack deployment and what resources to provision. Contains:
-  - OpenStack authentication credentials
-  - Network configuration (external networks, subnets, IP ranges)
-  - VM flavor definitions (CPU, RAM, disk)
-  - VM image specifications (Cirros, Ubuntu, Phoenix)
-  - SSH key paths and cluster configuration
+- **Purpose:** Tells Ansible how to connect to your OpenStack deployment and what resources to provision.
 - **Important:** Your `./inventory.yml` file is automatically mounted inside the container at `/inventory.yml` as a read-only file
 
 ## Quick Start

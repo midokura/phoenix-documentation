@@ -6,7 +6,7 @@ This document covers the required infrastructure setup, the step-by-step process
 
 ## Requirements
 1. From `bastion0`, use the asset `./scripts/main.sh --shell` to get access to openstack cli.
-2. Run `source /infra-management/config/admin-openrc.sh` to get the credentials into the environment.
+2. Run `source <(ansible-vault view --vault-password-file /secrets/vault-key.txt /infra-management/config/admin-openrc.sh)` to get the credentials into the environment.
 3. **Create baremetal flavor**
 
    You need to define a "flavor" that tells OpenStack this is for baremetal servers, not virtual machines. The special resource properties ensure OpenStack knows to provision a full physical server instead of trying to create a VM.

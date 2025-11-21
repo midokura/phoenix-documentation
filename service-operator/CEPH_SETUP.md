@@ -154,20 +154,23 @@ ceph osd pool set vms size 2
 ceph osd pool create backups 32 32 replicated
 ceph osd pool set backups size 2
 
-# This [client.cinder] secret goes to config/nova/ceph.client.cinder.keyring, config/cinder/cinder-volume/ceph.client.cinder.keyring and
-# keyrings/ceph.client.cinder.keyring
-ceph auth get-or-create client.cinder mon 'allow r' osd 'allow class-read object_prefix rbd_children, allow rwx pool=volumes, allow rwx pool=vms, allow rx pool=images'
+mkdir -p keyrings
 
-# This [client.cinder-backup] secret goes to keyrings/ceph.client.cinder-backup.keyring
-ceph auth get-or-create client.cinder-backup mon 'allow r' osd 'allow class-read object_prefix rbd_children, allow rwx pool=backups'
+ceph auth get-or-create client.cinder mon 'allow r' osd 'allow class-read object_prefix rbd_children, allow rwx pool=volumes, allow rwx pool=vms, allow rx pool=images' > keyrings/ceph.client.cinder.keyring
 
-# This [client.glance] secret goes to keyrings/ceph.client.glance.keyring
-ceph auth get-or-create client.glance mon 'allow r' osd 'allow class-read object_prefix rbd_children, allow rwx pool=images'
+ceph auth get-or-create client.cinder-backup mon 'allow r' osd 'allow class-read object_prefix rbd_children, allow rwx pool=backups' > keyrings/ceph.client.cinder-backup.keyring
+
+ceph auth get-or-create client.glance mon 'allow r' osd 'allow class-read object_prefix rbd_children, allow rwx pool=images' > keyrings/ceph.client.glance.keyring
 ```
 
-### 2. Copy the output
+Save the keyrings directory in a permanent location.
+You will need them for the [DEPLOYMENT.md](./DEPLOYMENT.md) section.
 
-Copy the output as this is the config that needs to be added into Openstack.
+**Important:** Remove the keyrings directory after saving them.
+
+```bash
+rm -rf keyrings
+```
 
 ### 3. Enable rbd for the pools
 

@@ -114,7 +114,7 @@ PORT_UUID=$(openstack baremetal port show $NODE_NAME-port -f value -c uuid)
 openstack baremetal port set $PORT_UUID \
   --local-link-connection switch_id="b0:4f:13:7f:1d:a2" \
   --local-link-connection port_id=Ethernet8 \
-  --local-link-connection switch_info=sonic-bcn
+  --local-link-connection switch_info=switch-name
 ```
 
 #### 3. Put node into manage mode

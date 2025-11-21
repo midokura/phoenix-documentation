@@ -157,10 +157,13 @@ ceph osd pool set backups size 2
 mkdir -p keyrings
 
 ceph auth get-or-create client.cinder mon 'allow r' osd 'allow class-read object_prefix rbd_children, allow rwx pool=volumes, allow rwx pool=vms, allow rx pool=images' > keyrings/ceph.client.cinder.keyring
+echo >> keyrings/ceph.client.cinder.keyring
 
 ceph auth get-or-create client.cinder-backup mon 'allow r' osd 'allow class-read object_prefix rbd_children, allow rwx pool=backups' > keyrings/ceph.client.cinder-backup.keyring
+echo >> keyrings/ceph.client.cinder-backup.keyring
 
 ceph auth get-or-create client.glance mon 'allow r' osd 'allow class-read object_prefix rbd_children, allow rwx pool=images' > keyrings/ceph.client.glance.keyring
+echo >> keyrings/ceph.client.glance.keyring
 ```
 
 Save the keyrings directory in a permanent location.

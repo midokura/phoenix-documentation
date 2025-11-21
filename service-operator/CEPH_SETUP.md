@@ -4,7 +4,7 @@ This process guides through installing Ceph cluster on bare-metal nodes, using p
 
 ### You need to know:
 
-- **"OS ip address"**: We will use env var `OS_IP_ADDRESS_X` in the guide for each node where X is the node number. It should be something like `192.168.6.204`
+- **"OS ip address"**: We will use env var `OS_IP_ADDRESS_X` in the guide for each node where X is the node number (1-3). It should be something like `192.168.6.204`
 - **"OS host"**: We will use env var `HOSTNAME_X` in the guide for each node where X is the node number. It should be the host name of each server.
 - **"Cluster network subnet"**: We will use env var `CLUSTER_SUBNET` in the guide. It should be something like `172.28.6.0/24`
 

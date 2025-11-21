@@ -117,7 +117,7 @@ ceph orch restart rgw.gateway
 
 ## Configuration and Usage
 
-- Create a pool for images:
+- [Create a pool](https://docs.ceph.com/en/squid/rados/operations/pools/#creating-a-pool) for images:
 ```sh
 ceph osd pool create images 32 32 replicated
 ceph osd pool set images size 2

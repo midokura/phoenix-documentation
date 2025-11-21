@@ -13,7 +13,7 @@ This process guides through installing Ceph cluster on bare-metal nodes, using p
 ### 1. Connect to the main ceph node with
 
 ```bash
-ssh -A -i ubuntu@$OS_IP_ADDRESS_1
+ssh -A ubuntu@$OS_IP_ADDRESS_1
 ```
 
 ### 2. Install cephadm package
@@ -38,7 +38,7 @@ cephadm bootstrap --mon-ip $OS_IP_ADDRESS_1 --cluster-network $CLUSTER_SUBNET --
 
 ### 5. Access Ceph Dashboard
 
-From the output get the default Ceph Dashboard address, username and password, access the it and update the password. Store it in BitWarden.
+From the output get the default Ceph Dashboard address, username and password, access it and update the password.
 
 ### 6. Inject Ceph admin public SSH key to the remaining nodes
 
@@ -61,7 +61,7 @@ sudo cephadm shell -- ceph orch host ls
 
 ```bash
 sudo cephadm shell
-ceph ceph orch device zap $HOSTNAME_1 /dev/sdX --force
+ceph orch device zap $HOSTNAME_1 /dev/sdX --force
 ```
 
 ### 9. Start adding dedicated disk devices to the cluster
@@ -124,8 +124,8 @@ radosgw-admin user create --uid="iaas-rgw-admin" --display-name="iaas management
 #### b. Update inventory.yml rgw_auth.access_key and rgw_auth.secret_key by encrypting them with:
 
 ```bash
-ansible-vault encrypt_string --ask-vault-password $ACCESS_KEY --name secret_key
-ansible-vault encrypt_string --ask-vault-password $SECRET_KEY --name access_key
+ansible-vault encrypt_string --ask-vault-password $ACCESS_KEY --name access_key
+ansible-vault encrypt_string --ask-vault-password $SECRET_KEY --name secret_key
 ```
 
 ### 12. After Openstack configuration have been generated, come back to cephadm and run:

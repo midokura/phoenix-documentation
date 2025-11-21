@@ -98,7 +98,7 @@ kubectl config view --flatten \
 
 1. Configure flavors, images, and networks for tenant use
 2. Edit `user_tenant_map` to add initial operators
-3. Configure `hedgehog_kubeconfig_b64` in the inventory.
+3. Configure `hedgehog_kubeconfig_b64` in the inventory
 4. Provision IaaS Console (ansible playbook)
 5. Operators log in and manage users via the [Operator API](./OPERATOR_API_GUIDE.md)
 6. Users create VMs by selecting from available resources

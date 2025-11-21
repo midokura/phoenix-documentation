@@ -22,7 +22,7 @@ This guide shows how to generate Google SSO credentials.
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
 2. Click the project dropdown at the top
 3. Click **"New Project"**
-4. Enter a project name (e.g., "IaaS Console")
+4. Enter a project name (for example, "IaaS Console")
 5. Click **"Create"**
 
 ### 2. Create OAuth 2.0 Credentials
@@ -34,7 +34,7 @@ This guide shows how to generate Google SSO credentials.
    - Fill in app name and contact emails
    - Save and continue through the screens
 4. Choose application type: **Web application**
-5. Enter a name (e.g., "IaaS Console")
+5. Enter a name (for example, "IaaS Console")
 6. Under **Authorized JavaScript origins**:
    - Click **"+ Add URI"**
    - Add: `https://console.phoenix-gpu.com`

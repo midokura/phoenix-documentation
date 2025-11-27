@@ -15,3 +15,4 @@ Documentation for service operators managing the Phoenix IaaS platform.
 - **[OBSERVABILITY_DASHBOARDS.md](OBSERVABILITY_DASHBOARDS.md)** - Guide for accessing and using Grafana observability dashboards
 - **[OPERATOR_API_GUIDE.md](OPERATOR_API_GUIDE.md)** - Guide for using the Operator APIs to manage users and tenants
 - **[OS_REQUIREMENTS.md](OS_REQUIREMENTS.md)** - Operating system requirements and specifications
+- **[VPN_CONFIGURATION.md](VPN_CONFIGURATION.md)** - Guide for setting up VPN access for tenant users

@@ -1,7 +1,7 @@
 # Deployment Scripts
 
 This guide walks you through deploying GPU infrastructure clusters using containerized Ansible automation.
-The deployment scripts handle the complete setup of OpenStack, K3s, and observability stack on physical infrastructure.
+The deployment scripts handle the complete setup of OpenStack, management clusters, and observability stack on physical infrastructure.
 
 **Getting the Release Package:**
 
@@ -75,7 +75,7 @@ Quick verification checklist. Click any item for detailed setup instructions bel
 - **What it is:** SSH private keys to access cluster nodes
 - **Location:** `~/.ssh/` directory and `~/.ssh/id_ed25519` as default private key
 - **Purpose:**
-  - Used for: Deploying OpenStack on physical controller nodes and accessing management VMs (K3s cluster, observability services)
+  - Used for: Deploying OpenStack on physical controller nodes and accessing management VMs (management cluster, observability services)
   - Variable in inventory.yml: `ansible_ssh_private_key_file`
   - Test access: `ssh -i ~/.ssh/management-key.pem root@your-controller-hostname`
   - Create the keypair if needed: `ssh-keygen -t ed25519 -f ~/.ssh/management-key.pem`
@@ -114,7 +114,7 @@ Quick verification checklist. Click any item for detailed setup instructions bel
   - ~30 GB free disk space
   - Internet connectivity during first deployment to download the images if needed
 - **Optional:** Pre-populate the cache directory if you have the images available offline
-- **Important:** Your `~/.cache/gpu-infrastructure/` directory is automatically mounted inside the container at `/home/ansible/.cache/gpu-infrastructure` as a writable directory
+- **Important:** Your `~/.cache/gpu-infrastructure/` directory is automatically mounted inside the container at `/root/.cache/gpu-infrastructure` as a writable directory
 
 ### Inventory File
 
@@ -155,9 +155,9 @@ tail -50 logs/main-*.log | grep -i "success\\|complete\\|failed"
 # Verify OpenStack services (if OpenStack was deployed)
 ./scripts/main.sh --shell
 source <(ansible-vault view --vault-password-file /secrets/vault-key.txt /infra-management/config/admin-openrc.sh)
-openstack server list  # Should show VMs if K3s/observability were deployed
+openstack server list  # Should show VMs if management cluster/observability were deployed
 
-# Verify K3s cluster (if K3s was deployed)
+# Verify management cluster (if management cluster was deployed)
 export KUBECONFIG=/infra-management/kubeconfig
 kubectl get nodes  # Should show Ready status
 kubectl get pods -A  # Should show Running pods
@@ -166,7 +166,7 @@ kubectl get pods -A  # Should show Running pods
 **Success indicators:**
 
 - ✅ All Ansible tasks completed without failures
-- ✅ K3s nodes show "Ready" status
+- ✅ Management cluster nodes show "Ready" status
 - ✅ All pods show "Running" or "Completed" status
 - ✅ No error messages in logs
 
@@ -189,7 +189,7 @@ See ([full list](#available-ansible-tags)) of available tags for more details.
 ./scripts/main.sh --skip-tags observability
 
 # Combine with script flags and other options
-./scripts/main.sh --skip-load-container --inventory custom.yml --tags k3s -vvv
+./scripts/main.sh --skip-load-container --inventory custom.yml --tags management -vvv
 ```
 
 ## Options and Configuration
@@ -273,7 +273,7 @@ All scripts use common environment variables defined in `common.sh`:
 | Tag | Description | Sub-tags |
 |-----|-------------|----------|
 | `openstack` | Deploy OpenStack via Kolla-Ansible | `config`, `deploy`, `provision`, `encrypt` |
-| `k3s` | Deploy K3s cluster | `k3s-base`, `k3s-deploy` |
+| `management` | Deploy management cluster | `management-create`, `management-deploy` |
 | `observability` | Deploy observability stack | `remote-metrics` |
 
 ## Logs
@@ -396,7 +396,7 @@ Typical deployment times (may vary):
 
 - Load container: 2-5 minutes
 - Deploy OpenStack: 30-60 minutes
-- Deploy K3s cluster: 5-10 minutes
+- Deploy management cluster: 5-10 minutes
 - Provision observability: 5-10 minutes
 
 **Total: ~1-2 hours**

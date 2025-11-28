@@ -5,7 +5,7 @@ The deployment scripts handle the complete setup of OpenStack, management cluste
 
 **Getting the Release Package:**
 
-Download the latest release URL
+Download the latest release provided URL
 
 ## Before You Start
 

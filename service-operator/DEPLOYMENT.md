@@ -5,7 +5,7 @@ The deployment scripts handle the complete setup of OpenStack, management cluste
 
 **Getting the Release Package:**
 
-Download the latest release: [release-assets-0.0.0-512-69529aa.tar.gz](https://midokura.blob.core.windows.net/phoenix-vms/release-assets-0.0.0-512-69529aa.tar.gz?sp=r&st=2025-11-21T10:46:17Z&se=2026-12-31T22:59:59Z&spr=https&sv=2024-11-04&sr=b&sig=XIuBMhFjidxJWZMPgz52L0R7B2Ol9AHANTp5p2qsNLM%3D)
+Download the latest release from the provided URL
 
 ## Before You Start
 

@@ -160,7 +160,7 @@ kubectl get pods -A
 
 All pods should be in Running state.
 
-#### Step 3.1: Apply the fabric configuration to HedgeHog control plane
+#### Step 3.1: Apply the fabric configuration to HedgeHog Control Plane
 
 On the HedgeHog control node VM, download the pre-configured network fabric configuration:
 

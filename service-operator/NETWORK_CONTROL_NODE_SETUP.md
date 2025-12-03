@@ -160,6 +160,21 @@ kubectl get pods -A
 
 All pods should be in Running state.
 
+#### Step 3.1: Apply the fabric configuration to HedgeHog control plane
+
+On the HedgeHog control node VM, download the pre-configured network fabric configuration:
+
+```bash
+# Use the SAS URL from your materials PDF
+wget -O hedgehog-fabric-configuration.yaml "https://your-storage-account.blob.core.windows.net/path/to/hedgehog-fabric-configuration.yaml?sp=r&st=..."
+```
+
+Apply the configuration:
+
+```bash
+kubectl apply -f hedgehog-fabric-configuration.yaml
+```
+
 ### Step 4: Prepare Switches for SONiC Installation
 
 For each switch, you'll set up ONIE to pull the SONiC installer from a temporary HTTP server.

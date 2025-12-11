@@ -42,12 +42,7 @@ From the output get the default Ceph Dashboard address, username and password, a
 
 ### 6. Inject Ceph admin public SSH key to the remaining nodes
 
-**THIS COMMAND WILL NOT WORK. COPY THE KEYS MANUALLY**
-
-```bash
-ssh-copy-id -f -i /etc/ceph/ceph.pub root@$OS_IP_ADDRESS_2
-ssh-copy-id -f -i /etc/ceph/ceph.pub root@$OS_IP_ADDRESS_3
-```
+Take the contents of `/etc/ceph/ceph.pub` from the node you are bootstrapping, and add them to the root user’s `/root/.ssh/authorized_keys` file for all Ceph hosts.
 
 ### 7. Add remaining nodes, directly from 1st node and set them as admin nodes as well
 

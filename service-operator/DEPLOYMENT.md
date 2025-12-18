@@ -136,7 +136,7 @@ Quick verification checklist. Click any item for detailed setup instructions bel
 `mkdir release-assets && tar -xzf release-assets.tar.gz -C release-assets`
 4. Change to release directory: `cd release-assets`
 5. Verify checksums: `sha256sum -c SHA256SUMS`
-6. Copy the crafted `inventory.yml` into the bastion: `scp ./inventory.yml ubuntu@<bastion0 domain>:release-assets`
+6. Copy the crafted `inventory.yml` into the bastion: `scp ./inventory.yml ubuntu@<bastion0 domain>:release-assets/`
 
 ### Complete Deployment
 

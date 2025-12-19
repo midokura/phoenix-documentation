@@ -138,7 +138,7 @@ Quick verification checklist. Click any item for detailed setup instructions bel
 
 ### Complete Deployment
 
-1. Run master script: `./scripts/main.sh`
+1. Run master script: `./scripts/platform-setup.sh`
 2. Enter vault password when prompted
 3. Wait for deployment to complete (1-2 hours)
 4. Review logs in `logs/`
@@ -153,7 +153,7 @@ After deployment completes, verify that all services are running correctly:
 tail -50 logs/main-*.log | grep -i "success\\|complete\\|failed"
 
 # Verify OpenStack services (if OpenStack was deployed)
-./scripts/main.sh --shell
+./scripts/platform-setup.sh --shell
 source <(ansible-vault view --vault-password-file /secrets/vault-key.txt /infra-management/config/admin-openrc.sh)
 openstack server list  # Should show VMs if management cluster/observability were deployed
 
@@ -182,14 +182,14 @@ See ([full list](#available-ansible-tags)) of available tags for more details.
 
 ```bash
 # Run specific components
-./scripts/main.sh --tags openstack
-./scripts/main.sh --tags openstack,provision-demo
+./scripts/platform-setup.sh --tags openstack
+./scripts/platform-setup.sh --tags openstack,provision-demo
 
 # Skip specific components
-./scripts/main.sh --skip-tags observability
+./scripts/platform-setup.sh --skip-tags observability
 
 # Combine with script flags and other options
-./scripts/main.sh --skip-load-container --inventory custom.yml --tags management -vvv
+./scripts/platform-setup.sh --skip-load-container --inventory custom.yml --tags management -vvv
 ```
 
 ## Options and Configuration
@@ -201,12 +201,12 @@ See ([full list](#available-ansible-tags)) of available tags for more details.
 ```bash
 # Example: CLI arguments override environment variables
 export INVENTORY=old.yml
-./scripts/main.sh --inventory new.yml  # Uses new.yml
+./scripts/platform-setup.sh --inventory new.yml  # Uses new.yml
 ```
 
 ### Script-specific Options
 
-#### main.sh
+#### platform-setup.sh
 
 These control the behavior of the main deployment script:
 
@@ -330,7 +330,7 @@ ssh root@idiazabal.bcn
 tail -f logs/*.log
 
 # Run with verbose output
-./scripts/main.sh -vvv
+./scripts/platform-setup.sh -vvv
 ```
 
 ## Security Notes
@@ -357,7 +357,7 @@ release-assets/
 ├── container-image.tar         # Pre-built Ansible container
 ├── scripts/                    # Deployment scripts
 │   ├── common.sh               # Shared library (sourced by all scripts)
-│   ├── main.sh                 # Master orchestration script
+│   ├── platform-setup.sh       # Master orchestration script
 │   └── load-container.sh       # Load container image
 ├── manifest.txt                # Build manifest
 ├── SHA256SUMS                  # Checksums
@@ -370,7 +370,7 @@ Additional files needed for deployment:
 
 ### Scripts Overview
 
-**`main.sh`** - Thin wrapper for deployment
+**`platform-setup.sh`** - Thin wrapper for deployment
 
 - Prompts for vault password once (stored temporarily)
 - Loads container image (optional `--skip-load-container`)

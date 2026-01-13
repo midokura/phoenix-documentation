@@ -16,7 +16,7 @@ Update to v1.27 or higher if at a lower version.
 1. Access BIOS setup screen
 2. Enter MEBx
 3. Enable by setting a complex password with special charaters, capital letters and numbers (default `admin:admin`)
-4. Access AMT Network Setup and set to a static IP that belongs to the BMC IP subet.
+4. Access AMT Network Setup and set to a static IP that belongs to the BMC IP subnet.
 
 ### Security Settings
 - **Secure Boot**: Disabled during BIOS update and OS install phases, Enabled post-install
@@ -147,7 +147,7 @@ Values to Customize:
 Prepare a small USB drive with cloud-init configuration:
 
 ```bash
-# Assuming an empty USB flash drive on /dev/sda, as root:
+# Assuming an empty USB flash drive on /dev/sdX, as root:
 parted /dev/sdX mklabel gpt
 parted /dev/sdX mkpart CIDATA fat32 1MB 100%
 mkfs.vfat -F 32 -n CIDATA -v /dev/sdX1

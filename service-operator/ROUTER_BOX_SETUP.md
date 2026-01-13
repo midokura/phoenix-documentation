@@ -32,10 +32,12 @@ Download Ubuntu 24.04.3 Server:
 https://ftp.rediris.es/sites/releases.ubuntu.com/24.04/ubuntu-24.04.3-live-server-amd64.iso
 ```
 
-Burn it to the first USB with:
+Make sure no partitions are mounted and flash the image to USB 1 with:
 ```bash
 sudo dd if=/path/to/ubuntu-24.04.3-live-server-amd64.iso of=/dev/sdX bs=4M status=progress conv=fsync
 ```
+
+**Note**: replace X with the actual drive letter (a, b, c ...), e.g. /dev/sdb. You can use `lsblk | grep sd` to see the available USB sticks connected.
 
 ### USB 2: Cloud-Init CIDATA Drive
 
@@ -89,7 +91,7 @@ autoinstall:
         # the actual interface label will change if extra PCIe NIC is added
         interfaces: [ enp89s0 ]
         addresses:
-          - "192.168.7.1/24"
+          - "192.168.7.2/24"
         # the default route & nameserver IP is equivalent to the router-X BMC mgmt network IP
         # we may want to add other router IP as secundary default route (weighted by route metric) and nameserver
         routes:
@@ -123,7 +125,8 @@ autoinstall:
   refresh-installer:
     update: true
   updates: security
-    packages: [ lm-sensors, vim, curl, tree, bridge-utils, libvirt-clients, chrony, git, build-essential, unzip, file, qemu-kvm, libvirt-daemon-system, virtiofsd, virtinst, guestfs-tools cloud-image-utils]
+  package_update: true
+  packages: [ lm-sensors, vim, curl, tree, bridge-utils, libvirt-clients, chrony, git, build-essential, unzip, file, qemu-kvm, libvirt-daemon-system, virtiofsd, virtinst, guestfs-tools, cloud-image-utils ]
   late-commands:
     - 'sed -i "s|GRUB_TIMEOUT=0|\0\nGRUB_RECORDFAIL_TIMEOUT=3|" /target/etc/default/grub'
     - 'sed -i "s|timeout=30|timeout=3|" /target/boot/grub/grub.cfg'
@@ -134,8 +137,8 @@ autoinstall:
     - 'echo "[Service]\nExecStart=\nExecStart=/usr/lib/systemd/systemd-networkd-wait-online --any" > /target/etc/systemd/system/systemd-networkd-wait-online.service.d/override.conf'
 ```
 
-
 Values to Customize:
+
 - `identity.hostname` - Set appropriate hostname (e.g., `router-0-host`, `router-1-host`)
 - `identity.password` - Generate with `mkpasswd --method=sha-512 ${PASSWORD}`
 - `network.bridges.virbr-libvirt.macaddress` - Use format `b2:1d:6e:` + last 3 octets of the physical bridged interface
@@ -183,10 +186,15 @@ hostname: bastion0
 user: ubuntu
 ssh_authorized_keys:
   - ssh-rsa AAAA... your-key-here
+package_update: true
+packages:
+  - python3
+  - python3-pip
+  - python3-venv
 EOF
 touch meta-data
 
-cloud-localds $LIBVIRT_DIR/cloud-init.iso user-data meta-data
+sudo cloud-localds $LIBVIRT_DIR/cloud-init.iso user-data meta-data
 
 # Create a 128GB disk from the cloud image
 sudo qemu-img create \

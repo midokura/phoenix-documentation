@@ -35,6 +35,7 @@ You'll deploy a VM on the bastion node that acts as the control plane for the He
 - **How to access:**
   ```bash
   sudo minicom -D /dev/ttyUSB1 -b 115200
+  sudo socat -d -d /dev/ttyUSB1,raw,echo=0 stdout # If extra people want to read from the serial port, as minicom locks the resource
   ```
 - **What you need:** Physical serial connection to switches
 

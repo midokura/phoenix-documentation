@@ -36,6 +36,11 @@ You'll deploy a VM on the bastion node that acts as the control plane for the He
   ```bash
   sudo minicom -D /dev/ttyUSB1 -b 115200
   ```
+
+If a person is already connected, another person can connect with:
+  ```
+sudo socat -d -d /dev/ttyUSB1,raw,echo=0 stdout
+  ```
 - **What you need:** Physical serial connection to switches
 
 ## Installation Steps

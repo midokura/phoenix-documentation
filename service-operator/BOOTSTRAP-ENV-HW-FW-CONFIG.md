@@ -1,10 +1,17 @@
+# BOOTSTRAP ENVIRONMENT HARDWARE & FIRMWARE CONFIGURATION
+
+This document describes the baseline requirements and access methods for the bootstrap environment hardware and firmware, with examples taken from the BCN environment.
+
 ## host-router box
 
 TODO
 
 ## OOB Management Switch Fabric:
 
-TODO
+The Out-of-Band (OOB) network uses a simple **Unmanaged 10/100/1000 Switch**.
+
+- **Requirement:** Since the switch is unmanaged, you must collect the MAC addresses of all connected IPMI and management interfaces.
+- **Purpose:** These MAC addresses are required to configure convenient static DHCP lease entries (hostnames) in the Router's `dnsmasq` configuration.
 
 
 ## Front-End Switch Fabric
@@ -27,6 +34,20 @@ BIOS version: v3.40.0.9-7
 
 These versions are known to work well together and can be used as a reference baseline.
 
+#### Console Port Connection
+
+The console port provides out-of-band management access to the switch. It is typically used for initial configuration, recovery, and troubleshooting.
+
+Connection Overview
+
+Connect a console cable from the switch’s console port to the router host or management server.
+
+If the server does not have a native serial port, use a USB-to-serial adapter.
+
+Access the console using terminal software such as minicom, screen, or picocom.
+
+This method allows you to manage the switch even when the network interfaces are not yet configured or are unavailable.
+
 #### Management Interface MAC Addresses
 
 To inspect MAC addresses learned by the switch, you first need console access.
@@ -43,7 +64,7 @@ ssh ubuntu@router.bcn
 Open a console session to the switch (example using a USB serial device):
 
 ```
-sudo minicom -D /dev/ttyUSB1 -b 9600
+sudo minicom -D /dev/ttyUSB1 -b 115200
 ```
 
 Displaying MAC Addresses
@@ -66,21 +87,6 @@ VlanId  Mac Address           Type     Interface  State
 ```
 
 This output shows dynamically learned MAC addresses on VLAN 1 and the interfaces on which they were detected.
-
-#### Console Port Connection
-
-The console port provides out-of-band management access to the switch. It is typically used for initial configuration, recovery, and troubleshooting.
-
-Connection Overview
-
-Connect a console cable from the switch’s console port to the router host or management server.
-
-If the server does not have a native serial port, use a USB-to-serial adapter.
-
-Access the console using terminal software such as minicom, screen, or picocom.
-
-This method allows you to manage the switch even when the network interfaces are not yet configured or are unavailable.
-
 
 ## Management & Storage Servers
 
@@ -158,7 +164,7 @@ Before reboot:
 - [ ] Ceph cluster healthy
 - [ ] PXE config updated
 - [ ] dnsmasq reloaded
-- [ ] BIOS PXE NIC matches MAC in PXE config
+- [ ] BIOS PXE network interface MAC address matches PXE config MAC address
 
 After reboot:
 

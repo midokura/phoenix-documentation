@@ -126,7 +126,7 @@ autoinstall:
     update: true
   updates: security
   package_update: true
-  packages: [ lm-sensors, vim, curl, tree, bridge-utils, libvirt-clients, chrony, git, build-essential, unzip, file, qemu-kvm, libvirt-daemon-system, virtiofsd, virtinst, guestfs-tools, cloud-image-utils ]
+  packages: [ lm-sensors, vim, curl, tree, bridge-utils, libvirt-clients, chrony, git, build-essential, unzip, file, qemu-kvm, libvirt-daemon-system, virtiofsd, virtinst, guestfs-tools, cloud-image-utils, python3-lxml ]
   late-commands:
     - 'sed -i "s|GRUB_TIMEOUT=0|\0\nGRUB_RECORDFAIL_TIMEOUT=3|" /target/etc/default/grub'
     - 'sed -i "s|timeout=30|timeout=3|" /target/boot/grub/grub.cfg'

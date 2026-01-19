@@ -42,7 +42,7 @@ where `v9.9` should be replaced with the version you require.
 
 This command will:
 
-- Copy the full docs/ folder contents into a new `versioned_docs/version-[v9.9]/ folder`.
+- Copy the full docs/ folder contents into a new `versioned_docs/version-[v9.9]/` folder.
 - Create a versioned sidebars file `versioned_sidebars/version-[versionName]-sidebars.json`.
 - Add the new version number to `versions.json`.
 
@@ -52,29 +52,10 @@ If we need to remove a no-longer-supported version of the docs from the website,
 
 # To Do
 
-## Right Now
-
-At the moment the repo is public (under Jim's name) and the website is public (on github pages), therefore we can only use Lorem Ipsum content.
-
-- Recall that we are working now in the phoenix-documentation repo
-- Recall that it is only on my laptop not the online repo
-- First job is to move work to the phoenix-documentation repo on the online repo
-- Check with Aaron on status of:
-
-https://aitrios.atlassian.net/browse/CTRL-4921
-
-https://aitrios.atlassian.net/browse/CTRL-4920
-
-https://aitrios.atlassian.net/browse/CTRL-4917
-
+- Ping the company/authors to explain repo changes 
 - Check if the phoenix svg is legal to use
 - Check how it looks on mobile
 - Use Midokura colours
-
-## Next Up
-
-Once the repo is private (under the Midokura name) and the website is password-protected (on docs.midokura.com), we can start adding the real content.
-
 - Install Docusaurus on the phoenix-documentation repo
 - Update /draft/_authors.yml for all authors
 - Update blog/authors.yml from /draft/_authors.yml
@@ -85,6 +66,16 @@ Once the repo is private (under the Midokura name) and the website is password-p
 - Rewrite the README above to explain how to do a docs release 
 
 ## Done
+
+- Make the repo private (under the Midokura name)
+- Move work to the phoenix-documentation repo on the online repo
+- Check with Aaron on status of:
+
+<https://aitrios.atlassian.net/browse/CTRL-4921>
+
+<https://aitrios.atlassian.net/browse/CTRL-4920>
+
+<https://aitrios.atlassian.net/browse/CTRL-4917>
 
 - Switch Lorem Ipsum content for real content
 - Updated main and all other versioned docs folders.

@@ -130,11 +130,13 @@ Quick verification checklist. Click any item for detailed setup instructions bel
 
 ### First-Time Setup
 
-1. Download the release package from the provided URL
-2. Extract the tar.gz archive into a folder called `release-assets`:
-`mkdir release-assets && tar -xzf release-assets-*.tar.gz -C release-assets`
-3. Change to release directory: `cd release-assets`
-4. Verify checksums: `sha256sum -c SHA256SUMS`
+1. Connect into the bastion host with ssh: `ssh ubuntu@<bastion0 domain>`.
+2. Download the release package from the provided URL: `curl <artifact url> -O release-assets.tar.gz`
+3. Extract the tar.gz archive into a folder called `release-assets`:
+`mkdir release-assets && tar -xzf release-assets.tar.gz -C release-assets`
+4. Change to release directory: `cd release-assets`
+5. Verify checksums: `sha256sum -c SHA256SUMS`
+6. Copy the crafted `inventory.yml` into the bastion: `scp ./inventory.yml ubuntu@<bastion0 domain>:release-assets/`
 
 ### Complete Deployment
 

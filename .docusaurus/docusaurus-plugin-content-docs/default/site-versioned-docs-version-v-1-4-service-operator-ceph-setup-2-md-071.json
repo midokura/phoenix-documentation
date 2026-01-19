@@ -1,0 +1,23 @@
+{
+  "id": "service-operator/CEPH_SETUP-2",
+  "title": "Setup Ceph - Generic",
+  "description": "This process guides through installing Ceph cluster on bare-metal nodes, using podman as an orchestration manager. This deployment method is officially recommended by upstream.",
+  "source": "@site/versioned_docs/version-v1.4/service-operator/CEPH_SETUP-2.md",
+  "sourceDirName": "service-operator",
+  "slug": "/service-operator/CEPH_SETUP-2",
+  "permalink": "/foo/docs/service-operator/CEPH_SETUP-2",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "v1.4",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Service Operator Documentation",
+    "permalink": "/foo/docs/service-operator/intro"
+  },
+  "next": {
+    "title": "Deployment Scripts",
+    "permalink": "/foo/docs/service-operator/DEPLOYMENT-2"
+  }
+}

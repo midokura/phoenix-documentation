@@ -1,0 +1,19 @@
+{
+  "id": "service-operator/VPN_CONFIGURATION",
+  "title": "VPN Configuration for Tenant Users",
+  "description": "Guide for setting up VPN access for tenant users.",
+  "source": "@site/versioned_docs/version-v1.0/service-operator/VPN_CONFIGURATION.md",
+  "sourceDirName": "service-operator",
+  "slug": "/service-operator/VPN_CONFIGURATION",
+  "permalink": "/foo/docs/v1.0/service-operator/VPN_CONFIGURATION",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "v1.0",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "OS Requirements",
+    "permalink": "/foo/docs/v1.0/service-operator/OS_REQUIREMENTS"
+  }
+}

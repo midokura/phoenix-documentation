@@ -1,0 +1,14 @@
+hello:
+  label: Hello
+  permalink: /hello
+  description: Hello tag description
+
+hola:
+  label: Hola
+  permalink: /hola
+  description: Hola tag description
+
+phoenix:
+  label: Phoenix
+  permalink: /phoenix
+  description: Phoenix tag description

@@ -1,0 +1,23 @@
+{
+  "id": "user/congratulations",
+  "title": "User Documentation",
+  "description": "Documentation for users.",
+  "source": "@site/versioned_docs/version-v1.0/user/congratulations.md",
+  "sourceDirName": "user",
+  "slug": "/user/congratulations",
+  "permalink": "/foo/docs/v1.0/user/congratulations",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "v1.0",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "User",
+    "permalink": "/foo/docs/v1.0/category/user"
+  },
+  "next": {
+    "title": "Tenant",
+    "permalink": "/foo/docs/v1.0/category/tenant"
+  }
+}

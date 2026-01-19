@@ -1,0 +1,23 @@
+{
+  "id": "service-operator/README",
+  "title": "Service Operator Documentation",
+  "description": "Documentation for service operators managing the Phoenix IaaS platform.",
+  "source": "@site/versioned_docs/version-v1.0/service-operator/README.md",
+  "sourceDirName": "service-operator",
+  "slug": "/service-operator/",
+  "permalink": "/foo/docs/v1.0/service-operator/",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "v1.0",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "OS Requirements",
+    "permalink": "/foo/docs/v1.0/service-operator/OS_REQUIREMENTS"
+  },
+  "next": {
+    "title": "VPN Configuration for Tenant Users",
+    "permalink": "/foo/docs/v1.0/service-operator/VPN_CONFIGURATION"
+  }
+}

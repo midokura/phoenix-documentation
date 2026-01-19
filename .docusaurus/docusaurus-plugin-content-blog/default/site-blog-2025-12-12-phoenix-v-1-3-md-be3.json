@@ -1,0 +1,51 @@
+{
+  "permalink": "/foo/blog/v1.3",
+  "source": "@site/blog/2025-12-12-phoenix-v1.3.md",
+  "title": "Phoenix v1.3",
+  "description": "Version 1.3 of Phoenix is now available. This is a small release that primarily includes bug fixes and minor improvements.",
+  "date": "2025-12-12T00:00:00.000Z",
+  "tags": [
+    {
+      "inline": false,
+      "label": "Phoenix",
+      "permalink": "/foo/blog/tags/phoenix",
+      "description": "Phoenix tag description"
+    }
+  ],
+  "readingTime": 3.6,
+  "hasTruncateMarker": true,
+  "authors": [
+    {
+      "name": "Jim Kennedy",
+      "title": "Docs @ Midokura",
+      "url": "https://github.com/jimken-mido",
+      "page": {
+        "permalink": "/foo/blog/authors/jimkennedy"
+      },
+      "socials": {
+        "github": "https://github.com/jimken-mido"
+      },
+      "imageURL": "https://avatars.githubusercontent.com/u/79317884?v=4",
+      "key": "jimkennedy"
+    }
+  ],
+  "frontMatter": {
+    "slug": "v1.3",
+    "title": "Phoenix v1.3",
+    "authors": [
+      "jimkennedy"
+    ],
+    "tags": [
+      "phoenix"
+    ]
+  },
+  "unlisted": false,
+  "prevItem": {
+    "title": "Phoenix v1.4",
+    "permalink": "/foo/blog/v1.4"
+  },
+  "nextItem": {
+    "title": "Phoenix v1.2",
+    "permalink": "/foo/blog/v1.2"
+  }
+}

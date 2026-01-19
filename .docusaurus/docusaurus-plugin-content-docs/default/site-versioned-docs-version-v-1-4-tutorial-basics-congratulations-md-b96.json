@@ -1,0 +1,22 @@
+{
+  "id": "tutorial-basics/congratulations",
+  "title": "Congratulations!",
+  "description": "You have just learned the basics of Docusaurus and made some changes to the initial template.",
+  "source": "@site/versioned_docs/version-v1.4/tutorial-basics/congratulations.md",
+  "sourceDirName": "tutorial-basics",
+  "slug": "/tutorial-basics/congratulations",
+  "permalink": "/foo/docs/tutorial-basics/congratulations",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "v1.4",
+  "sidebarPosition": 6,
+  "frontMatter": {
+    "sidebar_position": 6
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Deploy your site",
+    "permalink": "/foo/docs/tutorial-basics/deploy-your-site"
+  }
+}

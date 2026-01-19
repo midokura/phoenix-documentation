@@ -1,0 +1,19 @@
+{
+  "id": "service-operator/VPN_CONFIGURATION",
+  "title": "VPN Configuration for Tenant Users",
+  "description": "This guide explains how to set up VPN access for users who have been assigned to a tenant.",
+  "source": "@site/versioned_docs/version-v1.5/service-operator/VPN_CONFIGURATION.md",
+  "sourceDirName": "service-operator",
+  "slug": "/service-operator/VPN_CONFIGURATION",
+  "permalink": "/foo/docs/service-operator/VPN_CONFIGURATION",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "v1.5",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Router Box Setup",
+    "permalink": "/foo/docs/service-operator/ROUTER_BOX_SETUP"
+  }
+}

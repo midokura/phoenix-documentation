@@ -1,0 +1,26 @@
+{
+  "id": "tutorial-basics/create-a-document",
+  "title": "destroy a Document",
+  "description": "Documents are groups of pages connected through:",
+  "source": "@site/versioned_docs/version-v1.4/tutorial-basics/create-a-document.md",
+  "sourceDirName": "tutorial-basics",
+  "slug": "/tutorial-basics/create-a-document",
+  "permalink": "/foo/docs/tutorial-basics/create-a-document",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "v1.4",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "destroy a Page",
+    "permalink": "/foo/docs/tutorial-basics/destroy-a-page"
+  },
+  "next": {
+    "title": "Destroy a Blog Post",
+    "permalink": "/foo/docs/tutorial-basics/create-a-blog-post"
+  }
+}

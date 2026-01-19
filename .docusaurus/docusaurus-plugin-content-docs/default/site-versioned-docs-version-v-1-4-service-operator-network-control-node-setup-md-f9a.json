@@ -1,0 +1,23 @@
+{
+  "id": "service-operator/NETWORK_CONTROL_NODE_SETUP",
+  "title": "Network Control Node Setup",
+  "description": "This guide walks you through provisioning the control node that manages the network fabric, then installing SONiC on the switches.",
+  "source": "@site/versioned_docs/version-v1.4/service-operator/NETWORK_CONTROL_NODE_SETUP.md",
+  "sourceDirName": "service-operator",
+  "slug": "/service-operator/NETWORK_CONTROL_NODE_SETUP",
+  "permalink": "/foo/docs/v1.4/service-operator/NETWORK_CONTROL_NODE_SETUP",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "v1.4",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Bare-Metal Node Enrollment and Server Creation",
+    "permalink": "/foo/docs/v1.4/service-operator/INSTALL_BAREMETAL_NODE"
+  },
+  "next": {
+    "title": "Observability Alerts",
+    "permalink": "/foo/docs/v1.4/service-operator/OBSERVABILITY_ALERTS"
+  }
+}

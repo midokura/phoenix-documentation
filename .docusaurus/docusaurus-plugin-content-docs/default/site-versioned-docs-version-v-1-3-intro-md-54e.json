@@ -1,0 +1,22 @@
+{
+  "id": "intro",
+  "title": "intro",
+  "description": "nbhjfjhvjh",
+  "source": "@site/versioned_docs/version-v1.3/intro.md",
+  "sourceDirName": ".",
+  "slug": "/intro",
+  "permalink": "/foo/docs/v1.3/intro",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "v1.3",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "next": {
+    "title": "Service Operator Documentation",
+    "permalink": "/foo/docs/v1.3/service-operator/intro"
+  }
+}

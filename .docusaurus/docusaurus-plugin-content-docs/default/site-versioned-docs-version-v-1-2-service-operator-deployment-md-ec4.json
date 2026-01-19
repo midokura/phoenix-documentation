@@ -1,0 +1,23 @@
+{
+  "id": "service-operator/DEPLOYMENT",
+  "title": "Deployment Scripts",
+  "description": "This guide walks you through deploying GPU infrastructure clusters using containerized Ansible automation.",
+  "source": "@site/versioned_docs/version-v1.2/service-operator/DEPLOYMENT.md",
+  "sourceDirName": "service-operator",
+  "slug": "/service-operator/DEPLOYMENT",
+  "permalink": "/foo/docs/v1.2/service-operator/DEPLOYMENT",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "v1.2",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Setup Ceph - Generic",
+    "permalink": "/foo/docs/v1.2/service-operator/CEPH_SETUP"
+  },
+  "next": {
+    "title": "GitHub Container Registry (GHCR) Authentication",
+    "permalink": "/foo/docs/v1.2/service-operator/GHCR_AUTHENTICATION"
+  }
+}

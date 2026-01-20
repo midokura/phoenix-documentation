@@ -1,6 +1,6 @@
-# Website
+# Phoenix Documentation Website
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+The Phoenix Documentation website is built from this repo using [Docusaurus](https://docusaurus.io/), a modern static website generator.
 
 ## Installation
 
@@ -38,8 +38,8 @@ where `v9.9` should be replaced with the version you require.
 
 This command will:
 
-- Copy the full docs/ folder contents into a new `versioned_docs/version-[v9.9]/` folder.
-- Create a versioned sidebars file `versioned_sidebars/version-[versionName]-sidebars.json`.
+- Copy the full docs/ folder contents into a new `versioned_docs/version-v9.9/` folder.
+- Create a versioned sidebars file `versioned_sidebars/version-v9.9-sidebars.json`.
 - Add the new version number to `versions.json`.
 
 ## Remove a Version
@@ -53,12 +53,12 @@ TBD
 # To Do
 
 - Check if we want a public or private website
+- Add some marketing text content for the front page
 - Check if the phoenix svg is legal to use
 - Check how it looks on mobile
 - Use Midokura colours
 - Add password protection
 - Add password to bitwarden
-- Add some marketing text content for the front page
 - In the navbar should we remove direct link to Github repo, if clients cannot access it?
 - Update the README above to explain how to do a docs release 
 
@@ -71,20 +71,16 @@ TBD
 - Make the repo private (under the Midokura name)
 - Move work to the phoenix-documentation repo on the online repo
 - Check with Aaron on status of:
-
-<https://aitrios.atlassian.net/browse/CTRL-4921>
-
-<https://aitrios.atlassian.net/browse/CTRL-4920>
-
-<https://aitrios.atlassian.net/browse/CTRL-4917>
-
+    - <https://aitrios.atlassian.net/browse/CTRL-4921>
+    - <https://aitrios.atlassian.net/browse/CTRL-4920>
+    - <https://aitrios.atlassian.net/browse/CTRL-4917>
 - Switch Lorem Ipsum content for real content
 - Updated main and all other versioned docs folders.
 - Update the three '/docs/intro' links in the config file to proper locations
 - In the navbar, rename Tutorial to Docs
 - In the navbar, rename Blog to Release Notes
-- - Add placeholders for various releases
+- Add placeholders for various releases
 - Tidy up the phrasing of the copyright notice, currently Copyright © 2026 Midokura
 - Replace footer logo with Midokura text logo
 - Remove 'Next' from releases list, so that the website only updates on version releases, not on pushes to main. This was set by 'includeCurrentVersion: false,'
-- Make background  hero image color gradient in Midokura colors
+- Make background hero image color gradient in Midokura colors

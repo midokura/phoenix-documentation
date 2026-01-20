@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunkfoo=globalThis.webpackChunkfoo||[]).push([[7569],{4231(o){o.exports=JSON.parse('{"tags":[{"label":"Phoenix","permalink":"/foo/blog/tags/phoenix","description":"Phoenix tag description","count":6}]}')}}]);

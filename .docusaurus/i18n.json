@@ -13,8 +13,8 @@
       "calendar": "gregory",
       "path": "en",
       "translate": false,
-      "url": "https://jimken-mido.github.io",
-      "baseUrl": "/foo/"
+      "url": "https://midokura.github.io",
+      "baseUrl": "/phoenix-documentation/"
     }
   }
 }

@@ -5,7 +5,7 @@
   "source": "@site/versioned_docs/version-v1.0/service-operator/GHCR_AUTHENTICATION.md",
   "sourceDirName": "service-operator",
   "slug": "/service-operator/GHCR_AUTHENTICATION",
-  "permalink": "/foo/docs/v1.0/service-operator/GHCR_AUTHENTICATION",
+  "permalink": "/phoenix-documentation/docs/v1.0/service-operator/GHCR_AUTHENTICATION",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Deployment Scripts",
-    "permalink": "/foo/docs/v1.0/service-operator/DEPLOYMENT"
+    "permalink": "/phoenix-documentation/docs/v1.0/service-operator/DEPLOYMENT"
   },
   "next": {
     "title": "Google SSO Setup Guide",
-    "permalink": "/foo/docs/v1.0/service-operator/GOOGLE_SSO_SETUP"
+    "permalink": "/phoenix-documentation/docs/v1.0/service-operator/GOOGLE_SSO_SETUP"
   }
 }

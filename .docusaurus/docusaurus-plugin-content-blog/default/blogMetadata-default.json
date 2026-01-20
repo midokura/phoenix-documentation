@@ -1,5 +1,5 @@
 {
-  "blogBasePath": "/foo/blog",
+  "blogBasePath": "/phoenix-documentation/blog",
   "blogTitle": "Blog",
-  "authorsListPath": "/foo/blog/authors"
+  "authorsListPath": "/phoenix-documentation/blog/authors"
 }

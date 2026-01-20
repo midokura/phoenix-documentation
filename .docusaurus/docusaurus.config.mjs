@@ -28,8 +28,8 @@ export default {
     },
     "experimental_router": "browser"
   },
-  "url": "https://jimken-mido.github.io",
-  "baseUrl": "/foo/",
+  "url": "https://midokura.github.io",
+  "baseUrl": "/phoenix-documentation/",
   "organizationName": "midokura",
   "projectName": "phoenix",
   "onBrokenLinks": "warn",

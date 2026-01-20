@@ -1,5 +1,5 @@
 {
-  "permalink": "/foo/blog/v1.4",
+  "permalink": "/phoenix-documentation/blog/v1.4",
   "source": "@site/blog/2025-12-24-phoenix-v1.4.md",
   "title": "Phoenix v1.4",
   "description": "We are pleased to announce the v1.4 release of Phoenix.",
@@ -8,7 +8,7 @@
     {
       "inline": false,
       "label": "Phoenix",
-      "permalink": "/foo/blog/tags/phoenix",
+      "permalink": "/phoenix-documentation/blog/tags/phoenix",
       "description": "Phoenix tag description"
     }
   ],
@@ -20,7 +20,7 @@
       "title": "Software Engineer @ Midokura",
       "url": "https://github.com/sergimn",
       "page": {
-        "permalink": "/foo/blog/authors/sergimiralles"
+        "permalink": "/phoenix-documentation/blog/authors/sergimiralles"
       },
       "socials": {
         "github": "https://github.com/sergimn"
@@ -42,10 +42,10 @@
   "unlisted": false,
   "prevItem": {
     "title": "Phoenix v1.5",
-    "permalink": "/foo/blog/v1.5"
+    "permalink": "/phoenix-documentation/blog/v1.5"
   },
   "nextItem": {
     "title": "Phoenix v1.3",
-    "permalink": "/foo/blog/v1.3"
+    "permalink": "/phoenix-documentation/blog/v1.3"
   }
 }

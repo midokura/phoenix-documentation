@@ -88,7 +88,7 @@
     "sidebar": "sidebar---foo-blog-814-53b",
     "__props": "__props---foo-blog-authorsbbe-4a4"
   },
-  "/foo/blog/authors/jimkennedy-094": {
+  "/foo/blog/authors/alexanderfandos-2ce": {
     "__comp": "__comp---theme-blog-pages-blog-authors-posts-page-33-f-bd5",
     "__context": {
       "data": {
@@ -101,23 +101,74 @@
         "content": "content---foo-blog-015-307"
       },
       {
-        "content": "content---foo-blogacb-b58"
-      },
-      {
         "content": "content---foo-bloge-7-d-4a8"
       },
       {
-        "content": "content---foo-blogd-7-c-1b0"
-      },
-      {
         "content": "content---foo-blogfd-5-6d8"
+      }
+    ],
+    "sidebar": "sidebar---foo-blog-814-53b",
+    "__props": "__props---foo-blog-authors-alexanderfandos-6-ce-9cc"
+  },
+  "/foo/blog/authors/alexandervera-35b": {
+    "__comp": "__comp---theme-blog-pages-blog-authors-posts-page-33-f-bd5",
+    "__context": {
+      "data": {
+        "blogMetadata": "blogMetadata---foo-blog-authorsace-61c"
       },
+      "plugin": "plugin---foo-blog-369-a53"
+    },
+    "items": [
+      {
+        "content": "content---foo-blogd-7-c-1b0"
+      }
+    ],
+    "sidebar": "sidebar---foo-blog-814-53b",
+    "__props": "__props---foo-blog-authors-alexanderveraeae-e58"
+  },
+  "/foo/blog/authors/galonavarro-e96": {
+    "__comp": "__comp---theme-blog-pages-blog-authors-posts-page-33-f-bd5",
+    "__context": {
+      "data": {
+        "blogMetadata": "blogMetadata---foo-blog-authorsace-61c"
+      },
+      "plugin": "plugin---foo-blog-369-a53"
+    },
+    "items": [
       {
         "content": "content---foo-bloga-1-c-503"
       }
     ],
     "sidebar": "sidebar---foo-blog-814-53b",
+    "__props": "__props---foo-blog-authors-galonavarroc-15-7c9"
+  },
+  "/foo/blog/authors/jimkennedy-782": {
+    "__comp": "__comp---theme-blog-pages-blog-authors-posts-page-33-f-bd5",
+    "__context": {
+      "data": {
+        "blogMetadata": "blogMetadata---foo-blog-authorsace-61c"
+      },
+      "plugin": "plugin---foo-blog-369-a53"
+    },
+    "items": [],
+    "sidebar": "sidebar---foo-blog-814-53b",
     "__props": "__props---foo-blog-authors-jimkennedy-2-c-2-8db"
+  },
+  "/foo/blog/authors/sergimiralles-2da": {
+    "__comp": "__comp---theme-blog-pages-blog-authors-posts-page-33-f-bd5",
+    "__context": {
+      "data": {
+        "blogMetadata": "blogMetadata---foo-blog-authorsace-61c"
+      },
+      "plugin": "plugin---foo-blog-369-a53"
+    },
+    "items": [
+      {
+        "content": "content---foo-blogacb-b58"
+      }
+    ],
+    "sidebar": "sidebar---foo-blog-814-53b",
+    "__props": "__props---foo-blog-authors-sergimiralles-1-d-9-dd0"
   },
   "/foo/blog/tags-f40": {
     "__comp": "__comp---theme-blog-tags-list-page-01-a-d0b",

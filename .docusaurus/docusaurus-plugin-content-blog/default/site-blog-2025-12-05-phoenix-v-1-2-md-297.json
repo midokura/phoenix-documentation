@@ -16,24 +16,24 @@
   "hasTruncateMarker": true,
   "authors": [
     {
-      "name": "Jim Kennedy",
-      "title": "Docs @ Midokura",
-      "url": "https://github.com/jimken-mido",
+      "name": "Alexander Vera",
+      "title": "Software Engineer @ Midokura",
+      "url": "https://github.com/alexVera99",
       "page": {
-        "permalink": "/foo/blog/authors/jimkennedy"
+        "permalink": "/foo/blog/authors/alexandervera"
       },
       "socials": {
-        "github": "https://github.com/jimken-mido"
+        "github": "https://github.com/alexVera99"
       },
-      "imageURL": "https://avatars.githubusercontent.com/u/79317884?v=4",
-      "key": "jimkennedy"
+      "imageURL": "https://avatars.githubusercontent.com/u/71028602?v=4",
+      "key": "alexandervera"
     }
   ],
   "frontMatter": {
     "slug": "v1.2",
     "title": "Phoenix v1.2",
     "authors": [
-      "jimkennedy"
+      "alexandervera"
     ],
     "tags": [
       "phoenix"

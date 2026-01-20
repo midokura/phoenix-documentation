@@ -6,4 +6,39 @@ jimkennedy:
   page: true
   socials:
     github: jimken-mido
+
+sergimiralles:
+  name: Sergi Miralles
+  title: Software Engineer @ Midokura
+  url: https://github.com/sergimn
+  image_url: https://avatars.githubusercontent.com/u/13437098?v=4
+  page: true
+  socials:
+    github: sergimn
+
+galonavarro:
+  name: Galo Navarro Fernández
+  title: Principal eng @midokura. Alumnus of @newrelic, @adevinta, @tuenti, @lastfm.
+  url: https://github.com/srvaroa
+  image_url: https://avatars.githubusercontent.com/u/346110?v=4
+  page: true
+  socials:
+    github: srvaroa
     
+alexanderfandos:
+  name: Alexander Fandos
+  title: Software Engineer @ Midokura
+  url: https://github.com/alexfandos
+  image_url: https://avatars.githubusercontent.com/u/24229657?v=4
+  page: true
+  socials:
+    github: alexfandos
+    
+alexandervera:
+  name: Alexander Vera
+  title: Software Engineer @ Midokura
+  url: https://github.com/alexVera99
+  image_url: https://avatars.githubusercontent.com/u/71028602?v=4
+  page: true
+  socials:
+    github: alexVera99

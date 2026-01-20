@@ -16,24 +16,24 @@
   "hasTruncateMarker": true,
   "authors": [
     {
-      "name": "Jim Kennedy",
-      "title": "Docs @ Midokura",
-      "url": "https://github.com/jimken-mido",
+      "name": "Sergi Miralles",
+      "title": "Software Engineer @ Midokura",
+      "url": "https://github.com/sergimn",
       "page": {
-        "permalink": "/foo/blog/authors/jimkennedy"
+        "permalink": "/foo/blog/authors/sergimiralles"
       },
       "socials": {
-        "github": "https://github.com/jimken-mido"
+        "github": "https://github.com/sergimn"
       },
-      "imageURL": "https://avatars.githubusercontent.com/u/79317884?v=4",
-      "key": "jimkennedy"
+      "imageURL": "https://avatars.githubusercontent.com/u/13437098?v=4",
+      "key": "sergimiralles"
     }
   ],
   "frontMatter": {
     "slug": "v1.4",
     "title": "Phoenix v1.4",
     "authors": [
-      "jimkennedy"
+      "sergimiralles"
     ],
     "tags": [
       "phoenix"

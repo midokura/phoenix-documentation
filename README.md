@@ -26,10 +26,6 @@ yarn run build
 
 This command generates static content into the `build` directory. This `build` directory is not used to build the website, but this step is provided here in case you want to build a local copy.
 
-## Deployment
-
-TBD
-
 ## Add a Version
 
 When you want to create a new version of the docs do:
@@ -50,23 +46,28 @@ This command will:
 
 If we need to remove a no-longer-supported version of the docs from the website, remove the reference to the version in `versions.json`. Note that this doesn't delete the version source files, but just unpublishes them from the website.
 
+## Deployment
+
+TBD
+
 # To Do
 
-- Ping the company/authors to explain repo changes 
+- Check if we want a public or private website
 - Check if the phoenix svg is legal to use
 - Check how it looks on mobile
 - Use Midokura colours
-- Install Docusaurus on the phoenix-documentation repo
-- Update /draft/_authors.yml for all authors
-- Update blog/authors.yml from /draft/_authors.yml
 - Add password protection
 - Add password to bitwarden
 - Add some marketing text content for the front page
 - In the navbar should we remove direct link to Github repo, if clients cannot access it?
-- Rewrite the README above to explain how to do a docs release 
+- Update the README above to explain how to do a docs release 
 
 ## Done
 
+- Update blog/authors.yml from /draft/_authors.yml
+- Update /draft/_authors.yml for all authors
+- Install Docusaurus on the phoenix-documentation repo
+- Ping the company/authors to explain repo changes
 - Make the repo private (under the Midokura name)
 - Move work to the phoenix-documentation repo on the online repo
 - Check with Aaron on status of:

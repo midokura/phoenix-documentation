@@ -16,24 +16,24 @@
   "hasTruncateMarker": true,
   "authors": [
     {
-      "name": "Jim Kennedy",
-      "title": "Docs @ Midokura",
-      "url": "https://github.com/jimken-mido",
+      "name": "Alexander Fandos",
+      "title": "Software Engineer @ Midokura",
+      "url": "https://github.com/alexfandos",
       "page": {
-        "permalink": "/foo/blog/authors/jimkennedy"
+        "permalink": "/foo/blog/authors/alexanderfandos"
       },
       "socials": {
-        "github": "https://github.com/jimken-mido"
+        "github": "https://github.com/alexfandos"
       },
-      "imageURL": "https://avatars.githubusercontent.com/u/79317884?v=4",
-      "key": "jimkennedy"
+      "imageURL": "https://avatars.githubusercontent.com/u/24229657?v=4",
+      "key": "alexanderfandos"
     }
   ],
   "frontMatter": {
     "slug": "v1.3",
     "title": "Phoenix v1.3",
     "authors": [
-      "jimkennedy"
+      "alexanderfandos"
     ],
     "tags": [
       "phoenix"

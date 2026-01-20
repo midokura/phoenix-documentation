@@ -53,8 +53,28 @@ export default [
     exact: true
   },
   {
+    path: '/foo/blog/authors/alexanderfandos',
+    component: ComponentCreator('/foo/blog/authors/alexanderfandos', '2ce'),
+    exact: true
+  },
+  {
+    path: '/foo/blog/authors/alexandervera',
+    component: ComponentCreator('/foo/blog/authors/alexandervera', '35b'),
+    exact: true
+  },
+  {
+    path: '/foo/blog/authors/galonavarro',
+    component: ComponentCreator('/foo/blog/authors/galonavarro', 'e96'),
+    exact: true
+  },
+  {
     path: '/foo/blog/authors/jimkennedy',
-    component: ComponentCreator('/foo/blog/authors/jimkennedy', '094'),
+    component: ComponentCreator('/foo/blog/authors/jimkennedy', '782'),
+    exact: true
+  },
+  {
+    path: '/foo/blog/authors/sergimiralles',
+    component: ComponentCreator('/foo/blog/authors/sergimiralles', '2da'),
     exact: true
   },
   {

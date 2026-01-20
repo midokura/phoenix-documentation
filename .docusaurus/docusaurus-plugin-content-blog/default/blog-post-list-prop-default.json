@@ -1,5 +1,5 @@
 {
-  "title": "Recent posts",
+  "title": "Release Notes",
   "items": [
     {
       "title": "Phoenix v1.5",
@@ -30,6 +30,12 @@
       "permalink": "/foo/blog/v1.1",
       "unlisted": false,
       "date": "2025-11-28T00:00:00.000Z"
+    },
+    {
+      "title": "Phoenix v1.0",
+      "permalink": "/foo/blog/v1.0",
+      "unlisted": false,
+      "date": "2025-11-21T00:00:00.000Z"
     }
   ]
 }

@@ -1,0 +1,51 @@
+{
+  "permalink": "/foo/blog/v1.0",
+  "source": "@site/blog/2025-11-21-phoenix-v1.0 copy.md",
+  "title": "Phoenix v1.0",
+  "description": "We are pleased to announce the v1.0 release of Phoenix, our IaaS product for AI workloads.",
+  "date": "2025-11-21T00:00:00.000Z",
+  "tags": [
+    {
+      "inline": false,
+      "label": "Phoenix",
+      "permalink": "/foo/blog/tags/phoenix",
+      "description": "Phoenix tag description"
+    }
+  ],
+  "readingTime": 2.85,
+  "hasTruncateMarker": true,
+  "authors": [
+    {
+      "name": "Galo Navarro Fernández",
+      "title": "Principal eng @midokura. Alumnus of @newrelic, @adevinta, @tuenti, @lastfm.",
+      "url": "https://github.com/srvaroa",
+      "page": {
+        "permalink": "/foo/blog/authors/galonavarro"
+      },
+      "socials": {
+        "github": "https://github.com/srvaroa"
+      },
+      "imageURL": "https://avatars.githubusercontent.com/u/346110?v=4",
+      "key": "galonavarro"
+    }
+  ],
+  "frontMatter": {
+    "slug": "v1.0",
+    "title": "Phoenix v1.0",
+    "authors": [
+      "galonavarro"
+    ],
+    "tags": [
+      "phoenix"
+    ]
+  },
+  "unlisted": false,
+  "prevItem": {
+    "title": "Phoenix v1.1",
+    "permalink": "/foo/blog/v1.1"
+  },
+  "nextItem": {
+    "title": "Phoenix v1.0",
+    "permalink": "/foo/blog/v1.0"
+  }
+}

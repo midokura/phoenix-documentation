@@ -110,7 +110,7 @@ const config = {
             type: 'docsVersionDropdown',
           },
           {
-            href: 'https://github.com/jimken-mido/foo',
+            href: 'https://github.com/midokura/phoenix-documentation',
             label: 'GitHub',
             position: 'right',
           },

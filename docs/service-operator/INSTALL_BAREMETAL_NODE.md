@@ -39,7 +39,7 @@ Once the request is submitted, the platform provisions the bare-metal server on 
 - **Operator role:** You must have operator permissions in the IaaS Console to enroll hardware.
 - **Hardware readiness:** Ensure out-of-band management (BMC/IPMI or Redfish) is reachable and configured. Verify power, networking (PXE-capable NIC), and rack connectivity.
 - **Network placement:** Confirm the node is cabled to the provisioning network and the intended tenant networks according to your site design.
-- **Images availability:** Required OS images must be available in the catalog. See [service-operator/IAAS_CONSOLE_CONFIGURATION.md](./IAAS_CONSOLE_CONFIGURATION.md) for image management.
+- **Images availability:** Required OS images must be available in the catalog. See [IAAS_CONSOLE_CONFIGURATION](./IAAS_CONSOLE_CONFIGURATION.md) for image management.
 
 ## Enrollment Lifecycle
 - **Enroll:** Operator registers the node via the Console. The platform validates management access.

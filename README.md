@@ -52,18 +52,28 @@ TBD
 
 # To Do
 
-- Check if we want a public or private website
-- Add some marketing text content for the front page
+The new intention (January 21, 2026) is that the website will be public. This has some impact on the work to be done (positive impact, fewer complications).
+
+- Review all content to remove any internal Midokura references
+- Add some marketing text content for the front page - JF and Clàudia will help with the text
+- We need to change the name because 'Phoenix' is internal only
+- Replace 'Phoenix' with the new name throughout
 - Check if the phoenix svg is legal to use
-- Check how it looks on mobile
+- Should we use the phoenix svg if we are not using Phoenix as the name?
+- Find a logo or image for the new name
+- Check how website looks on mobile
 - Use Midokura colours
-- Add password protection
-- Add password to bitwarden
-- In the navbar should we remove direct link to Github repo, if clients cannot access it?
-- Update the README above to explain how to do a docs release 
+- In the navbar should we remove direct link to Github repo?
+- Update the README above to explain how to do a docs release
+- Make repo public
+- Publish to Github Pages
+- Set DNS nameservers to redirect to docs.midokura.com
 
 ## Done
 
+- Add password protection -> no longer required
+- Add password to bitwarden -> no longer required
+- Check if we want a public or private website -> the decision is that it will be a public website
 - Update blog/authors.yml from /draft/_authors.yml
 - Update /draft/_authors.yml for all authors
 - Install Docusaurus on the phoenix-documentation repo

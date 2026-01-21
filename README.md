@@ -55,6 +55,8 @@ TBD
 The new intention (January 21, 2026) is that the website will be public. This has some impact on the work to be done (positive impact, fewer complications).
 
 - Review all content to remove any internal Midokura references
+- All plaintext references in RNs and Docs should be hyperlinked
+- All references to 'foo.md' should be changed to 'foo'.
 - Add some marketing text content for the front page - JF and Clàudia will help with the text
 - We need to change the name because 'Phoenix' is internal only
 - Replace 'Phoenix' with the new name throughout

@@ -118,11 +118,6 @@ export default [
     exact: true
   },
   {
-    path: '/phoenix-documentation/markdown-page',
-    component: ComponentCreator('/phoenix-documentation/markdown-page', '83d'),
-    exact: true
-  },
-  {
     path: '/phoenix-documentation/search',
     component: ComponentCreator('/phoenix-documentation/search', 'fd8'),
     exact: true

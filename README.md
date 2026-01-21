@@ -48,15 +48,16 @@ If we need to remove a no-longer-supported version of the docs from the website,
 
 ## Deployment
 
-TBD
+TBD but likely to be:
+- Make repo public
+- Publish to Github Pages
+- Set DNS nameservers to redirect to docs.midokura.com
 
 # To Do
 
 The new intention (January 21, 2026) is that the website will be public. This has some impact on the work to be done (positive impact, fewer complications).
 
 - Review all content to remove any internal Midokura references
-- All plaintext references in RNs and Docs should be hyperlinked
-- All references to 'foo.md' should be changed to 'foo'.
 - Add some marketing text content for the front page - JF and Clàudia will help with the text
 - We need to change the name because 'Phoenix' is internal only
 - Replace 'Phoenix' with the new name throughout
@@ -73,6 +74,8 @@ The new intention (January 21, 2026) is that the website will be public. This ha
 
 ## Done
 
+- All plaintext references in RNs and Docs should be hyperlinked
+- All references to 'foo.md' should be changed to 'foo'
 - Add password protection -> no longer required
 - Add password to bitwarden -> no longer required
 - Check if we want a public or private website -> the decision is that it will be a public website

@@ -1,5 +1,7 @@
 # Google SSO Setup Guide
 
+Generating Google SSO credentials.
+
 This guide shows how to generate Google SSO credentials.
 
 **Example hostname**: `https://console.phoenix-gpu.com`

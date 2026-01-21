@@ -1,5 +1,7 @@
 # Operator API Usage Guide
 
+Using IaaS Operator APIs to manage users and tenants.
+
 ## Overview
 
 This guide provides practical instructions for using IaaS Operator APIs to manage users and tenants. The Operator APIs are a focused subset of the full IaaS API, designed specifically for system operators to perform essential user and tenant management tasks.

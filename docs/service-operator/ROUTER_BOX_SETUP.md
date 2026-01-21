@@ -1,5 +1,7 @@
 # Router Box Setup
 
+Setting up the router box.
+
 The router box hosts several VMs required for bootstrapping the Phoenix system:
 - **OpenWRT VM** - Routing
 - **Deployment VM** - Runs the Phoenix installer and serves as a bastion host

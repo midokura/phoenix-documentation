@@ -1,5 +1,7 @@
 # VPN Configuration for Tenant Users
 
+Setting up the VPN for Tenant Users.
+
 This guide explains how to set up VPN access for users who have been assigned to a tenant.
 
 ## Overview

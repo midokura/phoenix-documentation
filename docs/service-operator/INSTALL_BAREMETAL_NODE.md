@@ -1,5 +1,7 @@
 # Bare-Metal Node Enrollment and Server Creation
 
+Enrolling bare-metal nodes and creating bare-metal servers.
+
 This guide describes how operators enroll bare-metal nodes in the IaaS Console and how users create bare-metal servers using those enrolled nodes. No command-line steps are required.
 
 ### IaaS Configuration

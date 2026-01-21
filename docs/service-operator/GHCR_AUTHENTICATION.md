@@ -1,5 +1,7 @@
 # GitHub Container Registry (GHCR) Authentication
 
+Authenticating with GitHub Container Registry (ghcr.io).
+
 This guide explains how to authenticate with GitHub Container Registry (ghcr.io) using Docker or Podman.
 
 ## Prerequisites

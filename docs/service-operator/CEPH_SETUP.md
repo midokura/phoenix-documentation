@@ -1,5 +1,7 @@
 # Setup Ceph - Generic
 
+Installing Ceph cluster on bare-metal nodes.
+
 This process guides through installing Ceph cluster on bare-metal nodes, using podman as an orchestration manager. This deployment method is officially recommended by upstream.
 
 ### You need to know:

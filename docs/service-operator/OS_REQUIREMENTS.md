@@ -1,5 +1,7 @@
 # OS Requirements
 
+Listing the OS requirements.
+
 ## Operating System
 - Ubuntu Server 24.04 with HWE kernel
 

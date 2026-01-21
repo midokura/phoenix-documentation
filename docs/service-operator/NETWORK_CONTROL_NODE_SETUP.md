@@ -1,5 +1,7 @@
 # Network Control Node Setup
 
+Provisioning the control node and installing SONiC on the switches.
+
 This guide walks you through provisioning the control node that manages the network fabric, then installing SONiC on the switches.
 
 ## What You're Doing

@@ -1,7 +1,7 @@
 {
   "id": "service-operator/IAAS_CONSOLE_CONFIGURATION",
   "title": "IaaS Console Configuration",
-  "description": "Configuring JSON for the IaaS Console API Helm Chart.",
+  "description": "Configuring JSON for the IaaS Console.",
   "source": "@site/docs/service-operator/IAAS_CONSOLE_CONFIGURATION.md",
   "sourceDirName": "service-operator",
   "slug": "/service-operator/IAAS_CONSOLE_CONFIGURATION",

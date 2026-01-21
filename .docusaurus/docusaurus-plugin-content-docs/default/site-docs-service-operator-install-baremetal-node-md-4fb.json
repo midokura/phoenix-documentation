@@ -1,7 +1,7 @@
 {
   "id": "service-operator/INSTALL_BAREMETAL_NODE",
   "title": "Bare-Metal Node Enrollment and Server Creation",
-  "description": "Enrolling bare-metal nodes and creating bare-metal servers.",
+  "description": "Working with bare-metal nodes and servers.",
   "source": "@site/docs/service-operator/INSTALL_BAREMETAL_NODE.md",
   "sourceDirName": "service-operator",
   "slug": "/service-operator/INSTALL_BAREMETAL_NODE",

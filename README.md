@@ -68,6 +68,7 @@ The new intention (January 21, 2026) is that the website will be public. This ha
 - Use Midokura colours
 - In the navbar should we remove direct link to Github repo?
 - Update the README above to explain how to do a docs release
+- Turn off 'Next' (main)
 - Make repo public
 - Publish to Github Pages
 - Set DNS nameservers to redirect to docs.midokura.com

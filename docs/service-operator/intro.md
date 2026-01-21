@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Service Operator Documentation
 
-Documentation for service operators managing the Phoenix IaaS platform.
+Managing the Phoenix IaaS platform.
 
 ## Available Documentation
 

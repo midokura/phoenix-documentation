@@ -1,6 +1,6 @@
 # IaaS Console Configuration
 
-Configuring JSON for the IaaS Console API Helm Chart.
+Configuring JSON for the IaaS Console.
 
 This document explains the JSON configuration for the IaaS Console API Helm Chart.
 

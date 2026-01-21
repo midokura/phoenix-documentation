@@ -124,8 +124,110 @@ export default [
   },
   {
     path: '/phoenix-documentation/docs',
-    component: ComponentCreator('/phoenix-documentation/docs', 'f31'),
+    component: ComponentCreator('/phoenix-documentation/docs', 'a76'),
     routes: [
+      {
+        path: '/phoenix-documentation/docs/next',
+        component: ComponentCreator('/phoenix-documentation/docs/next', '4ea'),
+        routes: [
+          {
+            path: '/phoenix-documentation/docs/next',
+            component: ComponentCreator('/phoenix-documentation/docs/next', 'dee'),
+            routes: [
+              {
+                path: '/phoenix-documentation/docs/next/category/service-operator',
+                component: ComponentCreator('/phoenix-documentation/docs/next/category/service-operator', '290'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/next/service-operator/CEPH_SETUP',
+                component: ComponentCreator('/phoenix-documentation/docs/next/service-operator/CEPH_SETUP', '11b'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/next/service-operator/DEPLOYMENT',
+                component: ComponentCreator('/phoenix-documentation/docs/next/service-operator/DEPLOYMENT', 'e97'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/next/service-operator/GHCR_AUTHENTICATION',
+                component: ComponentCreator('/phoenix-documentation/docs/next/service-operator/GHCR_AUTHENTICATION', '4f4'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/next/service-operator/GOOGLE_SSO_SETUP',
+                component: ComponentCreator('/phoenix-documentation/docs/next/service-operator/GOOGLE_SSO_SETUP', '29a'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/next/service-operator/IAAS_CONSOLE_CONFIGURATION',
+                component: ComponentCreator('/phoenix-documentation/docs/next/service-operator/IAAS_CONSOLE_CONFIGURATION', '280'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/next/service-operator/INSTALL_BAREMETAL_NODE',
+                component: ComponentCreator('/phoenix-documentation/docs/next/service-operator/INSTALL_BAREMETAL_NODE', 'f00'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/next/service-operator/intro',
+                component: ComponentCreator('/phoenix-documentation/docs/next/service-operator/intro', '7f1'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/next/service-operator/NETWORK_CONTROL_NODE_SETUP',
+                component: ComponentCreator('/phoenix-documentation/docs/next/service-operator/NETWORK_CONTROL_NODE_SETUP', '193'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/next/service-operator/OBSERVABILITY_ALERTS',
+                component: ComponentCreator('/phoenix-documentation/docs/next/service-operator/OBSERVABILITY_ALERTS', 'e30'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/next/service-operator/OBSERVABILITY_DASHBOARDS',
+                component: ComponentCreator('/phoenix-documentation/docs/next/service-operator/OBSERVABILITY_DASHBOARDS', 'e26'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/next/service-operator/OPERATOR_API_GUIDE',
+                component: ComponentCreator('/phoenix-documentation/docs/next/service-operator/OPERATOR_API_GUIDE', 'bb6'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/next/service-operator/OS_REQUIREMENTS',
+                component: ComponentCreator('/phoenix-documentation/docs/next/service-operator/OS_REQUIREMENTS', 'a48'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/next/service-operator/ROUTER_BOX_SETUP',
+                component: ComponentCreator('/phoenix-documentation/docs/next/service-operator/ROUTER_BOX_SETUP', 'ff9'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/next/service-operator/VPN_CONFIGURATION',
+                component: ComponentCreator('/phoenix-documentation/docs/next/service-operator/VPN_CONFIGURATION', '03e'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              }
+            ]
+          }
+        ]
+      },
       {
         path: '/phoenix-documentation/docs/v1.0',
         component: ComponentCreator('/phoenix-documentation/docs/v1.0', '7d5'),

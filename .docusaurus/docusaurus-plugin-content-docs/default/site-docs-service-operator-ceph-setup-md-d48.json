@@ -1,0 +1,23 @@
+{
+  "id": "service-operator/CEPH_SETUP",
+  "title": "Setup Ceph - Generic",
+  "description": "Installing Ceph cluster on bare-metal nodes.",
+  "source": "@site/docs/service-operator/CEPH_SETUP.md",
+  "sourceDirName": "service-operator",
+  "slug": "/service-operator/CEPH_SETUP",
+  "permalink": "/phoenix-documentation/docs/next/service-operator/CEPH_SETUP",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Service Operator Documentation",
+    "permalink": "/phoenix-documentation/docs/next/service-operator/intro"
+  },
+  "next": {
+    "title": "Deployment Scripts",
+    "permalink": "/phoenix-documentation/docs/next/service-operator/DEPLOYMENT"
+  }
+}

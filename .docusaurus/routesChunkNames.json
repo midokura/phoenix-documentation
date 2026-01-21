@@ -278,11 +278,78 @@
       "plugin": "plugin---phoenix-documentation-search-138-bb9"
     }
   },
-  "/phoenix-documentation/docs-f31": {
+  "/phoenix-documentation/docs-a76": {
     "__comp": "__comp---theme-docs-root-5-e-9-0b6",
     "__context": {
       "plugin": "plugin---phoenix-documentation-docsaba-27f"
     }
+  },
+  "/phoenix-documentation/docs/next-4ea": {
+    "__comp": "__comp---theme-doc-version-roota-7-b-5de",
+    "__props": "__props---phoenix-documentation-docs-next-0-a-3-a6e"
+  },
+  "/phoenix-documentation/docs/next-dee": {
+    "__comp": "__comp---theme-doc-roota-94-67a"
+  },
+  "/phoenix-documentation/docs/next/category/service-operator-290": {
+    "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
+    "__props": "__props---phoenix-documentation-docs-next-category-service-operator-93-f-196"
+  },
+  "/phoenix-documentation/docs/next/service-operator/CEPH_SETUP-11b": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---phoenix-documentation-docs-next-service-operator-ceph-setu-pd-48-eb8"
+  },
+  "/phoenix-documentation/docs/next/service-operator/DEPLOYMENT-e97": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---phoenix-documentation-docs-next-service-operator-deployment-5-e-0-850"
+  },
+  "/phoenix-documentation/docs/next/service-operator/GHCR_AUTHENTICATION-4f4": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---phoenix-documentation-docs-next-service-operator-ghcr-authentication-0-de-52d"
+  },
+  "/phoenix-documentation/docs/next/service-operator/GOOGLE_SSO_SETUP-29a": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---phoenix-documentation-docs-next-service-operator-google-sso-setup-085-d63"
+  },
+  "/phoenix-documentation/docs/next/service-operator/IAAS_CONSOLE_CONFIGURATION-280": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---phoenix-documentation-docs-next-service-operator-iaas-console-configuration-40-d-aa4"
+  },
+  "/phoenix-documentation/docs/next/service-operator/INSTALL_BAREMETAL_NODE-f00": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---phoenix-documentation-docs-next-service-operator-install-baremetal-node-4-fb-84c"
+  },
+  "/phoenix-documentation/docs/next/service-operator/intro-7f1": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---phoenix-documentation-docs-next-service-operator-intro-7-f-0-5c6"
+  },
+  "/phoenix-documentation/docs/next/service-operator/NETWORK_CONTROL_NODE_SETUP-193": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---phoenix-documentation-docs-next-service-operator-network-control-node-setup-0-cb-fc1"
+  },
+  "/phoenix-documentation/docs/next/service-operator/OBSERVABILITY_ALERTS-e30": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---phoenix-documentation-docs-next-service-operator-observability-alerts-07-c-394"
+  },
+  "/phoenix-documentation/docs/next/service-operator/OBSERVABILITY_DASHBOARDS-e26": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---phoenix-documentation-docs-next-service-operator-observability-dashboards-239-d0e"
+  },
+  "/phoenix-documentation/docs/next/service-operator/OPERATOR_API_GUIDE-bb6": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---phoenix-documentation-docs-next-service-operator-operator-api-guid-eb-91-2a8"
+  },
+  "/phoenix-documentation/docs/next/service-operator/OS_REQUIREMENTS-a48": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---phoenix-documentation-docs-next-service-operator-os-requirement-saec-9c8"
+  },
+  "/phoenix-documentation/docs/next/service-operator/ROUTER_BOX_SETUP-ff9": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---phoenix-documentation-docs-next-service-operator-router-box-setup-982-9b5"
+  },
+  "/phoenix-documentation/docs/next/service-operator/VPN_CONFIGURATION-03e": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---phoenix-documentation-docs-next-service-operator-vpn-configuratio-nc-38-6df"
   },
   "/phoenix-documentation/docs/v1.0-7d5": {
     "__comp": "__comp---theme-doc-version-roota-7-b-5de",

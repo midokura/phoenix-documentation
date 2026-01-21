@@ -47,7 +47,7 @@ export default {
       {
         "docs": {
           "sidebarPath": "./sidebars.js",
-          "includeCurrentVersion": false
+          "includeCurrentVersion": true
         },
         "blog": {
           "showReadingTime": true,

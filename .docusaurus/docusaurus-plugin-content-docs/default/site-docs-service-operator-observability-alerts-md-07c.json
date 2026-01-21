@@ -1,0 +1,23 @@
+{
+  "id": "service-operator/OBSERVABILITY_ALERTS",
+  "title": "Observability Alerts",
+  "description": "Accessing and configuring Grafana alerts.",
+  "source": "@site/docs/service-operator/OBSERVABILITY_ALERTS.md",
+  "sourceDirName": "service-operator",
+  "slug": "/service-operator/OBSERVABILITY_ALERTS",
+  "permalink": "/phoenix-documentation/docs/next/service-operator/OBSERVABILITY_ALERTS",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Network Control Node Setup",
+    "permalink": "/phoenix-documentation/docs/next/service-operator/NETWORK_CONTROL_NODE_SETUP"
+  },
+  "next": {
+    "title": "Observability Dashboards",
+    "permalink": "/phoenix-documentation/docs/next/service-operator/OBSERVABILITY_DASHBOARDS"
+  }
+}

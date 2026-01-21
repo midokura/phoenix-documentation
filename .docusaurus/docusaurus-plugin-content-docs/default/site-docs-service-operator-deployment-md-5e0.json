@@ -1,0 +1,23 @@
+{
+  "id": "service-operator/DEPLOYMENT",
+  "title": "Deployment Scripts",
+  "description": "Deploying GPU infrastructure clusters.",
+  "source": "@site/docs/service-operator/DEPLOYMENT.md",
+  "sourceDirName": "service-operator",
+  "slug": "/service-operator/DEPLOYMENT",
+  "permalink": "/phoenix-documentation/docs/next/service-operator/DEPLOYMENT",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Setup Ceph - Generic",
+    "permalink": "/phoenix-documentation/docs/next/service-operator/CEPH_SETUP"
+  },
+  "next": {
+    "title": "GitHub Container Registry (GHCR) Authentication",
+    "permalink": "/phoenix-documentation/docs/next/service-operator/GHCR_AUTHENTICATION"
+  }
+}

@@ -163,6 +163,8 @@ ceph auth get-or-create client.glance mon 'allow r' osd 'allow class-read object
 echo >> keyrings/ceph.client.glance.keyring
 ```
 
+### 2. Save the keyrings directory
+
 Save the keyrings directory in a permanent location.
 You will need them for the [DEPLOYMENT](./DEPLOYMENT.md) section.
 

@@ -83,7 +83,7 @@ Steps to generate:
 
 ```sh
 # Connect to the control node
-ssh core@control-1.bcn
+ssh core@hedgehog0.bcn
 
 # Get the public IP of eth0 (used to access the cluster from IaaS)
 IP=$(ip -4 addr show eth0 | grep inet | awk '{print $2}' | cut -d/ -f1)

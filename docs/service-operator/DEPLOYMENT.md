@@ -143,11 +143,12 @@ Quick verification checklist. Click any item for detailed setup instructions bel
 ### Complete Deployment
 
 1. Bootstrap the network environment: `./scripts/platform-setup.sh --bootstrap`
-2. Run master script: `./scripts/platform-setup.sh`
-3. Enter vault password when prompted
-4. Wait for deployment to complete (1-2 hours)
-5. Review logs in `logs/`
-6. Verify services are running (see below)
+2. Configure the switches following this [guide](NETWORK_CONTROL_NODE_SETUP.md#43-access-switch-console).
+3. Run master script: `./scripts/platform-setup.sh`
+4. Enter vault password when prompted
+5. Wait for deployment to complete (1-2 hours)
+6. Review logs in `logs/`
+7. Verify services are running (see below)
 
 ### Verify Deployment Success
 

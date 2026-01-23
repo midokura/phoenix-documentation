@@ -33,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: service-operator-${{ steps.get_version.outputs.version }}-${{ steps.get_commit_info.outputs.commit_count }}-${{ steps.get_commit_info.outputs.short_sha }}
-          path: service-operator/
+          path: docs/service-operator/
       
       - name: Create tenant artifact
         uses: actions/upload-artifact@v4

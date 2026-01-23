@@ -142,11 +142,12 @@ Quick verification checklist. Click any item for detailed setup instructions bel
 
 ### Complete Deployment
 
-1. Run master script: `./scripts/platform-setup.sh`
-2. Enter vault password when prompted
-3. Wait for deployment to complete (1-2 hours)
-4. Review logs in `logs/`
-5. Verify services are running (see below)
+1. Bootstrap the network environment: `./scripts/platform-setup.sh --bootstrap`
+2. Run master script: `./scripts/platform-setup.sh`
+3. Enter vault password when prompted
+4. Wait for deployment to complete (1-2 hours)
+5. Review logs in `logs/`
+6. Verify services are running (see below)
 
 ### Verify Deployment Success
 

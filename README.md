@@ -14,7 +14,7 @@ yarn
 yarn run start
 ```
 
-This command starts a local development server and opens up a browser window at: [http://localhost:3000/foo/](http://localhost:3000/foo/). Most changes are reflected live without having to restart the server.
+This command starts a local development server and opens up a browser window at: [http://localhost:3000/phoenix-documentation/](http://localhost:3000/phoenix-documentation/). Most changes are reflected live without having to restart the server.
 
 Use Control + c to kill the localhost.
 

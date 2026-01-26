@@ -39,7 +39,7 @@ export default [
   },
   {
     path: '/phoenix-documentation/blog',
-    component: ComponentCreator('/phoenix-documentation/blog', '1c3'),
+    component: ComponentCreator('/phoenix-documentation/blog', 'ce2'),
     exact: true
   },
   {
@@ -54,7 +54,7 @@ export default [
   },
   {
     path: '/phoenix-documentation/blog/authors/alexanderfandos',
-    component: ComponentCreator('/phoenix-documentation/blog/authors/alexanderfandos', 'a90'),
+    component: ComponentCreator('/phoenix-documentation/blog/authors/alexanderfandos', 'a07'),
     exact: true
   },
   {
@@ -84,7 +84,7 @@ export default [
   },
   {
     path: '/phoenix-documentation/blog/tags/phoenix',
-    component: ComponentCreator('/phoenix-documentation/blog/tags/phoenix', '7fc'),
+    component: ComponentCreator('/phoenix-documentation/blog/tags/phoenix', '79b'),
     exact: true
   },
   {
@@ -118,13 +118,18 @@ export default [
     exact: true
   },
   {
+    path: '/phoenix-documentation/blog/v1.6',
+    component: ComponentCreator('/phoenix-documentation/blog/v1.6', '1e8'),
+    exact: true
+  },
+  {
     path: '/phoenix-documentation/search',
     component: ComponentCreator('/phoenix-documentation/search', 'fd8'),
     exact: true
   },
   {
     path: '/phoenix-documentation/docs',
-    component: ComponentCreator('/phoenix-documentation/docs', 'a76'),
+    component: ComponentCreator('/phoenix-documentation/docs', '5f4'),
     routes: [
       {
         path: '/phoenix-documentation/docs/next',
@@ -709,12 +714,114 @@ export default [
         ]
       },
       {
+        path: '/phoenix-documentation/docs/v1.5',
+        component: ComponentCreator('/phoenix-documentation/docs/v1.5', 'ac6'),
+        routes: [
+          {
+            path: '/phoenix-documentation/docs/v1.5',
+            component: ComponentCreator('/phoenix-documentation/docs/v1.5', 'a9e'),
+            routes: [
+              {
+                path: '/phoenix-documentation/docs/v1.5/category/service-operator',
+                component: ComponentCreator('/phoenix-documentation/docs/v1.5/category/service-operator', '2c7'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/v1.5/service-operator/CEPH_SETUP',
+                component: ComponentCreator('/phoenix-documentation/docs/v1.5/service-operator/CEPH_SETUP', '70c'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/v1.5/service-operator/DEPLOYMENT',
+                component: ComponentCreator('/phoenix-documentation/docs/v1.5/service-operator/DEPLOYMENT', 'bae'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/v1.5/service-operator/GHCR_AUTHENTICATION',
+                component: ComponentCreator('/phoenix-documentation/docs/v1.5/service-operator/GHCR_AUTHENTICATION', '108'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/v1.5/service-operator/GOOGLE_SSO_SETUP',
+                component: ComponentCreator('/phoenix-documentation/docs/v1.5/service-operator/GOOGLE_SSO_SETUP', 'aee'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/v1.5/service-operator/IAAS_CONSOLE_CONFIGURATION',
+                component: ComponentCreator('/phoenix-documentation/docs/v1.5/service-operator/IAAS_CONSOLE_CONFIGURATION', 'a4c'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/v1.5/service-operator/INSTALL_BAREMETAL_NODE',
+                component: ComponentCreator('/phoenix-documentation/docs/v1.5/service-operator/INSTALL_BAREMETAL_NODE', '3fa'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/v1.5/service-operator/intro',
+                component: ComponentCreator('/phoenix-documentation/docs/v1.5/service-operator/intro', 'b4f'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/v1.5/service-operator/NETWORK_CONTROL_NODE_SETUP',
+                component: ComponentCreator('/phoenix-documentation/docs/v1.5/service-operator/NETWORK_CONTROL_NODE_SETUP', '6b8'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/v1.5/service-operator/OBSERVABILITY_ALERTS',
+                component: ComponentCreator('/phoenix-documentation/docs/v1.5/service-operator/OBSERVABILITY_ALERTS', '798'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/v1.5/service-operator/OBSERVABILITY_DASHBOARDS',
+                component: ComponentCreator('/phoenix-documentation/docs/v1.5/service-operator/OBSERVABILITY_DASHBOARDS', 'b7f'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/v1.5/service-operator/OPERATOR_API_GUIDE',
+                component: ComponentCreator('/phoenix-documentation/docs/v1.5/service-operator/OPERATOR_API_GUIDE', 'a45'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/v1.5/service-operator/OS_REQUIREMENTS',
+                component: ComponentCreator('/phoenix-documentation/docs/v1.5/service-operator/OS_REQUIREMENTS', 'fa7'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/v1.5/service-operator/ROUTER_BOX_SETUP',
+                component: ComponentCreator('/phoenix-documentation/docs/v1.5/service-operator/ROUTER_BOX_SETUP', '67b'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/v1.5/service-operator/VPN_CONFIGURATION',
+                component: ComponentCreator('/phoenix-documentation/docs/v1.5/service-operator/VPN_CONFIGURATION', '70d'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              }
+            ]
+          }
+        ]
+      },
+      {
         path: '/phoenix-documentation/docs',
-        component: ComponentCreator('/phoenix-documentation/docs', '916'),
+        component: ComponentCreator('/phoenix-documentation/docs', 'f3e'),
         routes: [
           {
             path: '/phoenix-documentation/docs',
-            component: ComponentCreator('/phoenix-documentation/docs', 'c92'),
+            component: ComponentCreator('/phoenix-documentation/docs', '2c0'),
             routes: [
               {
                 path: '/phoenix-documentation/docs/category/service-operator',
@@ -724,85 +831,85 @@ export default [
               },
               {
                 path: '/phoenix-documentation/docs/service-operator/CEPH_SETUP',
-                component: ComponentCreator('/phoenix-documentation/docs/service-operator/CEPH_SETUP', 'c11'),
+                component: ComponentCreator('/phoenix-documentation/docs/service-operator/CEPH_SETUP', '9d1'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
                 path: '/phoenix-documentation/docs/service-operator/DEPLOYMENT',
-                component: ComponentCreator('/phoenix-documentation/docs/service-operator/DEPLOYMENT', 'b39'),
+                component: ComponentCreator('/phoenix-documentation/docs/service-operator/DEPLOYMENT', '0e0'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
                 path: '/phoenix-documentation/docs/service-operator/GHCR_AUTHENTICATION',
-                component: ComponentCreator('/phoenix-documentation/docs/service-operator/GHCR_AUTHENTICATION', '4bb'),
+                component: ComponentCreator('/phoenix-documentation/docs/service-operator/GHCR_AUTHENTICATION', '007'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
                 path: '/phoenix-documentation/docs/service-operator/GOOGLE_SSO_SETUP',
-                component: ComponentCreator('/phoenix-documentation/docs/service-operator/GOOGLE_SSO_SETUP', '8bf'),
+                component: ComponentCreator('/phoenix-documentation/docs/service-operator/GOOGLE_SSO_SETUP', '6b4'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
                 path: '/phoenix-documentation/docs/service-operator/IAAS_CONSOLE_CONFIGURATION',
-                component: ComponentCreator('/phoenix-documentation/docs/service-operator/IAAS_CONSOLE_CONFIGURATION', '81e'),
+                component: ComponentCreator('/phoenix-documentation/docs/service-operator/IAAS_CONSOLE_CONFIGURATION', '4ac'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
                 path: '/phoenix-documentation/docs/service-operator/INSTALL_BAREMETAL_NODE',
-                component: ComponentCreator('/phoenix-documentation/docs/service-operator/INSTALL_BAREMETAL_NODE', '500'),
+                component: ComponentCreator('/phoenix-documentation/docs/service-operator/INSTALL_BAREMETAL_NODE', '25c'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
                 path: '/phoenix-documentation/docs/service-operator/intro',
-                component: ComponentCreator('/phoenix-documentation/docs/service-operator/intro', '53f'),
+                component: ComponentCreator('/phoenix-documentation/docs/service-operator/intro', '024'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
                 path: '/phoenix-documentation/docs/service-operator/NETWORK_CONTROL_NODE_SETUP',
-                component: ComponentCreator('/phoenix-documentation/docs/service-operator/NETWORK_CONTROL_NODE_SETUP', 'fa0'),
+                component: ComponentCreator('/phoenix-documentation/docs/service-operator/NETWORK_CONTROL_NODE_SETUP', 'd58'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
                 path: '/phoenix-documentation/docs/service-operator/OBSERVABILITY_ALERTS',
-                component: ComponentCreator('/phoenix-documentation/docs/service-operator/OBSERVABILITY_ALERTS', '1b7'),
+                component: ComponentCreator('/phoenix-documentation/docs/service-operator/OBSERVABILITY_ALERTS', '4b7'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
                 path: '/phoenix-documentation/docs/service-operator/OBSERVABILITY_DASHBOARDS',
-                component: ComponentCreator('/phoenix-documentation/docs/service-operator/OBSERVABILITY_DASHBOARDS', '0b1'),
+                component: ComponentCreator('/phoenix-documentation/docs/service-operator/OBSERVABILITY_DASHBOARDS', '156'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
                 path: '/phoenix-documentation/docs/service-operator/OPERATOR_API_GUIDE',
-                component: ComponentCreator('/phoenix-documentation/docs/service-operator/OPERATOR_API_GUIDE', 'f27'),
+                component: ComponentCreator('/phoenix-documentation/docs/service-operator/OPERATOR_API_GUIDE', 'ccc'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
                 path: '/phoenix-documentation/docs/service-operator/OS_REQUIREMENTS',
-                component: ComponentCreator('/phoenix-documentation/docs/service-operator/OS_REQUIREMENTS', '894'),
+                component: ComponentCreator('/phoenix-documentation/docs/service-operator/OS_REQUIREMENTS', 'a27'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
                 path: '/phoenix-documentation/docs/service-operator/ROUTER_BOX_SETUP',
-                component: ComponentCreator('/phoenix-documentation/docs/service-operator/ROUTER_BOX_SETUP', 'd07'),
+                component: ComponentCreator('/phoenix-documentation/docs/service-operator/ROUTER_BOX_SETUP', '8ed'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
                 path: '/phoenix-documentation/docs/service-operator/VPN_CONFIGURATION',
-                component: ComponentCreator('/phoenix-documentation/docs/service-operator/VPN_CONFIGURATION', '414'),
+                component: ComponentCreator('/phoenix-documentation/docs/service-operator/VPN_CONFIGURATION', 'a18'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               }

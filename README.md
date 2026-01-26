@@ -64,6 +64,7 @@ The new intention (January 21, 2026) is that the website will be public. This ha
 - Check if the phoenix svg is legal to use
 - Should we use the phoenix svg if we are not using Phoenix as the name?
 - Find a logo or image for the new name
+- Change 'Blog' to 'Release Notes' in the tab
 - Check how website looks on mobile
 - Use Midokura colours
 - In the navbar should we remove direct link to Github repo?

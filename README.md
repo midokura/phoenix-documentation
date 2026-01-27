@@ -77,6 +77,7 @@ The new intention (January 21, 2026) is that the website will be public. This ha
   
 ## Done
 
+- Move Operator Reference out of RNs and into Docs
 - All plaintext references in RNs and Docs should be hyperlinked
 - All references to 'foo.md' should be changed to 'foo'
 - Add password protection -> no longer required

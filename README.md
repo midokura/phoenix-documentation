@@ -73,7 +73,8 @@ The new intention (January 21, 2026) is that the website will be public. This ha
 - Make repo public
 - Publish to Github Pages
 - Set DNS nameservers to redirect to docs.midokura.com
-
+- Translate to Japanese
+  
 ## Done
 
 - All plaintext references in RNs and Docs should be hyperlinked

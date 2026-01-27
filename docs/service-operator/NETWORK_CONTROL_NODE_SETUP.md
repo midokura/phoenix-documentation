@@ -227,7 +227,7 @@ sudo minicom -D /dev/ttyUSB1 -b 115200
 # (adjust device path for each switch)
 ```
 
-#### 4.4: Update ONIE Firmware
+#### 4.4: Update ONIE Firmware (only if not in the latest version)
 
 From the ONIE prompt, update the ONIE firmware using the HTTP server (nginx container) we set up in step 4.1:
 

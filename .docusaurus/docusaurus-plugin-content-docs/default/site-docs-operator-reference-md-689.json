@@ -1,0 +1,22 @@
+{
+  "id": "OPERATOR_REFERENCE",
+  "title": "Operator Reference",
+  "description": "This is the reference sheet for Phoenix v1.6, an end-to-end solution to operate private, multi-tenant AI factories. Operators will find below an overview of the materials, infrastructure, and other requirements, and an entry point to the procedure to provision and configure the system.",
+  "source": "@site/docs/OPERATOR_REFERENCE.md",
+  "sourceDirName": ".",
+  "slug": "/OPERATOR_REFERENCE",
+  "permalink": "/phoenix-documentation/docs/next/OPERATOR_REFERENCE",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "next": {
+    "title": "Service Operator",
+    "permalink": "/phoenix-documentation/docs/next/category/service-operator"
+  }
+}

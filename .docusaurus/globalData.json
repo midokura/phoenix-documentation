@@ -8,8 +8,13 @@
           "label": "Next",
           "isLast": false,
           "path": "/phoenix-documentation/docs/next",
-          "mainDocId": "service-operator/intro",
+          "mainDocId": "OPERATOR_REFERENCE",
           "docs": [
+            {
+              "id": "OPERATOR_REFERENCE",
+              "path": "/phoenix-documentation/docs/next/OPERATOR_REFERENCE",
+              "sidebar": "tutorialSidebar"
+            },
             {
               "id": "service-operator/CEPH_SETUP",
               "path": "/phoenix-documentation/docs/next/service-operator/CEPH_SETUP",
@@ -90,8 +95,8 @@
           "sidebars": {
             "tutorialSidebar": {
               "link": {
-                "path": "/phoenix-documentation/docs/next/category/service-operator",
-                "label": "Service Operator"
+                "path": "/phoenix-documentation/docs/next/OPERATOR_REFERENCE",
+                "label": "OPERATOR_REFERENCE"
               }
             }
           }

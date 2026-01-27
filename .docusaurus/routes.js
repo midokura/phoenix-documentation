@@ -129,19 +129,25 @@ export default [
   },
   {
     path: '/phoenix-documentation/docs',
-    component: ComponentCreator('/phoenix-documentation/docs', '5f4'),
+    component: ComponentCreator('/phoenix-documentation/docs', 'd86'),
     routes: [
       {
         path: '/phoenix-documentation/docs/next',
-        component: ComponentCreator('/phoenix-documentation/docs/next', '4ea'),
+        component: ComponentCreator('/phoenix-documentation/docs/next', 'bbb'),
         routes: [
           {
             path: '/phoenix-documentation/docs/next',
-            component: ComponentCreator('/phoenix-documentation/docs/next', 'dee'),
+            component: ComponentCreator('/phoenix-documentation/docs/next', '211'),
             routes: [
               {
                 path: '/phoenix-documentation/docs/next/category/service-operator',
                 component: ComponentCreator('/phoenix-documentation/docs/next/category/service-operator', '290'),
+                exact: true,
+                sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/phoenix-documentation/docs/next/OPERATOR_REFERENCE',
+                component: ComponentCreator('/phoenix-documentation/docs/next/OPERATOR_REFERENCE', 'b0a'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },

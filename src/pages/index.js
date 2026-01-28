@@ -76,9 +76,17 @@ function Home() {
         {features && features.length > 0 && (
           <section className={styles.features}>
             <div className="container">
-              <h2 className="text--center">Lorem Ipsum Dolor</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
+              <h2 className="text--center">Midokura Phoenix Documentation</h2>
+              <h3 className="text--center">Clear, practical guidance to using and customizing your cutting-edge GPUs as dedicated resources</h3>
+              <p className="text--center">In these pages you will learn to use your Midokura GPU solution to develop your proprietary environments.</p>
+              <p className="text--center">With guidance organised by version and backed up with concise Release Notes, this is your home for rolling out your private AI factory as a software service.</p>
+              <h2 className="text--center">Sections</h2>
+              <p className="text--center">In the Docs section ... lorem ipsum</p>
+              <p className="text--center">Each new release is accompanied by Release Notes ... lorem ipsum</p>
+              <h2 className="text--center">Contribute</h2>
+              <h4 className="text--center">Help us improve the Phoenix docs</h4>
+              <p className="text--center">If you have something to add to our documentation, feel free to send us a pull request.</p>
+              <p className="text--center">The source code for our documentation website can be found in the GitHub link in the navbar at the top of every page.</p>    
               <div className="row">
                 {features.map((props, idx) => (
                   <Feature key={idx} {...props} />

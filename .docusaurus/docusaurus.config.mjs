@@ -51,6 +51,7 @@ export default {
         },
         "blog": {
           "showReadingTime": true,
+          "blogTitle": "Release Notes",
           "blogSidebarTitle": "Release Notes",
           "blogSidebarCount": "ALL",
           "feedOptions": {

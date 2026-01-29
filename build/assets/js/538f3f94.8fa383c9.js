@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunkfoo=globalThis.webpackChunkfoo||[]).push([[3153],{4241(o){o.exports=JSON.parse('{"metadata":{"permalink":"/phoenix-documentation/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":6,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);

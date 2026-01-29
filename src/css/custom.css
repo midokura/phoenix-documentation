@@ -34,3 +34,7 @@
   /* For browsers that do not support gradients */
   background-image: linear-gradient(to right, #bed416, #4fcffd);
 }
+
+.container1 {
+  display: flex;
+}

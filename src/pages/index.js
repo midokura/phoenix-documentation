@@ -71,31 +71,72 @@ function Home() {
           </div>
         </div>
       </header>
-      
+
       <main>
         {features && features.length > 0 && (
           <section className={styles.features}>
-            <div className="container">
-              <h2 className="text--center">Midokura Phoenix Documentation</h2>
+            <div className="container">   
               <h3 className="text--center">Clear, practical guidance to using and customizing your cutting-edge GPUs as dedicated resources</h3>
+              <p className="text--center">This is your home for rolling out your private AI factory as a software service.</p>
               <p className="text--center">In these pages you will learn to use your Midokura GPU solution to develop your proprietary environments.</p>
-              <p className="text--center">With guidance organised by version and backed up with concise Release Notes, this is your home for rolling out your private AI factory as a software service.</p>
-              <h2 className="text--center">Sections</h2>
-              <p className="text--center">In the Docs section ... lorem ipsum</p>
-              <p className="text--center">Each new release is accompanied by Release Notes ... lorem ipsum</p>
-              <h2 className="text--center">Contribute</h2>
-              <h4 className="text--center">Help us improve the Phoenix docs</h4>
-              <p className="text--center">If you have something to add to our documentation, feel free to send us a pull request.</p>
-              <p className="text--center">The source code for our documentation website can be found in the GitHub link in the navbar at the top of every page.</p>    
-              <div className="row">
-                {features.map((props, idx) => (
-                  <Feature key={idx} {...props} />
-                ))}
-              </div>
             </div>
           </section>
         )}
       </main>
+
+      <header className={clsx('hero hero--primary', styles.heroBanner)}>
+        <section className={styles.features}>
+          
+          <div className="container">
+            <h2 className="text--center">Documentation organised by version and backed up with concise Release Notes</h2>
+            </div>
+          </section>
+      </header>
+
+     <main>
+        {features && features.length > 0 && (
+          <section className={styles.features}>
+            <div className="container">   
+              
+            </div>
+          </section>
+        )}
+      </main>
+
+      <header className={clsx('hero hero--primary', styles.heroBanner)}>
+        <section className={styles.features}>
+          
+          <div className="container">
+          <div class="container1">
+            <div><h2 className="text--center">Documentation</h2>
+                <p className="text--center">Our documentation is focussed around managing your Phoenix IaaS platform. Here you will learn how to start simple and move progressively through all aspects of your Midokura AI GPU tech stack, from setting up and configuring your storage cluster right through to more complex tasks, such as setting up router boxes to host bootstrap VMs.</p>
+                <p className="text--center">Once you are comfortable with your configuration and have your system up and running, we will also teach you how to set alerts on your system, build observability dashboards, even how to manage users and tenants with the Operator API and give your users VPN access.</p>
+            </div>
+
+            <div><h2 className="text--center">Release Notes</h2>
+              <p className="text--center">Every new release of our system will be signalled to you by the arrival of a version-specific set of release notes in your inbox. These release notes, hosted here on this website, will, in clear and brief language, outline the important aspects of new and improved features, as well as flag up any changes or improvements to functional behaviour. </p>
+            </div>
+
+            </div>
+            </div>
+          </section>
+      </header>
+      
+      <main>
+        {features && features.length > 0 && (
+          <section className={styles.features}>
+            <div className="container">   
+              <div><h3 className="text--center">Contribute</h3>
+              <h4 className="text--center">Help us improve the Phoenix docs</h4>
+              <p className="text--center">If you have something to add to our documentation, feel free to send us a pull request.</p>
+              <p className="text--center">The source code for our documentation website can be found in the GitHub link in the navbar at the top of every page.</p>  
+            </div>
+
+            </div>
+          </section>
+        )}
+      </main>
+
     </Layout>
   );
 }

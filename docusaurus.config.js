@@ -121,7 +121,7 @@ const config = {
       footer: {
         logo: {
         alt: 'Midokura',
-        src: 'img/logo-midokura.png',
+        src: 'img/white-logo.png',
         href: 'https://midokura.com',
       },      
         copyright: `©${new Date().getFullYear()} Midokura`,

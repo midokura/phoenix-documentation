@@ -116,7 +116,7 @@ export default {
     "footer": {
       "logo": {
         "alt": "Midokura",
-        "src": "img/logo-midokura.png",
+        "src": "img/white-logo.png",
         "href": "https://midokura.com"
       },
       "copyright": "©2026 Midokura",

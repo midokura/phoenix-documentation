@@ -61,6 +61,8 @@ The new intention (January 21, 2026) is that the website will be public. This ha
 - Add some marketing text content for the front page - JF and Clàudia will help with the text
 - We need to change the name because 'Phoenix' is internal only
 - Replace 'Phoenix' with the new name throughout
+- Change to Montserrat font
+- Switch footer logo to white version from Clàudia 
 - Check if the phoenix svg is legal to use
 - Should we use the phoenix svg if we are not using Phoenix as the name?
 - Find a logo or image for the new name
@@ -73,7 +75,7 @@ The new intention (January 21, 2026) is that the website will be public. This ha
 - Make repo public
 - Publish to Github Pages
 - Set DNS nameservers to redirect to docs.midokura.com
-- Translate to Japanese
+- Translate to Japanese (Mari is on it).
   
 ## Done
 

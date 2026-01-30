@@ -37,4 +37,8 @@
 
 .container1 {
   display: flex;
+  margin-right: 10px;
+  margin-left: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
 }

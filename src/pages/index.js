@@ -51,7 +51,7 @@ function Home() {
   return (
     <Layout
       title={`${siteConfig.title}`}
-      description="High-end GPU servers for HPC and AI workloads delivered to your doorstep."
+      description="High-end GPU servers for HPC and AI workloads delivered to your doorstep"
     >
       <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container">

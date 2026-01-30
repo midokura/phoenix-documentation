@@ -57,16 +57,16 @@ TBD but likely to be:
 
 The new intention (January 21, 2026) is that the website will be public. This has some impact on the work to be done (positive impact, fewer complications).
 
+- Add v1.7 release notes
 - Review all content to remove any internal Midokura references
 - We need to change the name because 'Phoenix' is internal only
 - Replace 'Phoenix' with the new name throughout
-- Change to Montserrat font
-- Switch footer logo to white version from Clàudia 
 - Add 'Back to Top' button at the bottom, especially for mobile
+- Reduce size of white logo in footer
 - Check if the phoenix svg is legal to use
 - Should we use the phoenix svg if we are not using Phoenix as the name?
 - Find a logo or image for the new name
-- Check how website looks on mobile
+- Make splash page two-panel section (documentation / release notes) responsive for mobile
 - Use Midokura colours
 - In the navbar should we remove direct link to Github repo?
 - Update the README above to explain how to do a docs release
@@ -76,6 +76,9 @@ The new intention (January 21, 2026) is that the website will be public. This ha
   
 ## Done
 
+- Add v1.7 docs
+- Change to Montserrat font
+- Switch footer logo to white version from Clàudia
 - Add some marketing text content for the front page. JF and Clàudia will help with the text
 - Make repo public
 - Publish to Github Pages

@@ -61,22 +61,24 @@ The new intention (January 21, 2026) is that the website will be public. This ha
 - Add some marketing text content for the front page - JF and Clàudia will help with the text
 - We need to change the name because 'Phoenix' is internal only
 - Replace 'Phoenix' with the new name throughout
+- Change to Montserrat font
+- Switch footer logo to white version from Clàudia 
 - Check if the phoenix svg is legal to use
 - Should we use the phoenix svg if we are not using Phoenix as the name?
 - Find a logo or image for the new name
-- Change 'Blog' to 'Release Notes' in the tab
 - Check how website looks on mobile
 - Use Midokura colours
 - In the navbar should we remove direct link to Github repo?
 - Update the README above to explain how to do a docs release
 - Turn off 'Next' (main)
-- Make repo public
-- Publish to Github Pages
 - Set DNS nameservers to redirect to docs.midokura.com
-- Translate to Japanese
+- Translate to Japanese (Mari is on it).
   
 ## Done
 
+- Make repo public
+- Publish to Github Pages
+- Change 'Blog' to 'Release Notes' in the tab
 - Move Operator Reference out of RNs and into Docs
 - All plaintext references in RNs and Docs should be hyperlinked
 - All references to 'foo.md' should be changed to 'foo'

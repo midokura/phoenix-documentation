@@ -28,7 +28,8 @@ const config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'midokura', // Usually your GitHub org/user name.
-  projectName: 'phoenix', // Usually your repo name.
+  projectName: 'phoenix-documentation', // Usually your repo name.
+  trailingSlash: false,
 
   onBrokenLinks: 'warn',
 

@@ -31,7 +31,8 @@ export default {
   "url": "https://midokura.github.io",
   "baseUrl": "/phoenix-documentation/",
   "organizationName": "midokura",
-  "projectName": "phoenix",
+  "projectName": "phoenix-documentation",
+  "trailingSlash": false,
   "onBrokenLinks": "warn",
   "i18n": {
     "defaultLocale": "en",

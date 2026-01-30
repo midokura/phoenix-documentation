@@ -3,6 +3,41 @@ import ComponentCreator from '@docusaurus/ComponentCreator';
 
 export default [
   {
+    path: '/phoenix-documentation/__docusaurus/debug',
+    component: ComponentCreator('/phoenix-documentation/__docusaurus/debug', 'ea0'),
+    exact: true
+  },
+  {
+    path: '/phoenix-documentation/__docusaurus/debug/config',
+    component: ComponentCreator('/phoenix-documentation/__docusaurus/debug/config', '853'),
+    exact: true
+  },
+  {
+    path: '/phoenix-documentation/__docusaurus/debug/content',
+    component: ComponentCreator('/phoenix-documentation/__docusaurus/debug/content', '5cf'),
+    exact: true
+  },
+  {
+    path: '/phoenix-documentation/__docusaurus/debug/globalData',
+    component: ComponentCreator('/phoenix-documentation/__docusaurus/debug/globalData', '885'),
+    exact: true
+  },
+  {
+    path: '/phoenix-documentation/__docusaurus/debug/metadata',
+    component: ComponentCreator('/phoenix-documentation/__docusaurus/debug/metadata', '7f5'),
+    exact: true
+  },
+  {
+    path: '/phoenix-documentation/__docusaurus/debug/registry',
+    component: ComponentCreator('/phoenix-documentation/__docusaurus/debug/registry', '802'),
+    exact: true
+  },
+  {
+    path: '/phoenix-documentation/__docusaurus/debug/routes',
+    component: ComponentCreator('/phoenix-documentation/__docusaurus/debug/routes', '40f'),
+    exact: true
+  },
+  {
     path: '/phoenix-documentation/blog',
     component: ComponentCreator('/phoenix-documentation/blog', 'ce2'),
     exact: true

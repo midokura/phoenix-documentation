@@ -105,23 +105,23 @@ function Home() {
 
       <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <section className={styles.features}>
-          
           <div className="container">
-          <div class="container1">
-            <div><h2 className="text--center">Documentation</h2>
-                <p className="text--center">Our documentation is focussed around managing your Phoenix IaaS platform. Here you will learn how to start simple and move progressively through all aspects of your Midokura AI GPU tech stack, from setting up and configuring your storage cluster right through to more complex tasks, such as setting up router boxes to host bootstrap VMs.</p>
+            <div class="container1">
+              <div>
+                <h2 className="text--center">Documentation</h2>
+                <p className="text--left">Our documentation is focussed around managing your Phoenix IaaS platform. Here you will learn how to start simple and move progressively through all aspects of your Midokura AI GPU tech stack, from setting up and configuring your storage cluster right through to more complex tasks, such as setting up router boxes to host bootstrap VMs.</p>
+              </div>
+              <div>
+                <h2 className="text--center">Release Notes</h2>
+                <p className="text--left">Every new release of our system will be signalled to you by the arrival of a version-specific set of release notes in your inbox. These release notes, hosted here on this website, will, in clear and brief language, outline the important aspects of new and improved features, as well as flag up any changes or improvements to functional behaviour.</p>
+              </div>
+            </div>
+                <h2 className="text--center">Advanced</h2>                   
                 <p className="text--center">Once you are comfortable with your configuration and have your system up and running, we will also teach you how to set alerts on your system, build observability dashboards, even how to manage users and tenants with the Operator API and give your users VPN access.</p>
-            </div>
-
-            <div><h2 className="text--center">Release Notes</h2>
-              <p className="text--center">Every new release of our system will be signalled to you by the arrival of a version-specific set of release notes in your inbox. These release notes, hosted here on this website, will, in clear and brief language, outline the important aspects of new and improved features, as well as flag up any changes or improvements to functional behaviour. </p>
-            </div>
-
-            </div>
-            </div>
-          </section>
+          </div>
+        </section>
       </header>
-      
+
       <main>
         {features && features.length > 0 && (
           <section className={styles.features}>

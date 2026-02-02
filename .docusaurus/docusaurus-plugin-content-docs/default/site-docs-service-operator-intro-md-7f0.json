@@ -1,7 +1,7 @@
 {
   "id": "service-operator/intro",
   "title": "Service Operator Documentation",
-  "description": "Managing the Phoenix IaaS platform.",
+  "description": "Managing the AI Factory IaaS platform.",
   "source": "@site/docs/service-operator/intro.md",
   "sourceDirName": "service-operator",
   "slug": "/service-operator/intro",

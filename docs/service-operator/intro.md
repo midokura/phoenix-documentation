@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Service Operator Documentation
 
-Managing the Phoenix IaaS platform.
+Managing the AI Factory IaaS platform.
 
 ## Available Documentation
 

@@ -1,6 +1,6 @@
-# Midokura Factory AI Documentation Website
+# Midokura AI Factory Documentation Website
 
-The Midokura Factory AI Documentation website is built from this repo using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+The Midokura AI Factory Documentation website is built from this repo using [Docusaurus](https://docusaurus.io/), a modern static website generator.
 
 ## Installation
 

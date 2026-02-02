@@ -1,6 +1,6 @@
-# Phoenix Documentation Website
+# Midokura Factory AI Documentation Website
 
-The Phoenix Documentation website is built from this repo using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+The Midokura Factory AI Documentation website is built from this repo using [Docusaurus](https://docusaurus.io/), a modern static website generator.
 
 ## Installation
 
@@ -57,9 +57,7 @@ TBD but likely to be:
 
 The new intention (January 21, 2026) is that the website will be public. This has some impact on the work to be done (positive impact, fewer complications).
 
-- Add v1.7 release notes
 - Review all content to remove any internal Midokura references
-- We need to change the name because 'Phoenix' is internal only
 - Replace 'Phoenix' with the new name throughout
 - Add 'Back to Top' button at the bottom, especially for mobile
 - Reduce size of white logo in footer
@@ -76,6 +74,8 @@ The new intention (January 21, 2026) is that the website will be public. This ha
   
 ## Done
 
+- Add v1.7 release notes
+- We need to change the name because 'Phoenix' is internal only <-- AI Factory
 - Add v1.7 docs
 - Change to Montserrat font
 - Switch footer logo to white version from Clàudia

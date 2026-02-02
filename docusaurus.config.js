@@ -10,7 +10,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Midokura Phoenix',
+  title: 'Midokura AI Factory',
   tagline: 'High-end GPU servers for HPC and AI workloads delivered to your doorstep',
   favicon: 'img/favicon.ico',
 
@@ -88,7 +88,7 @@ const config = {
         respectPrefersColorScheme: true,
       },
       navbar: {
-        title: 'Phoenix Documentation',
+        title: 'AI Factory Documentation',
         logo: {
           alt: 'Midokura Logo',
           src: 'img/logo.png',

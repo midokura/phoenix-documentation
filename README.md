@@ -58,7 +58,6 @@ TBD but likely to be:
 The new intention (January 21, 2026) is that the website will be public. This has some impact on the work to be done (positive impact, fewer complications).
 
 - Review all content to remove any internal Midokura references
-- Replace 'Phoenix' with the new name throughout
 - Add 'Back to Top' button at the bottom, especially for mobile
 - Reduce size of white logo in footer
 - Check if the phoenix svg is legal to use
@@ -74,6 +73,7 @@ The new intention (January 21, 2026) is that the website will be public. This ha
   
 ## Done
 
+- Replace 'Phoenix' with the new name throughout
 - Add v1.7 release notes
 - We need to change the name because 'Phoenix' is internal only <-- AI Factory
 - Add v1.7 docs

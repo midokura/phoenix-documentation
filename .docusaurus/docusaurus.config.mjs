@@ -4,7 +4,7 @@
  * Modify the docusaurus.config.js file at your site's root instead.
  */
 export default {
-  "title": "Midokura Phoenix",
+  "title": "Midokura AI Factory",
   "tagline": "High-end GPU servers for HPC and AI workloads delivered to your doorstep",
   "favicon": "img/favicon.ico",
   "future": {
@@ -80,7 +80,7 @@ export default {
       "disableSwitch": false
     },
     "navbar": {
-      "title": "Phoenix Documentation",
+      "title": "AI Factory Documentation",
       "logo": {
         "alt": "Midokura Logo",
         "src": "img/logo.png"

@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Operator Reference
 
-This is the reference sheet for Phoenix, an end-to-end solution to operate private, multi-tenant AI factories. Operators will find below an overview of the materials, infrastructure, and other requirements, and an entry point to the procedure to provision and configure the system.
+This is the reference sheet for Factory AI, an end-to-end solution to operate private, multi-tenant AI factories. Operators will find below an overview of the materials, infrastructure, and other requirements, and an entry point to the procedure to provision and configure the system.
 
 Please contact support@midokura.com for more information.
 

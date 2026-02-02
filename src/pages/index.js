@@ -119,7 +119,7 @@ function Home() {
           <section className={styles.features}>
             <div className="container">   
               <div><h3 className="text--center">Contribute</h3>
-              <h4 className="text--center">Help us improve the Phoenix docs</h4>
+              <h4 className="text--center">Help us improve the Factory AI docs</h4>
               <p className="text--center">If you have something to add to our documentation, feel free to send us a pull request.</p>
               <p className="text--center">The source code for our documentation website can be found in the GitHub link in the navbar at the top of every page.</p>  
             </div>

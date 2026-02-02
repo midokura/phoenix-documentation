@@ -102,12 +102,17 @@
           }
         },
         {
-          "name": "v1.6",
-          "label": "v1.6",
+          "name": "v1.7",
+          "label": "v1.7",
           "isLast": true,
           "path": "/phoenix-documentation/docs",
-          "mainDocId": "service-operator/intro",
+          "mainDocId": "OPERATOR_REFERENCE",
           "docs": [
+            {
+              "id": "OPERATOR_REFERENCE",
+              "path": "/phoenix-documentation/docs/OPERATOR_REFERENCE",
+              "sidebar": "tutorialSidebar"
+            },
             {
               "id": "service-operator/CEPH_SETUP",
               "path": "/phoenix-documentation/docs/service-operator/CEPH_SETUP",
@@ -188,7 +193,100 @@
           "sidebars": {
             "tutorialSidebar": {
               "link": {
-                "path": "/phoenix-documentation/docs/category/service-operator",
+                "path": "/phoenix-documentation/docs/OPERATOR_REFERENCE",
+                "label": "OPERATOR_REFERENCE"
+              }
+            }
+          }
+        },
+        {
+          "name": "v1.6",
+          "label": "v1.6",
+          "isLast": false,
+          "path": "/phoenix-documentation/docs/v1.6",
+          "mainDocId": "service-operator/intro",
+          "docs": [
+            {
+              "id": "service-operator/CEPH_SETUP",
+              "path": "/phoenix-documentation/docs/v1.6/service-operator/CEPH_SETUP",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "service-operator/DEPLOYMENT",
+              "path": "/phoenix-documentation/docs/v1.6/service-operator/DEPLOYMENT",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "service-operator/GHCR_AUTHENTICATION",
+              "path": "/phoenix-documentation/docs/v1.6/service-operator/GHCR_AUTHENTICATION",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "service-operator/GOOGLE_SSO_SETUP",
+              "path": "/phoenix-documentation/docs/v1.6/service-operator/GOOGLE_SSO_SETUP",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "service-operator/IAAS_CONSOLE_CONFIGURATION",
+              "path": "/phoenix-documentation/docs/v1.6/service-operator/IAAS_CONSOLE_CONFIGURATION",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "service-operator/INSTALL_BAREMETAL_NODE",
+              "path": "/phoenix-documentation/docs/v1.6/service-operator/INSTALL_BAREMETAL_NODE",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "service-operator/intro",
+              "path": "/phoenix-documentation/docs/v1.6/service-operator/intro",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "service-operator/NETWORK_CONTROL_NODE_SETUP",
+              "path": "/phoenix-documentation/docs/v1.6/service-operator/NETWORK_CONTROL_NODE_SETUP",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "service-operator/OBSERVABILITY_ALERTS",
+              "path": "/phoenix-documentation/docs/v1.6/service-operator/OBSERVABILITY_ALERTS",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "service-operator/OBSERVABILITY_DASHBOARDS",
+              "path": "/phoenix-documentation/docs/v1.6/service-operator/OBSERVABILITY_DASHBOARDS",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "service-operator/OPERATOR_API_GUIDE",
+              "path": "/phoenix-documentation/docs/v1.6/service-operator/OPERATOR_API_GUIDE",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "service-operator/OS_REQUIREMENTS",
+              "path": "/phoenix-documentation/docs/v1.6/service-operator/OS_REQUIREMENTS",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "service-operator/ROUTER_BOX_SETUP",
+              "path": "/phoenix-documentation/docs/v1.6/service-operator/ROUTER_BOX_SETUP",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "service-operator/VPN_CONFIGURATION",
+              "path": "/phoenix-documentation/docs/v1.6/service-operator/VPN_CONFIGURATION",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "/category/service-operator",
+              "path": "/phoenix-documentation/docs/v1.6/category/service-operator",
+              "sidebar": "tutorialSidebar"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "tutorialSidebar": {
+              "link": {
+                "path": "/phoenix-documentation/docs/v1.6/category/service-operator",
                 "label": "Service Operator"
               }
             }

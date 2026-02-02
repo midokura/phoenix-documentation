@@ -5,7 +5,7 @@
   "source": "@site/versioned_docs/version-v1.6/service-operator/CEPH_SETUP.md",
   "sourceDirName": "service-operator",
   "slug": "/service-operator/CEPH_SETUP",
-  "permalink": "/phoenix-documentation/docs/service-operator/CEPH_SETUP",
+  "permalink": "/phoenix-documentation/docs/v1.6/service-operator/CEPH_SETUP",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Service Operator Documentation",
-    "permalink": "/phoenix-documentation/docs/service-operator/intro"
+    "permalink": "/phoenix-documentation/docs/v1.6/service-operator/intro"
   },
   "next": {
     "title": "Deployment Scripts",
-    "permalink": "/phoenix-documentation/docs/service-operator/DEPLOYMENT"
+    "permalink": "/phoenix-documentation/docs/v1.6/service-operator/DEPLOYMENT"
   }
 }

@@ -40,6 +40,10 @@
     ]
   },
   "unlisted": false,
+  "prevItem": {
+    "title": "Phoenix v1.7",
+    "permalink": "/phoenix-documentation/blog/v1.7"
+  },
   "nextItem": {
     "title": "Phoenix v1.5",
     "permalink": "/phoenix-documentation/blog/v1.5"

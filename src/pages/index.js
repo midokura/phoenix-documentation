@@ -94,7 +94,7 @@ function Home() {
               <div class="container1">
                 <div>
                   <h3 className="text--center">Documentation</h3>
-                  <p className="text--left">Our documentation is focussed around managing your Phoenix IaaS platform. Here you will learn how to start simple and move progressively through all aspects of your Midokura AI GPU tech stack, from setting up and configuring your storage cluster right through to more complex tasks, such as setting up router boxes to host bootstrap VMs.</p>
+                  <p className="text--left">Our documentation is focussed around managing your AI Factory IaaS platform. Here you will learn how to start simple and move progressively through all aspects of your Midokura AI GPU tech stack, from setting up and configuring your storage cluster right through to more complex tasks, such as setting up router boxes to host bootstrap VMs.</p>
                 </div>
               </div>
 

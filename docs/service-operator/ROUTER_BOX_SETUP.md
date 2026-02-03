@@ -193,6 +193,34 @@ packages:
   - python3
   - python3-pip
   - python3-venv
+network:
+  version: 2
+  ethernets:
+    all:
+      match:
+        name: "e*"
+      dhcp4: true
+      nameservers:
+        addresses:
+          - 192.168.33.251 # OpenWRT router IP
+          - 8.8.8.8
+        search:
+          - "phoenix.tyo"
+          - "tyo"
+
+      dhcp4: false
+#      macaddress: "00:ec:ef:7a:f3:8f"
+      routes:
+      - metric: 200
+        to: "default"
+        via: "192.168.32.1"
+      - metric: 100
+        to: "default"
+        via: "192.168.33.251" # router-0.tyo
+#      - metric: 99
+#        to: 10.30.0.0/16
+#        via: "192.168.33.251" # router-0.tyo
+
 EOF
 touch meta-data
 

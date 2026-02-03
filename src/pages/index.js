@@ -87,7 +87,7 @@ function Home() {
       <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <section className={styles.features}>
           <div className="container">
-              <h2 className="text--center">Documentation organised by version and backed up with concise Release Notes</h2>
+              <h3 className="text--center">Documentation organised by version and backed up with concise Release Notes</h3>
               <p>**********</p>
             <div class="container1">
 

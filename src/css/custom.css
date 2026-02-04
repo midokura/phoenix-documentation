@@ -39,7 +39,7 @@
   background-image: linear-gradient(to right, #bed416, #4fcffd);
 }
 
-.container1 {
+.panel {
   display: flex;
   flex-direction: row;
   margin-right: 1%;
@@ -49,7 +49,7 @@
 }
 
 @media (max-width: 600px) {
-  .container1 {
+  .panel {
     flex-direction: column;
   }
 }

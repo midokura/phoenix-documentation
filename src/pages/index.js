@@ -88,16 +88,16 @@ function Home() {
         <section className={styles.features}>
           <div className="container">
               <h3 className="text--center">Documentation organised by version and backed up with concise Release Notes</h3>
-            <div class="container1">
+            <div class="panel">
 
-              <div class="container1">
+              <div class="panel">
                 <div>
                   <h3 className="text--center">Documentation</h3>
                   <p className="text--left">Our documentation is focussed around managing your AI Factory IaaS platform. Here you will learn how to start simple and move progressively through all aspects of your Midokura AI GPU tech stack, from setting up and configuring your storage cluster right through to more complex tasks, such as setting up router boxes to host bootstrap VMs.</p>
                 </div>
               </div>
 
-              <div class="container1">
+              <div class="panel">
                 <div>
                   <h3 className="text--center">Release Notes</h3>
                   <p className="text--left">Every new release of our system will be signalled to you by the arrival of a version-specific set of release notes in your inbox. These release notes, hosted here on this website, will, in clear and brief language, outline the important aspects of new and improved features, as well as flag up any changes or improvements to functional behaviour.</p>

@@ -48,6 +48,7 @@ sudo dd if=/path/to/ubuntu-24.04.3-live-server-amd64.iso of=/dev/sdX bs=4M statu
 Create a `user-data` file similar to the following (adjust values as needed):
 
 ```yaml
+#cloud-config
 autoinstall:
   version: 1
   early-commands:

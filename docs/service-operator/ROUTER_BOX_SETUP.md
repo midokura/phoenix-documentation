@@ -194,6 +194,16 @@ packages:
   - python3
   - python3-pip
   - python3-venv
+write_files:
+  - path: /etc/netplan/99-custom-dns.yaml
+    content: |
+      network:
+        version: 2
+        ethernets:
+          eth0:
+            nameservers:
+              addresses: [192.168.33.251, 8.8.8.8, 8.8.4.4] # First IP being OpenWRT router0
+              search: [example.com]
 EOF
 touch meta-data
 
@@ -206,7 +216,7 @@ sudo qemu-img create \
 
 # Create the VM
 sudo virt-install \
-  --name bastion0 \
+  --name deployment0 \
   --vcpus 2 \
   --memory 4096 \
   --disk $LIBVIRT_DIR/ubuntu-noble-vm.qcow2,device=disk \

@@ -55,7 +55,7 @@ autoinstall:
     - 'printf "letmein\nletmein" | sudo passwd ubuntu-server'
   locale: en_GB.UTF-8
   keyboard:
-    layout: en
+    layout: us
   user-data:
     timezone: Asia/Tokyo
     disable_root: false

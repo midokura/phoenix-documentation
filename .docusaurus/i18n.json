@@ -1,20 +1,31 @@
 {
   "defaultLocale": "en",
   "locales": [
-    "en"
+    "en",
+    "ja"
   ],
   "path": "i18n",
-  "currentLocale": "en",
+  "currentLocale": "ja",
   "localeConfigs": {
     "en": {
       "label": "English",
       "direction": "ltr",
-      "htmlLang": "en",
+      "htmlLang": "en-GB",
       "calendar": "gregory",
       "path": "en",
       "translate": false,
       "url": "https://midokura.github.io",
       "baseUrl": "/phoenix-documentation/"
+    },
+    "ja": {
+      "label": "日本語",
+      "direction": "ltr",
+      "htmlLang": "ja",
+      "calendar": "gregory",
+      "path": "ja",
+      "translate": true,
+      "url": "https://midokura.github.io",
+      "baseUrl": "/phoenix-documentation/ja/"
     }
   }
 }

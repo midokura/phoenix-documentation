@@ -1,0 +1,10 @@
+{
+  "copyright": {
+    "message": "©2026 Midokura",
+    "description": "The footer copyright"
+  },
+  "logo.alt": {
+    "message": "Midokura",
+    "description": "The alt text of footer logo"
+  }
+}

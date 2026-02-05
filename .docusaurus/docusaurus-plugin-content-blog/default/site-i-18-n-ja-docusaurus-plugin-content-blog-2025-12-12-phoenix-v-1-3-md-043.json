@@ -1,0 +1,51 @@
+{
+  "permalink": "/phoenix-documentation/ja/blog/v1.3",
+  "source": "@site/i18n/ja/docusaurus-plugin-content-blog/2025-12-12-phoenix-v1.3.md",
+  "title": "Phoenix v1.3",
+  "description": "Version 1.3 of Phoenix is now available. This is a small release that primarily includes bug fixes and minor improvements.",
+  "date": "2025-12-12T00:00:00.000Z",
+  "tags": [
+    {
+      "inline": false,
+      "label": "Phoenix",
+      "permalink": "/phoenix-documentation/ja/blog/tags/phoenix",
+      "description": "Phoenix tag description"
+    }
+  ],
+  "readingTime": 3.6,
+  "hasTruncateMarker": true,
+  "authors": [
+    {
+      "name": "Alexander Fandos",
+      "title": "Software Engineer @ Midokura",
+      "url": "https://github.com/alexfandos",
+      "page": {
+        "permalink": "/phoenix-documentation/ja/blog/authors/alexanderfandos"
+      },
+      "socials": {
+        "github": "https://github.com/alexfandos"
+      },
+      "imageURL": "https://avatars.githubusercontent.com/u/24229657?v=4",
+      "key": "alexanderfandos"
+    }
+  ],
+  "frontMatter": {
+    "slug": "v1.3",
+    "title": "Phoenix v1.3",
+    "authors": [
+      "alexanderfandos"
+    ],
+    "tags": [
+      "phoenix"
+    ]
+  },
+  "unlisted": false,
+  "prevItem": {
+    "title": "Phoenix v1.4",
+    "permalink": "/phoenix-documentation/ja/blog/v1.4"
+  },
+  "nextItem": {
+    "title": "Phoenix v1.2",
+    "permalink": "/phoenix-documentation/ja/blog/v1.2"
+  }
+}

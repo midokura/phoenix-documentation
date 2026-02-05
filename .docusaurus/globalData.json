@@ -1,93 +1,93 @@
 {
   "docusaurus-plugin-content-docs": {
     "default": {
-      "path": "/phoenix-documentation/docs",
+      "path": "/phoenix-documentation/ja/docs",
       "versions": [
         {
           "name": "current",
           "label": "Next",
           "isLast": false,
-          "path": "/phoenix-documentation/docs/next",
+          "path": "/phoenix-documentation/ja/docs/next",
           "mainDocId": "OPERATOR_REFERENCE",
           "docs": [
             {
               "id": "OPERATOR_REFERENCE",
-              "path": "/phoenix-documentation/docs/next/OPERATOR_REFERENCE",
+              "path": "/phoenix-documentation/ja/docs/next/OPERATOR_REFERENCE",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/CEPH_SETUP",
-              "path": "/phoenix-documentation/docs/next/service-operator/CEPH_SETUP",
+              "path": "/phoenix-documentation/ja/docs/next/service-operator/CEPH_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/DEPLOYMENT",
-              "path": "/phoenix-documentation/docs/next/service-operator/DEPLOYMENT",
+              "path": "/phoenix-documentation/ja/docs/next/service-operator/DEPLOYMENT",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/GHCR_AUTHENTICATION",
-              "path": "/phoenix-documentation/docs/next/service-operator/GHCR_AUTHENTICATION",
+              "path": "/phoenix-documentation/ja/docs/next/service-operator/GHCR_AUTHENTICATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/GOOGLE_SSO_SETUP",
-              "path": "/phoenix-documentation/docs/next/service-operator/GOOGLE_SSO_SETUP",
+              "path": "/phoenix-documentation/ja/docs/next/service-operator/GOOGLE_SSO_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/IAAS_CONSOLE_CONFIGURATION",
-              "path": "/phoenix-documentation/docs/next/service-operator/IAAS_CONSOLE_CONFIGURATION",
+              "path": "/phoenix-documentation/ja/docs/next/service-operator/IAAS_CONSOLE_CONFIGURATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/INSTALL_BAREMETAL_NODE",
-              "path": "/phoenix-documentation/docs/next/service-operator/INSTALL_BAREMETAL_NODE",
+              "path": "/phoenix-documentation/ja/docs/next/service-operator/INSTALL_BAREMETAL_NODE",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/intro",
-              "path": "/phoenix-documentation/docs/next/service-operator/intro",
+              "path": "/phoenix-documentation/ja/docs/next/service-operator/intro",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/NETWORK_CONTROL_NODE_SETUP",
-              "path": "/phoenix-documentation/docs/next/service-operator/NETWORK_CONTROL_NODE_SETUP",
+              "path": "/phoenix-documentation/ja/docs/next/service-operator/NETWORK_CONTROL_NODE_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OBSERVABILITY_ALERTS",
-              "path": "/phoenix-documentation/docs/next/service-operator/OBSERVABILITY_ALERTS",
+              "path": "/phoenix-documentation/ja/docs/next/service-operator/OBSERVABILITY_ALERTS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OBSERVABILITY_DASHBOARDS",
-              "path": "/phoenix-documentation/docs/next/service-operator/OBSERVABILITY_DASHBOARDS",
+              "path": "/phoenix-documentation/ja/docs/next/service-operator/OBSERVABILITY_DASHBOARDS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OPERATOR_API_GUIDE",
-              "path": "/phoenix-documentation/docs/next/service-operator/OPERATOR_API_GUIDE",
+              "path": "/phoenix-documentation/ja/docs/next/service-operator/OPERATOR_API_GUIDE",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OS_REQUIREMENTS",
-              "path": "/phoenix-documentation/docs/next/service-operator/OS_REQUIREMENTS",
+              "path": "/phoenix-documentation/ja/docs/next/service-operator/OS_REQUIREMENTS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/ROUTER_BOX_SETUP",
-              "path": "/phoenix-documentation/docs/next/service-operator/ROUTER_BOX_SETUP",
+              "path": "/phoenix-documentation/ja/docs/next/service-operator/ROUTER_BOX_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/VPN_CONFIGURATION",
-              "path": "/phoenix-documentation/docs/next/service-operator/VPN_CONFIGURATION",
+              "path": "/phoenix-documentation/ja/docs/next/service-operator/VPN_CONFIGURATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "/category/service-operator",
-              "path": "/phoenix-documentation/docs/next/category/service-operator",
+              "path": "/phoenix-documentation/ja/docs/next/category/service-operator",
               "sidebar": "tutorialSidebar"
             }
           ],
@@ -95,7 +95,7 @@
           "sidebars": {
             "tutorialSidebar": {
               "link": {
-                "path": "/phoenix-documentation/docs/next/OPERATOR_REFERENCE",
+                "path": "/phoenix-documentation/ja/docs/next/OPERATOR_REFERENCE",
                 "label": "OPERATOR_REFERENCE"
               }
             }
@@ -105,87 +105,87 @@
           "name": "v1.7",
           "label": "v1.7",
           "isLast": true,
-          "path": "/phoenix-documentation/docs",
+          "path": "/phoenix-documentation/ja/docs",
           "mainDocId": "OPERATOR_REFERENCE",
           "docs": [
             {
               "id": "OPERATOR_REFERENCE",
-              "path": "/phoenix-documentation/docs/OPERATOR_REFERENCE",
+              "path": "/phoenix-documentation/ja/docs/OPERATOR_REFERENCE",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/CEPH_SETUP",
-              "path": "/phoenix-documentation/docs/service-operator/CEPH_SETUP",
+              "path": "/phoenix-documentation/ja/docs/service-operator/CEPH_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/DEPLOYMENT",
-              "path": "/phoenix-documentation/docs/service-operator/DEPLOYMENT",
+              "path": "/phoenix-documentation/ja/docs/service-operator/DEPLOYMENT",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/GHCR_AUTHENTICATION",
-              "path": "/phoenix-documentation/docs/service-operator/GHCR_AUTHENTICATION",
+              "path": "/phoenix-documentation/ja/docs/service-operator/GHCR_AUTHENTICATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/GOOGLE_SSO_SETUP",
-              "path": "/phoenix-documentation/docs/service-operator/GOOGLE_SSO_SETUP",
+              "path": "/phoenix-documentation/ja/docs/service-operator/GOOGLE_SSO_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/IAAS_CONSOLE_CONFIGURATION",
-              "path": "/phoenix-documentation/docs/service-operator/IAAS_CONSOLE_CONFIGURATION",
+              "path": "/phoenix-documentation/ja/docs/service-operator/IAAS_CONSOLE_CONFIGURATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/INSTALL_BAREMETAL_NODE",
-              "path": "/phoenix-documentation/docs/service-operator/INSTALL_BAREMETAL_NODE",
+              "path": "/phoenix-documentation/ja/docs/service-operator/INSTALL_BAREMETAL_NODE",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/intro",
-              "path": "/phoenix-documentation/docs/service-operator/intro",
+              "path": "/phoenix-documentation/ja/docs/service-operator/intro",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/NETWORK_CONTROL_NODE_SETUP",
-              "path": "/phoenix-documentation/docs/service-operator/NETWORK_CONTROL_NODE_SETUP",
+              "path": "/phoenix-documentation/ja/docs/service-operator/NETWORK_CONTROL_NODE_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OBSERVABILITY_ALERTS",
-              "path": "/phoenix-documentation/docs/service-operator/OBSERVABILITY_ALERTS",
+              "path": "/phoenix-documentation/ja/docs/service-operator/OBSERVABILITY_ALERTS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OBSERVABILITY_DASHBOARDS",
-              "path": "/phoenix-documentation/docs/service-operator/OBSERVABILITY_DASHBOARDS",
+              "path": "/phoenix-documentation/ja/docs/service-operator/OBSERVABILITY_DASHBOARDS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OPERATOR_API_GUIDE",
-              "path": "/phoenix-documentation/docs/service-operator/OPERATOR_API_GUIDE",
+              "path": "/phoenix-documentation/ja/docs/service-operator/OPERATOR_API_GUIDE",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OS_REQUIREMENTS",
-              "path": "/phoenix-documentation/docs/service-operator/OS_REQUIREMENTS",
+              "path": "/phoenix-documentation/ja/docs/service-operator/OS_REQUIREMENTS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/ROUTER_BOX_SETUP",
-              "path": "/phoenix-documentation/docs/service-operator/ROUTER_BOX_SETUP",
+              "path": "/phoenix-documentation/ja/docs/service-operator/ROUTER_BOX_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/VPN_CONFIGURATION",
-              "path": "/phoenix-documentation/docs/service-operator/VPN_CONFIGURATION",
+              "path": "/phoenix-documentation/ja/docs/service-operator/VPN_CONFIGURATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "/category/service-operator",
-              "path": "/phoenix-documentation/docs/category/service-operator",
+              "path": "/phoenix-documentation/ja/docs/category/service-operator",
               "sidebar": "tutorialSidebar"
             }
           ],
@@ -193,7 +193,7 @@
           "sidebars": {
             "tutorialSidebar": {
               "link": {
-                "path": "/phoenix-documentation/docs/OPERATOR_REFERENCE",
+                "path": "/phoenix-documentation/ja/docs/OPERATOR_REFERENCE",
                 "label": "OPERATOR_REFERENCE"
               }
             }
@@ -203,82 +203,82 @@
           "name": "v1.6",
           "label": "v1.6",
           "isLast": false,
-          "path": "/phoenix-documentation/docs/v1.6",
+          "path": "/phoenix-documentation/ja/docs/v1.6",
           "mainDocId": "service-operator/intro",
           "docs": [
             {
               "id": "service-operator/CEPH_SETUP",
-              "path": "/phoenix-documentation/docs/v1.6/service-operator/CEPH_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.6/service-operator/CEPH_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/DEPLOYMENT",
-              "path": "/phoenix-documentation/docs/v1.6/service-operator/DEPLOYMENT",
+              "path": "/phoenix-documentation/ja/docs/v1.6/service-operator/DEPLOYMENT",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/GHCR_AUTHENTICATION",
-              "path": "/phoenix-documentation/docs/v1.6/service-operator/GHCR_AUTHENTICATION",
+              "path": "/phoenix-documentation/ja/docs/v1.6/service-operator/GHCR_AUTHENTICATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/GOOGLE_SSO_SETUP",
-              "path": "/phoenix-documentation/docs/v1.6/service-operator/GOOGLE_SSO_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.6/service-operator/GOOGLE_SSO_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/IAAS_CONSOLE_CONFIGURATION",
-              "path": "/phoenix-documentation/docs/v1.6/service-operator/IAAS_CONSOLE_CONFIGURATION",
+              "path": "/phoenix-documentation/ja/docs/v1.6/service-operator/IAAS_CONSOLE_CONFIGURATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/INSTALL_BAREMETAL_NODE",
-              "path": "/phoenix-documentation/docs/v1.6/service-operator/INSTALL_BAREMETAL_NODE",
+              "path": "/phoenix-documentation/ja/docs/v1.6/service-operator/INSTALL_BAREMETAL_NODE",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/intro",
-              "path": "/phoenix-documentation/docs/v1.6/service-operator/intro",
+              "path": "/phoenix-documentation/ja/docs/v1.6/service-operator/intro",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/NETWORK_CONTROL_NODE_SETUP",
-              "path": "/phoenix-documentation/docs/v1.6/service-operator/NETWORK_CONTROL_NODE_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.6/service-operator/NETWORK_CONTROL_NODE_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OBSERVABILITY_ALERTS",
-              "path": "/phoenix-documentation/docs/v1.6/service-operator/OBSERVABILITY_ALERTS",
+              "path": "/phoenix-documentation/ja/docs/v1.6/service-operator/OBSERVABILITY_ALERTS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OBSERVABILITY_DASHBOARDS",
-              "path": "/phoenix-documentation/docs/v1.6/service-operator/OBSERVABILITY_DASHBOARDS",
+              "path": "/phoenix-documentation/ja/docs/v1.6/service-operator/OBSERVABILITY_DASHBOARDS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OPERATOR_API_GUIDE",
-              "path": "/phoenix-documentation/docs/v1.6/service-operator/OPERATOR_API_GUIDE",
+              "path": "/phoenix-documentation/ja/docs/v1.6/service-operator/OPERATOR_API_GUIDE",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OS_REQUIREMENTS",
-              "path": "/phoenix-documentation/docs/v1.6/service-operator/OS_REQUIREMENTS",
+              "path": "/phoenix-documentation/ja/docs/v1.6/service-operator/OS_REQUIREMENTS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/ROUTER_BOX_SETUP",
-              "path": "/phoenix-documentation/docs/v1.6/service-operator/ROUTER_BOX_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.6/service-operator/ROUTER_BOX_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/VPN_CONFIGURATION",
-              "path": "/phoenix-documentation/docs/v1.6/service-operator/VPN_CONFIGURATION",
+              "path": "/phoenix-documentation/ja/docs/v1.6/service-operator/VPN_CONFIGURATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "/category/service-operator",
-              "path": "/phoenix-documentation/docs/v1.6/category/service-operator",
+              "path": "/phoenix-documentation/ja/docs/v1.6/category/service-operator",
               "sidebar": "tutorialSidebar"
             }
           ],
@@ -286,7 +286,7 @@
           "sidebars": {
             "tutorialSidebar": {
               "link": {
-                "path": "/phoenix-documentation/docs/v1.6/category/service-operator",
+                "path": "/phoenix-documentation/ja/docs/v1.6/category/service-operator",
                 "label": "Service Operator"
               }
             }
@@ -296,82 +296,82 @@
           "name": "v1.5",
           "label": "v1.5",
           "isLast": false,
-          "path": "/phoenix-documentation/docs/v1.5",
+          "path": "/phoenix-documentation/ja/docs/v1.5",
           "mainDocId": "service-operator/intro",
           "docs": [
             {
               "id": "service-operator/CEPH_SETUP",
-              "path": "/phoenix-documentation/docs/v1.5/service-operator/CEPH_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.5/service-operator/CEPH_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/DEPLOYMENT",
-              "path": "/phoenix-documentation/docs/v1.5/service-operator/DEPLOYMENT",
+              "path": "/phoenix-documentation/ja/docs/v1.5/service-operator/DEPLOYMENT",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/GHCR_AUTHENTICATION",
-              "path": "/phoenix-documentation/docs/v1.5/service-operator/GHCR_AUTHENTICATION",
+              "path": "/phoenix-documentation/ja/docs/v1.5/service-operator/GHCR_AUTHENTICATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/GOOGLE_SSO_SETUP",
-              "path": "/phoenix-documentation/docs/v1.5/service-operator/GOOGLE_SSO_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.5/service-operator/GOOGLE_SSO_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/IAAS_CONSOLE_CONFIGURATION",
-              "path": "/phoenix-documentation/docs/v1.5/service-operator/IAAS_CONSOLE_CONFIGURATION",
+              "path": "/phoenix-documentation/ja/docs/v1.5/service-operator/IAAS_CONSOLE_CONFIGURATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/INSTALL_BAREMETAL_NODE",
-              "path": "/phoenix-documentation/docs/v1.5/service-operator/INSTALL_BAREMETAL_NODE",
+              "path": "/phoenix-documentation/ja/docs/v1.5/service-operator/INSTALL_BAREMETAL_NODE",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/intro",
-              "path": "/phoenix-documentation/docs/v1.5/service-operator/intro",
+              "path": "/phoenix-documentation/ja/docs/v1.5/service-operator/intro",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/NETWORK_CONTROL_NODE_SETUP",
-              "path": "/phoenix-documentation/docs/v1.5/service-operator/NETWORK_CONTROL_NODE_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.5/service-operator/NETWORK_CONTROL_NODE_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OBSERVABILITY_ALERTS",
-              "path": "/phoenix-documentation/docs/v1.5/service-operator/OBSERVABILITY_ALERTS",
+              "path": "/phoenix-documentation/ja/docs/v1.5/service-operator/OBSERVABILITY_ALERTS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OBSERVABILITY_DASHBOARDS",
-              "path": "/phoenix-documentation/docs/v1.5/service-operator/OBSERVABILITY_DASHBOARDS",
+              "path": "/phoenix-documentation/ja/docs/v1.5/service-operator/OBSERVABILITY_DASHBOARDS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OPERATOR_API_GUIDE",
-              "path": "/phoenix-documentation/docs/v1.5/service-operator/OPERATOR_API_GUIDE",
+              "path": "/phoenix-documentation/ja/docs/v1.5/service-operator/OPERATOR_API_GUIDE",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OS_REQUIREMENTS",
-              "path": "/phoenix-documentation/docs/v1.5/service-operator/OS_REQUIREMENTS",
+              "path": "/phoenix-documentation/ja/docs/v1.5/service-operator/OS_REQUIREMENTS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/ROUTER_BOX_SETUP",
-              "path": "/phoenix-documentation/docs/v1.5/service-operator/ROUTER_BOX_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.5/service-operator/ROUTER_BOX_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/VPN_CONFIGURATION",
-              "path": "/phoenix-documentation/docs/v1.5/service-operator/VPN_CONFIGURATION",
+              "path": "/phoenix-documentation/ja/docs/v1.5/service-operator/VPN_CONFIGURATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "/category/service-operator",
-              "path": "/phoenix-documentation/docs/v1.5/category/service-operator",
+              "path": "/phoenix-documentation/ja/docs/v1.5/category/service-operator",
               "sidebar": "tutorialSidebar"
             }
           ],
@@ -379,7 +379,7 @@
           "sidebars": {
             "tutorialSidebar": {
               "link": {
-                "path": "/phoenix-documentation/docs/v1.5/category/service-operator",
+                "path": "/phoenix-documentation/ja/docs/v1.5/category/service-operator",
                 "label": "Service Operator"
               }
             }
@@ -389,77 +389,77 @@
           "name": "v1.4",
           "label": "v1.4",
           "isLast": false,
-          "path": "/phoenix-documentation/docs/v1.4",
+          "path": "/phoenix-documentation/ja/docs/v1.4",
           "mainDocId": "service-operator/intro",
           "docs": [
             {
               "id": "service-operator/CEPH_SETUP",
-              "path": "/phoenix-documentation/docs/v1.4/service-operator/CEPH_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.4/service-operator/CEPH_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/DEPLOYMENT",
-              "path": "/phoenix-documentation/docs/v1.4/service-operator/DEPLOYMENT",
+              "path": "/phoenix-documentation/ja/docs/v1.4/service-operator/DEPLOYMENT",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/GHCR_AUTHENTICATION",
-              "path": "/phoenix-documentation/docs/v1.4/service-operator/GHCR_AUTHENTICATION",
+              "path": "/phoenix-documentation/ja/docs/v1.4/service-operator/GHCR_AUTHENTICATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/GOOGLE_SSO_SETUP",
-              "path": "/phoenix-documentation/docs/v1.4/service-operator/GOOGLE_SSO_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.4/service-operator/GOOGLE_SSO_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/IAAS_CONSOLE_CONFIGURATION",
-              "path": "/phoenix-documentation/docs/v1.4/service-operator/IAAS_CONSOLE_CONFIGURATION",
+              "path": "/phoenix-documentation/ja/docs/v1.4/service-operator/IAAS_CONSOLE_CONFIGURATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/INSTALL_BAREMETAL_NODE",
-              "path": "/phoenix-documentation/docs/v1.4/service-operator/INSTALL_BAREMETAL_NODE",
+              "path": "/phoenix-documentation/ja/docs/v1.4/service-operator/INSTALL_BAREMETAL_NODE",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/intro",
-              "path": "/phoenix-documentation/docs/v1.4/service-operator/intro",
+              "path": "/phoenix-documentation/ja/docs/v1.4/service-operator/intro",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/NETWORK_CONTROL_NODE_SETUP",
-              "path": "/phoenix-documentation/docs/v1.4/service-operator/NETWORK_CONTROL_NODE_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.4/service-operator/NETWORK_CONTROL_NODE_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OBSERVABILITY_ALERTS",
-              "path": "/phoenix-documentation/docs/v1.4/service-operator/OBSERVABILITY_ALERTS",
+              "path": "/phoenix-documentation/ja/docs/v1.4/service-operator/OBSERVABILITY_ALERTS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OBSERVABILITY_DASHBOARDS",
-              "path": "/phoenix-documentation/docs/v1.4/service-operator/OBSERVABILITY_DASHBOARDS",
+              "path": "/phoenix-documentation/ja/docs/v1.4/service-operator/OBSERVABILITY_DASHBOARDS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OPERATOR_API_GUIDE",
-              "path": "/phoenix-documentation/docs/v1.4/service-operator/OPERATOR_API_GUIDE",
+              "path": "/phoenix-documentation/ja/docs/v1.4/service-operator/OPERATOR_API_GUIDE",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OS_REQUIREMENTS",
-              "path": "/phoenix-documentation/docs/v1.4/service-operator/OS_REQUIREMENTS",
+              "path": "/phoenix-documentation/ja/docs/v1.4/service-operator/OS_REQUIREMENTS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/VPN_CONFIGURATION",
-              "path": "/phoenix-documentation/docs/v1.4/service-operator/VPN_CONFIGURATION",
+              "path": "/phoenix-documentation/ja/docs/v1.4/service-operator/VPN_CONFIGURATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "/category/service-operator",
-              "path": "/phoenix-documentation/docs/v1.4/category/service-operator",
+              "path": "/phoenix-documentation/ja/docs/v1.4/category/service-operator",
               "sidebar": "tutorialSidebar"
             }
           ],
@@ -467,7 +467,7 @@
           "sidebars": {
             "tutorialSidebar": {
               "link": {
-                "path": "/phoenix-documentation/docs/v1.4/category/service-operator",
+                "path": "/phoenix-documentation/ja/docs/v1.4/category/service-operator",
                 "label": "Service Operator"
               }
             }
@@ -477,77 +477,77 @@
           "name": "v1.3",
           "label": "v1.3",
           "isLast": false,
-          "path": "/phoenix-documentation/docs/v1.3",
+          "path": "/phoenix-documentation/ja/docs/v1.3",
           "mainDocId": "service-operator/intro",
           "docs": [
             {
               "id": "service-operator/CEPH_SETUP",
-              "path": "/phoenix-documentation/docs/v1.3/service-operator/CEPH_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.3/service-operator/CEPH_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/DEPLOYMENT",
-              "path": "/phoenix-documentation/docs/v1.3/service-operator/DEPLOYMENT",
+              "path": "/phoenix-documentation/ja/docs/v1.3/service-operator/DEPLOYMENT",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/GHCR_AUTHENTICATION",
-              "path": "/phoenix-documentation/docs/v1.3/service-operator/GHCR_AUTHENTICATION",
+              "path": "/phoenix-documentation/ja/docs/v1.3/service-operator/GHCR_AUTHENTICATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/GOOGLE_SSO_SETUP",
-              "path": "/phoenix-documentation/docs/v1.3/service-operator/GOOGLE_SSO_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.3/service-operator/GOOGLE_SSO_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/IAAS_CONSOLE_CONFIGURATION",
-              "path": "/phoenix-documentation/docs/v1.3/service-operator/IAAS_CONSOLE_CONFIGURATION",
+              "path": "/phoenix-documentation/ja/docs/v1.3/service-operator/IAAS_CONSOLE_CONFIGURATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/INSTALL_BAREMETAL_NODE",
-              "path": "/phoenix-documentation/docs/v1.3/service-operator/INSTALL_BAREMETAL_NODE",
+              "path": "/phoenix-documentation/ja/docs/v1.3/service-operator/INSTALL_BAREMETAL_NODE",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/intro",
-              "path": "/phoenix-documentation/docs/v1.3/service-operator/intro",
+              "path": "/phoenix-documentation/ja/docs/v1.3/service-operator/intro",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/NETWORK_CONTROL_NODE_SETUP",
-              "path": "/phoenix-documentation/docs/v1.3/service-operator/NETWORK_CONTROL_NODE_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.3/service-operator/NETWORK_CONTROL_NODE_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OBSERVABILITY_ALERTS",
-              "path": "/phoenix-documentation/docs/v1.3/service-operator/OBSERVABILITY_ALERTS",
+              "path": "/phoenix-documentation/ja/docs/v1.3/service-operator/OBSERVABILITY_ALERTS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OBSERVABILITY_DASHBOARDS",
-              "path": "/phoenix-documentation/docs/v1.3/service-operator/OBSERVABILITY_DASHBOARDS",
+              "path": "/phoenix-documentation/ja/docs/v1.3/service-operator/OBSERVABILITY_DASHBOARDS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OPERATOR_API_GUIDE",
-              "path": "/phoenix-documentation/docs/v1.3/service-operator/OPERATOR_API_GUIDE",
+              "path": "/phoenix-documentation/ja/docs/v1.3/service-operator/OPERATOR_API_GUIDE",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OS_REQUIREMENTS",
-              "path": "/phoenix-documentation/docs/v1.3/service-operator/OS_REQUIREMENTS",
+              "path": "/phoenix-documentation/ja/docs/v1.3/service-operator/OS_REQUIREMENTS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/VPN_CONFIGURATION",
-              "path": "/phoenix-documentation/docs/v1.3/service-operator/VPN_CONFIGURATION",
+              "path": "/phoenix-documentation/ja/docs/v1.3/service-operator/VPN_CONFIGURATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "/category/service-operator",
-              "path": "/phoenix-documentation/docs/v1.3/category/service-operator",
+              "path": "/phoenix-documentation/ja/docs/v1.3/category/service-operator",
               "sidebar": "tutorialSidebar"
             }
           ],
@@ -555,7 +555,7 @@
           "sidebars": {
             "tutorialSidebar": {
               "link": {
-                "path": "/phoenix-documentation/docs/v1.3/category/service-operator",
+                "path": "/phoenix-documentation/ja/docs/v1.3/category/service-operator",
                 "label": "Service Operator"
               }
             }
@@ -565,77 +565,77 @@
           "name": "v1.2",
           "label": "v1.2",
           "isLast": false,
-          "path": "/phoenix-documentation/docs/v1.2",
+          "path": "/phoenix-documentation/ja/docs/v1.2",
           "mainDocId": "service-operator/intro",
           "docs": [
             {
               "id": "service-operator/CEPH_SETUP",
-              "path": "/phoenix-documentation/docs/v1.2/service-operator/CEPH_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.2/service-operator/CEPH_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/DEPLOYMENT",
-              "path": "/phoenix-documentation/docs/v1.2/service-operator/DEPLOYMENT",
+              "path": "/phoenix-documentation/ja/docs/v1.2/service-operator/DEPLOYMENT",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/GHCR_AUTHENTICATION",
-              "path": "/phoenix-documentation/docs/v1.2/service-operator/GHCR_AUTHENTICATION",
+              "path": "/phoenix-documentation/ja/docs/v1.2/service-operator/GHCR_AUTHENTICATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/GOOGLE_SSO_SETUP",
-              "path": "/phoenix-documentation/docs/v1.2/service-operator/GOOGLE_SSO_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.2/service-operator/GOOGLE_SSO_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/IAAS_CONSOLE_CONFIGURATION",
-              "path": "/phoenix-documentation/docs/v1.2/service-operator/IAAS_CONSOLE_CONFIGURATION",
+              "path": "/phoenix-documentation/ja/docs/v1.2/service-operator/IAAS_CONSOLE_CONFIGURATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/INSTALL_BAREMETAL_NODE",
-              "path": "/phoenix-documentation/docs/v1.2/service-operator/INSTALL_BAREMETAL_NODE",
+              "path": "/phoenix-documentation/ja/docs/v1.2/service-operator/INSTALL_BAREMETAL_NODE",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/intro",
-              "path": "/phoenix-documentation/docs/v1.2/service-operator/intro",
+              "path": "/phoenix-documentation/ja/docs/v1.2/service-operator/intro",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/NETWORK_CONTROL_NODE_SETUP",
-              "path": "/phoenix-documentation/docs/v1.2/service-operator/NETWORK_CONTROL_NODE_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.2/service-operator/NETWORK_CONTROL_NODE_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OBSERVABILITY_ALERTS",
-              "path": "/phoenix-documentation/docs/v1.2/service-operator/OBSERVABILITY_ALERTS",
+              "path": "/phoenix-documentation/ja/docs/v1.2/service-operator/OBSERVABILITY_ALERTS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OBSERVABILITY_DASHBOARDS",
-              "path": "/phoenix-documentation/docs/v1.2/service-operator/OBSERVABILITY_DASHBOARDS",
+              "path": "/phoenix-documentation/ja/docs/v1.2/service-operator/OBSERVABILITY_DASHBOARDS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OPERATOR_API_GUIDE",
-              "path": "/phoenix-documentation/docs/v1.2/service-operator/OPERATOR_API_GUIDE",
+              "path": "/phoenix-documentation/ja/docs/v1.2/service-operator/OPERATOR_API_GUIDE",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OS_REQUIREMENTS",
-              "path": "/phoenix-documentation/docs/v1.2/service-operator/OS_REQUIREMENTS",
+              "path": "/phoenix-documentation/ja/docs/v1.2/service-operator/OS_REQUIREMENTS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/VPN_CONFIGURATION",
-              "path": "/phoenix-documentation/docs/v1.2/service-operator/VPN_CONFIGURATION",
+              "path": "/phoenix-documentation/ja/docs/v1.2/service-operator/VPN_CONFIGURATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "/category/service-operator",
-              "path": "/phoenix-documentation/docs/v1.2/category/service-operator",
+              "path": "/phoenix-documentation/ja/docs/v1.2/category/service-operator",
               "sidebar": "tutorialSidebar"
             }
           ],
@@ -643,7 +643,7 @@
           "sidebars": {
             "tutorialSidebar": {
               "link": {
-                "path": "/phoenix-documentation/docs/v1.2/category/service-operator",
+                "path": "/phoenix-documentation/ja/docs/v1.2/category/service-operator",
                 "label": "Service Operator"
               }
             }
@@ -653,77 +653,77 @@
           "name": "v1.1",
           "label": "v1.1",
           "isLast": false,
-          "path": "/phoenix-documentation/docs/v1.1",
+          "path": "/phoenix-documentation/ja/docs/v1.1",
           "mainDocId": "service-operator/intro",
           "docs": [
             {
               "id": "service-operator/CEPH_SETUP",
-              "path": "/phoenix-documentation/docs/v1.1/service-operator/CEPH_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.1/service-operator/CEPH_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/DEPLOYMENT",
-              "path": "/phoenix-documentation/docs/v1.1/service-operator/DEPLOYMENT",
+              "path": "/phoenix-documentation/ja/docs/v1.1/service-operator/DEPLOYMENT",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/GHCR_AUTHENTICATION",
-              "path": "/phoenix-documentation/docs/v1.1/service-operator/GHCR_AUTHENTICATION",
+              "path": "/phoenix-documentation/ja/docs/v1.1/service-operator/GHCR_AUTHENTICATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/GOOGLE_SSO_SETUP",
-              "path": "/phoenix-documentation/docs/v1.1/service-operator/GOOGLE_SSO_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.1/service-operator/GOOGLE_SSO_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/IAAS_CONSOLE_CONFIGURATION",
-              "path": "/phoenix-documentation/docs/v1.1/service-operator/IAAS_CONSOLE_CONFIGURATION",
+              "path": "/phoenix-documentation/ja/docs/v1.1/service-operator/IAAS_CONSOLE_CONFIGURATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/INSTALL_BAREMETAL_NODE",
-              "path": "/phoenix-documentation/docs/v1.1/service-operator/INSTALL_BAREMETAL_NODE",
+              "path": "/phoenix-documentation/ja/docs/v1.1/service-operator/INSTALL_BAREMETAL_NODE",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/intro",
-              "path": "/phoenix-documentation/docs/v1.1/service-operator/intro",
+              "path": "/phoenix-documentation/ja/docs/v1.1/service-operator/intro",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/NETWORK_CONTROL_NODE_SETUP",
-              "path": "/phoenix-documentation/docs/v1.1/service-operator/NETWORK_CONTROL_NODE_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.1/service-operator/NETWORK_CONTROL_NODE_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OBSERVABILITY_ALERTS",
-              "path": "/phoenix-documentation/docs/v1.1/service-operator/OBSERVABILITY_ALERTS",
+              "path": "/phoenix-documentation/ja/docs/v1.1/service-operator/OBSERVABILITY_ALERTS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OBSERVABILITY_DASHBOARDS",
-              "path": "/phoenix-documentation/docs/v1.1/service-operator/OBSERVABILITY_DASHBOARDS",
+              "path": "/phoenix-documentation/ja/docs/v1.1/service-operator/OBSERVABILITY_DASHBOARDS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OPERATOR_API_GUIDE",
-              "path": "/phoenix-documentation/docs/v1.1/service-operator/OPERATOR_API_GUIDE",
+              "path": "/phoenix-documentation/ja/docs/v1.1/service-operator/OPERATOR_API_GUIDE",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OS_REQUIREMENTS",
-              "path": "/phoenix-documentation/docs/v1.1/service-operator/OS_REQUIREMENTS",
+              "path": "/phoenix-documentation/ja/docs/v1.1/service-operator/OS_REQUIREMENTS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/VPN_CONFIGURATION",
-              "path": "/phoenix-documentation/docs/v1.1/service-operator/VPN_CONFIGURATION",
+              "path": "/phoenix-documentation/ja/docs/v1.1/service-operator/VPN_CONFIGURATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "/category/service-operator",
-              "path": "/phoenix-documentation/docs/v1.1/category/service-operator",
+              "path": "/phoenix-documentation/ja/docs/v1.1/category/service-operator",
               "sidebar": "tutorialSidebar"
             }
           ],
@@ -731,7 +731,7 @@
           "sidebars": {
             "tutorialSidebar": {
               "link": {
-                "path": "/phoenix-documentation/docs/v1.1/category/service-operator",
+                "path": "/phoenix-documentation/ja/docs/v1.1/category/service-operator",
                 "label": "Service Operator"
               }
             }
@@ -741,77 +741,77 @@
           "name": "v1.0",
           "label": "v1.0",
           "isLast": false,
-          "path": "/phoenix-documentation/docs/v1.0",
+          "path": "/phoenix-documentation/ja/docs/v1.0",
           "mainDocId": "service-operator/intro",
           "docs": [
             {
               "id": "service-operator/CEPH_SETUP",
-              "path": "/phoenix-documentation/docs/v1.0/service-operator/CEPH_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.0/service-operator/CEPH_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/DEPLOYMENT",
-              "path": "/phoenix-documentation/docs/v1.0/service-operator/DEPLOYMENT",
+              "path": "/phoenix-documentation/ja/docs/v1.0/service-operator/DEPLOYMENT",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/GHCR_AUTHENTICATION",
-              "path": "/phoenix-documentation/docs/v1.0/service-operator/GHCR_AUTHENTICATION",
+              "path": "/phoenix-documentation/ja/docs/v1.0/service-operator/GHCR_AUTHENTICATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/GOOGLE_SSO_SETUP",
-              "path": "/phoenix-documentation/docs/v1.0/service-operator/GOOGLE_SSO_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.0/service-operator/GOOGLE_SSO_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/IAAS_CONSOLE_CONFIGURATION",
-              "path": "/phoenix-documentation/docs/v1.0/service-operator/IAAS_CONSOLE_CONFIGURATION",
+              "path": "/phoenix-documentation/ja/docs/v1.0/service-operator/IAAS_CONSOLE_CONFIGURATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/INSTALL_BAREMETAL_NODE",
-              "path": "/phoenix-documentation/docs/v1.0/service-operator/INSTALL_BAREMETAL_NODE",
+              "path": "/phoenix-documentation/ja/docs/v1.0/service-operator/INSTALL_BAREMETAL_NODE",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/intro",
-              "path": "/phoenix-documentation/docs/v1.0/service-operator/intro",
+              "path": "/phoenix-documentation/ja/docs/v1.0/service-operator/intro",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/NETWORK_CONTROL_NODE_SETUP",
-              "path": "/phoenix-documentation/docs/v1.0/service-operator/NETWORK_CONTROL_NODE_SETUP",
+              "path": "/phoenix-documentation/ja/docs/v1.0/service-operator/NETWORK_CONTROL_NODE_SETUP",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OBSERVABILITY_ALERTS",
-              "path": "/phoenix-documentation/docs/v1.0/service-operator/OBSERVABILITY_ALERTS",
+              "path": "/phoenix-documentation/ja/docs/v1.0/service-operator/OBSERVABILITY_ALERTS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OBSERVABILITY_DASHBOARDS",
-              "path": "/phoenix-documentation/docs/v1.0/service-operator/OBSERVABILITY_DASHBOARDS",
+              "path": "/phoenix-documentation/ja/docs/v1.0/service-operator/OBSERVABILITY_DASHBOARDS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OPERATOR_API_GUIDE",
-              "path": "/phoenix-documentation/docs/v1.0/service-operator/OPERATOR_API_GUIDE",
+              "path": "/phoenix-documentation/ja/docs/v1.0/service-operator/OPERATOR_API_GUIDE",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/OS_REQUIREMENTS",
-              "path": "/phoenix-documentation/docs/v1.0/service-operator/OS_REQUIREMENTS",
+              "path": "/phoenix-documentation/ja/docs/v1.0/service-operator/OS_REQUIREMENTS",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "service-operator/VPN_CONFIGURATION",
-              "path": "/phoenix-documentation/docs/v1.0/service-operator/VPN_CONFIGURATION",
+              "path": "/phoenix-documentation/ja/docs/v1.0/service-operator/VPN_CONFIGURATION",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "/category/service-operator",
-              "path": "/phoenix-documentation/docs/v1.0/category/service-operator",
+              "path": "/phoenix-documentation/ja/docs/v1.0/category/service-operator",
               "sidebar": "tutorialSidebar"
             }
           ],
@@ -819,7 +819,7 @@
           "sidebars": {
             "tutorialSidebar": {
               "link": {
-                "path": "/phoenix-documentation/docs/v1.0/category/service-operator",
+                "path": "/phoenix-documentation/ja/docs/v1.0/category/service-operator",
                 "label": "Service Operator"
               }
             }

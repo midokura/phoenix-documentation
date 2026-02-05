@@ -1,0 +1,14 @@
+{
+  "version.label": {
+    "message": "v1.2",
+    "description": "The label for version v1.2"
+  },
+  "sidebar.tutorialSidebar.category.Service Operator": {
+    "message": "Service Operator",
+    "description": "The label for category 'Service Operator' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Service Operator.link.generated-index.description": {
+    "message": "Documentation for service operators managing the Phoenix IaaS platform.",
+    "description": "The generated-index page description for category 'Service Operator' in sidebar 'tutorialSidebar'"
+  }
+}

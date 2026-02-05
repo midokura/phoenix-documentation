@@ -1,0 +1,19 @@
+{
+  "id": "service-operator/VPN_CONFIGURATION",
+  "title": "VPN Configuration for Tenant Users",
+  "description": "Setting up the VPN for Tenant Users.",
+  "source": "@site/i18n/fr/docusaurus-plugin-content-docs/current/service-operator/VPN_CONFIGURATION.md",
+  "sourceDirName": "service-operator",
+  "slug": "/service-operator/VPN_CONFIGURATION",
+  "permalink": "/phoenix-documentation/fr/docs/next/service-operator/VPN_CONFIGURATION",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Router Box Setup",
+    "permalink": "/phoenix-documentation/fr/docs/next/service-operator/ROUTER_BOX_SETUP"
+  }
+}

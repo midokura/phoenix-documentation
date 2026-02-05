@@ -157,7 +157,7 @@ curl -X POST \
      "${API_BASE_URL}/sshkeys"
 ```
 
-**Note**: The public key must be a valid SSH public key (e.g., `ssh-rsa`, `ssh-ed25519`). The API will return `400 Bad Request` if the key format is invalid.
+**Note**: The public key must be a valid SSH public key (for example, `ssh-rsa`, `ssh-ed25519`). The API will return `400 Bad Request` if the key format is invalid.
 
 #### Delete an SSH Key
 

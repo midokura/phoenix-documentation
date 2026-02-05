@@ -103,12 +103,6 @@ export default {
           "position": "left"
         },
         {
-          "type": "localeDropdown",
-          "position": "left",
-          "dropdownItemsBefore": [],
-          "dropdownItemsAfter": []
-        },
-        {
           "type": "docsVersionDropdown",
           "sidebarId": "tutorialSidebar",
           "position": "right",

@@ -1,6 +1,6 @@
 # Midokura AI Factory Documentation Website
 
-These are the source files for the Midokura AI Factory Documentation website, which can be found at (midokura.github.io/phoenix-documentation/)[https://midokura.github.io/phoenix-documentation/] is built from this repo using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+These are the source files for the Midokura AI Factory Documentation website, which can be found at [https://midokura.github.io/phoenix-documentation/](midokura.github.io/phoenix-documentation/) is built from this repo using [Docusaurus](https://docusaurus.io/), a modern static website generator.
 
 ## Installation
 
@@ -72,6 +72,7 @@ WIP but essentially:
   - Roll out for v2.x
   - Devise methodology for translating release notes ahead of release day
   - Write up howto for translation
+  - Uncomment the translation nav
 - Customise the 404 page
 - Customise popup banner page
   

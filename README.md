@@ -1,6 +1,6 @@
 # Midokura AI Factory Documentation Website
 
-The Midokura AI Factory Documentation website is built from this repo using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+These are the source files for the Midokura AI Factory Documentation website, which can be found at (midokura.github.io/phoenix-documentation/)[https://midokura.github.io/phoenix-documentation/] is built from this repo using [Docusaurus](https://docusaurus.io/), a modern static website generator.
 
 ## Installation
 
@@ -48,31 +48,41 @@ If we need to remove a no-longer-supported version of the docs from the website,
 
 ## Deployment
 
-TBD but likely to be:
-- Make repo public
-- Publish to Github Pages
-- Set DNS nameservers to redirect to docs.midokura.com
+WIP but essentially:
+- Pushes to main result in build to https://midokura.github.io/phoenix-documentation/
+- Will need to set DNS nameservers to redirect to docs.midokura.com
 
 # To Do
 
-The new intention (January 21, 2026) is that the website will be public. This has some impact on the work to be done (positive impact, fewer complications).
-
 - Review all content to remove any internal Midokura references
 - Add 'Back to Top' button at the bottom, especially for mobile
-- Reduce size of white logo in footer
-- Check if the phoenix svg is legal to use
-- Should we use the phoenix svg if we are not using Phoenix as the name?
+  - <a name="top"></a>
+  - <a href="#top">&#8593;</a>
+- Create new release notes template on GitHub
 - Find a logo or image for the new name
-- Make splash page two-panel section (documentation / release notes) responsive for mobile
 - Use Midokura colours
-- In the navbar should we remove direct link to Github repo?
 - Update the README above to explain how to do a docs release
 - Turn off 'Next' (main)
 - Set DNS nameservers to redirect to docs.midokura.com
-- Translate to Japanese (Mari is on it).
+- Translate to Japanese (Mari is on it)
+  - Do the relevant parts of <https://docusaurus.io/docs/i18n/tutorial#multi-domain-deployment>
+  - Do not turn on the navbar element
+  - Ping Mari with instructions
+  - Turn on the navbar element
+  - Roll out for v2.x
+  - Devise methodology for translating release notes ahead of release day
+  - Write up howto for translation
+- Customise the 404 page
+- Customise popup banner page
   
 ## Done
 
+- Find out how to translate the index.js page (front page) <- covered in the docusaurus docs
+- Should we use the phoenix svg if we are not using Phoenix as the name? <- in the absence of a different logo, we will keep it
+- Check if the phoenix svg is legal to use <- free license
+- Reduce size of white logo in footer <- No, won't do: it looks great
+- In the navbar should we remove direct link to Github repo? <- No, won't do
+- Make splash page two-panel section (documentation / release notes) responsive for mobile
 - Replace 'Phoenix' with the new name throughout
 - Add v1.7 release notes
 - We need to change the name because 'Phoenix' is internal only <-- AI Factory

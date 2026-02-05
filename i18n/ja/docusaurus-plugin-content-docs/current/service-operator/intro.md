@@ -2,22 +2,22 @@
 sidebar_position: 1
 ---
 
-# Service Operator Documentation
+# サービスオペレーター向けドキュメント
 
-Managing the AI Factory IaaS platform.
+Phoenix IaaS プラットフォームの管理方法について説明します。
 
-## Available Documentation
+## ドキュメントの一覧
 
-- **[CEPH_SETUP](CEPH_SETUP.md)** - Setup and configuration guide for Ceph storage cluster
-- **[DEPLOYMENT](DEPLOYMENT.md)** - Deployment procedures and guidelines for the Phoenix platform
-- **[GHCR_AUTHENTICATION](GHCR_AUTHENTICATION.md)** - Authentication setup for GitHub Container Registry
-- **[GOOGLE_SSO_SETUP](GOOGLE_SSO_SETUP.md)** - Instructions for configuring Google SSO for user authentication in the IaaS Console
-- **[IAAS_CONSOLE_CONFIGURATION](IAAS_CONSOLE_CONFIGURATION.md)** - Configuration reference for the IaaS Console API Helm Chart
-- **[INSTALL_BAREMETAL_NODE](INSTALL_BAREMETAL_NODE.md)** - Installation guide for bare metal nodes
-- **[NETWORK_CONTROL_NODE_SETUP](NETWORK_CONTROL_NODE_SETUP.md)** - Setup guide for network control nodes
-- **[OBSERVABILITY_ALERTS](OBSERVABILITY_ALERTS.md)** - Guide for accessing and configuring Grafana alert notifications
-- **[OBSERVABILITY_DASHBOARDS](OBSERVABILITY_DASHBOARDS.md)** - Guide for accessing and using Grafana observability dashboards
-- **[OPERATOR_API_GUIDE](OPERATOR_API_GUIDE.md)** - Guide for using the Operator APIs to manage users and tenants
-- **[OS_REQUIREMENTS](OS_REQUIREMENTS.md)** - Operating system requirements and specifications
-- **[ROUTER_BOX_SETUP](ROUTER_BOX_SETUP.md)** - Setup guide for the router box that hosts bootstrap VMs (OpenWRT, deployment, Hedgehog)
-- **[VPN_CONFIGURATION](VPN_CONFIGURATION.md)** - Guide for setting up VPN access for tenant users
+- **[CEPH_SETUP](CEPH_SETUP_ja.md)** - Ceph ストレージクラスタのセットアップおよび設定ガイド
+- **[DEPLOYMENT](DEPLOYMENT_ja.md)** - Phoenix プラットフォームのデプロイ手順およびガイドライン
+- **[GHCR_AUTHENTICATION](GHCR_AUTHENTICATION_ja.md)** - GitHub Container Registry の認証設定手順
+- **[GOOGLE_SSO_SETUP](GOOGLE_SSO_SETUP_ja.md)** - IaaS コンソールにおけるユーザー認証用 Google SSO の設定手順
+- **[IAAS_CONSOLE_CONFIGURATION](IAAS_CONSOLE_CONFIGURATION_ja.md)** - IaaS コンソール API 用 Helm Chart の設定リファレンス
+- **[INSTALL_BAREMETAL_NODE](INSTALL_BAREMETAL_NODE_ja.md)** - ベアメタルノードのインストールガイド
+- **[NETWORK_CONTROL_NODE_SETUP](NETWORK_CONTROL_NODE_SETUP_ja.md)** - ネットワーク制御ノードのセットアップガイド
+- **[OBSERVABILITY_ALERTS](OBSERVABILITY_ALERTS_ja.md)** - Grafana のアラート通知へのアクセスおよび設定方法のガイド
+- **[OBSERVABILITY_DASHBOARDS](OBSERVABILITY_DASHBOARDS_ja.md)** - Grafana の可観測性ダッシュボードへのアクセスおよび利用方法のガイド
+- **[OPERATOR_API_GUIDE](OPERATOR_API_GUIDE_ja.md)** - ユーザーおよびテナントを管理するための Operator API 利用ガイド
+- **[OS_REQUIREMENTS](OS_REQUIREMENTS_ja.md)** - オペレーティングシステムの要件および仕様
+- **[ROUTER_BOX_SETUP](ROUTER_BOX_SETUP_ja.md)** - ブートストラップ VM（OpenWRT、デプロイメント、Hedgehog）をホストするルーターボックスのセットアップガイド
+- **[VPN_CONFIGURATION](VPN_CONFIGURATION_ja.md)** - テナントユーザー向け VPN アクセスの設定ガイド

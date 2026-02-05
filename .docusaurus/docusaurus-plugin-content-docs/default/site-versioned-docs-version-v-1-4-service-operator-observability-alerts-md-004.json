@@ -5,7 +5,7 @@
   "source": "@site/versioned_docs/version-v1.4/service-operator/OBSERVABILITY_ALERTS.md",
   "sourceDirName": "service-operator",
   "slug": "/service-operator/OBSERVABILITY_ALERTS",
-  "permalink": "/phoenix-documentation/docs/v1.4/service-operator/OBSERVABILITY_ALERTS",
+  "permalink": "/phoenix-documentation/ja/docs/v1.4/service-operator/OBSERVABILITY_ALERTS",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Network Control Node Setup",
-    "permalink": "/phoenix-documentation/docs/v1.4/service-operator/NETWORK_CONTROL_NODE_SETUP"
+    "permalink": "/phoenix-documentation/ja/docs/v1.4/service-operator/NETWORK_CONTROL_NODE_SETUP"
   },
   "next": {
     "title": "Observability Dashboards",
-    "permalink": "/phoenix-documentation/docs/v1.4/service-operator/OBSERVABILITY_DASHBOARDS"
+    "permalink": "/phoenix-documentation/ja/docs/v1.4/service-operator/OBSERVABILITY_DASHBOARDS"
   }
 }

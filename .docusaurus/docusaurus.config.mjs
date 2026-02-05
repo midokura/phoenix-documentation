@@ -29,7 +29,7 @@ export default {
     "experimental_router": "browser"
   },
   "url": "https://midokura.github.io",
-  "baseUrl": "/phoenix-documentation/",
+  "baseUrl": "/phoenix-documentation/ja/",
   "organizationName": "midokura",
   "projectName": "phoenix-documentation",
   "trailingSlash": false,
@@ -37,10 +37,15 @@ export default {
   "i18n": {
     "defaultLocale": "en",
     "locales": [
-      "en"
+      "en",
+      "ja"
     ],
-    "path": "i18n",
-    "localeConfigs": {}
+    "localeConfigs": {
+      "en": {
+        "htmlLang": "en-GB"
+      }
+    },
+    "path": "i18n"
   },
   "presets": [
     [

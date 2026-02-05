@@ -1,0 +1,23 @@
+{
+  "id": "service-operator/GOOGLE_SSO_SETUP",
+  "title": "Google SSO Setup Guide",
+  "description": "Generating Google SSO credentials.",
+  "source": "@site/i18n/ja/docusaurus-plugin-content-docs/current/service-operator/GOOGLE_SSO_SETUP.md",
+  "sourceDirName": "service-operator",
+  "slug": "/service-operator/GOOGLE_SSO_SETUP",
+  "permalink": "/phoenix-documentation/ja/docs/next/service-operator/GOOGLE_SSO_SETUP",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "GitHub Container Registry (GHCR) Authentication",
+    "permalink": "/phoenix-documentation/ja/docs/next/service-operator/GHCR_AUTHENTICATION"
+  },
+  "next": {
+    "title": "IaaS Console Configuration",
+    "permalink": "/phoenix-documentation/ja/docs/next/service-operator/IAAS_CONSOLE_CONFIGURATION"
+  }
+}

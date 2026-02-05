@@ -5,7 +5,7 @@
   "source": "@site/versioned_docs/version-v1.3/service-operator/INSTALL_BAREMETAL_NODE.md",
   "sourceDirName": "service-operator",
   "slug": "/service-operator/INSTALL_BAREMETAL_NODE",
-  "permalink": "/phoenix-documentation/docs/v1.3/service-operator/INSTALL_BAREMETAL_NODE",
+  "permalink": "/phoenix-documentation/ja/docs/v1.3/service-operator/INSTALL_BAREMETAL_NODE",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "IaaS Console Configuration",
-    "permalink": "/phoenix-documentation/docs/v1.3/service-operator/IAAS_CONSOLE_CONFIGURATION"
+    "permalink": "/phoenix-documentation/ja/docs/v1.3/service-operator/IAAS_CONSOLE_CONFIGURATION"
   },
   "next": {
     "title": "Network Control Node Setup",
-    "permalink": "/phoenix-documentation/docs/v1.3/service-operator/NETWORK_CONTROL_NODE_SETUP"
+    "permalink": "/phoenix-documentation/ja/docs/v1.3/service-operator/NETWORK_CONTROL_NODE_SETUP"
   }
 }

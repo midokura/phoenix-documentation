@@ -136,6 +136,69 @@ curl -X DELETE \
      "${API_BASE_URL}/tenants/{tenant_id}/users/{user_id}"
 ```
 
+### SSH Key Management APIs
+
+#### List All SSH Keys
+
+```bash
+curl -H "Authorization: Bearer $JWT_TOKEN" \
+     "${API_BASE_URL}/sshkeys"
+```
+
+#### Upload an SSH Key
+
+```bash
+curl -X POST \
+     -H "Authorization: Bearer $JWT_TOKEN" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "public_key": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI... user@host"
+     }' \
+     "${API_BASE_URL}/sshkeys"
+```
+
+**Note**: The public key must be a valid SSH public key (for example, `ssh-rsa`, `ssh-ed25519`). The API will return `400 Bad Request` if the key format is invalid.
+
+#### Delete an SSH Key
+
+```bash
+curl -X DELETE \
+     -H "Authorization: Bearer $JWT_TOKEN" \
+     "${API_BASE_URL}/sshkeys/{key_id}"
+```
+
+**Note**: If the SSH key is currently assigned to a user, the API will return `409 Conflict` and the key will not be deleted. You must first unassign the key from any users before deleting it.
+
+#### Assign an SSH Key to a User
+
+To assign an uploaded SSH key to a user, update the user with the key's ID:
+
+```bash
+curl -X PUT \
+     -H "Authorization: Bearer $JWT_TOKEN" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "email": "user@company.com",
+       "role": "member",
+       "ssh_key_id": "SSH_KEY_ID"
+     }' \
+     "${API_BASE_URL}/users/{user_id}"
+```
+
+To unassign an SSH key from a user, set `ssh_key_id` to `null`:
+
+```bash
+curl -X PUT \
+     -H "Authorization: Bearer $JWT_TOKEN" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "email": "user@company.com",
+       "role": "member",
+       "ssh_key_id": null
+     }' \
+     "${API_BASE_URL}/users/{user_id}"
+```
+
 ## Common Use Cases and Workflows
 
 ### Use Case 1: Create a New User and Add to Existing Tenant

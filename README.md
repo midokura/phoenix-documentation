@@ -54,8 +54,8 @@ If we need to remove a no-longer-supported version of the docs from the website,
 
 - Review all content to remove any internal Midokura references
 - Add 'Back to Top' button at the bottom, especially for mobile
-  - <a name="top"></a>
-  - <a href="#top">&#8593;</a>
+  - '<a name="top"></a>
+  - <a href="#top">&#8593;</a>'
 - Find a logo or image for the new name
 - Use Midokura colours
 - Update the README above to explain how to do a docs release

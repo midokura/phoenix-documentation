@@ -5,7 +5,7 @@
   "source": "@site/i18n/ja/docusaurus-plugin-content-docs/current/service-operator/OS_REQUIREMENTS.md",
   "sourceDirName": "service-operator",
   "slug": "/service-operator/OS_REQUIREMENTS",
-  "permalink": "/phoenix-documentation/ja/docs/next/service-operator/OS_REQUIREMENTS",
+  "permalink": "/ja/docs/next/service-operator/OS_REQUIREMENTS",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Operator API Usage Guide",
-    "permalink": "/phoenix-documentation/ja/docs/next/service-operator/OPERATOR_API_GUIDE"
+    "permalink": "/ja/docs/next/service-operator/OPERATOR_API_GUIDE"
   },
   "next": {
     "title": "Router Box Setup",
-    "permalink": "/phoenix-documentation/ja/docs/next/service-operator/ROUTER_BOX_SETUP"
+    "permalink": "/ja/docs/next/service-operator/ROUTER_BOX_SETUP"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "permalink": "/phoenix-documentation/ja/blog/v1.2",
+  "permalink": "/ja/blog/v1.2",
   "source": "@site/i18n/ja/docusaurus-plugin-content-blog/2025-12-05-phoenix-v1.2.md",
   "title": "Phoenix v1.2",
   "description": "Version 1.2 of Phoenix is now available.",
@@ -8,7 +8,7 @@
     {
       "inline": false,
       "label": "Phoenix",
-      "permalink": "/phoenix-documentation/ja/blog/tags/phoenix",
+      "permalink": "/ja/blog/tags/phoenix",
       "description": "Phoenix tag description"
     }
   ],
@@ -20,7 +20,7 @@
       "title": "Software Engineer @ Midokura",
       "url": "https://github.com/alexVera99",
       "page": {
-        "permalink": "/phoenix-documentation/ja/blog/authors/alexandervera"
+        "permalink": "/ja/blog/authors/alexandervera"
       },
       "socials": {
         "github": "https://github.com/alexVera99"
@@ -42,10 +42,10 @@
   "unlisted": false,
   "prevItem": {
     "title": "Phoenix v1.3",
-    "permalink": "/phoenix-documentation/ja/blog/v1.3"
+    "permalink": "/ja/blog/v1.3"
   },
   "nextItem": {
     "title": "Phoenix v1.1",
-    "permalink": "/phoenix-documentation/ja/blog/v1.1"
+    "permalink": "/ja/blog/v1.1"
   }
 }

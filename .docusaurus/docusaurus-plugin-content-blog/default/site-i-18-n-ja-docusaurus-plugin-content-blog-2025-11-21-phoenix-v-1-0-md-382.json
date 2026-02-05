@@ -1,5 +1,5 @@
 {
-  "permalink": "/phoenix-documentation/ja/blog/v1.0",
+  "permalink": "/ja/blog/v1.0",
   "source": "@site/i18n/ja/docusaurus-plugin-content-blog/2025-11-21-phoenix-v1.0.md",
   "title": "Phoenix v1.0",
   "description": "We are pleased to announce the v1.0 release of Phoenix, our IaaS product for AI workloads.",
@@ -8,7 +8,7 @@
     {
       "inline": false,
       "label": "Phoenix",
-      "permalink": "/phoenix-documentation/ja/blog/tags/phoenix",
+      "permalink": "/ja/blog/tags/phoenix",
       "description": "Phoenix tag description"
     }
   ],
@@ -20,7 +20,7 @@
       "title": "Principal eng @midokura. Alumnus of @newrelic, @adevinta, @tuenti, @lastfm.",
       "url": "https://github.com/srvaroa",
       "page": {
-        "permalink": "/phoenix-documentation/ja/blog/authors/galonavarro"
+        "permalink": "/ja/blog/authors/galonavarro"
       },
       "socials": {
         "github": "https://github.com/srvaroa"
@@ -42,6 +42,6 @@
   "unlisted": false,
   "prevItem": {
     "title": "Phoenix v1.1",
-    "permalink": "/phoenix-documentation/ja/blog/v1.1"
+    "permalink": "/ja/blog/v1.1"
   }
 }

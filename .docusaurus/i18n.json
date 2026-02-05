@@ -14,8 +14,8 @@
       "calendar": "gregory",
       "path": "en",
       "translate": false,
-      "url": "https://midokura.github.io",
-      "baseUrl": "/phoenix-documentation/"
+      "url": "https://docs.midokura.com",
+      "baseUrl": "/"
     },
     "ja": {
       "label": "日本語",
@@ -24,8 +24,8 @@
       "calendar": "gregory",
       "path": "ja",
       "translate": true,
-      "url": "https://midokura.github.io",
-      "baseUrl": "/phoenix-documentation/ja/"
+      "url": "https://docs.midokura.com",
+      "baseUrl": "/ja/"
     }
   }
 }

@@ -1,48 +1,48 @@
 {
-  "/phoenix-documentation/ja/__docusaurus/debug-71d": {
+  "/ja/__docusaurus/debug-e57": {
     "__comp": "__comp---theme-debug-config-23-a-2ff",
     "__context": {
       "plugin": "plugin---phoenix-documentation-ja-docusaurus-debugb-38-f3c"
     }
   },
-  "/phoenix-documentation/ja/__docusaurus/debug/config-67e": {
+  "/ja/__docusaurus/debug/config-a39": {
     "__comp": "__comp---theme-debug-config-23-a-2ff",
     "__context": {
       "plugin": "plugin---phoenix-documentation-ja-docusaurus-debugb-38-f3c"
     }
   },
-  "/phoenix-documentation/ja/__docusaurus/debug/content-3b1": {
+  "/ja/__docusaurus/debug/content-cfe": {
     "__comp": "__comp---theme-debug-contentba-8-ce7",
     "__context": {
       "plugin": "plugin---phoenix-documentation-ja-docusaurus-debugb-38-f3c"
     },
-    "__props": "__props---phoenix-documentation-ja-docusaurus-debug-content-18-b-5d8"
+    "__props": "__props---ja-docusaurus-debug-contentc-46-326"
   },
-  "/phoenix-documentation/ja/__docusaurus/debug/globalData-712": {
+  "/ja/__docusaurus/debug/globalData-989": {
     "__comp": "__comp---theme-debug-global-dataede-0fa",
     "__context": {
       "plugin": "plugin---phoenix-documentation-ja-docusaurus-debugb-38-f3c"
     }
   },
-  "/phoenix-documentation/ja/__docusaurus/debug/metadata-a27": {
+  "/ja/__docusaurus/debug/metadata-e32": {
     "__comp": "__comp---theme-debug-site-metadata-68-e-3d4",
     "__context": {
       "plugin": "plugin---phoenix-documentation-ja-docusaurus-debugb-38-f3c"
     }
   },
-  "/phoenix-documentation/ja/__docusaurus/debug/registry-3d8": {
+  "/ja/__docusaurus/debug/registry-b2c": {
     "__comp": "__comp---theme-debug-registry-679-501",
     "__context": {
       "plugin": "plugin---phoenix-documentation-ja-docusaurus-debugb-38-f3c"
     }
   },
-  "/phoenix-documentation/ja/__docusaurus/debug/routes-c61": {
+  "/ja/__docusaurus/debug/routes-c47": {
     "__comp": "__comp---theme-debug-routes-946-699",
     "__context": {
       "plugin": "plugin---phoenix-documentation-ja-docusaurus-debugb-38-f3c"
     }
   },
-  "/phoenix-documentation/ja/blog-100": {
+  "/ja/blog-bde": {
     "__comp": "__comp---theme-blog-list-pagea-6-a-7ba",
     "__context": {
       "plugin": "plugin---phoenix-documentation-ja-blog-369-794"
@@ -74,16 +74,16 @@
         "content": "content---phoenix-documentation-ja-blog-593-91a"
       }
     ],
-    "__props": "__props---phoenix-documentation-ja-blogd-36-8d7"
+    "__props": "__props---ja-blog-733-159"
   },
-  "/phoenix-documentation/ja/blog/archive-bbe": {
+  "/ja/blog/archive-a57": {
     "__comp": "__comp---theme-blog-archive-page-9-e-4-1d8",
     "__context": {
       "plugin": "plugin---phoenix-documentation-ja-blog-369-794"
     },
-    "__props": "__props---phoenix-documentation-ja-blog-archiveb-36-b61"
+    "__props": "__props---ja-blog-archive-791-45a"
   },
-  "/phoenix-documentation/ja/blog/authors-ca2": {
+  "/ja/blog/authors-31a": {
     "__comp": "__comp---theme-blog-pages-blog-authors-list-page-621-70c",
     "__context": {
       "data": {
@@ -92,9 +92,9 @@
       "plugin": "plugin---phoenix-documentation-ja-blog-369-794"
     },
     "sidebar": "sidebar---phoenix-documentation-ja-blog-814-deb",
-    "__props": "__props---phoenix-documentation-ja-blog-authors-795-780"
+    "__props": "__props---ja-blog-authorsa-7-a-a86"
   },
-  "/phoenix-documentation/ja/blog/authors/alexanderfandos-236": {
+  "/ja/blog/authors/alexanderfandos-2cb": {
     "__comp": "__comp---theme-blog-pages-blog-authors-posts-page-33-f-bd5",
     "__context": {
       "data": {
@@ -120,9 +120,9 @@
       }
     ],
     "sidebar": "sidebar---phoenix-documentation-ja-blog-814-deb",
-    "__props": "__props---phoenix-documentation-ja-blog-authors-alexanderfandos-0-f-1-240"
+    "__props": "__props---ja-blog-authors-alexanderfandos-114-d5f"
   },
-  "/phoenix-documentation/ja/blog/authors/alexandervera-be1": {
+  "/ja/blog/authors/alexandervera-403": {
     "__comp": "__comp---theme-blog-pages-blog-authors-posts-page-33-f-bd5",
     "__context": {
       "data": {
@@ -136,9 +136,9 @@
       }
     ],
     "sidebar": "sidebar---phoenix-documentation-ja-blog-814-deb",
-    "__props": "__props---phoenix-documentation-ja-blog-authors-alexandervera-01-f-239"
+    "__props": "__props---ja-blog-authors-alexandervera-17-c-05c"
   },
-  "/phoenix-documentation/ja/blog/authors/galonavarro-2aa": {
+  "/ja/blog/authors/galonavarro-773": {
     "__comp": "__comp---theme-blog-pages-blog-authors-posts-page-33-f-bd5",
     "__context": {
       "data": {
@@ -152,9 +152,9 @@
       }
     ],
     "sidebar": "sidebar---phoenix-documentation-ja-blog-814-deb",
-    "__props": "__props---phoenix-documentation-ja-blog-authors-galonavarro-784-4b7"
+    "__props": "__props---ja-blog-authors-galonavarroaa-7-cea"
   },
-  "/phoenix-documentation/ja/blog/authors/jimkennedy-9e2": {
+  "/ja/blog/authors/jimkennedy-c16": {
     "__comp": "__comp---theme-blog-pages-blog-authors-posts-page-33-f-bd5",
     "__context": {
       "data": {
@@ -164,9 +164,9 @@
     },
     "items": [],
     "sidebar": "sidebar---phoenix-documentation-ja-blog-814-deb",
-    "__props": "__props---phoenix-documentation-ja-blog-authors-jimkennedy-79-c-c51"
+    "__props": "__props---ja-blog-authors-jimkennedy-9-eb-3a0"
   },
-  "/phoenix-documentation/ja/blog/authors/sergimiralles-822": {
+  "/ja/blog/authors/sergimiralles-ce6": {
     "__comp": "__comp---theme-blog-pages-blog-authors-posts-page-33-f-bd5",
     "__context": {
       "data": {
@@ -180,17 +180,17 @@
       }
     ],
     "sidebar": "sidebar---phoenix-documentation-ja-blog-814-deb",
-    "__props": "__props---phoenix-documentation-ja-blog-authors-sergimiralles-88-a-d2e"
+    "__props": "__props---ja-blog-authors-sergimirallesc-77-ac4"
   },
-  "/phoenix-documentation/ja/blog/tags-a0a": {
+  "/ja/blog/tags-e5d": {
     "__comp": "__comp---theme-blog-tags-list-page-01-a-d0b",
     "__context": {
       "plugin": "plugin---phoenix-documentation-ja-blog-369-794"
     },
     "sidebar": "sidebar---phoenix-documentation-ja-blog-814-deb",
-    "__props": "__props---phoenix-documentation-ja-blog-tags-411-c8a"
+    "__props": "__props---ja-blog-tags-515-3f7"
   },
-  "/phoenix-documentation/ja/blog/tags/phoenix-09b": {
+  "/ja/blog/tags/phoenix-5d4": {
     "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
     "__context": {
       "plugin": "plugin---phoenix-documentation-ja-blog-369-794"
@@ -222,9 +222,9 @@
         "content": "content---phoenix-documentation-ja-blog-593-91a"
       }
     ],
-    "__props": "__props---phoenix-documentation-ja-blog-tags-phoenixe-4-f-d5d"
+    "__props": "__props---ja-blog-tags-phoenix-56-a-4ec"
   },
-  "/phoenix-documentation/ja/blog/v1.0-46e": {
+  "/ja/blog/v1.0-393": {
     "__comp": "__comp---theme-blog-post-pageccc-cab",
     "__context": {
       "data": {
@@ -235,7 +235,7 @@
     "sidebar": "sidebar---phoenix-documentation-ja-blog-814-deb",
     "content": "content---phoenix-documentation-ja-blog-v-1-0382-c2f"
   },
-  "/phoenix-documentation/ja/blog/v1.1-06e": {
+  "/ja/blog/v1.1-826": {
     "__comp": "__comp---theme-blog-post-pageccc-cab",
     "__context": {
       "data": {
@@ -246,7 +246,7 @@
     "sidebar": "sidebar---phoenix-documentation-ja-blog-814-deb",
     "content": "content---phoenix-documentation-ja-blog-v-1-18-c-2-76c"
   },
-  "/phoenix-documentation/ja/blog/v1.2-e3a": {
+  "/ja/blog/v1.2-2d6": {
     "__comp": "__comp---theme-blog-post-pageccc-cab",
     "__context": {
       "data": {
@@ -257,7 +257,7 @@
     "sidebar": "sidebar---phoenix-documentation-ja-blog-814-deb",
     "content": "content---phoenix-documentation-ja-blog-v-1-240-d-588"
   },
-  "/phoenix-documentation/ja/blog/v1.3-c8a": {
+  "/ja/blog/v1.3-d5b": {
     "__comp": "__comp---theme-blog-post-pageccc-cab",
     "__context": {
       "data": {
@@ -268,7 +268,7 @@
     "sidebar": "sidebar---phoenix-documentation-ja-blog-814-deb",
     "content": "content---phoenix-documentation-ja-blog-v-1-3043-613"
   },
-  "/phoenix-documentation/ja/blog/v1.4-3a3": {
+  "/ja/blog/v1.4-ab8": {
     "__comp": "__comp---theme-blog-post-pageccc-cab",
     "__context": {
       "data": {
@@ -279,7 +279,7 @@
     "sidebar": "sidebar---phoenix-documentation-ja-blog-814-deb",
     "content": "content---phoenix-documentation-ja-blog-v-1-4601-0dc"
   },
-  "/phoenix-documentation/ja/blog/v1.5-6ce": {
+  "/ja/blog/v1.5-58e": {
     "__comp": "__comp---theme-blog-post-pageccc-cab",
     "__context": {
       "data": {
@@ -290,7 +290,7 @@
     "sidebar": "sidebar---phoenix-documentation-ja-blog-814-deb",
     "content": "content---phoenix-documentation-ja-blog-v-1-57-a-0-abf"
   },
-  "/phoenix-documentation/ja/blog/v1.6-bda": {
+  "/ja/blog/v1.6-7f7": {
     "__comp": "__comp---theme-blog-post-pageccc-cab",
     "__context": {
       "data": {
@@ -301,7 +301,7 @@
     "sidebar": "sidebar---phoenix-documentation-ja-blog-814-deb",
     "content": "content---phoenix-documentation-ja-blog-v-1-6262-a90"
   },
-  "/phoenix-documentation/ja/blog/v1.7-64e": {
+  "/ja/blog/v1.7-27b": {
     "__comp": "__comp---theme-blog-post-pageccc-cab",
     "__context": {
       "data": {
@@ -312,610 +312,610 @@
     "sidebar": "sidebar---phoenix-documentation-ja-blog-814-deb",
     "content": "content---phoenix-documentation-ja-blog-v-1-7221-9ca"
   },
-  "/phoenix-documentation/ja/search-14b": {
+  "/ja/search-a50": {
     "__comp": "__comp---theme-search-page-1-a-4-d6f",
     "__context": {
       "plugin": "plugin---phoenix-documentation-ja-search-138-fb0"
     }
   },
-  "/phoenix-documentation/ja/docs-7d6": {
+  "/ja/docs-879": {
     "__comp": "__comp---theme-docs-root-5-e-9-0b6",
     "__context": {
       "plugin": "plugin---phoenix-documentation-ja-docsaba-456"
     }
   },
-  "/phoenix-documentation/ja/docs/next-65f": {
+  "/ja/docs/next-618": {
     "__comp": "__comp---theme-doc-version-roota-7-b-5de",
-    "__props": "__props---phoenix-documentation-ja-docs-nexta-2-a-4f8"
+    "__props": "__props---ja-docs-next-4-e-6-59c"
   },
-  "/phoenix-documentation/ja/docs/next-cd3": {
+  "/ja/docs/next-0b3": {
     "__comp": "__comp---theme-doc-roota-94-67a"
   },
-  "/phoenix-documentation/ja/docs/next/category/service-operator-2ea": {
+  "/ja/docs/next/category/service-operator-4fe": {
     "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
-    "__props": "__props---phoenix-documentation-ja-docs-next-category-service-operator-9-d-1-da2"
+    "__props": "__props---ja-docs-next-category-service-operator-1-fa-42a"
   },
-  "/phoenix-documentation/ja/docs/next/OPERATOR_REFERENCE-0a1": {
+  "/ja/docs/next/OPERATOR_REFERENCE-061": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-next-operator-reference-125-408"
   },
-  "/phoenix-documentation/ja/docs/next/service-operator/CEPH_SETUP-31a": {
+  "/ja/docs/next/service-operator/CEPH_SETUP-1a8": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-next-service-operator-ceph-setu-pef-4-dbf"
   },
-  "/phoenix-documentation/ja/docs/next/service-operator/DEPLOYMENT-497": {
+  "/ja/docs/next/service-operator/DEPLOYMENT-3ba": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-next-service-operator-deployment-9-b-5-2c8"
   },
-  "/phoenix-documentation/ja/docs/next/service-operator/GHCR_AUTHENTICATION-9a2": {
+  "/ja/docs/next/service-operator/GHCR_AUTHENTICATION-2fd": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-next-service-operator-ghcr-authenticatio-nf-32-754"
   },
-  "/phoenix-documentation/ja/docs/next/service-operator/GOOGLE_SSO_SETUP-7cc": {
+  "/ja/docs/next/service-operator/GOOGLE_SSO_SETUP-4a4": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-next-service-operator-google-sso-setu-pfe-4-7c6"
   },
-  "/phoenix-documentation/ja/docs/next/service-operator/IAAS_CONSOLE_CONFIGURATION-f4b": {
+  "/ja/docs/next/service-operator/IAAS_CONSOLE_CONFIGURATION-4d4": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-next-service-operator-iaas-console-configuration-81-c-bc7"
   },
-  "/phoenix-documentation/ja/docs/next/service-operator/INSTALL_BAREMETAL_NODE-f4c": {
+  "/ja/docs/next/service-operator/INSTALL_BAREMETAL_NODE-dd4": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-next-service-operator-install-baremetal-node-8-ef-a98"
   },
-  "/phoenix-documentation/ja/docs/next/service-operator/intro-974": {
+  "/ja/docs/next/service-operator/intro-31b": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-next-service-operator-introab-4-7bb"
   },
-  "/phoenix-documentation/ja/docs/next/service-operator/NETWORK_CONTROL_NODE_SETUP-5cb": {
+  "/ja/docs/next/service-operator/NETWORK_CONTROL_NODE_SETUP-0e0": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-next-service-operator-network-control-node-setu-pcad-7e8"
   },
-  "/phoenix-documentation/ja/docs/next/service-operator/OBSERVABILITY_ALERTS-ca2": {
+  "/ja/docs/next/service-operator/OBSERVABILITY_ALERTS-693": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-next-service-operator-observability-alerts-37-d-327"
   },
-  "/phoenix-documentation/ja/docs/next/service-operator/OBSERVABILITY_DASHBOARDS-87e": {
+  "/ja/docs/next/service-operator/OBSERVABILITY_DASHBOARDS-ecf": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-next-service-operator-observability-dashboard-sf-8-c-aaf"
   },
-  "/phoenix-documentation/ja/docs/next/service-operator/OPERATOR_API_GUIDE-745": {
+  "/ja/docs/next/service-operator/OPERATOR_API_GUIDE-809": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-next-service-operator-operator-api-guide-25-d-3db"
   },
-  "/phoenix-documentation/ja/docs/next/service-operator/OS_REQUIREMENTS-84f": {
+  "/ja/docs/next/service-operator/OS_REQUIREMENTS-ae6": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-next-service-operator-os-requirements-475-4b8"
   },
-  "/phoenix-documentation/ja/docs/next/service-operator/ROUTER_BOX_SETUP-3b0": {
+  "/ja/docs/next/service-operator/ROUTER_BOX_SETUP-da2": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-next-service-operator-router-box-setup-061-da5"
   },
-  "/phoenix-documentation/ja/docs/next/service-operator/VPN_CONFIGURATION-ae1": {
+  "/ja/docs/next/service-operator/VPN_CONFIGURATION-4bb": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-next-service-operator-vpn-configuration-18-c-71f"
   },
-  "/phoenix-documentation/ja/docs/v1.0-0bc": {
+  "/ja/docs/v1.0-6ba": {
     "__comp": "__comp---theme-doc-version-roota-7-b-5de",
-    "__props": "__props---phoenix-documentation-ja-docs-v-1-03-b-4-1e5"
+    "__props": "__props---ja-docs-v-1-08-bf-345"
   },
-  "/phoenix-documentation/ja/docs/v1.0-4ad": {
+  "/ja/docs/v1.0-9a2": {
     "__comp": "__comp---theme-doc-roota-94-67a"
   },
-  "/phoenix-documentation/ja/docs/v1.0/category/service-operator-fab": {
+  "/ja/docs/v1.0/category/service-operator-bfd": {
     "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
-    "__props": "__props---phoenix-documentation-ja-docs-v-1-0-category-service-operatorc-72-831"
+    "__props": "__props---ja-docs-v-1-0-category-service-operator-5-d-9-ee5"
   },
-  "/phoenix-documentation/ja/docs/v1.0/service-operator/CEPH_SETUP-8f5": {
+  "/ja/docs/v1.0/service-operator/CEPH_SETUP-bbf": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-0-service-operator-ceph-setu-paa-9-506"
   },
-  "/phoenix-documentation/ja/docs/v1.0/service-operator/DEPLOYMENT-86b": {
+  "/ja/docs/v1.0/service-operator/DEPLOYMENT-6bc": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-0-service-operator-deployment-0-cf-340"
   },
-  "/phoenix-documentation/ja/docs/v1.0/service-operator/GHCR_AUTHENTICATION-47a": {
+  "/ja/docs/v1.0/service-operator/GHCR_AUTHENTICATION-e75": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-0-service-operator-ghcr-authenticatio-nd-8-c-191"
   },
-  "/phoenix-documentation/ja/docs/v1.0/service-operator/GOOGLE_SSO_SETUP-cda": {
+  "/ja/docs/v1.0/service-operator/GOOGLE_SSO_SETUP-7cd": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-0-service-operator-google-sso-setu-pa-1-e-7bd"
   },
-  "/phoenix-documentation/ja/docs/v1.0/service-operator/IAAS_CONSOLE_CONFIGURATION-53e": {
+  "/ja/docs/v1.0/service-operator/IAAS_CONSOLE_CONFIGURATION-40e": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-0-service-operator-iaas-console-configuratio-nbcc-c78"
   },
-  "/phoenix-documentation/ja/docs/v1.0/service-operator/INSTALL_BAREMETAL_NODE-6a0": {
+  "/ja/docs/v1.0/service-operator/INSTALL_BAREMETAL_NODE-8b4": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-0-service-operator-install-baremetal-nod-ef-86-d06"
   },
-  "/phoenix-documentation/ja/docs/v1.0/service-operator/intro-2d7": {
+  "/ja/docs/v1.0/service-operator/intro-30c": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-0-service-operator-intro-6-ba-15a"
   },
-  "/phoenix-documentation/ja/docs/v1.0/service-operator/NETWORK_CONTROL_NODE_SETUP-6fd": {
+  "/ja/docs/v1.0/service-operator/NETWORK_CONTROL_NODE_SETUP-eb2": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-0-service-operator-network-control-node-setup-433-b4d"
   },
-  "/phoenix-documentation/ja/docs/v1.0/service-operator/OBSERVABILITY_ALERTS-878": {
+  "/ja/docs/v1.0/service-operator/OBSERVABILITY_ALERTS-3fe": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-0-service-operator-observability-alerts-19-f-775"
   },
-  "/phoenix-documentation/ja/docs/v1.0/service-operator/OBSERVABILITY_DASHBOARDS-556": {
+  "/ja/docs/v1.0/service-operator/OBSERVABILITY_DASHBOARDS-7f0": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-0-service-operator-observability-dashboards-3-de-4da"
   },
-  "/phoenix-documentation/ja/docs/v1.0/service-operator/OPERATOR_API_GUIDE-bbe": {
+  "/ja/docs/v1.0/service-operator/OPERATOR_API_GUIDE-513": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-0-service-operator-operator-api-guide-6-f-2-922"
   },
-  "/phoenix-documentation/ja/docs/v1.0/service-operator/OS_REQUIREMENTS-46f": {
+  "/ja/docs/v1.0/service-operator/OS_REQUIREMENTS-c2d": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-0-service-operator-os-requirements-646-573"
   },
-  "/phoenix-documentation/ja/docs/v1.0/service-operator/VPN_CONFIGURATION-ffa": {
+  "/ja/docs/v1.0/service-operator/VPN_CONFIGURATION-cf4": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-0-service-operator-vpn-configuration-5-bd-e7f"
   },
-  "/phoenix-documentation/ja/docs/v1.1-ed0": {
+  "/ja/docs/v1.1-b00": {
     "__comp": "__comp---theme-doc-version-roota-7-b-5de",
-    "__props": "__props---phoenix-documentation-ja-docs-v-1-15-b-0-b3e"
+    "__props": "__props---ja-docs-v-1-1-cd-7-970"
   },
-  "/phoenix-documentation/ja/docs/v1.1-b6a": {
+  "/ja/docs/v1.1-538": {
     "__comp": "__comp---theme-doc-roota-94-67a"
   },
-  "/phoenix-documentation/ja/docs/v1.1/category/service-operator-860": {
+  "/ja/docs/v1.1/category/service-operator-204": {
     "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
-    "__props": "__props---phoenix-documentation-ja-docs-v-1-1-category-service-operatorb-94-1d0"
+    "__props": "__props---ja-docs-v-1-1-category-service-operator-748-c5a"
   },
-  "/phoenix-documentation/ja/docs/v1.1/service-operator/CEPH_SETUP-6a1": {
+  "/ja/docs/v1.1/service-operator/CEPH_SETUP-b26": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-1-service-operator-ceph-setu-pf-20-3b8"
   },
-  "/phoenix-documentation/ja/docs/v1.1/service-operator/DEPLOYMENT-0dc": {
+  "/ja/docs/v1.1/service-operator/DEPLOYMENT-387": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-1-service-operator-deployment-418-f41"
   },
-  "/phoenix-documentation/ja/docs/v1.1/service-operator/GHCR_AUTHENTICATION-4df": {
+  "/ja/docs/v1.1/service-operator/GHCR_AUTHENTICATION-057": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-1-service-operator-ghcr-authenticatio-nd-5-f-453"
   },
-  "/phoenix-documentation/ja/docs/v1.1/service-operator/GOOGLE_SSO_SETUP-6dd": {
+  "/ja/docs/v1.1/service-operator/GOOGLE_SSO_SETUP-dde": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-1-service-operator-google-sso-setup-1-bc-1dd"
   },
-  "/phoenix-documentation/ja/docs/v1.1/service-operator/IAAS_CONSOLE_CONFIGURATION-949": {
+  "/ja/docs/v1.1/service-operator/IAAS_CONSOLE_CONFIGURATION-099": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-1-service-operator-iaas-console-configuration-17-f-1be"
   },
-  "/phoenix-documentation/ja/docs/v1.1/service-operator/INSTALL_BAREMETAL_NODE-a08": {
+  "/ja/docs/v1.1/service-operator/INSTALL_BAREMETAL_NODE-99c": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-1-service-operator-install-baremetal-node-0-d-9-e40"
   },
-  "/phoenix-documentation/ja/docs/v1.1/service-operator/intro-b8b": {
+  "/ja/docs/v1.1/service-operator/intro-3cf": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-1-service-operator-introb-59-a41"
   },
-  "/phoenix-documentation/ja/docs/v1.1/service-operator/NETWORK_CONTROL_NODE_SETUP-b01": {
+  "/ja/docs/v1.1/service-operator/NETWORK_CONTROL_NODE_SETUP-974": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-1-service-operator-network-control-node-setup-504-53c"
   },
-  "/phoenix-documentation/ja/docs/v1.1/service-operator/OBSERVABILITY_ALERTS-f3a": {
+  "/ja/docs/v1.1/service-operator/OBSERVABILITY_ALERTS-4db": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-1-service-operator-observability-alert-sdc-0-f09"
   },
-  "/phoenix-documentation/ja/docs/v1.1/service-operator/OBSERVABILITY_DASHBOARDS-c66": {
+  "/ja/docs/v1.1/service-operator/OBSERVABILITY_DASHBOARDS-ad9": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-1-service-operator-observability-dashboard-se-4-b-491"
   },
-  "/phoenix-documentation/ja/docs/v1.1/service-operator/OPERATOR_API_GUIDE-092": {
+  "/ja/docs/v1.1/service-operator/OPERATOR_API_GUIDE-51b": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-1-service-operator-operator-api-guide-9-f-1-11a"
   },
-  "/phoenix-documentation/ja/docs/v1.1/service-operator/OS_REQUIREMENTS-348": {
+  "/ja/docs/v1.1/service-operator/OS_REQUIREMENTS-17f": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-1-service-operator-os-requirement-se-60-19d"
   },
-  "/phoenix-documentation/ja/docs/v1.1/service-operator/VPN_CONFIGURATION-ec0": {
+  "/ja/docs/v1.1/service-operator/VPN_CONFIGURATION-5a8": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-1-service-operator-vpn-configuration-245-cdf"
   },
-  "/phoenix-documentation/ja/docs/v1.2-caf": {
+  "/ja/docs/v1.2-1a5": {
     "__comp": "__comp---theme-doc-version-roota-7-b-5de",
-    "__props": "__props---phoenix-documentation-ja-docs-v-1-2-f-70-31d"
+    "__props": "__props---ja-docs-v-1-2643-698"
   },
-  "/phoenix-documentation/ja/docs/v1.2-0f8": {
+  "/ja/docs/v1.2-bcd": {
     "__comp": "__comp---theme-doc-roota-94-67a"
   },
-  "/phoenix-documentation/ja/docs/v1.2/category/service-operator-ec2": {
+  "/ja/docs/v1.2/category/service-operator-216": {
     "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
-    "__props": "__props---phoenix-documentation-ja-docs-v-1-2-category-service-operatordc-1-c02"
+    "__props": "__props---ja-docs-v-1-2-category-service-operator-80-a-0b2"
   },
-  "/phoenix-documentation/ja/docs/v1.2/service-operator/CEPH_SETUP-d12": {
+  "/ja/docs/v1.2/service-operator/CEPH_SETUP-b5b": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-2-service-operator-ceph-setu-pf-15-4d1"
   },
-  "/phoenix-documentation/ja/docs/v1.2/service-operator/DEPLOYMENT-9da": {
+  "/ja/docs/v1.2/service-operator/DEPLOYMENT-82d": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-2-service-operator-deploymen-tec-4-48e"
   },
-  "/phoenix-documentation/ja/docs/v1.2/service-operator/GHCR_AUTHENTICATION-573": {
+  "/ja/docs/v1.2/service-operator/GHCR_AUTHENTICATION-620": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-2-service-operator-ghcr-authenticatio-nafd-f93"
   },
-  "/phoenix-documentation/ja/docs/v1.2/service-operator/GOOGLE_SSO_SETUP-ece": {
+  "/ja/docs/v1.2/service-operator/GOOGLE_SSO_SETUP-f19": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-2-service-operator-google-sso-setup-986-3a0"
   },
-  "/phoenix-documentation/ja/docs/v1.2/service-operator/IAAS_CONSOLE_CONFIGURATION-a50": {
+  "/ja/docs/v1.2/service-operator/IAAS_CONSOLE_CONFIGURATION-606": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-2-service-operator-iaas-console-configuration-9-e-9-71e"
   },
-  "/phoenix-documentation/ja/docs/v1.2/service-operator/INSTALL_BAREMETAL_NODE-18b": {
+  "/ja/docs/v1.2/service-operator/INSTALL_BAREMETAL_NODE-4e1": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-2-service-operator-install-baremetal-node-37-b-d0e"
   },
-  "/phoenix-documentation/ja/docs/v1.2/service-operator/intro-8ed": {
+  "/ja/docs/v1.2/service-operator/intro-632": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-2-service-operator-introc-7-c-764"
   },
-  "/phoenix-documentation/ja/docs/v1.2/service-operator/NETWORK_CONTROL_NODE_SETUP-9df": {
+  "/ja/docs/v1.2/service-operator/NETWORK_CONTROL_NODE_SETUP-303": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-2-service-operator-network-control-node-setu-pee-8-4ee"
   },
-  "/phoenix-documentation/ja/docs/v1.2/service-operator/OBSERVABILITY_ALERTS-99c": {
+  "/ja/docs/v1.2/service-operator/OBSERVABILITY_ALERTS-837": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-2-service-operator-observability-alerts-71-a-1a4"
   },
-  "/phoenix-documentation/ja/docs/v1.2/service-operator/OBSERVABILITY_DASHBOARDS-0de": {
+  "/ja/docs/v1.2/service-operator/OBSERVABILITY_DASHBOARDS-653": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-2-service-operator-observability-dashboard-see-1-60c"
   },
-  "/phoenix-documentation/ja/docs/v1.2/service-operator/OPERATOR_API_GUIDE-2b1": {
+  "/ja/docs/v1.2/service-operator/OPERATOR_API_GUIDE-222": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-2-service-operator-operator-api-guide-52-b-291"
   },
-  "/phoenix-documentation/ja/docs/v1.2/service-operator/OS_REQUIREMENTS-3d7": {
+  "/ja/docs/v1.2/service-operator/OS_REQUIREMENTS-8fc": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-2-service-operator-os-requirement-sb-03-933"
   },
-  "/phoenix-documentation/ja/docs/v1.2/service-operator/VPN_CONFIGURATION-107": {
+  "/ja/docs/v1.2/service-operator/VPN_CONFIGURATION-1a5": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-2-service-operator-vpn-configuration-8-db-ddc"
   },
-  "/phoenix-documentation/ja/docs/v1.3-63a": {
+  "/ja/docs/v1.3-729": {
     "__comp": "__comp---theme-doc-version-roota-7-b-5de",
-    "__props": "__props---phoenix-documentation-ja-docs-v-1-3-d-4-b-51c"
+    "__props": "__props---ja-docs-v-1-356-a-878"
   },
-  "/phoenix-documentation/ja/docs/v1.3-f26": {
+  "/ja/docs/v1.3-4cf": {
     "__comp": "__comp---theme-doc-roota-94-67a"
   },
-  "/phoenix-documentation/ja/docs/v1.3/category/service-operator-99a": {
+  "/ja/docs/v1.3/category/service-operator-b15": {
     "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
-    "__props": "__props---phoenix-documentation-ja-docs-v-1-3-category-service-operator-1-dd-9ee"
+    "__props": "__props---ja-docs-v-1-3-category-service-operatorddc-b5d"
   },
-  "/phoenix-documentation/ja/docs/v1.3/service-operator/CEPH_SETUP-704": {
+  "/ja/docs/v1.3/service-operator/CEPH_SETUP-286": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-3-service-operator-ceph-setup-4-d-2-c04"
   },
-  "/phoenix-documentation/ja/docs/v1.3/service-operator/DEPLOYMENT-7c0": {
+  "/ja/docs/v1.3/service-operator/DEPLOYMENT-388": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-3-service-operator-deploymen-tf-32-c31"
   },
-  "/phoenix-documentation/ja/docs/v1.3/service-operator/GHCR_AUTHENTICATION-610": {
+  "/ja/docs/v1.3/service-operator/GHCR_AUTHENTICATION-db9": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-3-service-operator-ghcr-authentication-3-ec-3d9"
   },
-  "/phoenix-documentation/ja/docs/v1.3/service-operator/GOOGLE_SSO_SETUP-5cb": {
+  "/ja/docs/v1.3/service-operator/GOOGLE_SSO_SETUP-c8a": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-3-service-operator-google-sso-setup-8-e-5-591"
   },
-  "/phoenix-documentation/ja/docs/v1.3/service-operator/IAAS_CONSOLE_CONFIGURATION-959": {
+  "/ja/docs/v1.3/service-operator/IAAS_CONSOLE_CONFIGURATION-d89": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-3-service-operator-iaas-console-configuratio-ndc-6-bde"
   },
-  "/phoenix-documentation/ja/docs/v1.3/service-operator/INSTALL_BAREMETAL_NODE-643": {
+  "/ja/docs/v1.3/service-operator/INSTALL_BAREMETAL_NODE-7a7": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-3-service-operator-install-baremetal-nod-ebf-7-79a"
   },
-  "/phoenix-documentation/ja/docs/v1.3/service-operator/intro-139": {
+  "/ja/docs/v1.3/service-operator/intro-c7d": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-3-service-operator-intro-41-a-6ab"
   },
-  "/phoenix-documentation/ja/docs/v1.3/service-operator/NETWORK_CONTROL_NODE_SETUP-ce2": {
+  "/ja/docs/v1.3/service-operator/NETWORK_CONTROL_NODE_SETUP-eed": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-3-service-operator-network-control-node-setup-0-f-4-02d"
   },
-  "/phoenix-documentation/ja/docs/v1.3/service-operator/OBSERVABILITY_ALERTS-d4f": {
+  "/ja/docs/v1.3/service-operator/OBSERVABILITY_ALERTS-a52": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-3-service-operator-observability-alert-sc-3-a-e38"
   },
-  "/phoenix-documentation/ja/docs/v1.3/service-operator/OBSERVABILITY_DASHBOARDS-8c3": {
+  "/ja/docs/v1.3/service-operator/OBSERVABILITY_DASHBOARDS-476": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-3-service-operator-observability-dashboard-se-07-2d1"
   },
-  "/phoenix-documentation/ja/docs/v1.3/service-operator/OPERATOR_API_GUIDE-cef": {
+  "/ja/docs/v1.3/service-operator/OPERATOR_API_GUIDE-03e": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-3-service-operator-operator-api-guid-ef-75-4e2"
   },
-  "/phoenix-documentation/ja/docs/v1.3/service-operator/OS_REQUIREMENTS-e89": {
+  "/ja/docs/v1.3/service-operator/OS_REQUIREMENTS-47f": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-3-service-operator-os-requirement-sa-43-275"
   },
-  "/phoenix-documentation/ja/docs/v1.3/service-operator/VPN_CONFIGURATION-323": {
+  "/ja/docs/v1.3/service-operator/VPN_CONFIGURATION-110": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-3-service-operator-vpn-configuratio-ne-3-a-f0a"
   },
-  "/phoenix-documentation/ja/docs/v1.4-157": {
+  "/ja/docs/v1.4-db6": {
     "__comp": "__comp---theme-doc-version-roota-7-b-5de",
-    "__props": "__props---phoenix-documentation-ja-docs-v-1-497-d-fea"
+    "__props": "__props---ja-docs-v-1-47-fc-d0b"
   },
-  "/phoenix-documentation/ja/docs/v1.4-c33": {
+  "/ja/docs/v1.4-8e3": {
     "__comp": "__comp---theme-doc-roota-94-67a"
   },
-  "/phoenix-documentation/ja/docs/v1.4/category/service-operator-b6a": {
+  "/ja/docs/v1.4/category/service-operator-75a": {
     "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
-    "__props": "__props---phoenix-documentation-ja-docs-v-1-4-category-service-operator-1-cc-3bc"
+    "__props": "__props---ja-docs-v-1-4-category-service-operator-2-fd-225"
   },
-  "/phoenix-documentation/ja/docs/v1.4/service-operator/CEPH_SETUP-ab9": {
+  "/ja/docs/v1.4/service-operator/CEPH_SETUP-7b3": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-4-service-operator-ceph-setup-213-b49"
   },
-  "/phoenix-documentation/ja/docs/v1.4/service-operator/DEPLOYMENT-c9b": {
+  "/ja/docs/v1.4/service-operator/DEPLOYMENT-d01": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-4-service-operator-deploymen-tb-59-1ad"
   },
-  "/phoenix-documentation/ja/docs/v1.4/service-operator/GHCR_AUTHENTICATION-bac": {
+  "/ja/docs/v1.4/service-operator/GHCR_AUTHENTICATION-553": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-4-service-operator-ghcr-authenticatio-nf-7-e-b11"
   },
-  "/phoenix-documentation/ja/docs/v1.4/service-operator/GOOGLE_SSO_SETUP-a64": {
+  "/ja/docs/v1.4/service-operator/GOOGLE_SSO_SETUP-1f4": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-4-service-operator-google-sso-setup-5-ea-c08"
   },
-  "/phoenix-documentation/ja/docs/v1.4/service-operator/IAAS_CONSOLE_CONFIGURATION-c6a": {
+  "/ja/docs/v1.4/service-operator/IAAS_CONSOLE_CONFIGURATION-5db": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-4-service-operator-iaas-console-configuration-939-d5e"
   },
-  "/phoenix-documentation/ja/docs/v1.4/service-operator/INSTALL_BAREMETAL_NODE-269": {
+  "/ja/docs/v1.4/service-operator/INSTALL_BAREMETAL_NODE-912": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-4-service-operator-install-baremetal-nod-efd-9-ad6"
   },
-  "/phoenix-documentation/ja/docs/v1.4/service-operator/intro-726": {
+  "/ja/docs/v1.4/service-operator/intro-8f2": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-4-service-operator-introb-68-05c"
   },
-  "/phoenix-documentation/ja/docs/v1.4/service-operator/NETWORK_CONTROL_NODE_SETUP-19b": {
+  "/ja/docs/v1.4/service-operator/NETWORK_CONTROL_NODE_SETUP-f87": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-4-service-operator-network-control-node-setu-pf-9-a-88a"
   },
-  "/phoenix-documentation/ja/docs/v1.4/service-operator/OBSERVABILITY_ALERTS-f97": {
+  "/ja/docs/v1.4/service-operator/OBSERVABILITY_ALERTS-3eb": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-4-service-operator-observability-alerts-004-0a9"
   },
-  "/phoenix-documentation/ja/docs/v1.4/service-operator/OBSERVABILITY_DASHBOARDS-10b": {
+  "/ja/docs/v1.4/service-operator/OBSERVABILITY_DASHBOARDS-72f": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-4-service-operator-observability-dashboard-sc-64-69d"
   },
-  "/phoenix-documentation/ja/docs/v1.4/service-operator/OPERATOR_API_GUIDE-b0f": {
+  "/ja/docs/v1.4/service-operator/OPERATOR_API_GUIDE-113": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-4-service-operator-operator-api-guid-eaac-d2a"
   },
-  "/phoenix-documentation/ja/docs/v1.4/service-operator/OS_REQUIREMENTS-291": {
+  "/ja/docs/v1.4/service-operator/OS_REQUIREMENTS-d98": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-4-service-operator-os-requirement-sba-7-5a2"
   },
-  "/phoenix-documentation/ja/docs/v1.4/service-operator/VPN_CONFIGURATION-7d6": {
+  "/ja/docs/v1.4/service-operator/VPN_CONFIGURATION-4d1": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-4-service-operator-vpn-configuration-652-b74"
   },
-  "/phoenix-documentation/ja/docs/v1.5-cbd": {
+  "/ja/docs/v1.5-2b4": {
     "__comp": "__comp---theme-doc-version-roota-7-b-5de",
-    "__props": "__props---phoenix-documentation-ja-docs-v-1-50-e-5-8bf"
+    "__props": "__props---ja-docs-v-1-54-f-1-b83"
   },
-  "/phoenix-documentation/ja/docs/v1.5-beb": {
+  "/ja/docs/v1.5-d6e": {
     "__comp": "__comp---theme-doc-roota-94-67a"
   },
-  "/phoenix-documentation/ja/docs/v1.5/category/service-operator-e1c": {
+  "/ja/docs/v1.5/category/service-operator-16a": {
     "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
-    "__props": "__props---phoenix-documentation-ja-docs-v-1-5-category-service-operator-9-be-a57"
+    "__props": "__props---ja-docs-v-1-5-category-service-operatorafa-16f"
   },
-  "/phoenix-documentation/ja/docs/v1.5/service-operator/CEPH_SETUP-35e": {
+  "/ja/docs/v1.5/service-operator/CEPH_SETUP-81b": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-5-service-operator-ceph-setu-pa-8-c-8e1"
   },
-  "/phoenix-documentation/ja/docs/v1.5/service-operator/DEPLOYMENT-ac2": {
+  "/ja/docs/v1.5/service-operator/DEPLOYMENT-a1f": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-5-service-operator-deploymen-tc-8-e-cf8"
   },
-  "/phoenix-documentation/ja/docs/v1.5/service-operator/GHCR_AUTHENTICATION-2f4": {
+  "/ja/docs/v1.5/service-operator/GHCR_AUTHENTICATION-b1c": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-5-service-operator-ghcr-authenticatio-nda-4-749"
   },
-  "/phoenix-documentation/ja/docs/v1.5/service-operator/GOOGLE_SSO_SETUP-25a": {
+  "/ja/docs/v1.5/service-operator/GOOGLE_SSO_SETUP-57e": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-5-service-operator-google-sso-setup-18-f-86c"
   },
-  "/phoenix-documentation/ja/docs/v1.5/service-operator/IAAS_CONSOLE_CONFIGURATION-ffa": {
+  "/ja/docs/v1.5/service-operator/IAAS_CONSOLE_CONFIGURATION-36e": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-5-service-operator-iaas-console-configuratio-neef-8b3"
   },
-  "/phoenix-documentation/ja/docs/v1.5/service-operator/INSTALL_BAREMETAL_NODE-da1": {
+  "/ja/docs/v1.5/service-operator/INSTALL_BAREMETAL_NODE-c59": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-5-service-operator-install-baremetal-nod-ee-19-d53"
   },
-  "/phoenix-documentation/ja/docs/v1.5/service-operator/intro-59a": {
+  "/ja/docs/v1.5/service-operator/intro-f90": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-5-service-operator-intro-28-b-317"
   },
-  "/phoenix-documentation/ja/docs/v1.5/service-operator/NETWORK_CONTROL_NODE_SETUP-b3a": {
+  "/ja/docs/v1.5/service-operator/NETWORK_CONTROL_NODE_SETUP-7b2": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-5-service-operator-network-control-node-setup-36-d-592"
   },
-  "/phoenix-documentation/ja/docs/v1.5/service-operator/OBSERVABILITY_ALERTS-6c3": {
+  "/ja/docs/v1.5/service-operator/OBSERVABILITY_ALERTS-4a9": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-5-service-operator-observability-alert-sbc-7-e8e"
   },
-  "/phoenix-documentation/ja/docs/v1.5/service-operator/OBSERVABILITY_DASHBOARDS-f5e": {
+  "/ja/docs/v1.5/service-operator/OBSERVABILITY_DASHBOARDS-bd6": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-5-service-operator-observability-dashboards-79-b-59e"
   },
-  "/phoenix-documentation/ja/docs/v1.5/service-operator/OPERATOR_API_GUIDE-d15": {
+  "/ja/docs/v1.5/service-operator/OPERATOR_API_GUIDE-a57": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-5-service-operator-operator-api-guide-431-2df"
   },
-  "/phoenix-documentation/ja/docs/v1.5/service-operator/OS_REQUIREMENTS-600": {
+  "/ja/docs/v1.5/service-operator/OS_REQUIREMENTS-4ca": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-5-service-operator-os-requirement-sce-6-2da"
   },
-  "/phoenix-documentation/ja/docs/v1.5/service-operator/ROUTER_BOX_SETUP-e4e": {
+  "/ja/docs/v1.5/service-operator/ROUTER_BOX_SETUP-ef2": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-5-service-operator-router-box-setup-395-bec"
   },
-  "/phoenix-documentation/ja/docs/v1.5/service-operator/VPN_CONFIGURATION-c9c": {
+  "/ja/docs/v1.5/service-operator/VPN_CONFIGURATION-bf7": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-5-service-operator-vpn-configuration-38-f-8a4"
   },
-  "/phoenix-documentation/ja/docs/v1.6-bef": {
+  "/ja/docs/v1.6-8d5": {
     "__comp": "__comp---theme-doc-version-roota-7-b-5de",
-    "__props": "__props---phoenix-documentation-ja-docs-v-1-6-eee-952"
+    "__props": "__props---ja-docs-v-1-6132-2c8"
   },
-  "/phoenix-documentation/ja/docs/v1.6-1ac": {
+  "/ja/docs/v1.6-53e": {
     "__comp": "__comp---theme-doc-roota-94-67a"
   },
-  "/phoenix-documentation/ja/docs/v1.6/category/service-operator-4a6": {
+  "/ja/docs/v1.6/category/service-operator-c6f": {
     "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
-    "__props": "__props---phoenix-documentation-ja-docs-v-1-6-category-service-operator-1-f-2-f28"
+    "__props": "__props---ja-docs-v-1-6-category-service-operatorce-7-675"
   },
-  "/phoenix-documentation/ja/docs/v1.6/service-operator/CEPH_SETUP-406": {
+  "/ja/docs/v1.6/service-operator/CEPH_SETUP-c3a": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-6-service-operator-ceph-setup-324-8b5"
   },
-  "/phoenix-documentation/ja/docs/v1.6/service-operator/DEPLOYMENT-3f5": {
+  "/ja/docs/v1.6/service-operator/DEPLOYMENT-def": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-6-service-operator-deploymen-td-83-065"
   },
-  "/phoenix-documentation/ja/docs/v1.6/service-operator/GHCR_AUTHENTICATION-f59": {
+  "/ja/docs/v1.6/service-operator/GHCR_AUTHENTICATION-5c2": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-6-service-operator-ghcr-authentication-6-d-9-7a3"
   },
-  "/phoenix-documentation/ja/docs/v1.6/service-operator/GOOGLE_SSO_SETUP-088": {
+  "/ja/docs/v1.6/service-operator/GOOGLE_SSO_SETUP-1e5": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-6-service-operator-google-sso-setu-pe-18-971"
   },
-  "/phoenix-documentation/ja/docs/v1.6/service-operator/IAAS_CONSOLE_CONFIGURATION-172": {
+  "/ja/docs/v1.6/service-operator/IAAS_CONSOLE_CONFIGURATION-edd": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-6-service-operator-iaas-console-configuratio-nc-03-92e"
   },
-  "/phoenix-documentation/ja/docs/v1.6/service-operator/INSTALL_BAREMETAL_NODE-886": {
+  "/ja/docs/v1.6/service-operator/INSTALL_BAREMETAL_NODE-b05": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-6-service-operator-install-baremetal-nod-ee-04-bf2"
   },
-  "/phoenix-documentation/ja/docs/v1.6/service-operator/intro-c0f": {
+  "/ja/docs/v1.6/service-operator/intro-bb1": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-6-service-operator-introb-50-eba"
   },
-  "/phoenix-documentation/ja/docs/v1.6/service-operator/NETWORK_CONTROL_NODE_SETUP-0c6": {
+  "/ja/docs/v1.6/service-operator/NETWORK_CONTROL_NODE_SETUP-f9c": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-6-service-operator-network-control-node-setup-35-e-ff3"
   },
-  "/phoenix-documentation/ja/docs/v1.6/service-operator/OBSERVABILITY_ALERTS-529": {
+  "/ja/docs/v1.6/service-operator/OBSERVABILITY_ALERTS-0e2": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-6-service-operator-observability-alerts-1-bf-9c4"
   },
-  "/phoenix-documentation/ja/docs/v1.6/service-operator/OBSERVABILITY_DASHBOARDS-7bc": {
+  "/ja/docs/v1.6/service-operator/OBSERVABILITY_DASHBOARDS-774": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-6-service-operator-observability-dashboard-sbb-7-d5d"
   },
-  "/phoenix-documentation/ja/docs/v1.6/service-operator/OPERATOR_API_GUIDE-6ef": {
+  "/ja/docs/v1.6/service-operator/OPERATOR_API_GUIDE-7b7": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-6-service-operator-operator-api-guid-ee-87-a92"
   },
-  "/phoenix-documentation/ja/docs/v1.6/service-operator/OS_REQUIREMENTS-0a5": {
+  "/ja/docs/v1.6/service-operator/OS_REQUIREMENTS-e0b": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-6-service-operator-os-requirement-se-13-d88"
   },
-  "/phoenix-documentation/ja/docs/v1.6/service-operator/ROUTER_BOX_SETUP-95f": {
+  "/ja/docs/v1.6/service-operator/ROUTER_BOX_SETUP-4ef": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-6-service-operator-router-box-setu-pfd-8-c72"
   },
-  "/phoenix-documentation/ja/docs/v1.6/service-operator/VPN_CONFIGURATION-6e5": {
+  "/ja/docs/v1.6/service-operator/VPN_CONFIGURATION-0c6": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-v-1-6-service-operator-vpn-configuratio-ncd-9-2a4"
   },
-  "/phoenix-documentation/ja/docs-89b": {
+  "/ja/docs-901": {
     "__comp": "__comp---theme-doc-version-roota-7-b-5de",
-    "__props": "__props---phoenix-documentation-ja-docs-29-a-c57"
+    "__props": "__props---ja-docs-459-492"
   },
-  "/phoenix-documentation/ja/docs-8e5": {
+  "/ja/docs-912": {
     "__comp": "__comp---theme-doc-roota-94-67a"
   },
-  "/phoenix-documentation/ja/docs/category/service-operator-da9": {
+  "/ja/docs/category/service-operator-e42": {
     "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
-    "__props": "__props---phoenix-documentation-ja-docs-category-service-operator-14-c-02a"
+    "__props": "__props---ja-docs-category-service-operator-1-e-4-69f"
   },
-  "/phoenix-documentation/ja/docs/OPERATOR_REFERENCE-338": {
+  "/ja/docs/OPERATOR_REFERENCE-2a4": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-operator-reference-2-e-7-047"
   },
-  "/phoenix-documentation/ja/docs/service-operator/CEPH_SETUP-d93": {
+  "/ja/docs/service-operator/CEPH_SETUP-225": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-service-operator-ceph-setu-pc-7-d-4e5"
   },
-  "/phoenix-documentation/ja/docs/service-operator/DEPLOYMENT-d4e": {
+  "/ja/docs/service-operator/DEPLOYMENT-c17": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-service-operator-deployment-63-f-1a1"
   },
-  "/phoenix-documentation/ja/docs/service-operator/GHCR_AUTHENTICATION-d08": {
+  "/ja/docs/service-operator/GHCR_AUTHENTICATION-47c": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-service-operator-ghcr-authentication-4-de-84e"
   },
-  "/phoenix-documentation/ja/docs/service-operator/GOOGLE_SSO_SETUP-ecf": {
+  "/ja/docs/service-operator/GOOGLE_SSO_SETUP-f8e": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-service-operator-google-sso-setu-pb-5-e-5ba"
   },
-  "/phoenix-documentation/ja/docs/service-operator/IAAS_CONSOLE_CONFIGURATION-0cd": {
+  "/ja/docs/service-operator/IAAS_CONSOLE_CONFIGURATION-e81": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-service-operator-iaas-console-configuratio-nf-54-513"
   },
-  "/phoenix-documentation/ja/docs/service-operator/INSTALL_BAREMETAL_NODE-b6c": {
+  "/ja/docs/service-operator/INSTALL_BAREMETAL_NODE-ec2": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-service-operator-install-baremetal-nod-ebfc-912"
   },
-  "/phoenix-documentation/ja/docs/service-operator/intro-525": {
+  "/ja/docs/service-operator/intro-50b": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-service-operator-introc-5-b-35a"
   },
-  "/phoenix-documentation/ja/docs/service-operator/NETWORK_CONTROL_NODE_SETUP-f9d": {
+  "/ja/docs/service-operator/NETWORK_CONTROL_NODE_SETUP-f00": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-service-operator-network-control-node-setu-pc-57-ef1"
   },
-  "/phoenix-documentation/ja/docs/service-operator/OBSERVABILITY_ALERTS-20a": {
+  "/ja/docs/service-operator/OBSERVABILITY_ALERTS-974": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-service-operator-observability-alert-sf-9-e-647"
   },
-  "/phoenix-documentation/ja/docs/service-operator/OBSERVABILITY_DASHBOARDS-e59": {
+  "/ja/docs/service-operator/OBSERVABILITY_DASHBOARDS-e73": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-service-operator-observability-dashboard-saba-34b"
   },
-  "/phoenix-documentation/ja/docs/service-operator/OPERATOR_API_GUIDE-e4d": {
+  "/ja/docs/service-operator/OPERATOR_API_GUIDE-a88": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-service-operator-operator-api-guid-edbb-09a"
   },
-  "/phoenix-documentation/ja/docs/service-operator/OS_REQUIREMENTS-bc8": {
+  "/ja/docs/service-operator/OS_REQUIREMENTS-554": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-service-operator-os-requirement-sd-5-e-926"
   },
-  "/phoenix-documentation/ja/docs/service-operator/ROUTER_BOX_SETUP-cfb": {
+  "/ja/docs/service-operator/ROUTER_BOX_SETUP-efe": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-service-operator-router-box-setu-pf-82-adb"
   },
-  "/phoenix-documentation/ja/docs/service-operator/VPN_CONFIGURATION-66b": {
+  "/ja/docs/service-operator/VPN_CONFIGURATION-a75": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---phoenix-documentation-ja-docs-service-operator-vpn-configuration-24-a-a82"
   },
-  "/phoenix-documentation/ja/-36f": {
+  "/ja/-2d1": {
     "__comp": "__comp---site-src-pages-index-jsc-4-f-f99",
     "__context": {
       "plugin": "plugin---phoenix-documentation-ja-a-74-d5c"

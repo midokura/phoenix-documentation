@@ -5,7 +5,7 @@
   "source": "@site/i18n/ja/docusaurus-plugin-content-docs/current/service-operator/VPN_CONFIGURATION.md",
   "sourceDirName": "service-operator",
   "slug": "/service-operator/VPN_CONFIGURATION",
-  "permalink": "/phoenix-documentation/ja/docs/next/service-operator/VPN_CONFIGURATION",
+  "permalink": "/ja/docs/next/service-operator/VPN_CONFIGURATION",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,6 +14,6 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Router Box Setup",
-    "permalink": "/phoenix-documentation/ja/docs/next/service-operator/ROUTER_BOX_SETUP"
+    "permalink": "/ja/docs/next/service-operator/ROUTER_BOX_SETUP"
   }
 }

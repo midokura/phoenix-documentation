@@ -5,7 +5,7 @@
   "source": "@site/versioned_docs/version-v1.3/service-operator/DEPLOYMENT.md",
   "sourceDirName": "service-operator",
   "slug": "/service-operator/DEPLOYMENT",
-  "permalink": "/phoenix-documentation/ja/docs/v1.3/service-operator/DEPLOYMENT",
+  "permalink": "/ja/docs/v1.3/service-operator/DEPLOYMENT",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Setup Ceph - Generic",
-    "permalink": "/phoenix-documentation/ja/docs/v1.3/service-operator/CEPH_SETUP"
+    "permalink": "/ja/docs/v1.3/service-operator/CEPH_SETUP"
   },
   "next": {
     "title": "GitHub Container Registry (GHCR) Authentication",
-    "permalink": "/phoenix-documentation/ja/docs/v1.3/service-operator/GHCR_AUTHENTICATION"
+    "permalink": "/ja/docs/v1.3/service-operator/GHCR_AUTHENTICATION"
   }
 }

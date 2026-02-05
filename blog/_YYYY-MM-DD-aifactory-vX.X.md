@@ -5,6 +5,8 @@ authors: [alexanderfandos, sergimiralles, galonavarro, alexandervera]
 tags: [aifactory]
 ---
 
+<!-- Copy this file to create a new release note -->
+<!-- Rename your file appropriately and make sure to remove the leading underscore from the filename -->
 <!-- Delete the unneeded authors entries above -->
 <!-- Update vX.X for your version throughout -->
 

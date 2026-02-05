@@ -48,9 +48,7 @@ If we need to remove a no-longer-supported version of the docs from the website,
 
 ## Deployment
 
-WIP but essentially:
-- Pushes to main result in build to https://midokura.github.io/phoenix-documentation/
-- Will need to set DNS nameservers to redirect to docs.midokura.com
+- Pushes to main result in build to website
 
 # To Do
 
@@ -58,17 +56,12 @@ WIP but essentially:
 - Add 'Back to Top' button at the bottom, especially for mobile
   - <a name="top"></a>
   - <a href="#top">&#8593;</a>
-- Create new release notes template on GitHub
 - Find a logo or image for the new name
 - Use Midokura colours
 - Update the README above to explain how to do a docs release
 - Turn off 'Next' (main)
-- Set DNS nameservers to redirect to docs.midokura.com
 - Translate to Japanese (Mari is on it)
-  - Do the relevant parts of <https://docusaurus.io/docs/i18n/tutorial#multi-domain-deployment>
-  - Do not turn on the navbar element
   - Ping Mari with instructions
-  - Turn on the navbar element
   - Roll out for v2.x
   - Devise methodology for translating release notes ahead of release day
   - Write up howto for translation
@@ -78,6 +71,9 @@ WIP but essentially:
   
 ## Done
 
+- Create new release notes template on GitHub
+- Translate to Japanese - Do the relevant parts of <<https://docusaurus.io/docs/i18n/>
+- Set DNS nameservers to redirect to docs.midokura.com
 - Find out how to translate the index.js page (front page) <- covered in the docusaurus docs
 - Should we use the phoenix svg if we are not using Phoenix as the name? <- in the absence of a different logo, we will keep it
 - Check if the phoenix svg is legal to use <- free license

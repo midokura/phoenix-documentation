@@ -42,8 +42,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non nulla ullamcorp
 
 ## Operator reference
 
-The operator reference sheet for this release of AI Factory can be found in the '/docs'
-
-section of this website.
+The operator reference sheet for this release of AI Factory can be found in the '/docs' section of this website.
 
 Please contact support@midokura.com for more information.

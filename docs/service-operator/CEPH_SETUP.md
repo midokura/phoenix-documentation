@@ -134,6 +134,19 @@ ceph config set client.rgw.gateway rgw_keystone_admin_password <ceph_rgw_keyston
 ceph orch restart rgw.gateway
 ```
 
+:::tip
+
+You can skip this step by setting the following configuration in the inventory
+
+```bash
+post_deployment:
+  configure_ceph_rgw_keystone:
+    active: true  # Enable/disable Ceph RGW Keystone configuration
+    ceph_host_user: ubuntu  # Optional: SSH user for Ceph hosts (default: ubuntu)
+```
+
+:::
+
 ## Configuration and Usage
 
 ### 1. Create a pool for images:

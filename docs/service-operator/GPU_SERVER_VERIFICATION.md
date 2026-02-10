@@ -370,14 +370,27 @@ Look for: 'DMA-BUF is available', 'Using network IB', 'GDR 1'
 
 #### How to run
 
-Single-server (requires 2+ GPUs):
+1) Single-server (requires 2+ GPUs):
 
 ```bash
 source /opt/pytorch-venv/bin/activate
 torchrun --nproc_per_node=2 /usr/local/bin/test-nccl
 ```
 
-Multi-server (2 servers, each with N GPUs):
+**Expected output** (single-server, 2 GPUs, with NCCL_DEBUG=INFO):
+
+The actual output will be verbose with many NCCL INFO lines about initialization, topology, channels, and rings. Below are the **key lines to look for** in that output:
+
+```text
+[NCCL] DMA-BUF is available
+[NCCL] Using network IB:mlx5_0:1
+[NCCL] NET/IB: Using addr=<SERVER_IP> port=48221 dev=mlx5_0
+[NCCL] GDR 1
+Rank 0: OK (result=1.0, expected=1.0)
+Rank 1: OK (result=1.0, expected=1.0)
+```
+
+2) Multi-server (2 servers, each with N GPUs):
 
 ```bash
 # On Server 0 (master):
@@ -395,19 +408,6 @@ Where:
 
 - `N` is the number of GPUs per server involved in the test,
 - `SERVER_0_IP` is the IP of a Mellanox NIC on Server 0, which here is acting as the coordinator.
-
-**Expected output** (single-server, 2 GPUs, with NCCL_DEBUG=INFO):
-
-The actual output will be verbose with many NCCL INFO lines about initialization, topology, channels, and rings. Below are the **key lines to look for** in that output:
-
-```text
-[NCCL] DMA-BUF is available
-[NCCL] Using network IB:mlx5_0:1
-[NCCL] NET/IB: Using addr=<SERVER_IP> port=48221 dev=mlx5_0
-[NCCL] GDR 1
-Rank 0: OK (result=1.0, expected=1.0)
-Rank 1: OK (result=1.0, expected=1.0)
-```
 
 **Expected output** (multi-server, 2 servers x 2 GPUs, with NCCL_DEBUG=INFO):
 

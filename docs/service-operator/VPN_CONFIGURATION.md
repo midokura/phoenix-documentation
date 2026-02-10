@@ -8,16 +8,45 @@ This guide explains how to set up VPN access for users who have been assigned to
 
 When a user is added to a tenant, the operator can generate a VPN configuration script for that user. The user then combines this script with their private key to create a complete VPN configuration.
 
-## When to Generate VPN Configuration
+## Setup Process
 
-VPN configuration can be generated after a user is associated with a tenant through either:
+The VPN setup follows these steps:
 
-- **At tenant creation**: `POST /tenants`
-- **Adding user to existing tenant**: `PUT /tenants/{tenant_id}/users/{user_id}`
+1. User generates WireGuard key pair
+2. User shares public key with operator
+3. Operator adds user to tenant with the public key
+4. Operator fetches and provides VPN configuration script
+5. User combines script with private key to create final VPN configuration
+
+## User: Generate Key Pair
+
+First, generate your WireGuard private and public keys:
+
+```bash
+wg genkey > privatekey && wg pubkey < privatekey > pubkey
+```
+
+This creates two files:
+- `privatekey`: Keep this secret and secure
+- `pubkey`: Share this with the operator
+
+View your public key:
+
+```bash
+cat pubkey
+```
+
+Provide this public key to the operator so they can add you to the tenant.
+
+## Operator: Add User to Tenant
+
+After receiving the user's public key, add the user to a tenant. The user's WireGuard public key must be provided in the `pubkey` field for VPN access configuration.
+
+For complete API details and examples, see the [Add User to Tenant](OPERATOR_API_GUIDE.md#add-user-to-tenant) section in the Operator API Guide.
 
 ## Operator: Fetch VPN Configuration Script
 
-As an operator, retrieve the VPN configuration script for a user:
+Retrieve the VPN configuration script for the user:
 
 ```bash
 curl -H "Authorization: Bearer $JWT_TOKEN" \
@@ -29,19 +58,7 @@ Provide this script to the user.
 
 ## User: Generate VPN Configuration
 
-### Step 1: Generate Key Pair
-
-The user must first generate their WireGuard private and public keys:
-
-```bash
-wg genkey > privatekey && wg pubkey < privatekey > pubkey
-```
-
-This creates two files:
-- `privatekey`: Keep this secret
-- `pubkey`: Share this with the operator if required
-
-### Step 2: Generate VPN Configuration
+### Step 1: Combine Script with Private Key
 
 Run the configuration script received from the operator, injecting your private key:
 
@@ -51,7 +68,7 @@ cat privatekey | bash vpn-config-script.sh > wg.conf
 
 This creates `wg.conf` with your complete VPN configuration.
 
-### Step 3: Import Configuration
+### Step 2: Import Configuration
 
 Import the configuration into your system using the WireGuard UI or CLI. Example for the CLI:
 

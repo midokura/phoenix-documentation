@@ -24,7 +24,7 @@ Share the generated `.conf` file with the user. They can import it into:
 - **Linux**: `wg-quick up ./john_doe.conf`
 
 > **Important**: The `.conf` file contains the user's private key.
-> Send it via a secure channel (e.g., encrypted message, not plain email).
+> Send it via a secure channel (for example, encrypted message, not plain email).
 
 ## Step 3: Deploy to the router
 

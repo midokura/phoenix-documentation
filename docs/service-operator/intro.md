@@ -12,7 +12,6 @@ Managing the AI Factory IaaS platform.
 - **[DEPLOYMENT](DEPLOYMENT.md)** - Deployment procedures and guidelines for the Phoenix platform
 - **[GHCR_AUTHENTICATION](GHCR_AUTHENTICATION.md)** - Authentication setup for GitHub Container Registry
 - **[GOOGLE_SSO_SETUP](GOOGLE_SSO_SETUP.md)** - Instructions for configuring Google SSO for user authentication in the IaaS Console
-- **[GPU_SERVER_VERIFICATION](GPU_SERVER_VERIFICATION.md)** - Verification guide for GPU, RDMA, and GPUDirect RDMA configuration on bare-metal servers
 - **[IAAS_CONSOLE_CONFIGURATION](IAAS_CONSOLE_CONFIGURATION.md)** - Configuration reference for the IaaS Console API Helm Chart
 - **[INSTALL_BAREMETAL_NODE](INSTALL_BAREMETAL_NODE.md)** - Installation guide for bare metal nodes
 - **[NETWORK_CONTROL_NODE_SETUP](NETWORK_CONTROL_NODE_SETUP.md)** - Setup guide for network control nodes

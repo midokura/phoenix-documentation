@@ -5,7 +5,7 @@
   "source": "@site/versioned_docs/version-v1.2/service-operator/OS_REQUIREMENTS.md",
   "sourceDirName": "service-operator",
   "slug": "/service-operator/OS_REQUIREMENTS",
-  "permalink": "/ja/docs/v1.2/service-operator/OS_REQUIREMENTS",
+  "permalink": "/docs/v1.2/service-operator/OS_REQUIREMENTS",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Operator API Usage Guide",
-    "permalink": "/ja/docs/v1.2/service-operator/OPERATOR_API_GUIDE"
+    "permalink": "/docs/v1.2/service-operator/OPERATOR_API_GUIDE"
   },
   "next": {
     "title": "VPN Configuration for Tenant Users",
-    "permalink": "/ja/docs/v1.2/service-operator/VPN_CONFIGURATION"
+    "permalink": "/docs/v1.2/service-operator/VPN_CONFIGURATION"
   }
 }

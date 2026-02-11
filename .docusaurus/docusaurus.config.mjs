@@ -29,7 +29,7 @@ export default {
     "experimental_router": "browser"
   },
   "url": "https://docs.midokura.com",
-  "baseUrl": "/ja/",
+  "baseUrl": "/",
   "organizationName": "midokura",
   "projectName": "phoenix-documentation",
   "trailingSlash": false,

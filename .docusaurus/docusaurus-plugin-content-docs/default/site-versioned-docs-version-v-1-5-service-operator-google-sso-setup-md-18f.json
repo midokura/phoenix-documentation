@@ -5,7 +5,7 @@
   "source": "@site/versioned_docs/version-v1.5/service-operator/GOOGLE_SSO_SETUP.md",
   "sourceDirName": "service-operator",
   "slug": "/service-operator/GOOGLE_SSO_SETUP",
-  "permalink": "/ja/docs/v1.5/service-operator/GOOGLE_SSO_SETUP",
+  "permalink": "/docs/v1.5/service-operator/GOOGLE_SSO_SETUP",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "GitHub Container Registry (GHCR) Authentication",
-    "permalink": "/ja/docs/v1.5/service-operator/GHCR_AUTHENTICATION"
+    "permalink": "/docs/v1.5/service-operator/GHCR_AUTHENTICATION"
   },
   "next": {
     "title": "IaaS Console Configuration",
-    "permalink": "/ja/docs/v1.5/service-operator/IAAS_CONSOLE_CONFIGURATION"
+    "permalink": "/docs/v1.5/service-operator/IAAS_CONSOLE_CONFIGURATION"
   }
 }

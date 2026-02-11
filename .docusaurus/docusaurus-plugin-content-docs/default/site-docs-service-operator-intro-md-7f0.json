@@ -5,7 +5,7 @@
   "source": "@site/docs/service-operator/intro.md",
   "sourceDirName": "service-operator",
   "slug": "/service-operator/intro",
-  "permalink": "/phoenix-documentation/docs/next/service-operator/intro",
+  "permalink": "/docs/next/service-operator/intro",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -17,10 +17,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Service Operator",
-    "permalink": "/phoenix-documentation/docs/next/category/service-operator"
+    "permalink": "/docs/next/category/service-operator"
   },
   "next": {
     "title": "Setup Ceph - Generic",
-    "permalink": "/phoenix-documentation/docs/next/service-operator/CEPH_SETUP"
+    "permalink": "/docs/next/service-operator/CEPH_SETUP"
   }
 }

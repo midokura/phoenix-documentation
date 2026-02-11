@@ -5,7 +5,7 @@
   "source": "@site/versioned_docs/version-v1.5/service-operator/ROUTER_BOX_SETUP.md",
   "sourceDirName": "service-operator",
   "slug": "/service-operator/ROUTER_BOX_SETUP",
-  "permalink": "/ja/docs/v1.5/service-operator/ROUTER_BOX_SETUP",
+  "permalink": "/docs/v1.5/service-operator/ROUTER_BOX_SETUP",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "OS Requirements",
-    "permalink": "/ja/docs/v1.5/service-operator/OS_REQUIREMENTS"
+    "permalink": "/docs/v1.5/service-operator/OS_REQUIREMENTS"
   },
   "next": {
     "title": "VPN Configuration for Tenant Users",
-    "permalink": "/ja/docs/v1.5/service-operator/VPN_CONFIGURATION"
+    "permalink": "/docs/v1.5/service-operator/VPN_CONFIGURATION"
   }
 }

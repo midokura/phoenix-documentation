@@ -5,7 +5,7 @@
   "source": "@site/versioned_docs/version-v1.6/service-operator/OPERATOR_API_GUIDE.md",
   "sourceDirName": "service-operator",
   "slug": "/service-operator/OPERATOR_API_GUIDE",
-  "permalink": "/ja/docs/v1.6/service-operator/OPERATOR_API_GUIDE",
+  "permalink": "/docs/v1.6/service-operator/OPERATOR_API_GUIDE",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Observability Dashboards",
-    "permalink": "/ja/docs/v1.6/service-operator/OBSERVABILITY_DASHBOARDS"
+    "permalink": "/docs/v1.6/service-operator/OBSERVABILITY_DASHBOARDS"
   },
   "next": {
     "title": "OS Requirements",
-    "permalink": "/ja/docs/v1.6/service-operator/OS_REQUIREMENTS"
+    "permalink": "/docs/v1.6/service-operator/OS_REQUIREMENTS"
   }
 }

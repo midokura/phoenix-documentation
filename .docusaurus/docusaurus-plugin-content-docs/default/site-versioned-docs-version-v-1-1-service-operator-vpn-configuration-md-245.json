@@ -5,7 +5,7 @@
   "source": "@site/versioned_docs/version-v1.1/service-operator/VPN_CONFIGURATION.md",
   "sourceDirName": "service-operator",
   "slug": "/service-operator/VPN_CONFIGURATION",
-  "permalink": "/ja/docs/v1.1/service-operator/VPN_CONFIGURATION",
+  "permalink": "/docs/v1.1/service-operator/VPN_CONFIGURATION",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,6 +14,6 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "OS Requirements",
-    "permalink": "/ja/docs/v1.1/service-operator/OS_REQUIREMENTS"
+    "permalink": "/docs/v1.1/service-operator/OS_REQUIREMENTS"
   }
 }

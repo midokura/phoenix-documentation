@@ -3,240 +3,240 @@ import ComponentCreator from '@docusaurus/ComponentCreator';
 
 export default [
   {
-    path: '/ja/__docusaurus/debug',
-    component: ComponentCreator('/ja/__docusaurus/debug', 'e57'),
+    path: '/__docusaurus/debug',
+    component: ComponentCreator('/__docusaurus/debug', '5ff'),
     exact: true
   },
   {
-    path: '/ja/__docusaurus/debug/config',
-    component: ComponentCreator('/ja/__docusaurus/debug/config', 'a39'),
+    path: '/__docusaurus/debug/config',
+    component: ComponentCreator('/__docusaurus/debug/config', '5ba'),
     exact: true
   },
   {
-    path: '/ja/__docusaurus/debug/content',
-    component: ComponentCreator('/ja/__docusaurus/debug/content', 'cfe'),
+    path: '/__docusaurus/debug/content',
+    component: ComponentCreator('/__docusaurus/debug/content', 'a2b'),
     exact: true
   },
   {
-    path: '/ja/__docusaurus/debug/globalData',
-    component: ComponentCreator('/ja/__docusaurus/debug/globalData', '989'),
+    path: '/__docusaurus/debug/globalData',
+    component: ComponentCreator('/__docusaurus/debug/globalData', 'c3c'),
     exact: true
   },
   {
-    path: '/ja/__docusaurus/debug/metadata',
-    component: ComponentCreator('/ja/__docusaurus/debug/metadata', 'e32'),
+    path: '/__docusaurus/debug/metadata',
+    component: ComponentCreator('/__docusaurus/debug/metadata', '156'),
     exact: true
   },
   {
-    path: '/ja/__docusaurus/debug/registry',
-    component: ComponentCreator('/ja/__docusaurus/debug/registry', 'b2c'),
+    path: '/__docusaurus/debug/registry',
+    component: ComponentCreator('/__docusaurus/debug/registry', '88c'),
     exact: true
   },
   {
-    path: '/ja/__docusaurus/debug/routes',
-    component: ComponentCreator('/ja/__docusaurus/debug/routes', 'c47'),
+    path: '/__docusaurus/debug/routes',
+    component: ComponentCreator('/__docusaurus/debug/routes', '000'),
     exact: true
   },
   {
-    path: '/ja/blog',
-    component: ComponentCreator('/ja/blog', 'bde'),
+    path: '/blog',
+    component: ComponentCreator('/blog', 'e4e'),
     exact: true
   },
   {
-    path: '/ja/blog/archive',
-    component: ComponentCreator('/ja/blog/archive', 'a57'),
+    path: '/blog/archive',
+    component: ComponentCreator('/blog/archive', '182'),
     exact: true
   },
   {
-    path: '/ja/blog/authors',
-    component: ComponentCreator('/ja/blog/authors', '31a'),
+    path: '/blog/authors',
+    component: ComponentCreator('/blog/authors', '0b7'),
     exact: true
   },
   {
-    path: '/ja/blog/authors/alexanderfandos',
-    component: ComponentCreator('/ja/blog/authors/alexanderfandos', '2cb'),
+    path: '/blog/authors/alexanderfandos',
+    component: ComponentCreator('/blog/authors/alexanderfandos', '8a2'),
     exact: true
   },
   {
-    path: '/ja/blog/authors/alexandervera',
-    component: ComponentCreator('/ja/blog/authors/alexandervera', '403'),
+    path: '/blog/authors/alexandervera',
+    component: ComponentCreator('/blog/authors/alexandervera', 'c48'),
     exact: true
   },
   {
-    path: '/ja/blog/authors/galonavarro',
-    component: ComponentCreator('/ja/blog/authors/galonavarro', '773'),
+    path: '/blog/authors/galonavarro',
+    component: ComponentCreator('/blog/authors/galonavarro', '94f'),
     exact: true
   },
   {
-    path: '/ja/blog/authors/jimkennedy',
-    component: ComponentCreator('/ja/blog/authors/jimkennedy', 'c16'),
+    path: '/blog/authors/jimkennedy',
+    component: ComponentCreator('/blog/authors/jimkennedy', '083'),
     exact: true
   },
   {
-    path: '/ja/blog/authors/sergimiralles',
-    component: ComponentCreator('/ja/blog/authors/sergimiralles', 'ce6'),
+    path: '/blog/authors/sergimiralles',
+    component: ComponentCreator('/blog/authors/sergimiralles', 'e0f'),
     exact: true
   },
   {
-    path: '/ja/blog/tags',
-    component: ComponentCreator('/ja/blog/tags', 'e5d'),
+    path: '/blog/tags',
+    component: ComponentCreator('/blog/tags', '287'),
     exact: true
   },
   {
-    path: '/ja/blog/tags/phoenix',
-    component: ComponentCreator('/ja/blog/tags/phoenix', '5d4'),
+    path: '/blog/tags/phoenix',
+    component: ComponentCreator('/blog/tags/phoenix', '4dc'),
     exact: true
   },
   {
-    path: '/ja/blog/v1.0',
-    component: ComponentCreator('/ja/blog/v1.0', '393'),
+    path: '/blog/v1.0',
+    component: ComponentCreator('/blog/v1.0', '406'),
     exact: true
   },
   {
-    path: '/ja/blog/v1.1',
-    component: ComponentCreator('/ja/blog/v1.1', '826'),
+    path: '/blog/v1.1',
+    component: ComponentCreator('/blog/v1.1', 'e32'),
     exact: true
   },
   {
-    path: '/ja/blog/v1.2',
-    component: ComponentCreator('/ja/blog/v1.2', '2d6'),
+    path: '/blog/v1.2',
+    component: ComponentCreator('/blog/v1.2', '19b'),
     exact: true
   },
   {
-    path: '/ja/blog/v1.3',
-    component: ComponentCreator('/ja/blog/v1.3', 'd5b'),
+    path: '/blog/v1.3',
+    component: ComponentCreator('/blog/v1.3', '749'),
     exact: true
   },
   {
-    path: '/ja/blog/v1.4',
-    component: ComponentCreator('/ja/blog/v1.4', 'ab8'),
+    path: '/blog/v1.4',
+    component: ComponentCreator('/blog/v1.4', 'e34'),
     exact: true
   },
   {
-    path: '/ja/blog/v1.5',
-    component: ComponentCreator('/ja/blog/v1.5', '58e'),
+    path: '/blog/v1.5',
+    component: ComponentCreator('/blog/v1.5', 'b34'),
     exact: true
   },
   {
-    path: '/ja/blog/v1.6',
-    component: ComponentCreator('/ja/blog/v1.6', '7f7'),
+    path: '/blog/v1.6',
+    component: ComponentCreator('/blog/v1.6', 'ee4'),
     exact: true
   },
   {
-    path: '/ja/blog/v1.7',
-    component: ComponentCreator('/ja/blog/v1.7', '27b'),
+    path: '/blog/v1.7',
+    component: ComponentCreator('/blog/v1.7', '13c'),
     exact: true
   },
   {
-    path: '/ja/search',
-    component: ComponentCreator('/ja/search', 'a50'),
+    path: '/search',
+    component: ComponentCreator('/search', '822'),
     exact: true
   },
   {
-    path: '/ja/docs',
-    component: ComponentCreator('/ja/docs', '879'),
+    path: '/docs',
+    component: ComponentCreator('/docs', '81e'),
     routes: [
       {
-        path: '/ja/docs/next',
-        component: ComponentCreator('/ja/docs/next', '618'),
+        path: '/docs/next',
+        component: ComponentCreator('/docs/next', '0d1'),
         routes: [
           {
-            path: '/ja/docs/next',
-            component: ComponentCreator('/ja/docs/next', '0b3'),
+            path: '/docs/next',
+            component: ComponentCreator('/docs/next', '18f'),
             routes: [
               {
-                path: '/ja/docs/next/category/service-operator',
-                component: ComponentCreator('/ja/docs/next/category/service-operator', '4fe'),
+                path: '/docs/next/category/service-operator',
+                component: ComponentCreator('/docs/next/category/service-operator', '00d'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/next/OPERATOR_REFERENCE',
-                component: ComponentCreator('/ja/docs/next/OPERATOR_REFERENCE', '061'),
+                path: '/docs/next/OPERATOR_REFERENCE',
+                component: ComponentCreator('/docs/next/OPERATOR_REFERENCE', '80d'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/next/service-operator/CEPH_SETUP',
-                component: ComponentCreator('/ja/docs/next/service-operator/CEPH_SETUP', '1a8'),
+                path: '/docs/next/service-operator/CEPH_SETUP',
+                component: ComponentCreator('/docs/next/service-operator/CEPH_SETUP', 'e9c'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/next/service-operator/DEPLOYMENT',
-                component: ComponentCreator('/ja/docs/next/service-operator/DEPLOYMENT', '3ba'),
+                path: '/docs/next/service-operator/DEPLOYMENT',
+                component: ComponentCreator('/docs/next/service-operator/DEPLOYMENT', '54f'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/next/service-operator/GHCR_AUTHENTICATION',
-                component: ComponentCreator('/ja/docs/next/service-operator/GHCR_AUTHENTICATION', '2fd'),
+                path: '/docs/next/service-operator/GHCR_AUTHENTICATION',
+                component: ComponentCreator('/docs/next/service-operator/GHCR_AUTHENTICATION', '602'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/next/service-operator/GOOGLE_SSO_SETUP',
-                component: ComponentCreator('/ja/docs/next/service-operator/GOOGLE_SSO_SETUP', '4a4'),
+                path: '/docs/next/service-operator/GOOGLE_SSO_SETUP',
+                component: ComponentCreator('/docs/next/service-operator/GOOGLE_SSO_SETUP', '231'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/next/service-operator/IAAS_CONSOLE_CONFIGURATION',
-                component: ComponentCreator('/ja/docs/next/service-operator/IAAS_CONSOLE_CONFIGURATION', '4d4'),
+                path: '/docs/next/service-operator/IAAS_CONSOLE_CONFIGURATION',
+                component: ComponentCreator('/docs/next/service-operator/IAAS_CONSOLE_CONFIGURATION', 'e90'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/next/service-operator/INSTALL_BAREMETAL_NODE',
-                component: ComponentCreator('/ja/docs/next/service-operator/INSTALL_BAREMETAL_NODE', 'dd4'),
+                path: '/docs/next/service-operator/INSTALL_BAREMETAL_NODE',
+                component: ComponentCreator('/docs/next/service-operator/INSTALL_BAREMETAL_NODE', '9a0'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/next/service-operator/intro',
-                component: ComponentCreator('/ja/docs/next/service-operator/intro', '31b'),
+                path: '/docs/next/service-operator/intro',
+                component: ComponentCreator('/docs/next/service-operator/intro', 'cae'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/next/service-operator/NETWORK_CONTROL_NODE_SETUP',
-                component: ComponentCreator('/ja/docs/next/service-operator/NETWORK_CONTROL_NODE_SETUP', '0e0'),
+                path: '/docs/next/service-operator/NETWORK_CONTROL_NODE_SETUP',
+                component: ComponentCreator('/docs/next/service-operator/NETWORK_CONTROL_NODE_SETUP', 'b11'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/next/service-operator/OBSERVABILITY_ALERTS',
-                component: ComponentCreator('/ja/docs/next/service-operator/OBSERVABILITY_ALERTS', '693'),
+                path: '/docs/next/service-operator/OBSERVABILITY_ALERTS',
+                component: ComponentCreator('/docs/next/service-operator/OBSERVABILITY_ALERTS', '4d4'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/next/service-operator/OBSERVABILITY_DASHBOARDS',
-                component: ComponentCreator('/ja/docs/next/service-operator/OBSERVABILITY_DASHBOARDS', 'ecf'),
+                path: '/docs/next/service-operator/OBSERVABILITY_DASHBOARDS',
+                component: ComponentCreator('/docs/next/service-operator/OBSERVABILITY_DASHBOARDS', 'f88'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/next/service-operator/OPERATOR_API_GUIDE',
-                component: ComponentCreator('/ja/docs/next/service-operator/OPERATOR_API_GUIDE', '809'),
+                path: '/docs/next/service-operator/OPERATOR_API_GUIDE',
+                component: ComponentCreator('/docs/next/service-operator/OPERATOR_API_GUIDE', '077'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/next/service-operator/OS_REQUIREMENTS',
-                component: ComponentCreator('/ja/docs/next/service-operator/OS_REQUIREMENTS', 'ae6'),
+                path: '/docs/next/service-operator/OS_REQUIREMENTS',
+                component: ComponentCreator('/docs/next/service-operator/OS_REQUIREMENTS', 'd5c'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/next/service-operator/ROUTER_BOX_SETUP',
-                component: ComponentCreator('/ja/docs/next/service-operator/ROUTER_BOX_SETUP', 'da2'),
+                path: '/docs/next/service-operator/ROUTER_BOX_SETUP',
+                component: ComponentCreator('/docs/next/service-operator/ROUTER_BOX_SETUP', 'f0d'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/next/service-operator/VPN_CONFIGURATION',
-                component: ComponentCreator('/ja/docs/next/service-operator/VPN_CONFIGURATION', '4bb'),
+                path: '/docs/next/service-operator/VPN_CONFIGURATION',
+                component: ComponentCreator('/docs/next/service-operator/VPN_CONFIGURATION', 'dcc'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               }
@@ -245,94 +245,94 @@ export default [
         ]
       },
       {
-        path: '/ja/docs/v1.0',
-        component: ComponentCreator('/ja/docs/v1.0', '6ba'),
+        path: '/docs/v1.0',
+        component: ComponentCreator('/docs/v1.0', '1f9'),
         routes: [
           {
-            path: '/ja/docs/v1.0',
-            component: ComponentCreator('/ja/docs/v1.0', '9a2'),
+            path: '/docs/v1.0',
+            component: ComponentCreator('/docs/v1.0', 'e59'),
             routes: [
               {
-                path: '/ja/docs/v1.0/category/service-operator',
-                component: ComponentCreator('/ja/docs/v1.0/category/service-operator', 'bfd'),
+                path: '/docs/v1.0/category/service-operator',
+                component: ComponentCreator('/docs/v1.0/category/service-operator', 'ce8'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.0/service-operator/CEPH_SETUP',
-                component: ComponentCreator('/ja/docs/v1.0/service-operator/CEPH_SETUP', 'bbf'),
+                path: '/docs/v1.0/service-operator/CEPH_SETUP',
+                component: ComponentCreator('/docs/v1.0/service-operator/CEPH_SETUP', '450'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.0/service-operator/DEPLOYMENT',
-                component: ComponentCreator('/ja/docs/v1.0/service-operator/DEPLOYMENT', '6bc'),
+                path: '/docs/v1.0/service-operator/DEPLOYMENT',
+                component: ComponentCreator('/docs/v1.0/service-operator/DEPLOYMENT', 'e2a'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.0/service-operator/GHCR_AUTHENTICATION',
-                component: ComponentCreator('/ja/docs/v1.0/service-operator/GHCR_AUTHENTICATION', 'e75'),
+                path: '/docs/v1.0/service-operator/GHCR_AUTHENTICATION',
+                component: ComponentCreator('/docs/v1.0/service-operator/GHCR_AUTHENTICATION', 'b2c'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.0/service-operator/GOOGLE_SSO_SETUP',
-                component: ComponentCreator('/ja/docs/v1.0/service-operator/GOOGLE_SSO_SETUP', '7cd'),
+                path: '/docs/v1.0/service-operator/GOOGLE_SSO_SETUP',
+                component: ComponentCreator('/docs/v1.0/service-operator/GOOGLE_SSO_SETUP', 'a86'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.0/service-operator/IAAS_CONSOLE_CONFIGURATION',
-                component: ComponentCreator('/ja/docs/v1.0/service-operator/IAAS_CONSOLE_CONFIGURATION', '40e'),
+                path: '/docs/v1.0/service-operator/IAAS_CONSOLE_CONFIGURATION',
+                component: ComponentCreator('/docs/v1.0/service-operator/IAAS_CONSOLE_CONFIGURATION', '721'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.0/service-operator/INSTALL_BAREMETAL_NODE',
-                component: ComponentCreator('/ja/docs/v1.0/service-operator/INSTALL_BAREMETAL_NODE', '8b4'),
+                path: '/docs/v1.0/service-operator/INSTALL_BAREMETAL_NODE',
+                component: ComponentCreator('/docs/v1.0/service-operator/INSTALL_BAREMETAL_NODE', 'cb4'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.0/service-operator/intro',
-                component: ComponentCreator('/ja/docs/v1.0/service-operator/intro', '30c'),
+                path: '/docs/v1.0/service-operator/intro',
+                component: ComponentCreator('/docs/v1.0/service-operator/intro', '810'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.0/service-operator/NETWORK_CONTROL_NODE_SETUP',
-                component: ComponentCreator('/ja/docs/v1.0/service-operator/NETWORK_CONTROL_NODE_SETUP', 'eb2'),
+                path: '/docs/v1.0/service-operator/NETWORK_CONTROL_NODE_SETUP',
+                component: ComponentCreator('/docs/v1.0/service-operator/NETWORK_CONTROL_NODE_SETUP', '5c9'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.0/service-operator/OBSERVABILITY_ALERTS',
-                component: ComponentCreator('/ja/docs/v1.0/service-operator/OBSERVABILITY_ALERTS', '3fe'),
+                path: '/docs/v1.0/service-operator/OBSERVABILITY_ALERTS',
+                component: ComponentCreator('/docs/v1.0/service-operator/OBSERVABILITY_ALERTS', '430'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.0/service-operator/OBSERVABILITY_DASHBOARDS',
-                component: ComponentCreator('/ja/docs/v1.0/service-operator/OBSERVABILITY_DASHBOARDS', '7f0'),
+                path: '/docs/v1.0/service-operator/OBSERVABILITY_DASHBOARDS',
+                component: ComponentCreator('/docs/v1.0/service-operator/OBSERVABILITY_DASHBOARDS', '243'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.0/service-operator/OPERATOR_API_GUIDE',
-                component: ComponentCreator('/ja/docs/v1.0/service-operator/OPERATOR_API_GUIDE', '513'),
+                path: '/docs/v1.0/service-operator/OPERATOR_API_GUIDE',
+                component: ComponentCreator('/docs/v1.0/service-operator/OPERATOR_API_GUIDE', '0af'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.0/service-operator/OS_REQUIREMENTS',
-                component: ComponentCreator('/ja/docs/v1.0/service-operator/OS_REQUIREMENTS', 'c2d'),
+                path: '/docs/v1.0/service-operator/OS_REQUIREMENTS',
+                component: ComponentCreator('/docs/v1.0/service-operator/OS_REQUIREMENTS', '285'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.0/service-operator/VPN_CONFIGURATION',
-                component: ComponentCreator('/ja/docs/v1.0/service-operator/VPN_CONFIGURATION', 'cf4'),
+                path: '/docs/v1.0/service-operator/VPN_CONFIGURATION',
+                component: ComponentCreator('/docs/v1.0/service-operator/VPN_CONFIGURATION', 'b80'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               }
@@ -341,94 +341,94 @@ export default [
         ]
       },
       {
-        path: '/ja/docs/v1.1',
-        component: ComponentCreator('/ja/docs/v1.1', 'b00'),
+        path: '/docs/v1.1',
+        component: ComponentCreator('/docs/v1.1', '7b5'),
         routes: [
           {
-            path: '/ja/docs/v1.1',
-            component: ComponentCreator('/ja/docs/v1.1', '538'),
+            path: '/docs/v1.1',
+            component: ComponentCreator('/docs/v1.1', 'fed'),
             routes: [
               {
-                path: '/ja/docs/v1.1/category/service-operator',
-                component: ComponentCreator('/ja/docs/v1.1/category/service-operator', '204'),
+                path: '/docs/v1.1/category/service-operator',
+                component: ComponentCreator('/docs/v1.1/category/service-operator', 'e52'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.1/service-operator/CEPH_SETUP',
-                component: ComponentCreator('/ja/docs/v1.1/service-operator/CEPH_SETUP', 'b26'),
+                path: '/docs/v1.1/service-operator/CEPH_SETUP',
+                component: ComponentCreator('/docs/v1.1/service-operator/CEPH_SETUP', 'eea'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.1/service-operator/DEPLOYMENT',
-                component: ComponentCreator('/ja/docs/v1.1/service-operator/DEPLOYMENT', '387'),
+                path: '/docs/v1.1/service-operator/DEPLOYMENT',
+                component: ComponentCreator('/docs/v1.1/service-operator/DEPLOYMENT', 'c0f'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.1/service-operator/GHCR_AUTHENTICATION',
-                component: ComponentCreator('/ja/docs/v1.1/service-operator/GHCR_AUTHENTICATION', '057'),
+                path: '/docs/v1.1/service-operator/GHCR_AUTHENTICATION',
+                component: ComponentCreator('/docs/v1.1/service-operator/GHCR_AUTHENTICATION', '04b'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.1/service-operator/GOOGLE_SSO_SETUP',
-                component: ComponentCreator('/ja/docs/v1.1/service-operator/GOOGLE_SSO_SETUP', 'dde'),
+                path: '/docs/v1.1/service-operator/GOOGLE_SSO_SETUP',
+                component: ComponentCreator('/docs/v1.1/service-operator/GOOGLE_SSO_SETUP', 'a62'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.1/service-operator/IAAS_CONSOLE_CONFIGURATION',
-                component: ComponentCreator('/ja/docs/v1.1/service-operator/IAAS_CONSOLE_CONFIGURATION', '099'),
+                path: '/docs/v1.1/service-operator/IAAS_CONSOLE_CONFIGURATION',
+                component: ComponentCreator('/docs/v1.1/service-operator/IAAS_CONSOLE_CONFIGURATION', 'f2e'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.1/service-operator/INSTALL_BAREMETAL_NODE',
-                component: ComponentCreator('/ja/docs/v1.1/service-operator/INSTALL_BAREMETAL_NODE', '99c'),
+                path: '/docs/v1.1/service-operator/INSTALL_BAREMETAL_NODE',
+                component: ComponentCreator('/docs/v1.1/service-operator/INSTALL_BAREMETAL_NODE', 'c39'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.1/service-operator/intro',
-                component: ComponentCreator('/ja/docs/v1.1/service-operator/intro', '3cf'),
+                path: '/docs/v1.1/service-operator/intro',
+                component: ComponentCreator('/docs/v1.1/service-operator/intro', 'ebd'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.1/service-operator/NETWORK_CONTROL_NODE_SETUP',
-                component: ComponentCreator('/ja/docs/v1.1/service-operator/NETWORK_CONTROL_NODE_SETUP', '974'),
+                path: '/docs/v1.1/service-operator/NETWORK_CONTROL_NODE_SETUP',
+                component: ComponentCreator('/docs/v1.1/service-operator/NETWORK_CONTROL_NODE_SETUP', 'ccc'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.1/service-operator/OBSERVABILITY_ALERTS',
-                component: ComponentCreator('/ja/docs/v1.1/service-operator/OBSERVABILITY_ALERTS', '4db'),
+                path: '/docs/v1.1/service-operator/OBSERVABILITY_ALERTS',
+                component: ComponentCreator('/docs/v1.1/service-operator/OBSERVABILITY_ALERTS', 'e63'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.1/service-operator/OBSERVABILITY_DASHBOARDS',
-                component: ComponentCreator('/ja/docs/v1.1/service-operator/OBSERVABILITY_DASHBOARDS', 'ad9'),
+                path: '/docs/v1.1/service-operator/OBSERVABILITY_DASHBOARDS',
+                component: ComponentCreator('/docs/v1.1/service-operator/OBSERVABILITY_DASHBOARDS', 'ce0'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.1/service-operator/OPERATOR_API_GUIDE',
-                component: ComponentCreator('/ja/docs/v1.1/service-operator/OPERATOR_API_GUIDE', '51b'),
+                path: '/docs/v1.1/service-operator/OPERATOR_API_GUIDE',
+                component: ComponentCreator('/docs/v1.1/service-operator/OPERATOR_API_GUIDE', 'bb5'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.1/service-operator/OS_REQUIREMENTS',
-                component: ComponentCreator('/ja/docs/v1.1/service-operator/OS_REQUIREMENTS', '17f'),
+                path: '/docs/v1.1/service-operator/OS_REQUIREMENTS',
+                component: ComponentCreator('/docs/v1.1/service-operator/OS_REQUIREMENTS', 'd1f'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.1/service-operator/VPN_CONFIGURATION',
-                component: ComponentCreator('/ja/docs/v1.1/service-operator/VPN_CONFIGURATION', '5a8'),
+                path: '/docs/v1.1/service-operator/VPN_CONFIGURATION',
+                component: ComponentCreator('/docs/v1.1/service-operator/VPN_CONFIGURATION', '664'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               }
@@ -437,94 +437,94 @@ export default [
         ]
       },
       {
-        path: '/ja/docs/v1.2',
-        component: ComponentCreator('/ja/docs/v1.2', '1a5'),
+        path: '/docs/v1.2',
+        component: ComponentCreator('/docs/v1.2', '782'),
         routes: [
           {
-            path: '/ja/docs/v1.2',
-            component: ComponentCreator('/ja/docs/v1.2', 'bcd'),
+            path: '/docs/v1.2',
+            component: ComponentCreator('/docs/v1.2', '046'),
             routes: [
               {
-                path: '/ja/docs/v1.2/category/service-operator',
-                component: ComponentCreator('/ja/docs/v1.2/category/service-operator', '216'),
+                path: '/docs/v1.2/category/service-operator',
+                component: ComponentCreator('/docs/v1.2/category/service-operator', 'ea2'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.2/service-operator/CEPH_SETUP',
-                component: ComponentCreator('/ja/docs/v1.2/service-operator/CEPH_SETUP', 'b5b'),
+                path: '/docs/v1.2/service-operator/CEPH_SETUP',
+                component: ComponentCreator('/docs/v1.2/service-operator/CEPH_SETUP', '491'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.2/service-operator/DEPLOYMENT',
-                component: ComponentCreator('/ja/docs/v1.2/service-operator/DEPLOYMENT', '82d'),
+                path: '/docs/v1.2/service-operator/DEPLOYMENT',
+                component: ComponentCreator('/docs/v1.2/service-operator/DEPLOYMENT', 'a84'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.2/service-operator/GHCR_AUTHENTICATION',
-                component: ComponentCreator('/ja/docs/v1.2/service-operator/GHCR_AUTHENTICATION', '620'),
+                path: '/docs/v1.2/service-operator/GHCR_AUTHENTICATION',
+                component: ComponentCreator('/docs/v1.2/service-operator/GHCR_AUTHENTICATION', '3fe'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.2/service-operator/GOOGLE_SSO_SETUP',
-                component: ComponentCreator('/ja/docs/v1.2/service-operator/GOOGLE_SSO_SETUP', 'f19'),
+                path: '/docs/v1.2/service-operator/GOOGLE_SSO_SETUP',
+                component: ComponentCreator('/docs/v1.2/service-operator/GOOGLE_SSO_SETUP', '082'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.2/service-operator/IAAS_CONSOLE_CONFIGURATION',
-                component: ComponentCreator('/ja/docs/v1.2/service-operator/IAAS_CONSOLE_CONFIGURATION', '606'),
+                path: '/docs/v1.2/service-operator/IAAS_CONSOLE_CONFIGURATION',
+                component: ComponentCreator('/docs/v1.2/service-operator/IAAS_CONSOLE_CONFIGURATION', 'b40'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.2/service-operator/INSTALL_BAREMETAL_NODE',
-                component: ComponentCreator('/ja/docs/v1.2/service-operator/INSTALL_BAREMETAL_NODE', '4e1'),
+                path: '/docs/v1.2/service-operator/INSTALL_BAREMETAL_NODE',
+                component: ComponentCreator('/docs/v1.2/service-operator/INSTALL_BAREMETAL_NODE', '0e5'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.2/service-operator/intro',
-                component: ComponentCreator('/ja/docs/v1.2/service-operator/intro', '632'),
+                path: '/docs/v1.2/service-operator/intro',
+                component: ComponentCreator('/docs/v1.2/service-operator/intro', '372'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.2/service-operator/NETWORK_CONTROL_NODE_SETUP',
-                component: ComponentCreator('/ja/docs/v1.2/service-operator/NETWORK_CONTROL_NODE_SETUP', '303'),
+                path: '/docs/v1.2/service-operator/NETWORK_CONTROL_NODE_SETUP',
+                component: ComponentCreator('/docs/v1.2/service-operator/NETWORK_CONTROL_NODE_SETUP', '070'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.2/service-operator/OBSERVABILITY_ALERTS',
-                component: ComponentCreator('/ja/docs/v1.2/service-operator/OBSERVABILITY_ALERTS', '837'),
+                path: '/docs/v1.2/service-operator/OBSERVABILITY_ALERTS',
+                component: ComponentCreator('/docs/v1.2/service-operator/OBSERVABILITY_ALERTS', '25e'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.2/service-operator/OBSERVABILITY_DASHBOARDS',
-                component: ComponentCreator('/ja/docs/v1.2/service-operator/OBSERVABILITY_DASHBOARDS', '653'),
+                path: '/docs/v1.2/service-operator/OBSERVABILITY_DASHBOARDS',
+                component: ComponentCreator('/docs/v1.2/service-operator/OBSERVABILITY_DASHBOARDS', 'ad6'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.2/service-operator/OPERATOR_API_GUIDE',
-                component: ComponentCreator('/ja/docs/v1.2/service-operator/OPERATOR_API_GUIDE', '222'),
+                path: '/docs/v1.2/service-operator/OPERATOR_API_GUIDE',
+                component: ComponentCreator('/docs/v1.2/service-operator/OPERATOR_API_GUIDE', '390'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.2/service-operator/OS_REQUIREMENTS',
-                component: ComponentCreator('/ja/docs/v1.2/service-operator/OS_REQUIREMENTS', '8fc'),
+                path: '/docs/v1.2/service-operator/OS_REQUIREMENTS',
+                component: ComponentCreator('/docs/v1.2/service-operator/OS_REQUIREMENTS', '472'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.2/service-operator/VPN_CONFIGURATION',
-                component: ComponentCreator('/ja/docs/v1.2/service-operator/VPN_CONFIGURATION', '1a5'),
+                path: '/docs/v1.2/service-operator/VPN_CONFIGURATION',
+                component: ComponentCreator('/docs/v1.2/service-operator/VPN_CONFIGURATION', '7d4'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               }
@@ -533,94 +533,94 @@ export default [
         ]
       },
       {
-        path: '/ja/docs/v1.3',
-        component: ComponentCreator('/ja/docs/v1.3', '729'),
+        path: '/docs/v1.3',
+        component: ComponentCreator('/docs/v1.3', '151'),
         routes: [
           {
-            path: '/ja/docs/v1.3',
-            component: ComponentCreator('/ja/docs/v1.3', '4cf'),
+            path: '/docs/v1.3',
+            component: ComponentCreator('/docs/v1.3', '2c9'),
             routes: [
               {
-                path: '/ja/docs/v1.3/category/service-operator',
-                component: ComponentCreator('/ja/docs/v1.3/category/service-operator', 'b15'),
+                path: '/docs/v1.3/category/service-operator',
+                component: ComponentCreator('/docs/v1.3/category/service-operator', '5f4'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.3/service-operator/CEPH_SETUP',
-                component: ComponentCreator('/ja/docs/v1.3/service-operator/CEPH_SETUP', '286'),
+                path: '/docs/v1.3/service-operator/CEPH_SETUP',
+                component: ComponentCreator('/docs/v1.3/service-operator/CEPH_SETUP', '413'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.3/service-operator/DEPLOYMENT',
-                component: ComponentCreator('/ja/docs/v1.3/service-operator/DEPLOYMENT', '388'),
+                path: '/docs/v1.3/service-operator/DEPLOYMENT',
+                component: ComponentCreator('/docs/v1.3/service-operator/DEPLOYMENT', '836'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.3/service-operator/GHCR_AUTHENTICATION',
-                component: ComponentCreator('/ja/docs/v1.3/service-operator/GHCR_AUTHENTICATION', 'db9'),
+                path: '/docs/v1.3/service-operator/GHCR_AUTHENTICATION',
+                component: ComponentCreator('/docs/v1.3/service-operator/GHCR_AUTHENTICATION', 'ad4'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.3/service-operator/GOOGLE_SSO_SETUP',
-                component: ComponentCreator('/ja/docs/v1.3/service-operator/GOOGLE_SSO_SETUP', 'c8a'),
+                path: '/docs/v1.3/service-operator/GOOGLE_SSO_SETUP',
+                component: ComponentCreator('/docs/v1.3/service-operator/GOOGLE_SSO_SETUP', 'c98'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.3/service-operator/IAAS_CONSOLE_CONFIGURATION',
-                component: ComponentCreator('/ja/docs/v1.3/service-operator/IAAS_CONSOLE_CONFIGURATION', 'd89'),
+                path: '/docs/v1.3/service-operator/IAAS_CONSOLE_CONFIGURATION',
+                component: ComponentCreator('/docs/v1.3/service-operator/IAAS_CONSOLE_CONFIGURATION', 'ab2'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.3/service-operator/INSTALL_BAREMETAL_NODE',
-                component: ComponentCreator('/ja/docs/v1.3/service-operator/INSTALL_BAREMETAL_NODE', '7a7'),
+                path: '/docs/v1.3/service-operator/INSTALL_BAREMETAL_NODE',
+                component: ComponentCreator('/docs/v1.3/service-operator/INSTALL_BAREMETAL_NODE', 'e3d'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.3/service-operator/intro',
-                component: ComponentCreator('/ja/docs/v1.3/service-operator/intro', 'c7d'),
+                path: '/docs/v1.3/service-operator/intro',
+                component: ComponentCreator('/docs/v1.3/service-operator/intro', '8fb'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.3/service-operator/NETWORK_CONTROL_NODE_SETUP',
-                component: ComponentCreator('/ja/docs/v1.3/service-operator/NETWORK_CONTROL_NODE_SETUP', 'eed'),
+                path: '/docs/v1.3/service-operator/NETWORK_CONTROL_NODE_SETUP',
+                component: ComponentCreator('/docs/v1.3/service-operator/NETWORK_CONTROL_NODE_SETUP', '66b'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.3/service-operator/OBSERVABILITY_ALERTS',
-                component: ComponentCreator('/ja/docs/v1.3/service-operator/OBSERVABILITY_ALERTS', 'a52'),
+                path: '/docs/v1.3/service-operator/OBSERVABILITY_ALERTS',
+                component: ComponentCreator('/docs/v1.3/service-operator/OBSERVABILITY_ALERTS', '906'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.3/service-operator/OBSERVABILITY_DASHBOARDS',
-                component: ComponentCreator('/ja/docs/v1.3/service-operator/OBSERVABILITY_DASHBOARDS', '476'),
+                path: '/docs/v1.3/service-operator/OBSERVABILITY_DASHBOARDS',
+                component: ComponentCreator('/docs/v1.3/service-operator/OBSERVABILITY_DASHBOARDS', '5e4'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.3/service-operator/OPERATOR_API_GUIDE',
-                component: ComponentCreator('/ja/docs/v1.3/service-operator/OPERATOR_API_GUIDE', '03e'),
+                path: '/docs/v1.3/service-operator/OPERATOR_API_GUIDE',
+                component: ComponentCreator('/docs/v1.3/service-operator/OPERATOR_API_GUIDE', '752'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.3/service-operator/OS_REQUIREMENTS',
-                component: ComponentCreator('/ja/docs/v1.3/service-operator/OS_REQUIREMENTS', '47f'),
+                path: '/docs/v1.3/service-operator/OS_REQUIREMENTS',
+                component: ComponentCreator('/docs/v1.3/service-operator/OS_REQUIREMENTS', 'c06'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.3/service-operator/VPN_CONFIGURATION',
-                component: ComponentCreator('/ja/docs/v1.3/service-operator/VPN_CONFIGURATION', '110'),
+                path: '/docs/v1.3/service-operator/VPN_CONFIGURATION',
+                component: ComponentCreator('/docs/v1.3/service-operator/VPN_CONFIGURATION', '9fd'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               }
@@ -629,94 +629,94 @@ export default [
         ]
       },
       {
-        path: '/ja/docs/v1.4',
-        component: ComponentCreator('/ja/docs/v1.4', 'db6'),
+        path: '/docs/v1.4',
+        component: ComponentCreator('/docs/v1.4', 'ff1'),
         routes: [
           {
-            path: '/ja/docs/v1.4',
-            component: ComponentCreator('/ja/docs/v1.4', '8e3'),
+            path: '/docs/v1.4',
+            component: ComponentCreator('/docs/v1.4', '081'),
             routes: [
               {
-                path: '/ja/docs/v1.4/category/service-operator',
-                component: ComponentCreator('/ja/docs/v1.4/category/service-operator', '75a'),
+                path: '/docs/v1.4/category/service-operator',
+                component: ComponentCreator('/docs/v1.4/category/service-operator', '29b'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.4/service-operator/CEPH_SETUP',
-                component: ComponentCreator('/ja/docs/v1.4/service-operator/CEPH_SETUP', '7b3'),
+                path: '/docs/v1.4/service-operator/CEPH_SETUP',
+                component: ComponentCreator('/docs/v1.4/service-operator/CEPH_SETUP', '42b'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.4/service-operator/DEPLOYMENT',
-                component: ComponentCreator('/ja/docs/v1.4/service-operator/DEPLOYMENT', 'd01'),
+                path: '/docs/v1.4/service-operator/DEPLOYMENT',
+                component: ComponentCreator('/docs/v1.4/service-operator/DEPLOYMENT', '820'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.4/service-operator/GHCR_AUTHENTICATION',
-                component: ComponentCreator('/ja/docs/v1.4/service-operator/GHCR_AUTHENTICATION', '553'),
+                path: '/docs/v1.4/service-operator/GHCR_AUTHENTICATION',
+                component: ComponentCreator('/docs/v1.4/service-operator/GHCR_AUTHENTICATION', 'cb5'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.4/service-operator/GOOGLE_SSO_SETUP',
-                component: ComponentCreator('/ja/docs/v1.4/service-operator/GOOGLE_SSO_SETUP', '1f4'),
+                path: '/docs/v1.4/service-operator/GOOGLE_SSO_SETUP',
+                component: ComponentCreator('/docs/v1.4/service-operator/GOOGLE_SSO_SETUP', 'd25'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.4/service-operator/IAAS_CONSOLE_CONFIGURATION',
-                component: ComponentCreator('/ja/docs/v1.4/service-operator/IAAS_CONSOLE_CONFIGURATION', '5db'),
+                path: '/docs/v1.4/service-operator/IAAS_CONSOLE_CONFIGURATION',
+                component: ComponentCreator('/docs/v1.4/service-operator/IAAS_CONSOLE_CONFIGURATION', '5a2'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.4/service-operator/INSTALL_BAREMETAL_NODE',
-                component: ComponentCreator('/ja/docs/v1.4/service-operator/INSTALL_BAREMETAL_NODE', '912'),
+                path: '/docs/v1.4/service-operator/INSTALL_BAREMETAL_NODE',
+                component: ComponentCreator('/docs/v1.4/service-operator/INSTALL_BAREMETAL_NODE', 'b6b'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.4/service-operator/intro',
-                component: ComponentCreator('/ja/docs/v1.4/service-operator/intro', '8f2'),
+                path: '/docs/v1.4/service-operator/intro',
+                component: ComponentCreator('/docs/v1.4/service-operator/intro', '58d'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.4/service-operator/NETWORK_CONTROL_NODE_SETUP',
-                component: ComponentCreator('/ja/docs/v1.4/service-operator/NETWORK_CONTROL_NODE_SETUP', 'f87'),
+                path: '/docs/v1.4/service-operator/NETWORK_CONTROL_NODE_SETUP',
+                component: ComponentCreator('/docs/v1.4/service-operator/NETWORK_CONTROL_NODE_SETUP', 'f83'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.4/service-operator/OBSERVABILITY_ALERTS',
-                component: ComponentCreator('/ja/docs/v1.4/service-operator/OBSERVABILITY_ALERTS', '3eb'),
+                path: '/docs/v1.4/service-operator/OBSERVABILITY_ALERTS',
+                component: ComponentCreator('/docs/v1.4/service-operator/OBSERVABILITY_ALERTS', '136'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.4/service-operator/OBSERVABILITY_DASHBOARDS',
-                component: ComponentCreator('/ja/docs/v1.4/service-operator/OBSERVABILITY_DASHBOARDS', '72f'),
+                path: '/docs/v1.4/service-operator/OBSERVABILITY_DASHBOARDS',
+                component: ComponentCreator('/docs/v1.4/service-operator/OBSERVABILITY_DASHBOARDS', '4a6'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.4/service-operator/OPERATOR_API_GUIDE',
-                component: ComponentCreator('/ja/docs/v1.4/service-operator/OPERATOR_API_GUIDE', '113'),
+                path: '/docs/v1.4/service-operator/OPERATOR_API_GUIDE',
+                component: ComponentCreator('/docs/v1.4/service-operator/OPERATOR_API_GUIDE', '409'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.4/service-operator/OS_REQUIREMENTS',
-                component: ComponentCreator('/ja/docs/v1.4/service-operator/OS_REQUIREMENTS', 'd98'),
+                path: '/docs/v1.4/service-operator/OS_REQUIREMENTS',
+                component: ComponentCreator('/docs/v1.4/service-operator/OS_REQUIREMENTS', 'a7c'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.4/service-operator/VPN_CONFIGURATION',
-                component: ComponentCreator('/ja/docs/v1.4/service-operator/VPN_CONFIGURATION', '4d1'),
+                path: '/docs/v1.4/service-operator/VPN_CONFIGURATION',
+                component: ComponentCreator('/docs/v1.4/service-operator/VPN_CONFIGURATION', 'df4'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               }
@@ -725,100 +725,100 @@ export default [
         ]
       },
       {
-        path: '/ja/docs/v1.5',
-        component: ComponentCreator('/ja/docs/v1.5', '2b4'),
+        path: '/docs/v1.5',
+        component: ComponentCreator('/docs/v1.5', 'a7c'),
         routes: [
           {
-            path: '/ja/docs/v1.5',
-            component: ComponentCreator('/ja/docs/v1.5', 'd6e'),
+            path: '/docs/v1.5',
+            component: ComponentCreator('/docs/v1.5', '5be'),
             routes: [
               {
-                path: '/ja/docs/v1.5/category/service-operator',
-                component: ComponentCreator('/ja/docs/v1.5/category/service-operator', '16a'),
+                path: '/docs/v1.5/category/service-operator',
+                component: ComponentCreator('/docs/v1.5/category/service-operator', '9d8'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.5/service-operator/CEPH_SETUP',
-                component: ComponentCreator('/ja/docs/v1.5/service-operator/CEPH_SETUP', '81b'),
+                path: '/docs/v1.5/service-operator/CEPH_SETUP',
+                component: ComponentCreator('/docs/v1.5/service-operator/CEPH_SETUP', '2ea'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.5/service-operator/DEPLOYMENT',
-                component: ComponentCreator('/ja/docs/v1.5/service-operator/DEPLOYMENT', 'a1f'),
+                path: '/docs/v1.5/service-operator/DEPLOYMENT',
+                component: ComponentCreator('/docs/v1.5/service-operator/DEPLOYMENT', 'e5c'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.5/service-operator/GHCR_AUTHENTICATION',
-                component: ComponentCreator('/ja/docs/v1.5/service-operator/GHCR_AUTHENTICATION', 'b1c'),
+                path: '/docs/v1.5/service-operator/GHCR_AUTHENTICATION',
+                component: ComponentCreator('/docs/v1.5/service-operator/GHCR_AUTHENTICATION', '915'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.5/service-operator/GOOGLE_SSO_SETUP',
-                component: ComponentCreator('/ja/docs/v1.5/service-operator/GOOGLE_SSO_SETUP', '57e'),
+                path: '/docs/v1.5/service-operator/GOOGLE_SSO_SETUP',
+                component: ComponentCreator('/docs/v1.5/service-operator/GOOGLE_SSO_SETUP', '414'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.5/service-operator/IAAS_CONSOLE_CONFIGURATION',
-                component: ComponentCreator('/ja/docs/v1.5/service-operator/IAAS_CONSOLE_CONFIGURATION', '36e'),
+                path: '/docs/v1.5/service-operator/IAAS_CONSOLE_CONFIGURATION',
+                component: ComponentCreator('/docs/v1.5/service-operator/IAAS_CONSOLE_CONFIGURATION', '269'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.5/service-operator/INSTALL_BAREMETAL_NODE',
-                component: ComponentCreator('/ja/docs/v1.5/service-operator/INSTALL_BAREMETAL_NODE', 'c59'),
+                path: '/docs/v1.5/service-operator/INSTALL_BAREMETAL_NODE',
+                component: ComponentCreator('/docs/v1.5/service-operator/INSTALL_BAREMETAL_NODE', 'ff2'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.5/service-operator/intro',
-                component: ComponentCreator('/ja/docs/v1.5/service-operator/intro', 'f90'),
+                path: '/docs/v1.5/service-operator/intro',
+                component: ComponentCreator('/docs/v1.5/service-operator/intro', '995'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.5/service-operator/NETWORK_CONTROL_NODE_SETUP',
-                component: ComponentCreator('/ja/docs/v1.5/service-operator/NETWORK_CONTROL_NODE_SETUP', '7b2'),
+                path: '/docs/v1.5/service-operator/NETWORK_CONTROL_NODE_SETUP',
+                component: ComponentCreator('/docs/v1.5/service-operator/NETWORK_CONTROL_NODE_SETUP', '7ba'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.5/service-operator/OBSERVABILITY_ALERTS',
-                component: ComponentCreator('/ja/docs/v1.5/service-operator/OBSERVABILITY_ALERTS', '4a9'),
+                path: '/docs/v1.5/service-operator/OBSERVABILITY_ALERTS',
+                component: ComponentCreator('/docs/v1.5/service-operator/OBSERVABILITY_ALERTS', '44f'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.5/service-operator/OBSERVABILITY_DASHBOARDS',
-                component: ComponentCreator('/ja/docs/v1.5/service-operator/OBSERVABILITY_DASHBOARDS', 'bd6'),
+                path: '/docs/v1.5/service-operator/OBSERVABILITY_DASHBOARDS',
+                component: ComponentCreator('/docs/v1.5/service-operator/OBSERVABILITY_DASHBOARDS', '102'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.5/service-operator/OPERATOR_API_GUIDE',
-                component: ComponentCreator('/ja/docs/v1.5/service-operator/OPERATOR_API_GUIDE', 'a57'),
+                path: '/docs/v1.5/service-operator/OPERATOR_API_GUIDE',
+                component: ComponentCreator('/docs/v1.5/service-operator/OPERATOR_API_GUIDE', '519'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.5/service-operator/OS_REQUIREMENTS',
-                component: ComponentCreator('/ja/docs/v1.5/service-operator/OS_REQUIREMENTS', '4ca'),
+                path: '/docs/v1.5/service-operator/OS_REQUIREMENTS',
+                component: ComponentCreator('/docs/v1.5/service-operator/OS_REQUIREMENTS', 'ad5'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.5/service-operator/ROUTER_BOX_SETUP',
-                component: ComponentCreator('/ja/docs/v1.5/service-operator/ROUTER_BOX_SETUP', 'ef2'),
+                path: '/docs/v1.5/service-operator/ROUTER_BOX_SETUP',
+                component: ComponentCreator('/docs/v1.5/service-operator/ROUTER_BOX_SETUP', 'e0b'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.5/service-operator/VPN_CONFIGURATION',
-                component: ComponentCreator('/ja/docs/v1.5/service-operator/VPN_CONFIGURATION', 'bf7'),
+                path: '/docs/v1.5/service-operator/VPN_CONFIGURATION',
+                component: ComponentCreator('/docs/v1.5/service-operator/VPN_CONFIGURATION', '817'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               }
@@ -827,100 +827,100 @@ export default [
         ]
       },
       {
-        path: '/ja/docs/v1.6',
-        component: ComponentCreator('/ja/docs/v1.6', '8d5'),
+        path: '/docs/v1.6',
+        component: ComponentCreator('/docs/v1.6', 'cc8'),
         routes: [
           {
-            path: '/ja/docs/v1.6',
-            component: ComponentCreator('/ja/docs/v1.6', '53e'),
+            path: '/docs/v1.6',
+            component: ComponentCreator('/docs/v1.6', '574'),
             routes: [
               {
-                path: '/ja/docs/v1.6/category/service-operator',
-                component: ComponentCreator('/ja/docs/v1.6/category/service-operator', 'c6f'),
+                path: '/docs/v1.6/category/service-operator',
+                component: ComponentCreator('/docs/v1.6/category/service-operator', '7e3'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.6/service-operator/CEPH_SETUP',
-                component: ComponentCreator('/ja/docs/v1.6/service-operator/CEPH_SETUP', 'c3a'),
+                path: '/docs/v1.6/service-operator/CEPH_SETUP',
+                component: ComponentCreator('/docs/v1.6/service-operator/CEPH_SETUP', '2b2'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.6/service-operator/DEPLOYMENT',
-                component: ComponentCreator('/ja/docs/v1.6/service-operator/DEPLOYMENT', 'def'),
+                path: '/docs/v1.6/service-operator/DEPLOYMENT',
+                component: ComponentCreator('/docs/v1.6/service-operator/DEPLOYMENT', '800'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.6/service-operator/GHCR_AUTHENTICATION',
-                component: ComponentCreator('/ja/docs/v1.6/service-operator/GHCR_AUTHENTICATION', '5c2'),
+                path: '/docs/v1.6/service-operator/GHCR_AUTHENTICATION',
+                component: ComponentCreator('/docs/v1.6/service-operator/GHCR_AUTHENTICATION', '5e5'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.6/service-operator/GOOGLE_SSO_SETUP',
-                component: ComponentCreator('/ja/docs/v1.6/service-operator/GOOGLE_SSO_SETUP', '1e5'),
+                path: '/docs/v1.6/service-operator/GOOGLE_SSO_SETUP',
+                component: ComponentCreator('/docs/v1.6/service-operator/GOOGLE_SSO_SETUP', '4c5'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.6/service-operator/IAAS_CONSOLE_CONFIGURATION',
-                component: ComponentCreator('/ja/docs/v1.6/service-operator/IAAS_CONSOLE_CONFIGURATION', 'edd'),
+                path: '/docs/v1.6/service-operator/IAAS_CONSOLE_CONFIGURATION',
+                component: ComponentCreator('/docs/v1.6/service-operator/IAAS_CONSOLE_CONFIGURATION', 'a9b'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.6/service-operator/INSTALL_BAREMETAL_NODE',
-                component: ComponentCreator('/ja/docs/v1.6/service-operator/INSTALL_BAREMETAL_NODE', 'b05'),
+                path: '/docs/v1.6/service-operator/INSTALL_BAREMETAL_NODE',
+                component: ComponentCreator('/docs/v1.6/service-operator/INSTALL_BAREMETAL_NODE', '1d2'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.6/service-operator/intro',
-                component: ComponentCreator('/ja/docs/v1.6/service-operator/intro', 'bb1'),
+                path: '/docs/v1.6/service-operator/intro',
+                component: ComponentCreator('/docs/v1.6/service-operator/intro', '51a'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.6/service-operator/NETWORK_CONTROL_NODE_SETUP',
-                component: ComponentCreator('/ja/docs/v1.6/service-operator/NETWORK_CONTROL_NODE_SETUP', 'f9c'),
+                path: '/docs/v1.6/service-operator/NETWORK_CONTROL_NODE_SETUP',
+                component: ComponentCreator('/docs/v1.6/service-operator/NETWORK_CONTROL_NODE_SETUP', '969'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.6/service-operator/OBSERVABILITY_ALERTS',
-                component: ComponentCreator('/ja/docs/v1.6/service-operator/OBSERVABILITY_ALERTS', '0e2'),
+                path: '/docs/v1.6/service-operator/OBSERVABILITY_ALERTS',
+                component: ComponentCreator('/docs/v1.6/service-operator/OBSERVABILITY_ALERTS', '954'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.6/service-operator/OBSERVABILITY_DASHBOARDS',
-                component: ComponentCreator('/ja/docs/v1.6/service-operator/OBSERVABILITY_DASHBOARDS', '774'),
+                path: '/docs/v1.6/service-operator/OBSERVABILITY_DASHBOARDS',
+                component: ComponentCreator('/docs/v1.6/service-operator/OBSERVABILITY_DASHBOARDS', '446'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.6/service-operator/OPERATOR_API_GUIDE',
-                component: ComponentCreator('/ja/docs/v1.6/service-operator/OPERATOR_API_GUIDE', '7b7'),
+                path: '/docs/v1.6/service-operator/OPERATOR_API_GUIDE',
+                component: ComponentCreator('/docs/v1.6/service-operator/OPERATOR_API_GUIDE', '9ee'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.6/service-operator/OS_REQUIREMENTS',
-                component: ComponentCreator('/ja/docs/v1.6/service-operator/OS_REQUIREMENTS', 'e0b'),
+                path: '/docs/v1.6/service-operator/OS_REQUIREMENTS',
+                component: ComponentCreator('/docs/v1.6/service-operator/OS_REQUIREMENTS', '7a0'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.6/service-operator/ROUTER_BOX_SETUP',
-                component: ComponentCreator('/ja/docs/v1.6/service-operator/ROUTER_BOX_SETUP', '4ef'),
+                path: '/docs/v1.6/service-operator/ROUTER_BOX_SETUP',
+                component: ComponentCreator('/docs/v1.6/service-operator/ROUTER_BOX_SETUP', 'b24'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/v1.6/service-operator/VPN_CONFIGURATION',
-                component: ComponentCreator('/ja/docs/v1.6/service-operator/VPN_CONFIGURATION', '0c6'),
+                path: '/docs/v1.6/service-operator/VPN_CONFIGURATION',
+                component: ComponentCreator('/docs/v1.6/service-operator/VPN_CONFIGURATION', '41c'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               }
@@ -929,106 +929,106 @@ export default [
         ]
       },
       {
-        path: '/ja/docs',
-        component: ComponentCreator('/ja/docs', '901'),
+        path: '/docs',
+        component: ComponentCreator('/docs', '0f1'),
         routes: [
           {
-            path: '/ja/docs',
-            component: ComponentCreator('/ja/docs', '912'),
+            path: '/docs',
+            component: ComponentCreator('/docs', '1ba'),
             routes: [
               {
-                path: '/ja/docs/category/service-operator',
-                component: ComponentCreator('/ja/docs/category/service-operator', 'e42'),
+                path: '/docs/category/service-operator',
+                component: ComponentCreator('/docs/category/service-operator', '01b'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/OPERATOR_REFERENCE',
-                component: ComponentCreator('/ja/docs/OPERATOR_REFERENCE', '2a4'),
+                path: '/docs/OPERATOR_REFERENCE',
+                component: ComponentCreator('/docs/OPERATOR_REFERENCE', '9bb'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/service-operator/CEPH_SETUP',
-                component: ComponentCreator('/ja/docs/service-operator/CEPH_SETUP', '225'),
+                path: '/docs/service-operator/CEPH_SETUP',
+                component: ComponentCreator('/docs/service-operator/CEPH_SETUP', '13e'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/service-operator/DEPLOYMENT',
-                component: ComponentCreator('/ja/docs/service-operator/DEPLOYMENT', 'c17'),
+                path: '/docs/service-operator/DEPLOYMENT',
+                component: ComponentCreator('/docs/service-operator/DEPLOYMENT', '80a'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/service-operator/GHCR_AUTHENTICATION',
-                component: ComponentCreator('/ja/docs/service-operator/GHCR_AUTHENTICATION', '47c'),
+                path: '/docs/service-operator/GHCR_AUTHENTICATION',
+                component: ComponentCreator('/docs/service-operator/GHCR_AUTHENTICATION', '1b6'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/service-operator/GOOGLE_SSO_SETUP',
-                component: ComponentCreator('/ja/docs/service-operator/GOOGLE_SSO_SETUP', 'f8e'),
+                path: '/docs/service-operator/GOOGLE_SSO_SETUP',
+                component: ComponentCreator('/docs/service-operator/GOOGLE_SSO_SETUP', 'c48'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/service-operator/IAAS_CONSOLE_CONFIGURATION',
-                component: ComponentCreator('/ja/docs/service-operator/IAAS_CONSOLE_CONFIGURATION', 'e81'),
+                path: '/docs/service-operator/IAAS_CONSOLE_CONFIGURATION',
+                component: ComponentCreator('/docs/service-operator/IAAS_CONSOLE_CONFIGURATION', '524'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/service-operator/INSTALL_BAREMETAL_NODE',
-                component: ComponentCreator('/ja/docs/service-operator/INSTALL_BAREMETAL_NODE', 'ec2'),
+                path: '/docs/service-operator/INSTALL_BAREMETAL_NODE',
+                component: ComponentCreator('/docs/service-operator/INSTALL_BAREMETAL_NODE', '50d'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/service-operator/intro',
-                component: ComponentCreator('/ja/docs/service-operator/intro', '50b'),
+                path: '/docs/service-operator/intro',
+                component: ComponentCreator('/docs/service-operator/intro', '1b0'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/service-operator/NETWORK_CONTROL_NODE_SETUP',
-                component: ComponentCreator('/ja/docs/service-operator/NETWORK_CONTROL_NODE_SETUP', 'f00'),
+                path: '/docs/service-operator/NETWORK_CONTROL_NODE_SETUP',
+                component: ComponentCreator('/docs/service-operator/NETWORK_CONTROL_NODE_SETUP', 'b34'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/service-operator/OBSERVABILITY_ALERTS',
-                component: ComponentCreator('/ja/docs/service-operator/OBSERVABILITY_ALERTS', '974'),
+                path: '/docs/service-operator/OBSERVABILITY_ALERTS',
+                component: ComponentCreator('/docs/service-operator/OBSERVABILITY_ALERTS', '93e'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/service-operator/OBSERVABILITY_DASHBOARDS',
-                component: ComponentCreator('/ja/docs/service-operator/OBSERVABILITY_DASHBOARDS', 'e73'),
+                path: '/docs/service-operator/OBSERVABILITY_DASHBOARDS',
+                component: ComponentCreator('/docs/service-operator/OBSERVABILITY_DASHBOARDS', 'd8e'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/service-operator/OPERATOR_API_GUIDE',
-                component: ComponentCreator('/ja/docs/service-operator/OPERATOR_API_GUIDE', 'a88'),
+                path: '/docs/service-operator/OPERATOR_API_GUIDE',
+                component: ComponentCreator('/docs/service-operator/OPERATOR_API_GUIDE', '7aa'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/service-operator/OS_REQUIREMENTS',
-                component: ComponentCreator('/ja/docs/service-operator/OS_REQUIREMENTS', '554'),
+                path: '/docs/service-operator/OS_REQUIREMENTS',
+                component: ComponentCreator('/docs/service-operator/OS_REQUIREMENTS', 'd46'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/service-operator/ROUTER_BOX_SETUP',
-                component: ComponentCreator('/ja/docs/service-operator/ROUTER_BOX_SETUP', 'efe'),
+                path: '/docs/service-operator/ROUTER_BOX_SETUP',
+                component: ComponentCreator('/docs/service-operator/ROUTER_BOX_SETUP', '27c'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ja/docs/service-operator/VPN_CONFIGURATION',
-                component: ComponentCreator('/ja/docs/service-operator/VPN_CONFIGURATION', 'a75'),
+                path: '/docs/service-operator/VPN_CONFIGURATION',
+                component: ComponentCreator('/docs/service-operator/VPN_CONFIGURATION', '36a'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               }
@@ -1039,8 +1039,8 @@ export default [
     ]
   },
   {
-    path: '/ja/',
-    component: ComponentCreator('/ja/', '2d1'),
+    path: '/',
+    component: ComponentCreator('/', '2e1'),
     exact: true
   },
   {

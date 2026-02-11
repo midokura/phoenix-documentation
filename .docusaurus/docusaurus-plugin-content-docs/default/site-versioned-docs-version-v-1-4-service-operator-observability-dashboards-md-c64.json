@@ -5,7 +5,7 @@
   "source": "@site/versioned_docs/version-v1.4/service-operator/OBSERVABILITY_DASHBOARDS.md",
   "sourceDirName": "service-operator",
   "slug": "/service-operator/OBSERVABILITY_DASHBOARDS",
-  "permalink": "/ja/docs/v1.4/service-operator/OBSERVABILITY_DASHBOARDS",
+  "permalink": "/docs/v1.4/service-operator/OBSERVABILITY_DASHBOARDS",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Observability Alerts",
-    "permalink": "/ja/docs/v1.4/service-operator/OBSERVABILITY_ALERTS"
+    "permalink": "/docs/v1.4/service-operator/OBSERVABILITY_ALERTS"
   },
   "next": {
     "title": "Operator API Usage Guide",
-    "permalink": "/ja/docs/v1.4/service-operator/OPERATOR_API_GUIDE"
+    "permalink": "/docs/v1.4/service-operator/OPERATOR_API_GUIDE"
   }
 }

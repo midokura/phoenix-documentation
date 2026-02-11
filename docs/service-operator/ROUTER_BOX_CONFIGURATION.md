@@ -9,7 +9,7 @@ The **Router Box** runs the foundational infrastructure services required before
 | Setup PXE Server | `openwrt_routers` | PXE boot and firmware files | `router_provisioning: true` |
 | Initialize Environment | `kolla_bastion` | Docker registry for OpenStack images | Always runs |
 | Deploy HedgeHog Controller | `hedgehog_host` | Fabric controller VM | Always runs |
-| Provision HedgeHog Fabric | `hedgehog_control` | Switch and VPC configuration | Requires `hedgehog_phase` |
+| Provision HedgeHog Fabric | `hedgehog_control` | Switch and VPC configuration | Always runs |
 
 All OpenWrt plays are gated behind `router_provisioning`. Set it to `true` in your inventory to enable router provisioning:
 
@@ -129,8 +129,8 @@ Dnsmasq also acts as the local DNS resolver. It provides a local domain for inte
 
 | Variable | Type | Default | Description |
 |----------|------|---------|-------------|
-| `openwrt_dhcp_dnsmasq_local` | string | — | Local domain prefix for DNS (e.g., `"/phoenix.tyo/"`) |
-| `openwrt_dhcp_dnsmasq_domain` | string | — | Domain name assigned to DHCP clients (e.g., `"phoenix.tyo"`) |
+| `openwrt_dhcp_dnsmasq_local` | string | — | Local domain prefix for DNS (e.g., `"/mydomain.com/"`) |
+| `openwrt_dhcp_dnsmasq_domain` | string | — | Domain name assigned to DHCP clients (e.g., `"mydomain.com"`) |
 | `openwrt_dhcp_dnsmasq_rebind_domain` | list | `[]` | Domains exempt from DNS rebind protection |
 | `openwrt_dhcp_hostoverrides` | list | `[]` | Static DNS A record overrides |
 
@@ -138,10 +138,10 @@ Each entry in `openwrt_dhcp_hostoverrides`:
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `name` | string | Hostname to resolve (e.g., `"openstack-lab"`, `"console.phoenix.tyo.example.com"`) |
+| `name` | string | Hostname to resolve (e.g., `"control0"`) |
 | `ip` | string | IP address the hostname resolves to |
 
-The `local` and `domain` variables work together: `local: "/phoenix.tyo/"` tells dnsmasq to answer queries for `phoenix.tyo` locally, and `domain: "phoenix.tyo"` assigns that domain to DHCP clients.
+The `local` and `domain` variables work together: `local: "/mydomain.com/"` tells dnsmasq to answer queries for `mydomain.com` locally, and `domain: "mydomain.com"` assigns that domain to DHCP clients.
 
 The `rebind_domain` list is needed when upstream DNS returns private IPs for certain domains (e.g., office VPN domains). Without this exemption, dnsmasq rejects these responses as potential DNS rebind attacks.
 
@@ -150,22 +150,22 @@ The `rebind_domain` list is needed when upstream DNS returns private IPs for cer
 ```yaml
 openwrt_routers:
   vars:
-    openwrt_dhcp_dnsmasq_local: "/phoenix.tyo/"
-    openwrt_dhcp_dnsmasq_domain: "phoenix.tyo"
+    openwrt_dhcp_dnsmasq_local: "/mydomain.com/"
+    openwrt_dhcp_dnsmasq_domain: "mydomain.com"
     openwrt_dhcp_dnsmasq_rebind_domain:
-      - "tyo"   # Allow office router queries resolving to private IPs
+      - "mydomain.com"   # Allow office router queries resolving to private IPs
 
     openwrt_dhcp_hostoverrides:
       # OpenStack API VIP
-      - name: "openstack-lab"
+      - name: "openstack-vip"
         ip: "10.30.0.222"
       # IaaS Console
       - name: "console"
         ip: "192.168.104.104"
       # Management services (resolved to K8s ingress IP)
-      - name: "console.phoenix.tyo.phoenix-gpu.com"
+      - name: "console.mydomain.com"
         ip: "192.168.104.23"
-      - name: "grafana.phoenix.tyo.phoenix-gpu.com"
+      - name: "grafana.mydomain.com"
         ip: "192.168.104.23"
 ```
 
@@ -246,69 +246,6 @@ Peers are defined in `openwrt_network_wireguardpeers`. This variable is a dictio
 Peers without `endpoint_host` are listen-only — the router waits for them to connect. This is typical for operator VPN clients.
 
 This feature is conditional: it only activates when `openwrt_network_wireguardpeers` is defined in inventory.
-
-### Example
-
-```yaml
-openwrt_routers:
-  hosts:
-    router-0:
-      openwrt_network_interfaceshost:
-        # Operator VPN interface - remote operators connect here
-        operator_wg0:
-          proto: "wireguard"
-          wg_managekeys: false
-          wg_listen_port: 41820
-          wg_addresses:
-            - "172.24.24.254/24"
-          wg_private_key: !vault |-
-            $ANSIBLE_VAULT;1.1;AES256
-            ...encrypted key...
-
-        # Site-to-site tunnel to upstream datacenter
-        wg_ty15:
-          proto: "wireguard"
-          wg_managekeys: false
-          wg_private_key: !vault |-
-            $ANSIBLE_VAULT;1.1;AES256
-            ...encrypted key...
-          wg_addresses:
-            - "172.19.0.253/24"
-
-      openwrt_network_wireguardpeers:
-        # Site-to-site peer: upstream datacenter router
-        equinix:
-          interface: wg_ty15
-          managekeys: false
-          description: "Upstream datacenter"
-          allowed_ips:
-            - 172.19.0.252/24
-            - 119.15.113.0/24
-          public_key: "6WwaOSSqfSushAU/UeImpYpH1P2z8oSJju3R4FwLdnk="
-          endpoint_host: datacenter.example.com
-          endpoint_port: 24833
-          persistent_keepalive: 25
-
-        # Remote operator (listen-only, no endpoint)
-        demo_operator:
-          interface: operator_wg0
-          managekeys: false
-          description: "Demo Operator"
-          allowed_ips:
-            - 172.42.42.100/32
-          public_key: "Qf6eqHU+AlH8PauCh1GamMpVPTqpD7ifMzMzsqVyPFg="
-          persistent_keepalive: 25
-
-        # CI system
-        phoenix_ci:
-          interface: operator_wg0
-          managekeys: false
-          description: "Phoenix CI"
-          allowed_ips:
-            - 172.42.42.200/32
-          public_key: "1lWxW+eXxFRrym0TB4OMPOb31chSKAPY1dhdo+v8Gmg="
-          persistent_keepalive: 25
-```
 
 ---
 

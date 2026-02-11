@@ -1,6 +1,6 @@
 # Operator VPN: Adding operators to the WireGuard configuration
 
-How to grant a new user access to the operator WireGuard VPN.
+Granting a new user access to the operator WireGuard VPN.
 
 ## Prerequisites
 

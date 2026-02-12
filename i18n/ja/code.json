@@ -368,6 +368,9 @@
   "Service Operator": {
     "message": "Service Operator"
   },
+  "User": {
+    "message": "User"
+  },
   "Clear, practical guidance to using and customizing your cutting-edge GPUs as dedicated resources": {
     "message": "Clear, practical guidance to using and customizing your cutting-edge GPUs as dedicated resources"
   },

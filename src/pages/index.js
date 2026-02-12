@@ -16,6 +16,8 @@ const features = [
   },
 
 ];
+        
+<a name="top"></a>
 
 function Feature({ imageUrl, title, description, links }) {
   const imgUrl = useBaseUrl(imageUrl);
@@ -132,13 +134,15 @@ function Home() {
               <div><h3 className="text--center"><Translate>Contribute</Translate></h3>
               <h4 className="text--center"><Translate>Help us improve the AI Factory docs</Translate></h4>
               <p className="text--center"><Translate>If you have something to add to our documentation, feel free to send us a pull request.</Translate></p>
-              <p className="text--center"><Translate>The source code for our documentation website can be found in the GitHub link in the navbar at the top of every page.</Translate></p>  
+              <p className="text--center"><Translate>The source code for our documentation website can be found in the GitHub link in the navbar at the top of every page.</Translate></p>
             </div>
-
+            <h1 className="text--right"><a href="#top">&#8679;</a></h1>
             </div>
           </section>
         )}
       </main>
+
+
 
     </Layout>
   );

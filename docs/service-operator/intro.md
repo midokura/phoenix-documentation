@@ -20,4 +20,5 @@ Managing the AI Factory IaaS platform.
 - **[OPERATOR_API_GUIDE](OPERATOR_API_GUIDE.md)** - Guide for using the Operator APIs to manage users and tenants
 - **[OS_REQUIREMENTS](OS_REQUIREMENTS.md)** - Operating system requirements and specifications
 - **[ROUTER_BOX_SETUP](ROUTER_BOX_SETUP.md)** - Setup guide for the router box that hosts bootstrap VMs (OpenWRT, deployment, Hedgehog)
+- **[ROUTER_BOX_CONFIGURATION](ROUTER_BOX_CONFIGURATION.md)** - Running the foundational infrastructure services required before deploying OpenStack
 - **[VPN_CONFIGURATION](VPN_CONFIGURATION.md)** - Guide for setting up VPN access for tenant users

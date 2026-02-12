@@ -75,6 +75,14 @@ function Home() {
             Service Operator</Translate>
           </Link>
           </div>
+          <p></p>
+          <div className={styles.buttons}>
+            <Link
+            className="button button--secondary button--lg"
+            to="/docs/category/user"><Translate>
+            User</Translate>
+          </Link>
+          </div>
         </div>
       </header>
 

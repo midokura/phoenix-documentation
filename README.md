@@ -42,6 +42,12 @@ This command will:
 - Create a versioned sidebars file `versioned_sidebars/version-v9.9-sidebars.json`.
 - Add the new version number to `versions.json`.
 
+## Add a Release Note
+
+Each version of the docs requires a version release note.
+
+- Follow the commented-out instructions in the [release notes template](blog/.YYYY-MM-DD-aifactory-vX.X.md)
+
 ## Remove a Version
 
 If we need to remove a no-longer-supported version of the docs from the website, remove the reference to the version in `versions.json`. Note that this doesn't delete the version source files, but just unpublishes them from the website.
@@ -52,16 +58,11 @@ If we need to remove a no-longer-supported version of the docs from the website,
 
 # To Do
 
-- Review all content to remove any internal Midokura references
 - Add 'Back to Top' button at the bottom, especially for mobile
   - '<a name="top"></a>
   - <a href="#top">&#8593;</a>'
-- Find a logo or image for the new name
-- Use Midokura colours
-- Update the README above to explain how to do a docs release
 - Turn off 'Next' (main)
 - Translate to Japanese (Mari is on it)
-  - Ping Mari with instructions
   - Roll out for v2.x
   - Devise methodology for translating release notes ahead of release day
   - Write up howto for translation
@@ -71,6 +72,12 @@ If we need to remove a no-longer-supported version of the docs from the website,
   
 ## Done
 
+- Use Midokura colours
+- Update the README above to explain how to do a docs release
+- Find a logo or image for the new name <- logo is ok as is
+- Translate to Japanese
+  - Ping Mari with instructions
+- Review all content to remove any internal Midokura references
 - Create new release notes template on GitHub
 - Translate to Japanese - Do the relevant parts of <<https://docusaurus.io/docs/i18n/>
 - Set DNS nameservers to redirect to docs.midokura.com

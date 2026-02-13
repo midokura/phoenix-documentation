@@ -35,7 +35,7 @@ To install the Phoenix cluster, the Operator will work from the bastion node ref
 ## Control plane installation
 
 - Prepare the Ceph cluster by following the steps explained in [CEPH_SETUP](./service-operator/CEPH_SETUP.md)
-- Download and extract Ansible playbooks
+- Download and extract <phoneix-image-installer_url>
 - Use the included `inventory.example.yml` as the base to input the configuration specific to your cluster
 - Execute them following the instructions in [DEPLOYMENT](./service-operator/DEPLOYMENT.md)
 - To configure switches, follow the instructions in

@@ -58,20 +58,18 @@ If we need to remove a no-longer-supported version of the docs from the website,
 
 # To Do
 
-- Add 'Back to Top' button at the bottom, especially for mobile
-  - '<a name="top"></a>
-  - <a href="#top">&#8593;</a>'
-- Turn off 'Next' (main)
+- Turn off 'Next' (main) once /ja is populated
 - Translate to Japanese (Mari is on it)
   - Roll out for v2.x
   - Devise methodology for translating release notes ahead of release day
   - Write up howto for translation
   - Uncomment the translation nav
 - Customise the 404 page
-- Customise popup banner page
   
 ## Done
 
+- Customise popup banner page <- won't do, as the banner is great already
+- Add 'Back to Top' button at the bottom, especially for mobile
 - Use Midokura colours
 - Update the README above to explain how to do a docs release
 - Find a logo or image for the new name <- logo is ok as is

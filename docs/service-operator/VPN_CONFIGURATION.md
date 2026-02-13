@@ -75,3 +75,7 @@ Import the configuration into your system using the WireGuard UI or CLI. Example
 ```bash
 sudo wg-quick up ./wg.conf
 ```
+
+## Additional Resources
+
+For detailed information on WireGuard client setup and configuration options, refer to the [official WireGuard Quick Start guide](https://www.wireguard.com/quickstart/).

@@ -14,7 +14,7 @@ Note: documentation files referenced here are provided in a downloadable artefac
 
 - Before proceeding, operators are expected to ensure that the underlying infrastructure meets the system requirements listed below.
 - Operating system requirements for the OpenStack control nodes are available in [OS_REQUIREMENTS](./service-operator/OS_REQUIREMENTS.md)
-- Operators are expected to set up their hardware according to our official [Blueprint](https://midokurajpeast.blob.core.windows.net/phoenix-releases/v1.7/phoenix-v1.2-blueprint.pdf?sp=r&st=2026-01-30T13:10:53Z&se=2056-01-30T21:25:53Z&spr=https&sv=2024-11-04&sr=b&sig=XFfdb5z2bLesT9rd9OPArb7iSp%2BmjObROHlttb0ZDms%3D), specifically with regard to network configuration, port and interface assignment.
+- Operators are expected to set up their hardware according to our official [Blueprint](https://midokurajpeast.blob.core.windows.net/phoenix-releases/v1.8/phoenix-v1.2-blueprint.pdf?sp=r&st=2026-02-13T11:27:08Z&se=2050-02-13T19:42:08Z&spr=https&sv=2024-11-04&sr=b&sig=3vUMLFssAVFvqhIZeOkvDsmDXeLVY8FSSOGWXoBL7ns%3D), specifically with regard to network configuration, port and interface assignment.
   - Base Operating System for OSt controllers should be ubuntu-24.04
 - Storage. Operators are expected to provide a Ceph cluster, integrated in the infrastructure as defined in the blueprint. See more details in the [Environment setup](#environment-setup)
 - Set up a new Google Application that will be used as an SSO provider for the IaaS service. To follow this process, consult the
@@ -32,7 +32,7 @@ To install the Phoenix cluster, the Operator will work from the bastion node ref
 ## Control plane installation
 
 - Prepare the Ceph cluster by following the steps explained in [CEPH_SETUP](./service-operator/CEPH_SETUP.md)
-- Download and extract [Ansible playbooks](https://midokurajpeast.blob.core.windows.net/phoenix-releases/v1.7/release-assets-0.0.0-977-5238f15.zip?sp=r&st=2026-01-30T14:03:42Z&se=2056-01-30T22:18:42Z&spr=https&sv=2024-11-04&sr=b&sig=GdlO1lHWdJsIkFAN9TmqXSVCZ%2Bg44kmWrdSviOujIjA%3D).
+- Download and extract [Ansible playbooks](https://midokurajpeast.blob.core.windows.net/phoenix-releases/v1.8/release-assets-0.0.0-1182-98fb456.zip?sp=r&st=2026-02-13T11:20:30Z&se=2050-02-13T19:35:30Z&spr=https&sv=2024-11-04&sr=b&sig=YUELOOSwWPidu8ceXhQN6G5qqziMM4BL9BKl5VoqJvA%3D).
 - Use the included `inventory.example.yml` as the base to input the configuration specific to your cluster
 - Execute them following the instructions in [DEPLOYMENT](./service-operator/DEPLOYMENT.md)
 - To configure switches, follow the instructions in

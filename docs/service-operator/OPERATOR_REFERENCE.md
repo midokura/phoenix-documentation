@@ -8,7 +8,7 @@ Please contact support@midokura.com for more information.
 
 - Before proceeding, operators are expected to ensure that the underlying infrastructure meets the system requirements listed below.
 - Operating system requirements for the OpenStack control nodes are available in the documentation file [OS_REQUIREMENTS.md](./OS_REQUIREMENTS.md)
-- Operators are expected to set up their hardware according to our official Blueprint, specifically with regard to network configuration, port and interface assignment.
+- Operators are expected to set up their hardware according to our official [Blueprint](https://midokurajpeast.blob.core.windows.net/phoenix-releases/v1.7/phoenix-v1.2-blueprint.pdf?sp=r&st=2026-01-30T13:10:53Z&se=2056-01-30T21:25:53Z&spr=https&sv=2024-11-04&sr=b&sig=XFfdb5z2bLesT9rd9OPArb7iSp%2BmjObROHlttb0ZDms%3D), specifically with regard to network configuration, port and interface assignment.
     - Base Operating System for OSt controllers should be ubuntu-24.04
 - Storage. Operators are expected to provide a Ceph cluster, integrated in the infrastructure as defined in the blueprint. See more details in the Environment setup.
 - Set up a new Google Application that will be used as an SSO provider for the IaaS service. To follow this process, consult the [GOOGLE_SSO_SETUP.md](./GOOGLE_SSO_SETUP.md) file.

@@ -1,12 +1,12 @@
-# GPU Server Verification
+# GPU サーバーの検証
 
-Verifying GPU server configuration before running ML workloads.
+ML ワークロードを実行する前に GPU サーバー構成を検証します。
 
-Before starting expensive distributed training workloads on your newly deployed GPU bare-metal server, you should verify that the software stack is correctly configured. This guide shows you how to use pre-installed verification scripts to check GPU, RDMA, and GPUDirect RDMA configuration.
+新たにデプロイした GPU ベアメタルサーバーで高コストな分散学習ワークロードを開始する前に、ソフトウェアスタックが正しく構成されていることを確認する必要があります。本ガイドでは、事前インストール済みの検証スクリプトを使用して、GPU、RDMA、および GPUDirect RDMA の構成を確認する方法を説明します。
 
-## Quick Verification Checklist
+## クイック検証チェックリスト
 
-The following command sequence is sufficient for a complete verification:
+検証を漏れなく行うには、以下のコマンドシーケンスを実行します。
 
 ```bash
 nvidia-smi                    # GPU detected?
@@ -17,47 +17,47 @@ verify-gpudirect              # GPUDirect RDMA ready?
 test-nccl                     # Single-server test (requires 2+ GPUs)
 ```
 
-> **Note:** RDMA verification is only required for multi-server distributed training. For single-server workloads (including multi-GPU), you only need GPU verification (`nvidia-smi` and PyTorch CUDA check).
+> **注記：** RDMA の検証はマルチサーバー分散学習の場合のみ必要です。単一サーバーのワークロード（マルチ GPU を含む）の場合は、GPU 検証（`nvidia-smi` および PyTorch CUDA チェック）のみで十分です。
 
-For multi-server testing, see the [test-nccl](#test-nccl) section.
+マルチサーバー検証についてはe [test-nccl](#test-nccl) を参照してください。
 
-## Technical Specifications
+## 技術仕様
 
-Reference for the GPU server software stack:
+GPU サーバーのソフトウェアスタック仕様です。
 
-| Component | Version/Details |
+| コンポーネント | バージョン/詳細 |
 |-----------|-----------------|
-| Base OS | Ubuntu 24.04 (kernel 6.8+) |
-| NVIDIA Driver | v570.x (open-source, Canonical repo) |
-| CUDA | v12.8 runtime and development packages |
-| RDMA Method | DMA-BUF with inbox kernel drivers |
-| RDMA Packages | rdma-core, ibverbs-utils, infiniband-diags, perftest |
-| NCCL | Pre-configured for RoCE (TC 104 / DSCP 26) |
-| PyTorch Environment | /opt/pytorch-venv (Python 3.12, PyTorch 2.8.0+cu128) |
-| Monitoring | node_exporter (9100), dcgm-exporter (9400) |
+| ベース OS | Ubuntu 24.04（kernel 6.8 以上） |
+| NVIDIA ドライバー | v570.x（オープンソース版、Canonical リポジトリ） |
+| CUDA | v12.8 ランタイムおよび開発パッケージ |
+| RDMA 方式 | inbox カーネルドライバーを使用した DMA-BUF |
+| RDMA パッケージ | rdma-core、ibverbs-utils、infiniband-diags、perftest |
+| NCCL | RoCE 用に事前構成済み（TC 104 / DSCP 26） |
+| PyTorch 環境 | /opt/pytorch-venv（Python 3.12、PyTorch 2.8.0+cu128） |
+| モニタリング | node_exporter（9100）、dcgm-exporter（9400） |
 
-## Verification Scripts Reference
+## 検証スクリプト リファレンス
 
 ### nvidia-smi
 
-**Purpose**: Verify NVIDIA driver is loaded and GPUs are detected.
+**目的**：NVIDIA ドライバーがロードされ、GPU が認識されていることを確認します。
 
-**When to use**: First check after deployment. If this fails, stop here and fix GPU detection or driver installation.
+**確認タイミング**：デプロイ直後の最初の確認として実行してください。失敗した場合は、GPU の認識またはドライバーのインストールで発生している問題を解決します。
 
-**What it checks**:
-- NVIDIA driver loaded
-- GPU devices visible to the OS
-- GPU memory and compute capabilities
+**確認内容**：
+- NVIDIA ドライバーがロードされているか
+- OS がGPU デバイスを認識しているか
+- GPU メモリおよび演算能力
 
-**Hardware dependencies**: NVIDIA GPU installed and detected.
+**ハードウェア要件**：NVIDIA GPU が正しく設置・認識されていること。
 
-#### How to run
+#### 実行方法
 
 ```bash
 nvidia-smi
 ```
 
-**Expected output**:
+**期待値**:
 
 ```
 +-----------------------------------------------------------------------------------------+
@@ -73,7 +73,7 @@ nvidia-smi
 +-----------------------------------------+------------------------+----------------------+
 ```
 
-**Interpreting results**:
+**結果の確認方法**
 - All GPUs should be listed with correct memory capacity
 - CUDA version should be 12.8 or newer
 - Expect low power usage, lower temperatures, and no memory usage while idle

@@ -2,10 +2,10 @@
 sidebar_position: 1
 ---
 
-# User Documentation
+# ユーザードキュメント
 
-Using the AI Factory IaaS platform.
+AI Factory IaaS プラットフォームの利用方法について説明します。
 
-## Available Documentation
+## 利用可能なドキュメント
 
-- **[GPU_SERVER_VERIFICATION](GPU_SERVER_VERIFICATION.md)** - Verification guide for GPU, RDMA, and GPUDirect RDMA configuration on bare-metal servers
+- **[GPU_SERVER_VERIFICATION](GPU_SERVER_VERIFICATION.md)** - ベアメタルサーバーにおける GPU、RDMA、および GPUDirect RDMA の設定確認ガイド

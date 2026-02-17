@@ -131,7 +131,7 @@ Replace `<project-id>` with the actual project ID:
 DELETE FROM nodegroup WHERE project_id='<project-id>';
 ```
 
-**Expected output:** `Query OK, X rows affected` (where X is the number of nodegroups, usually 2).
+**Expected output:** `Query OK, X rows affected` (where X is the number of nodegroups, usually 2 per cluster).
 
 ---
 

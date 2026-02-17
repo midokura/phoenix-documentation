@@ -96,11 +96,11 @@ WHERE project_id='<project-id>';
 
 **Expected output:** Cluster details including the `stack_id`. Example:
 ```
-+-----+------------+----------------------------------+--------+----------------------------------+
-| id  | name       | project_id                       | status | stack_id                         |
-+-----+------------+----------------------------------+--------+----------------------------------+
-| 42  | k8s-prod-1 | abc123-def456-ghi789-jkl012      | ERROR  | stack-uuid-here                  |
-+-----+------------+----------------------------------+--------+----------------------------------+
++-----+------------+----------------------------------+--------------------+----------------------------------+
+| id  | name       | project_id                       | status             | stack_id                         |
++-----+------------+----------------------------------+--------------------+----------------------------------+
+| 42  | k8s-prod-1 | abc123-def456-ghi789-jkl012      | CREATE_IN_PROGRESS | stack-uuid-here                  |
++-----+------------+----------------------------------+--------------------+----------------------------------+
 ```
 
 **Action:** Copy the `stack_id` value for the next step.
@@ -109,7 +109,7 @@ WHERE project_id='<project-id>';
 
 ### [Terminal 2: OpenStack] 3.2 Delete the Stack (This Removes All Resources!)
 
-⚠️ **WARNING: This will DELETE instances, volumes, networks, etc.** ⚠️
+⚠️ **WARNING: This will DELETE all resources associated with the stack (instances, volumes, networks, etc.)** ⚠️
 
 Replace `<stack_id>` with the value from step 3.1:
 

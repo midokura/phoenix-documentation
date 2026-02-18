@@ -58,7 +58,12 @@ If we need to remove a no-longer-supported version of the docs from the website,
 
 # To Do
 
-- Turn off 'Next' (main) once /ja is populated
+- Remove extra github workflows (there are some duplicates)
+- Check tickets under https://midokura.atlassian.net/browse/GPD-596
+  - https://midokura.atlassian.net/browse/GPD-597
+  - https://midokura.atlassian.net/browse/GPD-598
+  - https://midokura.atlassian.net/browse/GPD-600
+- Turn off 'Next' (main) once /ja is populated https://midokura.atlassian.net/browse/GPD-601
 - Translate to Japanese (Mari is on it)
   - Roll out for v2.x
   - Devise methodology for translating release notes ahead of release day

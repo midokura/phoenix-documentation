@@ -86,7 +86,7 @@ WHERE NOT EXISTS (
 
 **If no results:** No orphaned clusters exist. You're done! ✓
 
-:::important:
+:::important
 
 Note down each `project_id` - you'll delete them one by one.
 
@@ -117,7 +117,7 @@ WHERE project_id='<project-id>';
 +-----+------------+----------------------------------+--------------------+----------------------------------+
 ```
 
-:::important:
+:::important
 
 Copy the `stack_id` value for the next step.
 

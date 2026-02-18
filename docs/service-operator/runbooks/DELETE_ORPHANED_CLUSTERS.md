@@ -1,15 +1,15 @@
-# Delete Orphaned Clusters
+# Deleting orphaned tenant clusters
 
 ## Purpose
 This runbook deletes Magnum clusters that are orphaned (their parent OpenStack project no longer exists). These clusters cannot self-cleanup and must be manually removed.
 
-**When to use:** When you've identified orphaned clusters in the database that are consuming resources but have no valid project owner.
+This deletion process should be used when you have identified orphaned clusters in the database that are consuming resources but that have no valid project owner.
 
-**Time required:** ~10-15 minutes per cluster
+This process should take approximately 10 to 15 minutes per cluster.
 
 ---
 
-## ⚠️ Prerequisites Checklist
+## Prerequisites Checklist
 
 Before starting, ensure you have:
 - [ ] SSH access to the OpenStack control node
@@ -22,9 +22,9 @@ Before starting, ensure you have:
 
 ## Step 1: Setup - Open Two Terminals
 
-**You will need TWO terminals open side-by-side:**
-- **Terminal 1**: For database (MariaDB) queries
-- **Terminal 2**: For OpenStack commands
+You will need two terminals open side-by-side:
+- Terminal 1: For database (MariaDB) queries
+- Terminal 2: For OpenStack commands
 
 ### [Terminal 1: Database] Setup MariaDB Connection
 
@@ -36,11 +36,15 @@ sudo podman exec -it mariadb mysql -h localhost -u root -p<password> magnum
 
 **Expected result:** You should see the MySQL prompt: `MariaDB [magnum]>`
 
-**Keep this terminal open!** You'll use it for all database queries.
+:::tip
+
+Keep this terminal open, as you'll use it for all database queries.
+
+:::
 
 ### [Terminal 2: OpenStack] Setup Admin Credentials
 
-In a **new terminal window**, SSH to control node and source admin credentials:
+In the second terminal window, SSH to control node and source admin credentials:
 ```bash
 ssh ubuntu@control0
 source /path/to/admin-openrc.sh
@@ -48,7 +52,11 @@ source /path/to/admin-openrc.sh
 
 **Expected result:** No output, but you can verify with: `openstack token issue`
 
-**Keep this terminal open!** You'll use it for all OpenStack stack commands.
+:::tip
+
+Keep this terminal open, as you'll use it for all OpenStack stack commands.
+
+:::
 
 ---
 
@@ -76,13 +84,17 @@ WHERE NOT EXISTS (
 
 **If no results:** No orphaned clusters exist. You're done! ✓
 
-**Action:** Note down each `project_id` - you'll delete them one by one.
+:::important:
+
+Note down each `project_id` - you'll delete them one by one.
+
+:::
 
 ---
 
 ## Step 3: Delete Each Orphaned Cluster
 
-⚠️ **Repeat steps 3.1-3.5 for EACH project_id from Step 2**
+Repeat steps 3.1-3.5 for EACH project_id from Step 2
 
 ### [Terminal 1: Database] 3.1 Get Cluster Details
 
@@ -103,13 +115,21 @@ WHERE project_id='<project-id>';
 +-----+------------+----------------------------------+--------------------+----------------------------------+
 ```
 
-**Action:** Copy the `stack_id` value for the next step.
+:::important:
+
+Copy the `stack_id` value for the next step.
+
+:::
 
 ---
 
 ### [Terminal 2: OpenStack] 3.2 Delete the Stack (This Removes All Resources!)
 
-⚠️ **WARNING: This will DELETE all resources associated with the stack (instances, volumes, networks, etc.)** ⚠️
+:::warning
+
+This will delete all resources associated with the stack, including instances, volumes, and networks.
+
+:::
 
 Replace `<stack_id>` with the value from step 3.1:
 
@@ -160,11 +180,11 @@ SELECT COUNT(*) FROM cluster WHERE project_id='<project-id>';
 ---
 
 ### ✓ Checkpoint
-One orphaned cluster deleted!
+One orphaned cluster deleted.
 
-**If you have more project IDs from Step 2:** Go back to Step 3.1 and repeat using the next project_id.
+If you have more project IDs from Step 2, then go back to Step 3.1 and repeat using the next project_id.
 
-**When all clusters are deleted:** Continue to Step 4.
+When all clusters are deleted, continue to Step 4.
 
 ---
 
@@ -202,7 +222,7 @@ exit;
 
 ---
 
-## ✓ Done!
+## ✓ Done
 
 You have successfully deleted orphaned clusters. The resources (VMs, volumes, networks) have been cleaned up.
 
@@ -221,8 +241,3 @@ You have successfully deleted orphaned clusters. The resources (VMs, volumes, ne
 
 ### Problem: Stack delete hangs or times out
 **Solution:** Check Heat logs for errors.
-
----
-
-## Reference
-- [Original Bug Report & Technical Details](https://midokura.atlassian.net/wiki/spaces/PHX/pages/3759996929/Bug+and+fix+Deleting+a+tenant+with+clusters)

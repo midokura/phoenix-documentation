@@ -59,7 +59,6 @@ If we need to remove a no-longer-supported version of the docs from the website,
 # To Do
 
 - Check tickets under https://midokura.atlassian.net/browse/GPD-596
-  - https://midokura.atlassian.net/browse/GPD-597
   - https://midokura.atlassian.net/browse/GPD-598
   - https://midokura.atlassian.net/browse/GPD-600
 - Turn off 'Next' (main) once /ja is populated https://midokura.atlassian.net/browse/GPD-601
@@ -72,6 +71,7 @@ If we need to remove a no-longer-supported version of the docs from the website,
   
 ## Done
 
+- <https://midokura.atlassian.net/browse/GPD-597>
 - Remove extra github workflows (there are some duplicates)
 - Customise popup banner page <- won't do, as the banner is great already
 - Add 'Back to Top' button at the bottom, especially for mobile

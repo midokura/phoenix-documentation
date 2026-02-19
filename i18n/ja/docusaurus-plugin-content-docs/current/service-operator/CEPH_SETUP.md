@@ -168,7 +168,9 @@ echo >> keyrings/ceph.client.glance.keyring
 Save the keyrings directory in a permanent location.
 You will need them for the [DEPLOYMENT](./DEPLOYMENT.md) section.
 
-**Important:** Remove the keyrings directory after saving them.
+:::important
+Remove the keyrings directory after saving them.
+:::
 
 ```bash
 rm -rf keyrings

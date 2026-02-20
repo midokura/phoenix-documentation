@@ -1,5 +1,6 @@
 # Kubernetes Clusters
-Provisioning Kubernetes Clusters
+
+Provisioning Kubernetes Clusters.
 
 This guide explains how to provision and manage Kubernetes clusters from
 the Console UI.

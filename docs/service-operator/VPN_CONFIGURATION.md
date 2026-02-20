@@ -21,7 +21,7 @@ After receiving the user's public key, add the user to a tenant. The user's Wire
 
 For complete API details and examples, see the [Add User to Tenant](OPERATOR_API_GUIDE.md#add-user-to-tenant) section in the Operator API Guide.
 
-## Fetch VPN Configuration Script
+## Fetch and provide VPN Configuration Script
 
 Retrieve the VPN configuration script for the user:
 

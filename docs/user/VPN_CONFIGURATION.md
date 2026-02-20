@@ -35,6 +35,8 @@ View your public key:
 cat pubkey
 ```
 
+## Share public key with operator
+
 Provide this public key to the operator so they can add you to the tenant.
 
 ## Generate VPN Configuration

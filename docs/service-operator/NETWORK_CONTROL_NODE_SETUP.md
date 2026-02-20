@@ -249,8 +249,9 @@ From the switch console:
    ```bash
    sudo reboot
    ```
-2. Hit DEL after Grub selection
-3. Select "ONIE: Install OS"
+2. Wait till GRUB selection appears
+3. Quickly select "ONIE"
+4. Select "ONIE: Install OS"
 
 ### Step 5: Install SONiC via HedgeHog
 

@@ -4,6 +4,8 @@ Setting up the VPN for Tenant Users.
 
 This guide explains how a service operator should set up VPN access for users who have been assigned to a tenant.
 
+For help with setting up and configuring WireGuard, refer to the [WireGuard Quick Start guide](https://www.wireguard.com/quickstart/).
+
 ## Overview
 
 When a user is added to a tenant, the operator can generate a VPN configuration script for that user. The user then combines this script with their private key to create a complete VPN configuration. This page explains the service operator steps, the user steps of this process are outlined [here](/docs/user/VPN_CONFIGURATION.md).
@@ -32,7 +34,3 @@ curl -H "Authorization: Bearer $JWT_TOKEN" \
 ```
 
 Provide this script to the user.
-
-## Additional Resources
-
-For detailed information on WireGuard client setup and configuration options, refer to the [official WireGuard Quick Start guide](https://www.wireguard.com/quickstart/).

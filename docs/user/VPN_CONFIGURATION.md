@@ -4,6 +4,8 @@ Setting up the VPN for Tenant Users.
 
 This guide explains how a user should set up VPN access when they have been assigned to a tenant.
 
+For help with setting up and configuring WireGuard, refer to the [WireGuard Quick Start guide](https://www.wireguard.com/quickstart/).
+
 ## Overview
 
 When a user is added to a tenant, the operator can generate a VPN configuration script for that user. The user then combines this script with their private key to create a complete VPN configuration. This page explains the user steps, the service operator steps of this process are outlined [here](/docs/service-operator/VPN_CONFIGURATION.md).
@@ -60,7 +62,3 @@ Import the configuration into your system using the WireGuard UI or CLI. Example
 ```bash
 sudo wg-quick up ./wg.conf
 ```
-
-## Additional Resources
-
-For detailed information on WireGuard client setup and configuration options, refer to the [official WireGuard Quick Start guide](https://www.wireguard.com/quickstart/).

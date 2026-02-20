@@ -1,4 +1,5 @@
-# Provisioning Kubernetes Clusters
+# Kubernetes Clusters
+Provisioning Kubernetes Clusters
 
 This guide explains how to provision and manage Kubernetes clusters from
 the Console UI.
@@ -27,9 +28,6 @@ Click **Clusters** in the left sidebar to open the clusters management page.
 | Type | Best for |
 |---|---|
 | **Barebones** | General-purpose Kubernetes. Supports GPU nodes. |
-| **KubeRay** | (Not yet available) AI/ML workloads. Includes the Ray distributed computing framework with auto-scaling. |
-| **Volcano** | (Not yet available) High-performance batch and parallel jobs (HPC, MPI). Uses gang scheduling. |
-
 ---
 
 ## Cluster Lifecycle

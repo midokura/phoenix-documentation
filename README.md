@@ -42,6 +42,8 @@ This command will:
 - Create a versioned sidebars file `versioned_sidebars/version-v9.9-sidebars.json`.
 - Add the new version number to `versions.json`.
 
+Then merge your changes to `main`, which will trigger a build of the website with the new version.
+
 ## Add a Release Note
 
 Each version of the docs requires a version release note.

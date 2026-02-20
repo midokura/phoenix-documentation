@@ -1,6 +1,6 @@
 # GPU Server Verification
 
-Verifying GPU server configuration before running ML workloads.
+Verifying GPU server configuration.
 
 Before starting expensive distributed training workloads on your newly deployed GPU bare-metal server, you should verify that the software stack is correctly configured. This guide shows you how to use pre-installed verification scripts to check GPU, RDMA, and GPUDirect RDMA configuration.
 

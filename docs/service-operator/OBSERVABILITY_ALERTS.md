@@ -320,6 +320,22 @@ The Phoenix observability stack includes alerts organized into the following cat
 
 ---
 
+### Magnum Service SLOs
+
+**Folder:** "Magnum Service SLOs"
+
+#### 19. Magnum Orphaned Clusters High
+
+**Description:** Detects orphaned Magnum clusters that cannot authenticate with Keystone. Orphaned clusters are those whose parent OpenStack project no longer exists and cannot self-cleanup. Alerts when the count of orphaned clusters exceeds the threshold.
+
+**Labels:**
+- `severity: warning`
+- `slo: magnum_orphaned_clusters`
+
+**Threshold:** Configurable via `__MAGNUM_ORPHANED_CLUSTERS_THRESHOLD__` (default: 0)
+
+---
+
 ## Alert Label Reference
 
 Alerts use labels for filtering and routing. Common labels include:
@@ -346,6 +362,7 @@ Alerts use labels for filtering and routing. Common labels include:
 - `slo: openstack_cpu_capacity` - OpenStack CPU capacity
 - `slo: openstack_storage_capacity` - OpenStack storage capacity
 - `slo: vm_availability` - VM availability
+- `slo: magnum_orphaned_clusters` - Magnum orphaned clusters
 
 ## Example Notification Policy Setup
 

@@ -216,11 +216,17 @@ exit;
 ```
 
 ### 4.3 Check Grafana Dashboard
-1. Open your Grafana dashboard
-2. Check the **Orphaned cluster** metric
-3. Verify the count decreased to zero
 
-**Expected result:** Cluster count reflects the deletions.
+1. Open your Grafana instance
+2. Navigate to: **Alerting > Alert rules**
+3. Find the alert named **"Magnum Orphaned Clusters High"**
+4. Click to open it
+
+**Expected result:**
+- Alert status: **OK** (green, not firing)
+- Metric value: **0** (no orphaned clusters remain)
+
+**If alert is still firing:** Wait 2-3 minutes for the metric to update, then refresh. If still firing after 5 minutes, check the database query in Step 4.1 to confirm clusters were actually deleted.
 
 ---
 

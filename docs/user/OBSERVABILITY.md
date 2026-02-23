@@ -1,7 +1,7 @@
 # Observability for Users
 A Grafana Dashboard is provided that monitors all resources in the current Tenant. This Dashboard can be accessed by
 clicking the **Observability 🔗** tab in the left sidebar. The Dashboard provides insights into the health and 
-performance of your resources, including metrics such as CPU usage, memory usage, disk, and more and can help diagnose
+performance of your resources, including metrics such as CPU usage, memory usage, disk usage, and more and can help diagnose
 issues and optimize resource utilization.
 
 ## Customizations

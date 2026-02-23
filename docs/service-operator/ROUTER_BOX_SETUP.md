@@ -100,6 +100,8 @@ autoinstall:
         routes:
           - { to: default, via: 192.168.7.1 }
         nameservers: { addresses: [ 192.168.7.1 ], search: [ "phoenix.bcn" ] }
+        parameters:
+          stp: true
   ssh:
     authorized-keys:
       - 'ssh-ed25519 AAAA... your-key-here'

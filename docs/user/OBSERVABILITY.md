@@ -6,7 +6,7 @@ issues and optimize resource utilization.
 
 ## Customizations
 Users can specify a time range for the data displayed in the Dashboard, allowing them to focus on specific periods of 
-interest. They can also choose the update frequency of the dashboard, but note that if this frequency is superior to the
+interest. They can also choose the update frequency of the dashboard, but note that if this frequency is greater than the
 frequency at which data is collected, the dashboard will not update with new data until the next collection cycle.
 
 ## Limitations

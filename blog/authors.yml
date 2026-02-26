@@ -42,3 +42,18 @@ alexandervera:
   page: true
   socials:
     github: alexVera99
+
+midoteam:
+  name: Midokura Team
+  url: https://midokura.com
+  image_url: https://midokura.com/wp-content/uploads/2020/03/cropped-favicon-midokura-32x32.png
+  page: true
+
+jaumedevesa:
+  name: Jaume Devesa
+  title: Software Engineer @ Midokura
+  url: https://github.com/devvesa
+  image_url: https://avatars.githubusercontent.com/u/67581
+  page: true
+  socials:
+    github: devvesa

@@ -1,7 +1,9 @@
 # Observability for Users
+Monitoring tenant resources with a Grafana Dashboard.
+
 A Grafana Dashboard is provided that monitors all resources in the current Tenant. This Dashboard can be accessed by
 clicking the **Observability 🔗** tab in the left sidebar. The Dashboard provides insights into the health and 
-performance of your resources, including metrics such as CPU usage, memory usage, disk usage, and more and can help diagnose
+performance of your resources, including metrics such as CPU usage, memory usage, and disk usage. It can also help diagnose
 issues and optimize resource utilization.
 
 ## Customizations
@@ -10,8 +12,8 @@ interest. They can also choose the update frequency of the dashboard, but note t
 frequency at which data is collected, the dashboard will not update with new data until the next collection cycle.
 
 ## Limitations
-Due to how Grafana works and to ensure that users only see data for their own resources, the Dashboard cannot be edited
+Owing to how Grafana works, and to ensure that users only see data for their own resources, the Dashboard cannot be edited
 and filters can only be applied by clicking on the relevant resource in each panel in the Dashboard. This means that you
 cannot apply filters to the entire Dashboard at once, but only to individual panels.
 
-If you require extra observability, contact [support@midokura.com](mailto:support@midokura.com)
+If you require extra observability, contact support@midokura.com.

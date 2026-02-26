@@ -1,3 +1,12 @@
+midoteam:
+  name: Midokura Team
+  title: Midokura Team
+  url: https://midokura.com
+  image_url: https://midokura.com/wp-content/uploads/2020/03/cropped-favicon-midokura-32x32.png
+  page: true
+  socials:
+    github: midokura
+
 jimkennedy:
   name: Jim Kennedy
   title: Docs @ Midokura
@@ -42,12 +51,6 @@ alexandervera:
   page: true
   socials:
     github: alexVera99
-
-midoteam:
-  name: Midokura Team
-  url: https://midokura.com
-  image_url: https://midokura.com/wp-content/uploads/2020/03/cropped-favicon-midokura-32x32.png
-  page: true
 
 jaumedevesa:
   name: Jaume Devesa

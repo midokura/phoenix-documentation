@@ -61,7 +61,6 @@ If we need to remove a no-longer-supported version of the docs from the website,
 # To Do
 
 - Check tickets under https://midokura.atlassian.net/browse/GPD-596
-  - https://midokura.atlassian.net/browse/GPD-598
   - https://midokura.atlassian.net/browse/GPD-600
 - Turn off 'Next' (main) once /ja is populated https://midokura.atlassian.net/browse/GPD-601
 - Translate to Japanese (Mari is on it)
@@ -70,9 +69,11 @@ If we need to remove a no-longer-supported version of the docs from the website,
   - Write up howto for translation
   - Uncomment the translation nav
 - Customise the 404 page
+- Investigate /ja for incorrect version numbers
   
 ## Done
 
+- <https://midokura.atlassian.net/browse/GPD-598>
 - <https://midokura.atlassian.net/browse/GPD-597>
 - Remove extra github workflows (there are some duplicates)
 - Customise popup banner page <- won't do, as the banner is great already

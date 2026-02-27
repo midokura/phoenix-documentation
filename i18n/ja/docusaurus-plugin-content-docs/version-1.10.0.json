@@ -1,6 +1,6 @@
 {
   "version.label": {
-    "message": "Next",
+    "message": "v1.10.0",
     "description": "The label for version current"
   },
   "sidebar.tutorialSidebar.category.Service Operator": {

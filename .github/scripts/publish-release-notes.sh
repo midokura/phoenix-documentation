@@ -5,16 +5,22 @@ set -euo pipefail
 
 RELEASE_NOTES_TITLE="add[release notes]: add v${VERSION} release notes"
 
-PR_JSON=$(gh pr list --state open --json number,isDraft,title \
+PR_JSON=$(gh pr list --state all --json number,isDraft,title,state \
     | jq -r ".[] | select(.title == \"${RELEASE_NOTES_TITLE}\")")
 
 if [[ -z "$PR_JSON" ]]; then
-    echo "error: no open PR found with title: ${RELEASE_NOTES_TITLE}" >&2
+    echo "error: no PR found with title: ${RELEASE_NOTES_TITLE}" >&2
     exit 1
 fi
 
 PR_NUMBER=$(echo "$PR_JSON" | jq -r '.number')
+PR_STATE=$(echo "$PR_JSON" | jq -r '.state')
 IS_DRAFT=$(echo "$PR_JSON" | jq -r '.isDraft')
+
+if [[ "$PR_STATE" == "MERGED" ]]; then
+    echo "PR #${PR_NUMBER} is already merged. Nothing to do."
+    exit 0
+fi
 
 if [[ "$IS_DRAFT" == "true" ]]; then
     echo "error: PR #${PR_NUMBER} is in draft mode" >&2

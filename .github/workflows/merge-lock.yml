@@ -1,0 +1,30 @@
+# Prevents manual merging of PRs created by the release automation
+# (phoenix-release-ops/prepare-release). Those PRs carry the
+# "release-ops/merge-lock" label, which makes this check fail.
+# The label is removed by the Release workflow before publishing,
+# allowing the bot to merge. Users can still close locked PRs
+# if a release is scrapped.
+#
+# This check must be configured as a required status check on the
+# main branch for the merge block to be enforced.
+name: Merge Lock
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+
+jobs:
+  merge-lock:
+    name: release-ops/merge-lock
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check merge lock
+        run: |
+          LABELS='${{ toJson(github.event.pull_request.labels.*.name) }}'
+          if echo "$LABELS" | jq -e 'index("release-ops/merge-lock")' > /dev/null 2>&1; then
+            echo "🔒 This PR is locked by release automation and will be merged during the release process."
+            echo "Do not merge manually. You may close this PR if the release is scrapped."
+            exit 1
+          fi
+          echo "✅ No merge lock — this PR can be merged normally."

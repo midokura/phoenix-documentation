@@ -1,5 +1,8 @@
 # Getting provisioning logs
 
+Getting provisioning logs
+
+
 ## Purpose
 
 In order to troubleshoot issues with provisioning, it may be necessary to see what the underlying Ironic Provisioning Agent (IPA) is doing when it prepares or clean a baremetal (BM) instance.

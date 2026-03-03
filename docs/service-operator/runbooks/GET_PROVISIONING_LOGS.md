@@ -1,5 +1,6 @@
 # Getting provisioning logs
 
+<!-- The text below is used as the preview text on the index card at https://docs.midokura.com/docs/next/category/runbooks -->
 Getting provisioning logs
 
 
@@ -33,6 +34,12 @@ The logs are placed inside the Ironic Conductor container.
 sudo podman exec ironic_conductor ls /var/log/kolla/ironic/
 ```
 
+### Docker
+
+```sh
+sudo docker exec ironic_conductor ls /var/log/kolla/ironic/
+```
+
 Sample output
 ```
 493017fa-2dca-4f40-8fd4-8acd3d618814_playbook-baremetal-node_6854e180-0586-4e53-97e4-17b0e5ea456b_2026-02-23-16-03-12.tar.gz
@@ -50,8 +57,6 @@ ironic-http-error.log
 ironic-prometheus-exporter-wsgi-access.log
 ironic-prometheus-exporter-wsgi-error.log
 ```
-
-### Docker
 
 ## Step 3 - Retrieve logs
 
@@ -77,6 +82,9 @@ sudo podman cp ironic_conductor:/var/log/kolla/ironic/b2160a16-79b7-4fcc-8a77-b3
 
 ### Docker
 
+```sh
+sudo docker cp ironic_conductor:/var/log/kolla/ironic/b2160a16-79b7-4fcc-8a77-b34c7e601215_playbook-baremetal-node_cleaning_2026-02-25-10-25-35.tar.gz /home/ubuntu/
+```
 
 ## Step 4 - Extract and consult logs
 

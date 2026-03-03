@@ -30,19 +30,19 @@ jobs:
           echo "short_sha=$SHORT_SHA" >> $GITHUB_OUTPUT
       
       - name: Create service-operator artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: service-operator-${{ steps.get_version.outputs.version }}-${{ steps.get_commit_info.outputs.commit_count }}-${{ steps.get_commit_info.outputs.short_sha }}
           path: docs/service-operator/
       
       - name: Create tenant artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: tenant-${{ steps.get_version.outputs.version }}-${{ steps.get_commit_info.outputs.commit_count }}-${{ steps.get_commit_info.outputs.short_sha }}
           path: docs/tenant/
       
       - name: Create user artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: user-${{ steps.get_version.outputs.version }}-${{ steps.get_commit_info.outputs.commit_count }}-${{ steps.get_commit_info.outputs.short_sha }}
           path: docs/user/

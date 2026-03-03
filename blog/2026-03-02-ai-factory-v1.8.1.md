@@ -20,7 +20,7 @@ We discovered a problem with v1.8 that affected new Cluster creations. This issu
 
 Assuming you have v1.8 installed, download the latest release assets and run the following command:
 ```
-./scripts/platform-setup.sh --tags provision
+./scripts/platform-setup.sh --tags provision,iaas-console 
 ```
 If you haven't installed AI Factory yet, or are on v1.7 or older, we recommend installing the latest version, but in the case you need to install this version, follow the Operator Reference as you normally would.
 
@@ -29,4 +29,5 @@ If you haven't installed AI Factory yet, or are on v1.7 or older, we recommend i
 The operator reference sheet for this release of AI Factory can be found in the [/docs](/docs/OPERATOR_REFERENCE) section.
 
 Please contact support@midokura.com for more information.
+
 

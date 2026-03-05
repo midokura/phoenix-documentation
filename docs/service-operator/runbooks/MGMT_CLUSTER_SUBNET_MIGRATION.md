@@ -192,7 +192,6 @@ openstack server reboot $TENANT_VPN_VM
 
 ### Restore the database from the backup
 
-
 Run the setup script on shell mode: `./scripts/platform-setup.sh --shell`. Once inside, execute the following.
 
 Create a pod by running:

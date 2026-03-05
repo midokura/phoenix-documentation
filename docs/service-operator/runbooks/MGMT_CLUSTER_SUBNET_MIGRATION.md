@@ -20,11 +20,87 @@ AllowedIPs = <PREVIOUS_ALLOWED_IPS>, 10.32.0.0/16
 
 All operators will need to update their VPN configuration with this new address.
 
-### Disconnect tenants from management-net
-
-We need to disconnect all tenant from the old management-net to be able to recreate it with the new one.
+### Create a backup of the database
 
 Run the setup script on shell mode: `./scripts/platform-setup.sh --shell`. Once inside, execute the following.
+
+Create a pod by running:
+
+```bash
+kubectl apply -f - <<'EOF'
+apiVersion: v1
+kind: Pod
+metadata:
+  name: iaas-backup-pod
+  namespace: iaas-console
+spec:
+  restartPolicy: Never
+  imagePullSecrets:
+  - name: midokura-registry
+  securityContext:
+    fsGroup: 1000
+    runAsNonRoot: false
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+  - name: backup
+    image: ghcr.io/midokura/iaas-backup:latest
+    imagePullPolicy: Always
+    command: ["sleep", "infinity"]
+    env:
+    - name: PG_HOST
+      value: iaas-api-postgresql-primary.iaas-console.svc.cluster.local
+    - name: PG_PORT
+      value: "5432"
+    - name: PG_USER
+      value: iaas
+    - name: PG_DATABASE
+      value: iaas
+    - name: PGPASSWORD
+      valueFrom:
+        secretKeyRef:
+          key: password
+          name: iaas-api-postgresql
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
+    volumeMounts:
+    - mountPath: /tmp
+      name: tmp
+  volumes:
+  - name: tmp
+    emptyDir:
+      sizeLimit: 5Gi
+EOF
+```
+
+Now let's run the backup from inside the pod:
+
+```bash
+kubectl exec -it iaas-backup-pod -n iaas-console -- bash
+
+BACKUP_FILE="/tmp/iaas_console.dump.gz"
+pg_dump -h "$PG_HOST" -p "$PG_PORT" -U "$PG_USER" -d "$PG_DATABASE" \
+  --format=custom --no-owner \
+| gzip -9 > "$BACKUP_FILE"
+exit
+```
+
+And copy the backup into deployment0.
+
+```bash
+kubectl cp iaas-console/iaas-backup-pod:/tmp/iaas_console.dump.gz /infra-management/iaas_console.dump.gz
+```
+
+Don't lose it. We will use it later.
+
+### Disconnect tenants from management-net
+
+Keep running the setup script as shell mode: `./scripts/platform-setup.sh --shell`
+
+We need to disconnect all tenant from the old management-net to be able to recreate it with the new one.
 
 For each tenant run:
 
@@ -114,20 +190,76 @@ openstack router set \
 openstack server reboot $TENANT_VPN_VM
 ```
 
-### Check that the database was restored
+### Restore the database from the backup
 
-Run validations and check in iaas-api if the database was restored correctly. If you see missing data, you can force it to be restored again by running:
 
-```
-./scripts/platform-setup.sh --tags management-restore -e migrate_mgt_cluster=true
+Run the setup script on shell mode: `./scripts/platform-setup.sh --shell`. Once inside, execute the following.
+
+Create a pod by running:
+
+```bash
+kubectl apply -f - <<'EOF'
+apiVersion: v1
+kind: Pod
+metadata:
+  name: iaas-backup-pod
+  namespace: iaas-console
+spec:
+  restartPolicy: Never
+  imagePullSecrets:
+  - name: midokura-registry
+  securityContext:
+    fsGroup: 1000
+    runAsNonRoot: false
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+  - name: backup
+    image: ghcr.io/midokura/iaas-backup:latest
+    imagePullPolicy: Always
+    command: ["sleep", "infinity"]
+    env:
+    - name: PG_HOST
+      value: iaas-api-postgresql-primary.iaas-console.svc.cluster.local
+    - name: PG_PORT
+      value: "5432"
+    - name: PG_USER
+      value: iaas
+    - name: PG_DATABASE
+      value: iaas
+    - name: PGPASSWORD
+      valueFrom:
+        secretKeyRef:
+          key: password
+          name: iaas-api-postgresql
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
+    volumeMounts:
+    - mountPath: /tmp
+      name: tmp
+  volumes:
+  - name: tmp
+    emptyDir:
+      sizeLimit: 5Gi
+EOF
 ```
 
-You can now run the setup script on shell mode and check in the management kubernetes the job that restores the data.
+Copy the backup back to the pod:
 
-```
-./scripts/platform-setup.sh --shell
+```bash
+kubectl cp /infra-management/iaas_console.dump.gz iaas-console/iaas-backup-pod:/tmp/iaas_console.dump.gz
 ```
 
-```
-kubectl get jobs -n iaas-console
+Now let's run the restore from inside the pod:
+
+```bash
+kubectl exec -it iaas-backup-pod -n iaas-console -- bash
+
+DUMP_FILE="/tmp/iaas_console.dump"
+gunzip ${DUMP_FILE}.gz
+pg_restore -h "$PG_HOST" -p "$PG_PORT" -U "$PG_USER" -d "$PG_DATABASE" \
+    --clean --if-exists --no-owner --single-transaction --exit-on-error $DUMP_FILE
 ```

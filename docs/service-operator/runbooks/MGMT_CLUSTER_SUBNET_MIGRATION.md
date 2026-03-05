@@ -176,7 +176,7 @@ openstack router set \
   $TENANT_ROUTER
 ```
 
-3. Add static route in management-router to tenant subnet with x ip.
+3. Add static route in management-router to tenant subnet with the tenant router fixed ip.
 
 ```
 openstack router set \

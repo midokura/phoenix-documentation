@@ -32,8 +32,8 @@ const config = {
   trailingSlash: false,
 
   onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'throw',
-  
+  siteConfig.markdown.hooks.onBrokenMarkdownLinks: 'throw',
+
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'ja'],

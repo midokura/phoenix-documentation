@@ -15,7 +15,7 @@ These release notes describe the revised steps, configuration details, and chang
 
 ### New network range for management cluster
 
-In this release we need to migrate the management cluster network to the new subnet 10.32.0.0/16. Please, follow the runbook [MGMT_CLUSTER_SUBNET_MIGRATION](./service-operator/runbooks/MGMT_CLUSTER_SUBNET_MIGRATION.md) during or after the update to this version.
+In this release we need to migrate the management cluster network to the new subnet 10.32.0.0/16. Please, follow the runbook [MGMT_CLUSTER_SUBNET_MIGRATION](./service-operator/runbooks/MGMT_CLUSTER_SUBNET_MIGRATION) during or after the update to this version.
 
 Doing this migration is mandatory before updating past this version.
 

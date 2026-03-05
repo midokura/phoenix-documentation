@@ -252,7 +252,7 @@ Copy the backup back to the pod:
 kubectl cp /infra-management/iaas_console.dump.gz iaas-console/iaas-backup-pod:/tmp/iaas_console.dump.gz
 ```
 
-Now let's run the restore from inside the pod:
+Now run the restore from inside the pod:
 
 ```bash
 kubectl exec -it iaas-backup-pod -n iaas-console -- bash

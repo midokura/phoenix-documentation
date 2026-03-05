@@ -2,13 +2,13 @@
 
 ## Overview
 
-The management cluster was originally deployed on `192.168.249.0/24`. As part of network topology consolidation, it needs to run on on `10.32.0.0/16` instead — same network name, different subnet. This document describes the automated migration flow, when to trigger it, and what to expect.
+The management cluster was originally deployed on `192.168.249.0/24`. As part of network topology consolidation, it needs to run on `10.32.0.0/16` instead — same network name, different subnet. This document describes the automated migration flow, when to trigger it, and what to expect.
 
 This will need to be done in any old installation previous to version 1.11 and before any update after version 1.11.
 
 ## How to run on an existing installation
 
-Follow this instructions to start the migration. By default, you can run the setups scripts as normal, and the migration won't be executed.
+Follow these instructions to start the migration. By default, you can run the setups scripts as normal, and the migration won't be executed.
 
 ### Operator VPN new Allowed IP
 
@@ -100,7 +100,7 @@ Don't lose it. We will use it later.
 
 Keep running the setup script as shell mode: `./scripts/platform-setup.sh --shell`
 
-We need to disconnect all tenant from the old management-net to be able to recreate it with the new one.
+We need to disconnect all tenants from the old management-net to be able to recreate it with the new one.
 
 For each tenant run:
 

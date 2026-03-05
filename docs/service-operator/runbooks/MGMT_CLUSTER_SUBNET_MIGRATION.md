@@ -4,7 +4,7 @@
 
 The management cluster was originally deployed on `192.168.249.0/24`. As part of network topology consolidation, it needs to run on `10.32.0.0/16` instead — same network name, different subnet. This document describes the automated migration flow, when to trigger it, and what to expect.
 
-This will need to be done in any old installation previous to version 1.11 and before any update after version 1.11.
+This will need to be done in any old installation previous to version 1.11.0 and before any update after version 1.11.0
 
 ## How to run on an existing installation
 

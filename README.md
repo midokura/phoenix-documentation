@@ -67,10 +67,10 @@ If we need to remove a no-longer-supported version of the docs from the website,
   - Devise methodology for translating release notes ahead of release day
   - Write up howto for translation
   - Uncomment the translation nav
-- Customise the 404 page
   
 ## Done
 
+- Customise the 404 page
 - Investigate /ja for incorrect version numbers
 - <https://midokura.atlassian.net/browse/GPD-600>
 - <https://midokura.atlassian.net/browse/GPD-598>

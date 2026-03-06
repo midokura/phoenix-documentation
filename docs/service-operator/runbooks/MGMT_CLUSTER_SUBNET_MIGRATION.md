@@ -129,6 +129,19 @@ done <<< "$PORTS"
 
 Keep running the setup script as shell mode: `./scripts/platform-setup.sh --shell`
 
+For each tenant project, add an ingress rule to the `default` security group:
+
+```bash
+openstack security group rule create \
+  --ingress \
+  --ethertype IPv4 \
+  --protocol any \
+  --remote-ip 10.32.0.0/16 \
+  --description "Allow all traffic from management subnet" \
+  --project "<TENANT_NAME>" \
+  default
+```
+
 Finally exit shell mode.
 
 ### Start the subnet migration

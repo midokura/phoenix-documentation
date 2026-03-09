@@ -150,8 +150,6 @@ The Phoenix observability stack includes several pre-configured dashboards that 
 - **Fan Speed State** - Status of each fan (Normal/Warning/Critical)
 - **Fan Speed in RPM** - Rotations per minute for each fan
 - **Power Consumption (Watts)** - Real-time power draw over time
-- **Power State** - Power supply status per component (Normal/Warning/Critical)
-- **Power Reading (Watts)** - Current power consumption gauge
 - **IPMI Sensors State** - Comprehensive table of all sensor states
 - **Temperature State** - Temperature sensor status table (Normal/Warning/Critical)
 - **Temperatures** - Temperature readings in Celsius (gauge)

@@ -140,19 +140,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 
 ---
 
-#### 5. IPMI Power Supply Health SLO Violation
-
-**Description:** Monitors the percentage of power supplies in normal state. Alerts when the percentage drops below the threshold.
-
-**Labels:**
-- `severity: critical`
-- `slo: power_supply_health`
-
-**Threshold:** Configurable via `__IPMI_POWER_THRESHOLD__` (default: 100%)
-
----
-
-#### 6. IPMI Voltage Health SLO Violation
+#### 5. IPMI Voltage Health SLO Violation
 
 **Description:** Monitors the percentage of voltage sensors in normal state. Alerts when the percentage drops below the threshold.
 
@@ -168,7 +156,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 
 **Folder:** "Kubernetes Infrastructure SLOs"
 
-#### 7. Pod Health SLO Violation
+#### 6. Pod Health SLO Violation
 
 **Description:** Monitors the percentage of failed pods in the cluster. Alerts when the failure rate exceeds the threshold.
 
@@ -180,7 +168,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 
 ---
 
-#### 8. Failed Pods
+#### 7. Failed Pods
 
 **Description:** Monitors the absolute count of failed pods. Alerts when the count exceeds the threshold.
 
@@ -192,7 +180,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 
 ---
 
-#### 9. Node CPU Utilization SLO Violation
+#### 8. Node CPU Utilization SLO Violation
 
 **Description:** Monitors average CPU utilization across all nodes. Alerts when utilization exceeds the threshold.
 
@@ -204,7 +192,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 
 ---
 
-#### 10. Node Memory Utilization SLO Violation
+#### 9. Node Memory Utilization SLO Violation
 
 **Description:** Monitors average memory utilization across all nodes. Alerts when utilization exceeds the threshold.
 
@@ -216,7 +204,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 
 ---
 
-#### 11. Node Disk Utilization SLO Violation
+#### 10. Node Disk Utilization SLO Violation
 
 **Description:** Monitors maximum disk utilization across all nodes. Alerts when utilization exceeds the threshold.
 
@@ -232,7 +220,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 
 **Folder:** "OpenStack Infrastructure SLOs"
 
-#### 12. Nova Service Availability SLO Violation
+#### 11. Nova Service Availability SLO Violation
 
 **Description:** Monitors the availability of Nova compute agents. Alerts when availability drops below the threshold.
 
@@ -244,7 +232,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 
 ---
 
-#### 13. Cinder Service Availability SLO Violation
+#### 12. Cinder Service Availability SLO Violation
 
 **Description:** Monitors the availability of Cinder volume agents. Alerts when availability drops below the threshold.
 
@@ -256,7 +244,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 
 ---
 
-#### 14. Neutron Service Availability SLO Violation
+#### 13. Neutron Service Availability SLO Violation
 
 **Description:** Monitors the availability of Neutron network agents. Alerts when availability drops below the threshold.
 
@@ -268,7 +256,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 
 ---
 
-#### 15. OpenStack Memory Capacity SLO Violation
+#### 14. OpenStack Memory Capacity SLO Violation
 
 **Description:** Monitors OpenStack memory quota usage. Alerts when usage exceeds the threshold percentage.
 
@@ -280,7 +268,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 
 ---
 
-#### 16. OpenStack CPU Capacity SLO Violation
+#### 15. OpenStack CPU Capacity SLO Violation
 
 **Description:** Monitors OpenStack CPU quota usage. Alerts when usage exceeds the threshold percentage.
 
@@ -292,7 +280,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 
 ---
 
-#### 17. OpenStack Storage Capacity SLO Violation
+#### 16. OpenStack Storage Capacity SLO Violation
 
 **Description:** Monitors OpenStack storage pool capacity usage. Alerts when usage exceeds the threshold percentage.
 
@@ -308,7 +296,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 
 **Folder:** "VM Management SLOs"
 
-#### 18. VM Availability SLO Violation
+#### 17. VM Availability SLO Violation
 
 **Description:** Monitors the percentage of VMs in running state. Alerts when availability drops below the threshold.
 
@@ -324,7 +312,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 
 **Folder:** "Magnum Service SLOs"
 
-#### 19. Magnum Orphaned Clusters High
+#### 18. Magnum Orphaned Clusters High
 
 **Description:** Detects orphaned Magnum clusters that cannot authenticate with Keystone. Orphaned clusters are those whose parent OpenStack project no longer exists and cannot self-cleanup. Alerts when the count of orphaned clusters exceeds the threshold.
 
@@ -349,7 +337,6 @@ Alerts use labels for filtering and routing. Common labels include:
 - `slo: error_rate` - API error rate SLO violations
 - `slo: temperature_health` - Hardware temperature health
 - `slo: fan_health` - Hardware fan health
-- `slo: power_supply_health` - Hardware power supply health
 - `slo: voltage_health` - Hardware voltage sensor health
 - `slo: pod_health` - Kubernetes pod health
 - `slo: cpu_utilization` - Node CPU utilization
@@ -382,7 +369,7 @@ Here's an example of how to set up notification policies:
 
 4. **Hardware Health Policy:**
    - Contact point: "Hardware Team Email"
-   - Matching labels: `slo=fan_health` OR `slo=power_supply_health` OR `slo=temperature_health`
+   - Matching labels: `slo=fan_health` OR `slo=temperature_health`
 
 This setup ensures:
 - All alerts go to the team email by default

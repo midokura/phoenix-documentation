@@ -4,11 +4,11 @@
     "description": "The label for version current"
   },
   "sidebar.tutorialSidebar.category.Service Operator": {
-    "message": "Service Operator",
+    "message": "サービスオペレーター",
     "description": "The label for category 'Service Operator' in sidebar 'tutorialSidebar'"
   },
   "sidebar.tutorialSidebar.category.Service Operator.link.generated-index.description": {
-    "message": "Documentation for service operators managing the AI Factory IaaS platform.",
+    "message": "Documentation for サービスオペレーター managing the AI Factory IaaS platform.",
     "description": "The generated-index page description for category 'Service Operator' in sidebar 'tutorialSidebar'"
   }
 }

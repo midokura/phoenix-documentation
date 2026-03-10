@@ -362,14 +362,14 @@
     "description": "The title of the tag list page"
   },
   "AI Factory Docs": {
-    "message": "AI Factory Docs",
+    "message": "AIファクトリードキュメント",
     "description": "AI Factory Docs"
   },
   "Service Operator": {
-    "message": "Service Operator"
+    "message": "サービスオペレーター"
   },
   "User": {
-    "message": "User"
+    "message": "ユーザー"
   },
   "Clear, practical guidance to using and customizing your cutting-edge GPUs as dedicated resources": {
     "message": "Clear, practical guidance to using and customizing your cutting-edge GPUs as dedicated resources"
@@ -414,7 +414,7 @@
     "message": "The source code for our documentation website can be found in the GitHub link in the navbar at the top of every page."
   },
   "Midokura AI Factory": {
-    "message": "Midokura AI Factory"
+    "message": "Midokura AIファクトリー"
   },
   "High-end GPU servers for HPC and AI workloads delivered to your doorstep": {
     "message": "High-end GPU servers for HPC and AI workloads delivered to your doorstep"

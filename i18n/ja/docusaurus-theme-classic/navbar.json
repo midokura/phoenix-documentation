@@ -1,10 +1,10 @@
 {
   "title": {
-    "message": "AI Factory Documentation",
+    "message": "AIファクトリーのドキュメント",
     "description": "The title in the navbar"
   },
   "logo.alt": {
-    "message": "Midokura Logo",
+    "message": "Midokura ロゴ",
     "description": "The alt text of navbar logo"
   },
   "item.label.Docs": {
@@ -12,11 +12,11 @@
     "description": "Navbar item with label Docs"
   },
   "item.label.Release Notes": {
-    "message": "Release Notes",
+    "message": "リリースノート",
     "description": "Navbar item with label Release Notes"
   },
   "item.label.Tutorial": {
-    "message": "Tutorial",
+    "message": "チュートリアル",
     "description": "Navbar item with label Tutorial"
   },
   "item.label.GitHub": {

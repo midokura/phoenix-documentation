@@ -27,6 +27,7 @@ wg genkey > privatekey && wg pubkey < privatekey > pubkey
 ```
 
 This creates two files:
+
 - `privatekey`: Keep this secret and secure
 - `pubkey`: Share this with the operator
 

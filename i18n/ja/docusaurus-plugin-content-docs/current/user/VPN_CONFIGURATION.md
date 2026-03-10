@@ -1,6 +1,6 @@
-# VPN Configuration for Tenant Users
+# VPN Configuration as a Tenant User
 
-Setting up the VPN for Tenant Users.
+Setting up the VPN as a Tenant User.
 
 This guide explains how a user should set up VPN access when they have been assigned to a tenant.
 
@@ -8,7 +8,7 @@ For help with setting up and configuring WireGuard, refer to the [WireGuard Quic
 
 ## Overview
 
-When a user is added to a tenant, the operator can generate a VPN configuration script for that user. The user then combines this script with their private key to create a complete VPN configuration. This page explains the user steps, the service operator steps of this process are outlined [here](/docs/service-operator/VPN_CONFIGURATION).
+When a user is added to a tenant, the operator can generate a VPN configuration script for that user. The user then combines this script with their private key to create a complete VPN configuration. This page explains the user steps, the service operator steps of this process are outlined [here](/docs/service-operator/VPN_CONFIGURATION.md).
 
 ## Setup Process
 

@@ -1,6 +1,6 @@
-# VPN Configuration for Tenant Users
+# VPN Configuration as a Service Operator
 
-Setting up the VPN for Tenant Users.
+Setting up the VPN as a Service Operator.
 
 This guide explains how a service operator should set up VPN access for users who have been assigned to a tenant.
 

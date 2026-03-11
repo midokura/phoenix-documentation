@@ -40,7 +40,6 @@ The Phoenix observability stack includes several pre-configured dashboards that 
 - **p95 Latency by Route** - 95th percentile latency per endpoint
 - **Global Latency Percentiles** - p50, p90, p95, p99 latency distribution
 - **Response Codes** - Distribution of HTTP status codes (share of traffic)
-- **RPS by Method** - Request rate by HTTP method (GET, POST, PUT, DELETE, etc.)
 - **Top Traffic Routes** - Table showing the 10 busiest endpoints
 - **Top Slow Routes** - Table showing the 10 slowest endpoints (by p95 latency)
 - **Latency Distribution** - Heatmap showing request latency distribution over time

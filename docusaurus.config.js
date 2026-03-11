@@ -106,13 +106,8 @@ const config = {
           //  position: 'left',
           //},
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
-            position: 'right',
-            label: 'Tutorial',
-          },
-          {
             type: 'docsVersionDropdown',
+            position: 'right',
           },
           {
             href: 'https://github.com/midokura/phoenix-documentation',

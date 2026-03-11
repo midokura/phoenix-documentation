@@ -1,5 +1,7 @@
 # Operator Guide — Cluster Add-ons
 
+Monitoring health of Cluster Add-ons and performing maintenance tasks.
+
 This guide provides instructions for operators to monitor the health of the Cluster Add-ons feature and perform manual maintenance tasks.
 
 ## Overview
@@ -10,9 +12,9 @@ Cluster Add-ons (such as JupyterHub and KubeRay) are pre-configured and hardcode
 
 Each add-on in the hardcoded catalog includes specific requirements that must be met for a successful installation and operation:
 
-- **Kubernetes Version Compatibility**: The API validates the cluster's version against a version constraint (e.g., `>=1.28`). If the cluster version does not satisfy this requirement, the installation will fail with a `400 Bad Request` error.
+- **Kubernetes Version Compatibility**: The API validates the cluster's version against a version constraint (for example, `>=1.28`). If the cluster version does not satisfy this requirement, the installation will fail with a `400 Bad Request` error.
 - **Resource Allocations**: Users configure resource limits (such as CPU and Memory) for certain add-ons via parameters. As this is a self-service feature, users are responsible for ensuring their cluster has adequate capacity. However, if an installation fails due to insufficient resources, an operator may need to assist in debugging the failure or informing the user about the capacity constraints of their specific cluster nodes.
-- **Network Endpoints & Security Groups**: Add-ons expose services via specific ports defined in the catalog. To ensure these are accessible to users, the cluster's security groups and network policies must be configured to allow traffic on the relevant ports (e.g., port 80 for JupyterHub, port 8265 for the KubeRay dashboard).
+- **Network Endpoints and Security Groups**: Add-ons expose services via specific ports defined in the catalog. To ensure these are accessible to users, the cluster's security groups and network policies must be configured to allow traffic on the relevant ports (for example, port 80 for JupyterHub, port 8265 for the KubeRay dashboard).
 
 ## Monitoring
 
@@ -37,7 +39,7 @@ All add-on operations are logged by the IaaS API with structured JSON details, i
 
 - **Request ID**: Linking API calls to K8s operations.
 - **Cluster/Add-on ID**: Identifiers for the target cluster and add-on type.
-- **Operation**: The `operation` key indicates the action performed (e.g., `install`, `status`, `uninstall`).
+- **Operation**: The `operation` key indicates the action performed (for example, `install`, `status`, `uninstall`).
 - **Outcome**: Duration and success/failure details.
 
 ## Maintenance and Cleanup

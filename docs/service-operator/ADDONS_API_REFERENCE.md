@@ -1,5 +1,7 @@
 # API Reference — Cluster Add-ons
 
+Managing add-ons on Kubernetes clusters with API endpoints.
+
 This reference covers the endpoints for managing Helm-based add-ons on Kubernetes clusters.
 
 ## Overview
@@ -40,7 +42,7 @@ Retrieve the list of add-ons available for installation.
       },
       "memory_limit": {
         "type": "string",
-        "description": "Memory limit per notebook session (e.g. 4Gi)"
+        "description": "Memory limit per notebook session (for example, 4Gi)"
       }
     }
   },

@@ -1,6 +1,8 @@
 # User Guide — Cluster Add-ons
 
-Cluster add-ons allow you to easily install and manage popular tools like JupyterHub and KubeRay on your Kubernetes clusters through the IaaS Console UI.
+Using Cluster add-ons to install and manage tools on Kubernetes clusters.
+
+Cluster add-ons allow you to easily install and manage popular tools such as JupyterHub and KubeRay on your Kubernetes clusters through the IaaS Console UI.
 
 ## Introduction
 

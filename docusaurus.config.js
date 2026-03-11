@@ -13,7 +13,6 @@ const config = {
   title: 'Midokura AI Factory',
   tagline: 'High-end GPU servers for HPC and AI workloads delivered to your doorstep',
   favicon: 'img/favicon.ico',
-  },
 
   // Set the production url of your site here
   url: 'https://docs.midokura.com',
@@ -111,6 +110,8 @@ const config = {
             sidebarId: 'tutorialSidebar',
             position: 'right',
             label: 'Tutorial',
+          },
+          {
             type: 'docsVersionDropdown',
           },
           {

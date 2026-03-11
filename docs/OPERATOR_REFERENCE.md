@@ -41,3 +41,7 @@ To install the Phoenix cluster, the Operator will work from the bastion node ref
 ## IaaS Console - Tenant and User configuration
 
 To create additional admin users, register tenants and tenant users, please refer to the instructions in [IAAS_CONSOLE_CONFIGURATION](./service-operator/IAAS_CONSOLE_CONFIGURATION.md).
+
+## IaaS Console - Cluster Add-ons
+
+Cluster Add-ons (such as JupyterHub and KubeRay) are pre-configured in the system. For information on monitoring the feature's health and performing manual maintenance, please refer to the [ADDONS_OPERATOR_GUIDE](./service-operator/ADDONS_OPERATOR_GUIDE.md).

@@ -1,5 +1,7 @@
 # Router Services Configuration
 
+Configuring the Router Box.
+
 The **Router Box** runs the foundational infrastructure services required before deploying OpenStack. It runs sequentially across four host groups:
 
 | Play | Host Group | Service | Gate Variable |

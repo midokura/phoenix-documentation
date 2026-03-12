@@ -1,4 +1,4 @@
-# Operator Guide — Cluster Add-ons
+# Cluster Add-ons
 
 Monitoring health of Cluster Add-ons and performing maintenance tasks.
 

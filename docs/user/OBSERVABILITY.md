@@ -1,4 +1,5 @@
 # Observability for Users
+
 Monitoring tenant resources with a Grafana Dashboard.
 
 A Grafana Dashboard is provided that monitors all resources in the current Tenant. This Dashboard can be accessed by

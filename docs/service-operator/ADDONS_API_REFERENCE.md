@@ -1,4 +1,4 @@
-# API Reference — Cluster Add-ons
+# Cluster Add-ons API Reference
 
 Managing add-ons on Kubernetes clusters with API endpoints.
 

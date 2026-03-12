@@ -13,12 +13,7 @@ These release notes describe the revised steps, configuration details, and chang
 
 <!-- truncate  -->
 
-<!-- TODO: Add one section per major feature or change introduced in this release -->
-### Feature 1
-
-### Feature 2
-
-...
+This release contains bug fixes and mainly changes that affect the [operator reference](/docs/OPERATOR_REFERENCE).
 
 ## Operator reference
 

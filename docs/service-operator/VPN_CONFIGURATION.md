@@ -204,7 +204,7 @@ ping -4 -M do -s 1472 example.com
 
 > [!NOTE]
 > The IPv4 header adds 20 bytes, and the ICMP header adds 8 bytes to the packet size.
-> Therefore, we need to use a packet size of 1472 to test sending exactly 1500 byte packets.
+> Therefore, we need to use a payload size of 1472 to test sending exactly 1500 byte packets.
 
 If this fails, try smaller packet sizes (1400, 1300, etc.) to find the maximum working size. Ensure the MTU value in the VPN configuration is set appropriately for your network.
 
@@ -212,8 +212,6 @@ Sample output:
 
 ```bash
 ping -4 -M do -s 1352 midokura.com
-```
-```
 PING midokura.com (198.51.100.42) 1472(1500) bytes of data.
 From _gateway (192.168.1.1) icmp_seq=1 Frag needed and DF set (mtu = 1380)
 ping: sendmsg: Message too long

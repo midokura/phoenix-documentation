@@ -6,7 +6,7 @@ This document explains the JSON configuration for the IaaS Console API Helm Char
 
 ## Configuration Sections
 
-### Initial Users
+### 1. Initial Users
 
 To create initial users add them into the `operator_users` list in the inventory. This list should contain only the emails for each user. Users will be added to the default tenant.
 
@@ -17,7 +17,7 @@ operator_users:
   - "user2@example.com"
 ```
 
-### 1. Flavors
+### 2. Flavors
 
 Defines available VM instance types.
 
@@ -36,7 +36,7 @@ Defines available VM instance types.
 - **node_type**: Optional (e.g., "baremetal" for physical servers)
 
 
-### 2. Networks
+### 3. Networks
 
 Defines available networks for VMs.
 
@@ -52,7 +52,7 @@ Defines available networks for VMs.
 - **display_name**: Name shown in UI
 - **ost_name**: OpenStack/Neutron network name
 
-### 3. Hedgehog Kubeconfig
+### 4. Hedgehog Kubeconfig
 
 The `hedgehog_kubeconfig_b64` in the inventory allows the IaaS Console to interact with the Hedgehog Kubernetes cluster. It must be provided as a base64-encoded kubeconfig containing the public IP of the control node.
 

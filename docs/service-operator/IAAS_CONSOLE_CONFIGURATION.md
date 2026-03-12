@@ -8,7 +8,7 @@ This document explains the JSON configuration for the IaaS Console API Helm Char
 
 ### 1. Initial Users
 
-To create initial users add them into the `operator_users` list in the inventory. This list should contain only the emails for each user. Users will be added to the default tenant.
+To create initial users add them into the `operator_users` list in the inventory. This list should contain only the emails for each user. Users will be added to the default tenant as Operators.
 
 Example:
 ```yaml

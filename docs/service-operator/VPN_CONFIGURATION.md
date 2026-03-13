@@ -95,10 +95,9 @@ After enabling the WireGuard connection:
 
 Check the status of the Wireguard client locally:
 
-
 `$ sudo wg`
 
-Sample output when succesfully connected:
+Sample output when successfully connected:
 
 ```bash
 interface: wg-tenant
@@ -114,7 +113,7 @@ peer: ExampleServerPublicKey+/+/+/+/+/+/+/+/+/+/+=
   persistent keepalive: every 25 seconds
 ```
 
-Sample output when either the client key or the server key is wrong:
+Sample output when either the client key or the server key is incorrect:
 
 ```bash
 interface: wg-tenant
@@ -129,11 +128,13 @@ peer: ExampleServerPublicKey+/+/+/+/+/+/+/+/+/+/+=
   persistent keepalive: every 25 seconds
 ```
 
-> [!NOTE]
-> In this case:
-> - some data is sent (but there is no indication of whether that data is correctly received by the server)
-> - zero bytes are received: either the server can not be validated and its data gets ignored, or the server can not validate the client, and does not reply.
-> - there is no "latest handshake" timestamp.
+:::note
+In this case:
+- some data is sent (but there is no indication of whether that data is correctly received by the server)
+- zero bytes are received: either the server can not be validated and its data gets ignored, or the server can not validate the client, and does not reply.
+- there is no "latest handshake" timestamp.
+
+:::
 
 ##### Ping the DNS endpoint
 
@@ -180,7 +181,7 @@ Review the `AllowedIPs` configuration to ensure all required networks are includ
 AllowedIPs = 10.8.42.0/24, 172.31.0.0/24
 ```
 
-Typically, this will contain at least 2 networks:
+Typically, this will contain at least two networks:
 
 - the address range of the tenant VPN. In the example config, the client address is `172.31.42.42/32`, the range is `172.31.42.0/24`.
 - the address range of the tenant network resources. In the example config, this network is `10.8.42.0/24`.
@@ -202,11 +203,13 @@ Test your connection's MTU:
 ping -4 -M do -s 1472 example.com
 ```
 
-> [!NOTE]
-> The IPv4 header adds 20 bytes, and the ICMP header adds 8 bytes to the packet size.
-> Therefore, we need to use a payload size of 1472 to test sending exactly 1500 byte packets.
+:::note
+The IPv4 header adds 20 bytes, and the ICMP header adds 8 bytes to the packet size.
+Therefore, we need to use a payload size of 1472 to test sending exactly 1500 byte packets.
 
-If this fails, try smaller packet sizes (1400, 1300, etc.) to find the maximum working size. Ensure the MTU value in the VPN configuration is set appropriately for your network.
+:::
+
+If this fails, try smaller packet sizes, for example, 1400 or 1300, to find the maximum working size. Ensure the MTU value in the VPN configuration is set appropriately for your network.
 
 Sample output:
 
@@ -222,8 +225,11 @@ PING midokura.com (198.51.100.42) 1352(1380) bytes of data.
 ^C
 ```
 
-> [!NOTE]
-> In this example, the router is aware of the MTU and can deal with the packet size for us.
-> It replies with a message telling us "the MTU is 1380, I can't send your packet without fragmenting it".
-> When this happens, the MTU setting in the client configuration is not necessary.
-> Ping probes that fail with size 1472 and that work with size 1352, though, would indicate that 1380 <= MTU < 1500.
+:::note
+In this example, the router is aware of the MTU and can deal with the packet size for us.
+It replies with a message telling us "the MTU is 1380, I can't send your packet without fragmenting it".
+When this happens, the MTU setting in the client configuration is not necessary.
+Ping probes that fail with size 1472 and that work with size 1352, though, would indicate that 1380 <= MTU < 1500.
+
+:::
+

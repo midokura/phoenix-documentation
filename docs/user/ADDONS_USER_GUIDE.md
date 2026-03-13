@@ -1,4 +1,4 @@
-# User Guide — Cluster Add-ons
+# Cluster Add-ons
 
 Using Cluster add-ons to install and manage tools on Kubernetes clusters.
 

@@ -78,91 +78,91 @@ nvidia-smi
 - CUDA のバージョンが 12.8 以降である
 - アイドル時は、消費電力が低く、温度が低く、メモリ使用量がない状態である
 
-#### Troubleshooting
+#### トラブルシューティング
 
-1. **GPU Not Detected**
+1. **GPU が検出されない**
 
-    - **Symptom**: `nvidia-smi` fails with "No devices were found" or command not found.
-    - **Check**:
+    - **症状**: `nvidia-smi` を実行すると "No devices were found" と表示される、またはコマンドが見つからないと表示される。
+    - **確認事項**:
       ```bash
-      # Check if driver is loaded
-      lsmod | grep nvidia
+     # ドライバーがロードされているか確認
+     lsmod | grep nvidia
 
-      # Check for NVIDIA GPU in PCI devices
-      lspci | grep -i nvidia
+     # PCI デバイスに NVIDIA GPU が表示されているか確認
+     lspci | grep -i nvidia
 
-      # Check driver installation
-      dpkg -l | grep nvidia-driver
-      ```
-    - **Solution**:
-      - If PCI device not found: Check BIOS settings (ensure PCIe slots enabled) or verify GPU is properly seated
-      - If driver not loaded: Install NVIDIA driver (`apt install nvidia-driver-570-open`)
-      - If nvidia-smi not found: Install CUDA toolkit (`apt install nvidia-utils-570`)
+     # ドライバーのインストール状況を確認
+     dpkg -l | grep nvidia-driver
+     ```
+   - **対処方法**:
+     - PCI デバイスが見つからない場合: BIOS 設定を確認（PCIe スロットが有効になっているか）または GPU が正しく装着されているか確認します
+     - ドライバーがロードされていない場合: NVIDIA ドライバーをインストールします（`apt install nvidia-driver-570-open`）
+     - `nvidia-smi` が見つからない場合: CUDA ツールキットをインストールします（`apt install nvidia-utils-570`）
 
 ----
 
-### pytorch CUDA verification
+### PyTorch CUDA 検証
 
-**Purpose**: Verify PyTorch environment and CUDA runtime integration.
+**目的**: PyTorch 環境と CUDA ランタイムの統合が正しく動作しているか確認します。
 
-**When to use**: After confirming `nvidia-smi` works. This checks that your Python environment can access GPUs.
+**使用するタイミング**: `nvidia-smi` が正常に動作することを確認した後に実行します。Python 環境から GPU にアクセスできるかを確認します。
 
-**What it checks**:
-- PyTorch venv activation
-- CUDA availability in PyTorch
-- GPU device count
-- Basic tensor operations on GPU
+**確認内容**:
+- PyTorch 仮想環境（venv）の有効化
+- PyTorch における CUDA の利用可否
+- GPU デバイス数
+- GPU 上での基本的なテンソル演算
 
-**Hardware dependencies**: NVIDIA GPU with CUDA runtime installed.
+**ハードウェア依存関係**: CUDA ランタイムがインストールされた NVIDIA GPU
 
-#### How to run
+#### 実行方法
 
 ```bash
 source /opt/pytorch-venv/bin/activate
 python -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}'); print(f'GPU count: {torch.cuda.device_count()}')"
 ```
 
-**Expected output**:
+**期待される出力**:
 
 ```
 CUDA available: True
 GPU count: 8
 ```
 
-**Interpreting results**:
-- `CUDA available: True` confirms PyTorch can use CUDA
-- GPU count should match hardware
+**結果の解釈**:
+- `CUDA available: True` は、PyTorch が CUDA を利用できることを示します
+- GPU 数が実際のハードウェア構成と一致していることを確認してください
 
 ----
 
 ### verify-rdma
 
-**Purpose**: Verify RDMA network stack configuration for multi-server distributed training.
+**目的**: マルチサーバー分散トレーニングに向けて、RDMA ネットワークスタックの設定を検証します。
 
-**When to use**: After GPU checks pass. Useful for servers participating in multi-server training.
+**使用するタイミング**: GPU のチェックが正常に完了した後に実行します。マルチサーバートレーニングに参加するサーバーで有用です。
 
-**What it checks**:
-- Inbox kernel modules (ib_core, rdma_cm, ib_uverbs, mlx5_core, mlx5_ib)
-- RDMA devices detected via ibv_devinfo
-- RDMA link status (active ports)
-- MTU configuration (active vs max supported)
-- RoCE v2 traffic class QoS settings (ToS 104 / DSCP 26 / TC3)
-- rdma-cm-tos.service status
-- NCCL environment variables
+**確認内容**:
+- Inbox カーネルモジュール（ib_core、rdma_cm、ib_uverbs、mlx5_core、mlx5_ib）
+- ibv_devinfo によって検出された RDMA デバイス
+- RDMA リンク状態（アクティブなポート）
+- MTU 設定（現在の値とサポートされている最大値）
+- RoCE v2 トラフィッククラス QoS 設定（ToS 104 / DSCP 26 / TC3）
+- rdma-cm-tos.service の状態
+- NCCL 環境変数
 
-**Hardware dependencies**: Mellanox ConnectX-4 or newer with RoCE v2 capability. Requires lossless Ethernet configuration on the network switch.
+**ハードウェア依存関係**: RoCE v2 に対応した Mellanox ConnectX-4 以降の NIC が必要です。ネットワークスイッチ側でロスレス Ethernet の設定が必要です。
 
-#### How to run
+#### 実行方法
 
 ```bash
 verify-rdma
 ```
 
-**Expected output** (with Mellanox NIC hardware):
+**期待される出力**（Mellanox NIC ハードウェアを使用している場合）:
 
 ```
 ==========================================
-Inbox RDMA Kernel Modules
+Inbox RDMA カーネルモジュール
 ==========================================
 [OK] ib_core loaded
 [OK] rdma_cm loaded
@@ -171,215 +171,215 @@ Inbox RDMA Kernel Modules
 [OK] mlx5_ib loaded
 
 ==========================================
-RDMA Devices
+RDMA デバイス
 ==========================================
 [OK] mlx5_0 port 1: PORT_ACTIVE
-[OK] RDMA links visible
+[OK] RDMA リンクが確認されました
 
 --- rdma link show ---
 link mlx5_0/1 state ACTIVE physical_state LINK_UP netdev ens1f0np0
 
 ==========================================
-MTU Configuration
+MTU 設定
 ==========================================
 [OK] mlx5_0 port 1: active_mtu=4096 (max supported)
 
 ==========================================
-RoCE Traffic Class (QoS)
+RoCE トラフィッククラス（QoS）
 ==========================================
-Lossless RoCE requires proper QoS configuration.
-Traffic class for lossless RoCE (ToS 104 = DSCP 26 = TC3)
+ロスレス RoCE には適切な QoS 設定が必要です。
+ロスレス RoCE 用のトラフィッククラス（ToS 104 = DSCP 26 = TC3）
 
 [OK] rdma-cm-tos.service is enabled
 [OK] rdma-cm-tos.service is active
 [OK] mlx5_0: RDMA-CM ToS=104 (DSCP 26 = TC3)
 
-NCCL Traffic Class setting:
+NCCL トラフィッククラス設定:
 [OK] NCCL_IB_TC=104 configured in /etc/profile.d/nccl-rdma.sh
 
 ==========================================
-Results
+結果
 ==========================================
 OK: 10  WARN: 0  FAIL: 0
 ```
 
-**Interpreting results**:
-- **[OK]**: Component is correctly configured
-- **[WARN]**: Component detected but not optimally configured - investigate but may not block basic functionality
-- **[FAIL]**: Configuration problem that must be fixed for RDMA to work
+**結果の解釈**:
+- **[OK]**: コンポーネントが正しく設定されています
+- **[WARN]**: コンポーネントは検出されていますが、最適な設定ではありません。調査が必要ですが、基本的な機能の動作を妨げない場合があります
+- **[FAIL]**: RDMA が正常に動作するために修正が必要な設定問題があります
 
-On a bare-metal GPU server, you should see mostly `[OK]` results. Any `[FAIL]` indicates misconfiguration that must be addressed.
+ベアメタル GPU サーバーでは、ほとんどの結果が `[OK]` になるはずです。`[FAIL]` が表示されている場合は、修正が必要な設定ミスを示しています。
 
-#### Troubleshooting
+#### トラブルシューティング
 
-1. **RDMA Verification Shows FAIL (Not WARN)**
+1. **RDMA 検証で FAIL（WARN ではなく）が表示される場合**
 
-    - **Symptom**: `verify-rdma` shows `[FAIL]` results on deployed instance with Mellanox NIC.
-    - **Check**:
-      ```bash
-      # Check if NIC is detected
-      lspci | grep -i mellanox
+   - **症状**: Mellanox NIC を搭載したインスタンスで `verify-rdma` を実行すると `[FAIL]` が表示される。
+   - **確認事項**:
+     ```bash
+     # NIC が検出されているか確認
+     lspci | grep -i mellanox
 
-      # Check kernel modules
-      lsmod | grep mlx5
+     # カーネルモジュールの確認
+     lsmod | grep mlx5
 
-      # Check dmesg for errors
-      dmesg | grep -i mlx5
-      ```
-    - **Solution**:
-      - If NIC not in `lspci`: Hardware not detected, check PCIe slot or BIOS settings
-      - If modules not loaded: `modprobe mlx5_core && modprobe mlx5_ib`
-      - If ibverbs-utils not installed: `apt install ibverbs-utils infiniband-diags`
+     # dmesg にエラーが出ていないか確認
+     dmesg | grep -i mlx5
+     ```
+   - **対処方法**:
+     - `lspci` に NIC が表示されない場合: ハードウェアが検出されていません。PCIe スロットや BIOS 設定を確認してください
+     - モジュールがロードされていない場合: `modprobe mlx5_core && modprobe mlx5_ib`
+     - ibverbs-utils がインストールされていない場合: `apt install ibverbs-utils infiniband-diags`
 
 ----
 
 ### verify-gpudirect
 
-**Purpose**: Verify GPUDirect RDMA setup using DMA-BUF.
+**目的**: DMA-BUF を使用した GPUDirect RDMA の設定を検証します。
 
-**When to use**: After both GPU and RDMA checks pass. This verifies that GPU memory can be accessed directly by the RDMA NIC.
+**使用するタイミング**: GPU と RDMA のチェックがいずれも正常に完了した後に実行します。GPU メモリが RDMA NIC から直接アクセス可能かを確認します。
 
-**What it checks**:
-- NVIDIA driver status and GPU detection
-- Kernel P2PDMA support (CONFIG_PCI_P2PDMA=y)
-- nvidia-open driver (required for DMA-BUF)
-- Kernel version compatibility (6.2+ for full DMA-BUF support)
-- Legacy nvidia-peermem status (should NOT be loaded)
-- NCCL environment variables
-- PyTorch NCCL backend availability
+**確認内容**:
+- NVIDIA ドライバーの状態および GPU の検出状況
+- カーネルの P2PDMA サポート（CONFIG_PCI_P2PDMA=y）
+- nvidia-open ドライバー（DMA-BUF に必須）
+- カーネルバージョンの互換性（DMA-BUF を完全にサポートするために 6.2 以降）
+- legacy nvidia-peermem の状態（ロードされていないこと）
+- NCCL 環境変数
+- PyTorch の NCCL バックエンド利用可否
 
-**Hardware dependencies**: Both NVIDIA GPU and Mellanox ConnectX NIC required. For optimal performance, GPU and NIC should be on the same PCI switch or NUMA node.
+**ハードウェア依存関係**: NVIDIA GPU と Mellanox ConnectX NIC の両方が必要です。最適なパフォーマンスを得るには、GPU と NIC が同じ PCI スイッチまたは NUMA ノード上にあることが推奨されます。
 
-#### How to run
+#### 実行方法
 
 ```bash
 verify-gpudirect
 ```
 
-**Expected output** (with GPU and Mellanox NIC):
+**期待される出力**（GPU と Mellanox NIC を使用している場合）:
 
 ```
 ==========================================
-NVIDIA Driver Status
+NVIDIA ドライバーの状態
 ==========================================
 570.124.06, NVIDIA H100 80GB HBM3, 81559 MiB
-[OK] NVIDIA GPU detected and driver loaded
+[OK] NVIDIA GPU が検出され、ドライバーがロードされています
 
 ==========================================
-DMA-BUF Support (NVIDIA-Recommended Method)
+DMA-BUF サポート（NVIDIA 推奨方式）
 ==========================================
-DMA-BUF is the modern method for GPUDirect RDMA.
-Requires: nvidia-open driver + kernel with CONFIG_PCI_P2PDMA=y
+DMA-BUF は GPUDirect RDMA の最新の方式です。
+必要条件: nvidia-open ドライバー + CONFIG_PCI_P2PDMA=y を有効化したカーネル
 
-[OK] Kernel has CONFIG_PCI_P2PDMA=y (P2P DMA enabled)
+[OK] カーネルで CONFIG_PCI_P2PDMA=y が有効（P2P DMA 有効）
 
-[OK] Using nvidia-open driver (DMA-BUF supported)
+[OK] nvidia-open ドライバーを使用中（DMA-BUF 対応）
 
-[OK] Kernel 6.8 supports DMA-BUF (6.2+ required)
-
-==========================================
-Legacy nvidia-peermem (Not Used)
-==========================================
-[OK] nvidia-peermem NOT loaded (using DMA-BUF instead)
+[OK] カーネル 6.8 は DMA-BUF をサポート（6.2 以降が必要）
 
 ==========================================
-NCCL Environment Variables
+Legacy nvidia-peermem（未使用）
 ==========================================
-Current NCCL settings from environment:
+[OK] nvidia-peermem はロードされていません（代わりに DMA-BUF を使用）
+
+==========================================
+NCCL 環境変数
+==========================================
+現在の環境変数から読み込まれた NCCL 設定:
   NCCL_DEBUG=INFO
   NCCL_IB_DISABLE=0
   NCCL_IB_TC=104
   NCCL_NET_GDR_LEVEL=SYS
   NCCL_P2P_LEVEL=NVL
 
-[OK] NCCL variables configured in /etc/profile.d/nccl-rdma.sh
+[OK] NCCL 変数は /etc/profile.d/nccl-rdma.sh に設定されています
 
 ==========================================
-PyTorch NCCL Check
+PyTorch NCCL チェック
 ==========================================
-Testing NCCL availability in PyTorch...
+PyTorch で NCCL が利用可能かテスト中...
   NCCL available: True
   NCCL backend can be used for distributed training
-[OK] PyTorch NCCL backend available
+[OK] PyTorch NCCL バックエンドが利用可能
 
 ==========================================
-Results
+結果
 ==========================================
 OK: 8  WARN: 0  FAIL: 0
 
-Test RDMA (network only):
+RDMA テスト（ネットワークのみ）:
   # Server: ib_write_bw -d mlx5_0
   # Client: ib_write_bw -d mlx5_0 <server-ip>
 
-Test GPUDirect with NCCL (single node, 2+ GPUs):
+NCCL を使用した GPUDirect テスト（単一ノード、GPU 2枚以上）:
   source /opt/pytorch-venv/bin/activate
   torchrun --nproc_per_node=2 /usr/local/bin/test-nccl
 
-Test GPUDirect with NCCL (multi-node):
+NCCL を使用した GPUDirect テスト（マルチノード）:
   # Node 0: torchrun --nproc_per_node=<gpus> --nnodes=2 --node_rank=0 \
   #           --master_addr=<master_ip> --master_port=29500 /usr/local/bin/test-nccl
   # Node 1: torchrun --nproc_per_node=<gpus> --nnodes=2 --node_rank=1 \
   #           --master_addr=<master_ip> --master_port=29500 /usr/local/bin/test-nccl
 
-Look for: 'DMA-BUF is available', 'Using network IB', 'GDR 1'
+確認ポイント: 'DMA-BUF is available', 'Using network IB', 'GDR 1'
 ```
 
-**Interpreting results**:
-- DMA-BUF support requires three components: nvidia-open driver, kernel P2PDMA support, kernel 6.2+
-- Legacy nvidia-peermem should NOT be loaded when using DMA-BUF
-- NCCL environment variables should be set with correct values for lossless RoCE
+**結果の解釈**:
+- DMA-BUF サポートには次の 3 つの要素が必要です: nvidia-open ドライバー、カーネルの P2PDMA サポート、カーネル 6.2 以降
+- DMA-BUF を使用する場合、legacy nvidia-peermem はロードされていない必要があります
+- ロスレス RoCE のために、NCCL 環境変数が正しい値で設定されている必要があります
 
-#### Troubleshooting
+#### トラブルシューティング
 
-1. **GPUDirect Verification Fails**
+1. **GPUDirect 検証に失敗する**
 
-    - **Symptom**: `verify-gpudirect` shows nvidia-open driver not detected or P2PDMA not enabled.
-    - **Check**:
-      ```bash
-      # Check nvidia-open driver installation
-      dpkg -l | grep nvidia-driver | grep open
+   - **症状**: `verify-gpudirect` の実行結果で、nvidia-open ドライバーが検出されない、または P2PDMA が有効になっていないと表示される。
+   - **確認事項**:
+     ```bash
+     # nvidia-open ドライバーがインストールされているか確認
+     dpkg -l | grep nvidia-driver | grep open
 
-      # Check kernel P2PDMA support
-      grep CONFIG_PCI_P2PDMA /boot/config-$(uname -r)
+     # カーネルの P2PDMA サポートを確認
+     grep CONFIG_PCI_P2PDMA /boot/config-$(uname -r)
 
-      # Check kernel version
-      uname -r
-      ```
-    - **Solution**:
-      - If proprietary driver installed: `apt remove nvidia-driver-570 && apt install nvidia-driver-570-open`
-      - If P2PDMA disabled: Upgrade to Ubuntu 24.04 with kernel 6.8+ (default config has P2PDMA enabled)
-      - If kernel < 6.2: Upgrade kernel to 6.2+ for full DMA-BUF support
+     # カーネルバージョンを確認
+     uname -r
+     ```
+   - **対処方法**:
+     - proprietary ドライバーがインストールされている場合: `apt remove nvidia-driver-570 && apt install nvidia-driver-570-open`
+     - P2PDMA が無効な場合: Ubuntu 24.04（カーネル 6.8 以降）にアップグレードします（デフォルト設定で P2PDMA が有効）
+     - カーネルが 6.2 未満の場合: DMA-BUF を完全にサポートするためにカーネルを 6.2 以降にアップグレードします
 
 ----
 
 ### test-nccl
 
-**Purpose**: End-to-end verification of NCCL communication for single-server or multi-server distributed training.
+**目的**: 単一サーバーまたはマルチサーバー環境での分散トレーニングに向けて、NCCL 通信がエンドツーエンドで正常に動作するかを検証します。
 
-**When to use**: Final verification after all previous checks pass. Tests actual multi-GPU communication.
+**使用するタイミング**: すべての事前チェックが正常に完了した後の最終確認として実行します。実際のマルチ GPU 通信をテストします。
 
-**What it checks**:
-- NCCL initialization and process group creation
-- GPU-to-GPU communication (single-server via NVLink/PCIe, multi-server via RDMA)
-- GPUDirect RDMA usage (for multi-server)
-- all_reduce collective operation correctness
+**確認内容**:
+- NCCL の初期化およびプロセスグループの作成
+- GPU 間通信（単一サーバーでは NVLink / PCIe、マルチサーバーでは RDMA）
+- GPUDirect RDMA の利用状況（マルチサーバーの場合）
+- all_reduce 集合演算の正確性
 
-**Hardware dependencies**:
-- Single-server: 2+ GPUs on same host
-- Multi-server: Mellanox NIC with RoCE on all servers, proper network connectivity between servers
+**ハードウェア依存関係**:
+- 単一サーバー: 同一ホスト上に GPU が 2 台以上
+- マルチサーバー: すべてのサーバーに RoCE 対応 Mellanox NIC があり、サーバー間のネットワーク接続が正しく構成されていること
 
-#### How to run
+#### 実行方法
 
-1) Single-server (requires 2+ GPUs):
+1) 単一サーバー（GPU が 2 台以上必要）:
 
 ```bash
 source /opt/pytorch-venv/bin/activate
 torchrun --nproc_per_node=2 /usr/local/bin/test-nccl
 ```
 
-**Expected output** (single-server, 2 GPUs, with NCCL_DEBUG=INFO):
+**期待される出力**（単一サーバー、GPU 2 台、NCCL_DEBUG=INFO の場合）:
 
-The actual output will be verbose with many NCCL INFO lines about initialization, topology, channels, and rings. Below are the **key lines to look for** in that output:
+実際の出力には、初期化、トポロジー、チャネル、リングなどに関する多くの NCCL INFO ログが表示されます。以下は、その中で **確認すべき主な行** です。
 
 ```text
 [NCCL] DMA-BUF is available
@@ -390,15 +390,15 @@ Rank 0: OK (result=1.0, expected=1.0)
 Rank 1: OK (result=1.0, expected=1.0)
 ```
 
-2) Multi-server (2 servers, each with N GPUs):
+2) マルチサーバー（2 サーバー、それぞれ N GPU）:
 
 ```bash
-# On Server 0 (master):
+# Server 0（マスター）:
 source /opt/pytorch-venv/bin/activate
 torchrun --nproc_per_node=<N> --nnodes=2 --node_rank=0 \
   --master_addr=<SERVER_0_IP> --master_port=29500 /usr/local/bin/test-nccl
 
-# On Server 1:
+# Server 1:
 source /opt/pytorch-venv/bin/activate
 torchrun --nproc_per_node=<N> --nnodes=2 --node_rank=1 \
   --master_addr=<SERVER_0_IP> --master_port=29500 /usr/local/bin/test-nccl
@@ -406,12 +406,12 @@ torchrun --nproc_per_node=<N> --nnodes=2 --node_rank=1 \
 
 Where:
 
-- `N` is the number of GPUs per server involved in the test,
-- `SERVER_0_IP` is the IP of a Mellanox NIC on Server 0, which here is acting as the coordinator.
+- `N` はテストに使用する各サーバーの GPU 数です
+- `SERVER_0_IP` は Server 0 上の Mellanox NIC の IP アドレスで、このサーバーがコーディネーターとして動作します
 
-**Expected output** (multi-server, 2 servers x 2 GPUs, with NCCL_DEBUG=INFO):
+**期待される出力**（マルチサーバー、2 サーバー × GPU 2 台、NCCL_DEBUG=INFO の場合）:
 
-Again, the actual output will include 50+ NCCL INFO lines. Below are the **key indicators** to look for:
+実際の出力には 50 行以上の NCCL INFO ログが含まれます。以下は **確認すべき主な指標** です。
 
 ```text
 [NCCL] DMA-BUF is available
@@ -424,152 +424,153 @@ Rank 2: OK (result=6.0, expected=6.0)
 Rank 3: OK (result=6.0, expected=6.0)
 ```
 
-**Interpreting results**:
+**結果の解釈**:
 
-NCCL will output details about bootstrap, CUDA version, comm config, topology, channels, rings, and timings. You can safely ignore most of this. Focus on these **key indicators** in the verbose output:
+NCCL は、bootstrap、CUDA バージョン、通信設定、トポロジー、チャネル、リング、タイミングなどの詳細を出力します。これらの多くは無視して問題ありません。詳細出力の中では、次の **重要な指標** を確認してください。
 
-- `DMA-BUF is available` - GPU memory export working correctly
-- `Using network IB` - RDMA/RoCE is being used (not TCP fallback)
-- `GDR 1` - GPUDirect RDMA is enabled (appears per-GPU during initialization)
-- `Rank N: OK (result=X, expected=X)` - all_reduce operation succeeded
+- `DMA-BUF is available` - GPU メモリのエクスポートが正しく機能していることを示します
+- `Using network IB` - RDMA / RoCE が使用されています（TCP へのフォールバックではない）
+- `GDR 1` - GPUDirect RDMA が有効になっています（初期化時に GPU ごとに表示されます）
+- `Rank N: OK (result=X, expected=X)` - all_reduce 演算が正常に完了しています
 
-If you see `Using network Socket` instead of `Using network IB`, NCCL has fallen back to TCP. Check RDMA configuration with `verify-rdma`.
+`Using network IB` ではなく `Using network Socket` が表示される場合、NCCL は TCP にフォールバックしています。この場合は `verify-rdma` を実行して RDMA の設定を確認してください。
 
-#### Troubleshooting
+#### トラブルシューティング
 
-1. **NCCL Test Hangs or Fails**
+1. **NCCL テストが停止する、または失敗する**
 
-    - **Symptom**: `test-nccl` hangs during initialization or fails with NCCL errors.
-    - **Check**:
-      ```bash
-      # Check NCCL environment variables are set
-      source /opt/pytorch-venv/bin/activate
-      env | grep NCCL
+   - **症状**: `test-nccl` の初期化中に処理が停止する、または NCCL エラーで失敗する。
+   - **確認事項**:
+     ```bash
+     # NCCL 環境変数が設定されているか確認
+     source /opt/pytorch-venv/bin/activate
+     env | grep NCCL
 
-      # Run with verbose debug output
-      NCCL_DEBUG=TRACE torchrun --nproc_per_node=2 /usr/local/bin/test-nccl
+     # 詳細なデバッグ出力で実行
+     NCCL_DEBUG=TRACE torchrun --nproc_per_node=2 /usr/local/bin/test-nccl
 
-      # For multi-server, check network connectivity
-      ping <other-server-ip>
+     # マルチサーバーの場合、ネットワーク接続を確認
+     ping <other-server-ip>
 
-      # Check firewall rules
-      iptables -L -n
-      ```
-    - **Solution**:
-      - If NCCL vars not set: `source /etc/profile.d/nccl-rdma.sh` before running
-      - If hangs at init: Check network connectivity, firewall rules (NCCL needs TCP ports for bootstrap)
-      - If "no NCCL devices found": Re-run `verify-gpudirect` to check GPUDirect setup
-      - Multi-server hangs: Verify both servers can reach master_addr on master_port
+     # ファイアウォール設定を確認
+     iptables -L -n
+     ```
+   - **対処方法**:
+     - NCCL 環境変数が設定されていない場合: 実行前に `source /etc/profile.d/nccl-rdma.sh` を実行します
+     - 初期化で停止する場合: ネットワーク接続やファイアウォール設定を確認します（NCCL は bootstrap 用に TCP ポートを使用します）
+     - `"no NCCL devices found"` が表示される場合: `verify-gpudirect` を再実行して GPUDirect の設定を確認します
+     - マルチサーバーで停止する場合: 両方のサーバーから `master_addr` の `master_port` に接続できることを確認します
 
-2. **RDMA Not Being Used (TCP Fallback)**
+2. **RDMA が使用されていない（TCP フォールバック）**
 
-    - **Symptom**: NCCL debug output shows `Using network Socket` instead of `Using network IB`.
-    - **Check**:
-      ```bash
-      # Verify RDMA devices visible
-      ibv_devinfo
+   - **症状**: NCCL のデバッグ出力に `Using network IB` ではなく `Using network Socket` が表示される。
+   - **確認事項**:
+     ```bash
+     # RDMA デバイスが認識されているか確認
+     ibv_devinfo
 
-      # Check RDMA links active
-      rdma link show
+     # RDMA リンクがアクティブか確認
+     rdma link show
 
-      # Check NCCL not disabling IB
-      echo $NCCL_IB_DISABLE
-      # Should be "0" or unset
-      ```
-    - **Solution**:
-      - If no RDMA devices: Run `verify-rdma` to diagnose RDMA stack issues
-      - If `NCCL_IB_DISABLE=1`: Unset or set to 0 in environment
-      - If RDMA devices exist but NCCL doesn't use them: Check `NCCL_DEBUG=INFO` for errors like "IB device not usable"
+     # NCCL が IB を無効化していないか確認
+     echo $NCCL_IB_DISABLE
+     # "0" または未設定である必要があります
+     ```
+   - **対処方法**:
+     - RDMA デバイスが表示されない場合: `verify-rdma` を実行して RDMA スタックの問題を診断します
+     - `NCCL_IB_DISABLE=1` の場合: 環境変数を unset するか、0 に設定します
+     - RDMA デバイスが存在するのに NCCL が使用しない場合: `NCCL_DEBUG=INFO` を確認し、"IB device not usable" などのエラーがないか確認します
 
 ----
 
-## RDMA and GPUDirect Deep Dive
+## RDMA と GPUDirect の詳細解説
 
-### When Do You Need RDMA?
+### RDMA が必要になるケース
 
-RDMA (Remote Direct Memory Access) is **required for multi-server distributed training** and not needed for single-server workloads.
+RDMA（Remote Direct Memory Access）は、**マルチサーバー分散トレーニングでは必須**ですが、単一サーバーのワークロードでは不要です。
 
-**Multi-server training** (RDMA required):
-- NCCL uses GPUDirect RDMA for server-to-server GPU communication
-- Required for distributed training (DDP, FSDP, DeepSpeed) across multiple servers
-- Network path: GPU → NIC → network → NIC → GPU
+**マルチサーバートレーニング**（RDMA が必要）:
+- NCCL は、サーバー間の GPU 通信に GPUDirect RDMA を使用します
+- 複数サーバーにまたがる分散トレーニング（DDP、FSDP、DeepSpeed）で必要です
+- ネットワーク経路: GPU → NIC → network → NIC → GPU
 
-**Single-server training** (RDMA not used):
-- NCCL uses GPUDirect P2P for GPU-to-GPU communication within the server
-- NVLink (preferred) or PCIe for intra-server GPU communication
-- Your server works fine for single-server training without RDMA verification
+**単一サーバートレーニング**（RDMA は使用されない）:
+- NCCL は、サーバー内の GPU 間通信に GPUDirect P2P を使用します
+- サーバー内 GPU 通信には NVLink（推奨）または PCIe を使用します
+- 単一サーバートレーニングであれば、RDMA 検証を行わなくてもサーバーは問題なく動作します
 
-**Inference workloads** (RDMA not needed):
-- Model serving, inference, single-GPU training
+**推論ワークロード**（RDMA は不要）:
+- モデルサービング、推論、単一 GPU トレーニング
 
-### RoCE Configuration Details
+### RoCE 設定の詳細
 
-RoCE (RDMA over Converged Ethernet) requires lossless Ethernet to prevent packet drops during congestion. This is achieved via Priority Flow Control (PFC) on a specific traffic class.
+RoCE（RDMA over Converged Ethernet）では、輻輳時のパケットドロップを防ぐためにロスレス Ethernet が必要です。これは、特定のトラフィッククラスに対して Priority Flow Control（PFC）を設定することで実現します。
 
-**Traffic class mapping**:
-- ToS 104 = DSCP 26 = TC3 (typical configuration)
-- DSCP 26 is AF31 (Assured Forwarding 31), a standard marking for high-priority data
+**トラフィッククラスのマッピング**:
+- ToS 104 = DSCP 26 = TC3（一般的な設定）
+- DSCP 26 は AF31（Assured Forwarding 31）であり、高優先度データに対する標準的なマーキングです
 
-**Configuration locations**:
-- RDMA-CM ToS: `/sys/kernel/config/rdma_cm/*/ports/1/default_roce_tos` (set to 104)
-- NCCL ToS: `NCCL_IB_TC=104` in `/etc/profile.d/nccl-rdma.sh`
-- Service: `rdma-cm-tos.service` applies ToS on boot
+**設定箇所**:
+- RDMA-CM ToS: `/sys/kernel/config/rdma_cm/*/ports/1/default_roce_tos`（104 に設定）
+- NCCL ToS: `/etc/profile.d/nccl-rdma.sh` 内の `NCCL_IB_TC=104`
+- サービス: `rdma-cm-tos.service` が起動時に ToS を適用します
 
-**Verification**:
+**確認方法**:
 
 ```bash
-# Check rdma-cm-tos service
+# rdma-cm-tos サービスの確認
 systemctl status rdma-cm-tos
 
-# Check RDMA-CM ToS setting
+# RDMA-CM ToS 設定の確認
 cat /sys/kernel/config/rdma_cm/mlx5_0/ports/1/default_roce_tos
-# Should output: 104
+# 出力: 104
 
-# Check NCCL configuration
+# NCCL 設定の確認
 grep NCCL_IB_TC /etc/profile.d/nccl-rdma.sh
-# Should output: export NCCL_IB_TC=104
-```
+# 出力: export NCCL_IB_TC=104
 
 ## FAQ
 
-**How do I activate the PyTorch environment?**
+**PyTorch 環境を有効化するにはどうすればよいですか？**
 
 ```bash
 source /opt/pytorch-venv/bin/activate
 ```
 
-All verification scripts that need PyTorch will activate the environment automatically, but for interactive Python work you need to source it yourself.
+PyTorch を必要とする検証スクリプトでは、環境は自動的に有効化されます。ただし、インタラクティブに Python を使用する場合は、自分でこのコマンドを実行する必要があります。
 
-**Can I skip RDMA verification for single-server training?**
+**単一サーバーのトレーニングでは RDMA 検証を省略できますか？**
 
-Yes. RDMA verification is intendend for multi-server distributed training. For single-server workloads (including multi-GPU on one server), you only need GPU verification (`nvidia-smi` and PyTorch CUDA check). NCCL uses GPUDirect P2P with NVLink or PCIe for intra-server GPU communication.
+はい。RDMA 検証はマルチサーバーの分散トレーニングを想定しています。単一サーバーのワークロード（1 台のサーバー上でのマルチ GPU を含む）では、GPU の検証（`nvidia-smi` と PyTorch の CUDA チェック）のみで十分です。NCCL はサーバー内の GPU 通信に NVLink または PCIe を使用した GPUDirect P2P を利用します。
 
-**What's the difference between verify-rdma and verify-gpudirect?**
+**verify-rdma と verify-gpudirect の違いは何ですか？**
 
-- `verify-rdma`: Checks RDMA network stack (kernel modules, RDMA devices, QoS config). Verifies NIC-side configuration.
-- `verify-gpudirect`: Checks GPUDirect RDMA setup (DMA-BUF support, nvidia-open driver, GPU-NIC integration). Verifies GPU-side configuration.
+- `verify-rdma`: RDMA ネットワークスタック（カーネルモジュール、RDMA デバイス、QoS 設定）を確認します。NIC 側の設定を検証します。
+- `verify-gpudirect`: GPUDirect RDMA の設定（DMA-BUF サポート、nvidia-open ドライバー、GPU と NIC の連携）を確認します。GPU 側の設定を検証します。
 
-Both are needed for complete GPUDirect RDMA verification. Run `verify-rdma` first, then `verify-gpudirect`.
+GPUDirect RDMA を完全に検証するには両方が必要です。まず `verify-rdma` を実行し、その後 `verify-gpudirect` を実行してください。
 
-**How do I confirm RDMA is actually being used during training?**
+**トレーニング中に RDMA が実際に使用されていることを確認するにはどうすればよいですか？**
 
-Look for these indicators in NCCL debug output (set `NCCL_DEBUG=INFO`):
-- `Using network IB:mlx5_0` - RDMA device in use
-- `GDR 1` - GPUDirect RDMA enabled
+NCCL のデバッグ出力（`NCCL_DEBUG=INFO` を設定）で次の指標を確認してください。
 
-If you see `Using network Socket`, NCCL has fallen back to TCP. Check RDMA configuration with `verify-rdma`.
+- `Using network IB:mlx5_0` - RDMA デバイスが使用されています
+- `GDR 1` - GPUDirect RDMA が有効になっています
 
-**How do I configure NCCL environment variables for my workload?**
+`Using network Socket` と表示される場合、NCCL は TCP にフォールバックしています。この場合は `verify-rdma` を実行して RDMA の設定を確認してください。
 
-NCCL variables are pre-configured in `/etc/profile.d/nccl-rdma.sh` and loaded automatically in login shells. For non-interactive scripts or containers, source the file explicitly:
+**ワークロード用に NCCL の環境変数を設定するにはどうすればよいですか？**
+
+NCCL の環境変数は `/etc/profile.d/nccl-rdma.sh` に事前設定されており、ログインシェルでは自動的に読み込まれます。非インタラクティブなスクリプトやコンテナで使用する場合は、次のコマンドで明示的に読み込んでください。
 
 ```bash
 source /etc/profile.d/nccl-rdma.sh
 ```
 
-Common NCCL variables you might override:
-- `NCCL_DEBUG=INFO` - Enable debug output (use `TRACE` for verbose debugging)
-- `NCCL_NET_GDR_LEVEL=SYS` - GPUDirect RDMA threshold (default: always use)
-- `NCCL_IB_TC=104` - Traffic class for RoCE (must match switch config)
-- `NCCL_IB_TIMEOUT=22` - Increase if you see timeout errors on slow networks
+上書きする可能性のある主な NCCL 環境変数:
+
+- `NCCL_DEBUG=INFO` - デバッグ出力を有効化（詳細なデバッグには `TRACE` を使用）
+- `NCCL_NET_GDR_LEVEL=SYS` - GPUDirect RDMA の使用閾値（デフォルト: 常に使用）
+- `NCCL_IB_TC=104` - RoCE 用トラフィッククラス（スイッチ設定と一致させる必要があります）
+- `NCCL_IB_TIMEOUT=22` - ネットワークが遅い場合にタイムアウトエラーが出るときは値を増やします
 

@@ -19,7 +19,7 @@ test-nccl                     # Single-server test (requires 2+ GPUs)
 
 > **注記：** RDMA の検証はマルチサーバー分散学習の場合のみ必要です。単一サーバーのワークロード（マルチ GPU を含む）の場合は、GPU 検証（`nvidia-smi` および PyTorch CUDA チェック）のみで十分です。
 
-マルチサーバー検証についてはe [test-nccl](#test-nccl) を参照してください。
+マルチサーバー検証については [test-nccl](#test-nccl) を参照してください。
 
 ## 技術仕様
 

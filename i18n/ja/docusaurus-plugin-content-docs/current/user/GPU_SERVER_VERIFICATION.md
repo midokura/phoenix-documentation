@@ -74,9 +74,9 @@ nvidia-smi
 ```
 
 **結果の確認方法**
-- All GPUs should be listed with correct memory capacity
-- CUDA version should be 12.8 or newer
-- Expect low power usage, lower temperatures, and no memory usage while idle
+- すべての GPU が、正しいメモリ容量とともに表示されている
+- CUDA のバージョンが 12.8 以降である
+- アイドル時は、消費電力が低く、温度が低く、メモリ使用量がない状態である
 
 #### Troubleshooting
 

@@ -16,4 +16,4 @@ Owing to how Grafana works, and to ensure that users only see data for their own
 and filters can only be applied by clicking on the relevant resource in each panel in the Dashboard. This means that you
 cannot apply filters to the entire Dashboard at once, but only to individual panels.
 
-If you require extra observability, contact support@midokura.com.
+If you require extra observability, please contact support@midokura.com.

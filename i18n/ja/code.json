@@ -259,11 +259,11 @@
     "description": "The ARIA label for hamburger menu button of mobile navigation"
   },
   "theme.navbar.mobileDropdown.collapseButton.expandAriaLabel": {
-    "message": "Expand the dropdown",
+    "message": "ドロップダウンを開く",
     "description": "The ARIA label of the button to expand the mobile dropdown navbar item"
   },
   "theme.navbar.mobileDropdown.collapseButton.collapseAriaLabel": {
-    "message": "Collapse the dropdown",
+    "message": "ドロップダウンを閉じる",
     "description": "The ARIA label of the button to collapse the mobile dropdown navbar item"
   },
   "theme.docs.sidebar.expandButtonTitle": {
@@ -372,51 +372,51 @@
     "message": "ユーザー"
   },
   "Clear, practical guidance to using and customizing your cutting-edge GPUs as dedicated resources": {
-    "message": "Clear, practical guidance to using and customizing your cutting-edge GPUs as dedicated resources"
+    "message": "最先端GPUを専用リソースとして活用・カスタマイズするための実践ガイド"
   },
   "This is your home for rolling out your private AI factory as a software service.": {
-    "message": "This is your home for rolling out your private AI factory as a software service."
-  },
+    "message": "ここでは、プライベートAIファクトリーをソフトウェアサービスとして展開するための情報を提供します。"
+   },
   "In these pages you will learn to use your Midokura GPU solution to develop your proprietary environments.": {
-    "message": "In these pages you will learn to use your Midokura GPU solution to develop your proprietary environments."
+    "message": "Midokura GPUソリューションを活用し、独自のAIインフラ環境を構築する方法を学べます。"
   },
   "Documentation organised by version and backed up with concise Release Notes": {
-    "message": "Documentation organised by version and backed up with concise Release Notes"
+    "message": "バージョンごとのドキュメントと要点をまとめたリリースノート"
   },
   "Documentation": {
-    "message": "Documentation"
+    "message": "ドキュメント"
   },
   "Our documentation is focussed around managing your AI Factory IaaS platform. Here you will learn how to start simple and move progressively through all aspects of your Midokura AI GPU tech stack, from setting up and configuring your storage cluster right through to more complex tasks, such as setting up router boxes to host bootstrap VMs.": {
-    "message": "Our documentation is focussed around managing your AI Factory IaaS platform. Here you will learn how to start simple and move progressively through all aspects of your Midokura AI GPU tech stack, from setting up and configuring your storage cluster right through to more complex tasks, such as setting up router boxes to host bootstrap VMs."
+    "message": "本ドキュメントでは、AI Factory IaaSプラットフォームの管理方法を中心に解説しています。ストレージクラスタの設定や構成などの基本から、bootstrap VM をホストするためのルーターボックスの構築といった高度な作業まで、Midokura AI GPUテックスタックの各要素を段階的に学ぶことができます。"
   },
   "Release Notes": {
-    "message": "Release Notes"
+    "message": "リリースノート"
   },
   "Every new release of our system will be signalled to you by the arrival of a version-specific set of release notes in your inbox. These release notes, hosted here on this website, will, in clear and brief language, outline the important aspects of new and improved features, as well as flag up any changes or improvements to functional behaviour.": {
-    "message": "Every new release of our system will be signalled to you by the arrival of a version-specific set of release notes in your inbox. These release notes, hosted here on this website, will, in clear and brief language, outline the important aspects of new and improved features, as well as flag up any changes or improvements to functional behaviour."
+    "message": "新しいバージョンが公開されると、バージョンごとのリリースノートがメールで通知されます。本サイトでは、新機能や機能改善のポイント、動作仕様の変更点などを簡潔にまとめたリリースノートをご覧いただけます。"
   },
   "Advanced": {
-    "message": "Advanced"
+    "message": "高度な機能"
   },
   "Once you are comfortable with your configuration and have your system up and running, we will also teach you how to set alerts on your system, build observability dashboards, even how to manage users and tenants with the Operator API and give your users VPN access.": {
-    "message": "Once you are comfortable with your configuration and have your system up and running, we will also teach you how to set alerts on your system, build observability dashboards, even how to manage users and tenants with the Operator API and give your users VPN access."
+    "message": "システムの設定と運用に慣れてきたら、アラート設定やオブザーバビリティダッシュボードの構築、Operator API を利用したユーザーおよびテナント管理、VPNアクセスの提供方法などについても学べます。"
   },
   "Contribute": {
-    "message": "Contribute"
+    "message": "コントリビュート"
   },
   "Help us improve the AI Factory docs": {
-    "message": "Help us improve the AI Factory docs"
+    "message": "AI Factoryドキュメントの改善にご協力ください"
   },
   "If you have something to add to our documentation, feel free to send us a pull request.": {
-    "message": "If you have something to add to our documentation, feel free to send us a pull request."
+    "message": "ドキュメントへの追加や改善の提案があれば、ぜひプルリクエストをお送りください。"
   },
   "The source code for our documentation website can be found in the GitHub link in the navbar at the top of every page.": {
-    "message": "The source code for our documentation website can be found in the GitHub link in the navbar at the top of every page."
+    "message": "ドキュメントサイトのソースコードは、各ページ上部のナビゲーションバーにあるGitHubリンクから確認できます。"
   },
   "Midokura AI Factory": {
     "message": "Midokura AIファクトリー"
   },
   "High-end GPU servers for HPC and AI workloads delivered to your doorstep": {
-    "message": "High-end GPU servers for HPC and AI workloads delivered to your doorstep"
+    "message": "HPCおよびAIワークロード向けの高性能GPUサーバーを提供します"
   }
 }

@@ -1,7 +1,11 @@
 {
   "version.label": {
-    "message": "Next",
+    "message": "v1.12.0",
     "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.User": {
+    "message": "ユーザー",
+    "description": "The label for category 'User' in sidebar 'tutorialSidebar'"
   },
   "sidebar.tutorialSidebar.category.Service Operator": {
     "message": "サービスオペレーター",

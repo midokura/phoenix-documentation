@@ -3,6 +3,10 @@
     "message": "v1.10.0",
     "description": "The label for version current"
   },
+  "sidebar.tutorialSidebar.category.User": {
+    "message": "ユーザー",
+    "description": "The label for category 'User' in sidebar 'tutorialSidebar'"
+  },
   "sidebar.tutorialSidebar.category.Service Operator": {
     "message": "Service Operator",
     "description": "The label for category 'Service Operator' in sidebar 'tutorialSidebar'"

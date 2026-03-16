@@ -259,11 +259,11 @@
     "description": "The ARIA label for hamburger menu button of mobile navigation"
   },
   "theme.navbar.mobileDropdown.collapseButton.expandAriaLabel": {
-    "message": "Expand the dropdown",
+    "message": "ドロップダウンを開く",
     "description": "The ARIA label of the button to expand the mobile dropdown navbar item"
   },
   "theme.navbar.mobileDropdown.collapseButton.collapseAriaLabel": {
-    "message": "Collapse the dropdown",
+    "message": "ドロップダウンを閉じる",
     "description": "The ARIA label of the button to collapse the mobile dropdown navbar item"
   },
   "theme.docs.sidebar.expandButtonTitle": {
@@ -393,7 +393,7 @@
     "message": "リリースノート"
   },
   "Every new release of our system will be signalled to you by the arrival of a version-specific set of release notes in your inbox. These release notes, hosted here on this website, will, in clear and brief language, outline the important aspects of new and improved features, as well as flag up any changes or improvements to functional behaviour.": {
-    "message": "新しいリリースが公開されると、バージョンごとのリリースノートがメールで通知されます。本サイトでは、新機能や機能改善のポイント、動作仕様の変更点などを簡潔にまとめたリリースノートをご覧いただけます。"
+    "message": "新しいバージョンが公開されると、バージョンごとのリリースノートがメールで通知されます。本サイトでは、新機能や機能改善のポイント、動作仕様の変更点などを簡潔にまとめたリリースノートをご覧いただけます。"
   },
   "Advanced": {
     "message": "高度な機能"

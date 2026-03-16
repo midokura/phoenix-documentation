@@ -10,7 +10,6 @@ For help with setting up and configuring WireGuard, refer to the [WireGuard Quic
 
 When a user is added to a tenant, the operator can generate a VPN configuration script for that user. The user then combines this script with their private key to create a complete VPN configuration. This page explains the user steps, the service operator steps of this process are outlined [here](/docs/service-operator/VPN_CONFIGURATION.md).
 
-
 ## Setup Process
 
 The VPN setup follows these steps:

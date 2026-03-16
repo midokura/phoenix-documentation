@@ -60,6 +60,9 @@ If we need to remove a no-longer-supported version of the docs from the website,
 
 # To Do
 
+- Check if /ja source files are up to date with 'main' source files
+- Create list of priority order for /ja translation work
+- Create automated diff file reference from /docs to /ja after every update to 'main'
 - Check tickets under https://midokura.atlassian.net/browse/GPD-596
 - Turn off 'Next' (main) once /ja is populated https://midokura.atlassian.net/browse/GPD-601
 - Translate to Japanese (Mari is on it)
@@ -67,7 +70,7 @@ If we need to remove a no-longer-supported version of the docs from the website,
   - Devise methodology for translating release notes ahead of release day
   - Write up howto for translation
   - Uncomment the translation nav
-  
+
 ## Done
 
 - Customise the 404 page

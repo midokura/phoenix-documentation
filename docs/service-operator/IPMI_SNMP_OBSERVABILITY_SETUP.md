@@ -56,15 +56,10 @@ You must create an account on each BMC with:
 ### Inventory Configuration
 
 ```yaml
-# Option A: dedicated IPMI credential variables (recommended)
 ipmi_username: metrics
 ipmi_password: !vault |
   $ANSIBLE_VAULT;1.1;AES256
   ... encrypted password ...
-
-# Option B: reuse the SNMP "long" variables (matches the inventory.example.yml convention)
-# snmp_v3_username_long: metrics
-# snmp_v3_password_long: !vault | ...
 
 # IPMI targets: one entry per server BMC
 ipmi_targets:

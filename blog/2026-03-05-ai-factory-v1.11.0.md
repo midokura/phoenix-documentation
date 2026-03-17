@@ -1,0 +1,26 @@
+---
+slug: v1.11.0
+title: AI Factory v1.11.0
+authors: [midoteam]
+tags: [aifactory]
+---
+
+Version 1.11.0 of AI Factory is now available.
+
+## Overview
+
+These release notes describe the revised steps, configuration details, and changes for provisioning and managing an AI Factory cluster under the new release.
+
+<!-- truncate -->
+
+### New network range for management cluster
+
+In this release we need to migrate the management cluster network to the new subnet 10.32.0.0/16. Please, follow the runbook [MGMT_CLUSTER_SUBNET_MIGRATION](/docs/service-operator/runbooks/MGMT_CLUSTER_SUBNET_MIGRATION) during or after the update to this version.
+
+Doing this migration is mandatory before updating past this version.
+
+## Operator reference
+
+The operator reference sheet for this release of AI Factory can be found in the [/docs](/docs/OPERATOR_REFERENCE) section.
+
+Please contact support@midokura.com for more information.

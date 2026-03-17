@@ -1,14 +1,18 @@
 {
   "version.label": {
-    "message": "Next",
+    "message": "次",
     "description": "The label for version current"
   },
+    "sidebar.tutorialSidebar.category.User": {
+    "message": "ユーザー",
+    "description": "The label for category 'User' in sidebar 'tutorialSidebar'"
+  },
   "sidebar.tutorialSidebar.category.Service Operator": {
-    "message": "Service Operator",
+    "message": "サービスオペレーター",
     "description": "The label for category 'Service Operator' in sidebar 'tutorialSidebar'"
   },
   "sidebar.tutorialSidebar.category.Service Operator.link.generated-index.description": {
-    "message": "Documentation for service operators managing the AI Factory IaaS platform.",
+    "message": "AI Factory IaaSプラットフォームを管理するサービスオペレーター向けのドキュメントです。",
     "description": "The generated-index page description for category 'Service Operator' in sidebar 'tutorialSidebar'"
   }
 }

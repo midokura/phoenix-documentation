@@ -14,11 +14,6 @@ const config = {
   tagline: 'High-end GPU servers for HPC and AI workloads delivered to your doorstep',
   favicon: 'img/favicon.ico',
 
-  // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
-  future: {
-    v4: true, // Improve compatibility with the upcoming Docusaurus v4
-  },
-
   // Set the production url of your site here
   url: 'https://docs.midokura.com',
   // Set the /<baseUrl>/ pathname under which your site is served
@@ -60,7 +55,7 @@ const config = {
           showReadingTime: true,
           blogTitle: 'Release Notes',
           blogSidebarTitle: 'Release Notes',
-          blogSidebarCount: 'ALL',
+          blogSidebarCount: 5,
           feedOptions: {
             type: ['rss', 'atom'],
             xslt: true,
@@ -111,11 +106,8 @@ const config = {
           //  position: 'left',
           //},
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
-            position: 'right',
-            label: 'Tutorial',
             type: 'docsVersionDropdown',
+            position: 'right',
           },
           {
             href: 'https://github.com/midokura/phoenix-documentation',

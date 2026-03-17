@@ -42,6 +42,8 @@ This command will:
 - Create a versioned sidebars file `versioned_sidebars/version-v9.9-sidebars.json`.
 - Add the new version number to `versions.json`.
 
+Then merge your changes to `main`, which will trigger a build of the website with the new version.
+
 ## Add a Release Note
 
 Each version of the docs requires a version release note.
@@ -58,16 +60,25 @@ If we need to remove a no-longer-supported version of the docs from the website,
 
 # To Do
 
-- Turn off 'Next' (main) once /ja is populated
+- Check if /ja source files are up to date with 'main' source files
+- Create list of priority order for /ja translation work
+- Create automated diff file reference from /docs to /ja after every update to 'main'
+- Check tickets under https://midokura.atlassian.net/browse/GPD-596
+- Turn off 'Next' (main) once /ja is populated https://midokura.atlassian.net/browse/GPD-601
 - Translate to Japanese (Mari is on it)
   - Roll out for v2.x
   - Devise methodology for translating release notes ahead of release day
   - Write up howto for translation
   - Uncomment the translation nav
-- Customise the 404 page
-  
+
 ## Done
 
+- Customise the 404 page
+- Investigate /ja for incorrect version numbers
+- <https://midokura.atlassian.net/browse/GPD-600>
+- <https://midokura.atlassian.net/browse/GPD-598>
+- <https://midokura.atlassian.net/browse/GPD-597>
+- Remove extra github workflows (there are some duplicates)
 - Customise popup banner page <- won't do, as the banner is great already
 - Add 'Back to Top' button at the bottom, especially for mobile
 - Use Midokura colours

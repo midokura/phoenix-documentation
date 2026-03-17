@@ -29,6 +29,7 @@ Click **Clusters** in the left sidebar to open the clusters management page.
 | Type | Best for |
 |---|---|
 | **Barebones** | General-purpose Kubernetes. Supports GPU nodes. |
+
 ---
 
 ## Cluster Lifecycle

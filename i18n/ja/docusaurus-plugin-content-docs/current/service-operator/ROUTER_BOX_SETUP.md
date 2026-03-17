@@ -100,6 +100,8 @@ autoinstall:
         routes:
           - { to: default, via: 192.168.7.1 }
         nameservers: { addresses: [ 192.168.7.1 ], search: [ "phoenix.bcn" ] }
+        parameters:
+          stp: true
   ssh:
     authorized-keys:
       - 'ssh-ed25519 AAAA... your-key-here'
@@ -179,6 +181,8 @@ The `bastion0` VM will be used to bootstrap and deploy all components from the P
 
 ```bash
 LIBVIRT_DIR=/var/lib/libvirt/images
+MGMT_ROUTER_IP=192.168.33.251
+MGMT_DEPLOYMENT_IP=192.168.33.250
 # Download the cloud image
 sudo wget https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img \
   -O $LIBVIRT_DIR/noble-server-cloudimg-amd64.img
@@ -201,8 +205,13 @@ write_files:
         version: 2
         ethernets:
           eth0:
+            dhcp4: false
+            addresses:
+              - $MGMT_DEPLOYMENT_IP/24
+            routes:
+              - { to: default, via: $MGMT_ROUTER_IP }
             nameservers:
-              addresses: [192.168.33.251, 8.8.8.8, 8.8.4.4] # First IP being OpenWRT router0
+              addresses: [$MGMT_ROUTER_IP, 8.8.8.8, 8.8.4.4] # First IP being OpenWRT router0
               search: [example.com]
 EOF
 touch meta-data

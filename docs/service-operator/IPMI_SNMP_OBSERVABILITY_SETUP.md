@@ -91,7 +91,7 @@ ipmi_exporter_modules:
 
 ### Driver: Always Use `LAN_2_0`
 
-The `driver: "LAN_2_0"` setting selects IPMI 2.0 (RMCP+), which uses modern cipher suites for authentication and encryption at the protocol level. This is the correct choice for any server manufactured in the last 15+ years. IPMI 1.5 (`LAN`) is obsolete and should not be used.
+The `driver: "LAN_2_0"` setting selects IPMI 2.0 (RMCP+, Remote Management Control Protocol), which uses modern cipher suites for authentication and encryption at the protocol level. This is the correct choice for any server manufactured in the last 15+ years. IPMI 1.5 (`LAN`) is obsolete and should not be used.
 
 The `privilege` field in `ipmi_exporter_modules` is the IPMI privilege level (`USER`, `OPERATOR`, `ADMIN`). For metrics collection, `USER` is sufficient.
 

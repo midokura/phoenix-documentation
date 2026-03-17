@@ -14,7 +14,7 @@ The IPMI exporter polls the Baseboard Management Controller (BMC) on each physic
 - **Fan speed** — RPM and health state per fan
 - **Temperature** — readings and health state per temperature sensor (CPU, ambient, DIMM, etc.)
 - **Voltage** — readings and health state per voltage rail
-- **Power consumption** — real-time power draw in watts (requires DCMI support)
+- **Power consumption** — real-time power draw in watts (requires DCMI (Data Center Manageability Interface) support)
 - **BMC info** — manufacturer, model, firmware version
 
 

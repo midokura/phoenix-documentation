@@ -41,6 +41,8 @@ If users report VPN connectivity issues, use the following steps to help diagnos
 
 ### Sample VPN Configuration
 
+To retrieve the VPN configuration for a user, see [Fetch and provide VPN Configuration Script](#fetch-and-provide-vpn-configuration-script).
+
 Here is a commented example of a WireGuard configuration file:
 
 ```ini
@@ -170,7 +172,13 @@ nslookup console.aifactory.example.com
 Both commands should return valid IP addresses.
 If DNS resolution fails, verify that the DNS servers specified in the WireGuard configuration are correct and reachable.
 
-### Checking Allowed Routes
+### Advanced VPN troubleshooting
+
+Some troubleshooting steps are very specific (to your OS, browser, or Internet connection), and / or
+not usually required.
+
+
+#### Checking Allowed Routes
 
 Resources accessed through the VPN must be covered by the `AllowedIPs` ranges in the WireGuard configuration.
 For example, if a user needs to access a service on `10.0.0.5`, `AllowedIPs` must include `10.0.0.0/8` or a more specific range containing that IP.
@@ -191,7 +199,8 @@ When having connectivity issues to a resource, consider the address of the resou
 - Is the network covered by the VPN configuration?
 - Is there a conflict between a local (non-VPN) network resource and a VPN address range?
 
-### Advanced: MTU troubleshooting
+
+#### MTU troubleshooting
 
 MTU (Maximum Transmission Unit) issues can cause packets to be silently dropped.
 IPv4 over IPv6 connections, for example, may have an MTU lower than the standard 1500 bytes.
@@ -233,3 +242,88 @@ Ping probes that fail with size 1472 and that work with size 1352, though, would
 
 :::
 
+##### For MacOS MTU testing: macOS `ping` flag differences
+
+The macOS `ping` utility differs from its Linux counterpart.
+
+To test MTU on macOS, use:
+
+```sh
+ping -D -s 1472 midokura.com
+```
+
+- Use `-D` instead of `-M do` to set the "do not fragment" flag.
+- `ping` on macOS is IPv4-only, the `-4` flag is not needed.
+
+#### macOS: WireGuard App Store Client specific information
+
+The [WireGuard app from the Mac App Store](https://apps.apple.com/us/app/wireguard/id1451685025?mt=12) has several differences from the standard WireGuard tools used on Linux.
+
+##### search domain not supported
+
+The `DNS` field in the WireGuard configuration supports a search domain suffix (e.g. `DNS = 172.31.0.254, tld`) that allows short hostnames to be resolved through the VPN. This feature is **not supported** by the App Store client.
+
+In this case, this needs to be set up via the system resolver, such as `/etc/resolver` instead:
+
+```ini
+# /etc/resolver/ai-factory.tld
+domain tld
+search tld
+nameserver 172.31.0.254
+```
+
+Save the file and force a DNS refresh as follows:
+
+```sh
+sudo killall -HUP mDNSResponder
+```
+
+You can check that the settings are applied by the following command. You should see the entries added in `/etc/resolver`.
+
+```sh
+scutil --dns
+```
+
+##### Checking connection status
+
+The App Store client does not bundle the `wg` command-line tool, so `sudo wg` is not available. To check the status of a tunnel, open **System Settings → VPN**, which shows connection state and transfer statistics for each configured tunnel.
+
+#### Ubuntu and NetworkManager
+
+Ubuntu uses NetworkManager to manage network connections, including WireGuard VPN.
+NetworkManager provides a helper on top of `wg`, so the troubleshooting steps in this guide still apply.
+However, if you experience connection issues after configuration changes, restarting the VPN connection or flushing the DNS cache can help.
+
+**Restart the VPN connection:**
+
+```bash
+sudo nmcli connection down <vpn-connection-name>
+sudo nmcli connection up <vpn-connection-name>
+```
+
+**Flush the DNS cache:**
+
+```bash
+sudo resolvectl flush-caches
+```
+
+### Browser DNS-over-HTTPS (DoH)
+
+"DNS over HTTPS" (DoH) features may bypass the VPN's DNS configuration, causing resolution failures for resources only accessible through the VPN.
+
+#### Firefox
+
+To allow using the system DNS resolver in Firefox:
+
+1. Open [about:preferences#privacy](Firefox's privacy preferences page)
+2. Scroll to **DNS over HTTPS**
+3. Select **Default Protection** or **Increased Protection** to allow using the system DNS, or **Off** to disable DoH altogether.
+
+
+#### Chrome
+
+To disable DoH in Chrome:
+
+1. Open [chrome://settings/security](Chrome's settings page)
+2. Scroll to **Use secure DNS**
+3. Turn off the toggle, or select **With your current service provider**

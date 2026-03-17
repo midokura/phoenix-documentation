@@ -1,8 +1,8 @@
 {
-  "label": "Service Operator",
+  "label": "サービスオペレーター",
   "position": 1,
   "link": {
     "type": "generated-index",
-    "description": "Documentation for service operators managing the AI Factory IaaS platform."
+    "description": "AI Factory IaaS プラットフォームを管理・運用するサービスオペレーター向けのドキュメントです。"
   }
 }

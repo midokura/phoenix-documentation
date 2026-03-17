@@ -40,16 +40,16 @@ GPU サーバーのソフトウェアスタック仕様です。
 
 ### nvidia-smi
 
-**目的**：NVIDIA ドライバーがロードされ、GPU が認識されていることを確認します。
+**目的**： NVIDIA ドライバーがロードされ、GPU が認識されていることを確認します。
 
-**確認タイミング**：デプロイ直後の最初の確認として実行してください。失敗した場合は、GPU の認識またはドライバーのインストールで発生している問題を解決します。
+**確認タイミング**： デプロイ直後の最初の確認として実行してください。失敗した場合は、GPU の認識またはドライバーのインストールで発生している問題を解決します。
 
 **確認内容**：
 - NVIDIA ドライバーがロードされているか
 - OS がGPU デバイスを認識しているか
 - GPU メモリおよび演算能力
 
-**ハードウェア要件**：NVIDIA GPU が正しく設置・認識されていること。
+**ハードウェア要件**： NVIDIA GPU が正しく設置・認識されていること。
 
 #### 実行方法
 
@@ -84,21 +84,21 @@ nvidia-smi
 
     - **症状**: `nvidia-smi` を実行すると "No devices were found" と表示される、またはコマンドが見つからないと表示される。
     - **確認事項**:
-      ```bash
-     # ドライバーがロードされているか確認
-     lsmod | grep nvidia
+       ```bash
+       # ドライバーがロードされているか確認
+       lsmod | grep nvidia
 
-     # PCI デバイスに NVIDIA GPU が表示されているか確認
-     lspci | grep -i nvidia
+       # PCI デバイスに NVIDIA GPU が表示されているか確認
+       lspci | grep -i nvidia
 
-     # ドライバーのインストール状況を確認
-     dpkg -l | grep nvidia-driver
-     ```
-   - **対処方法**:
-     - PCI デバイスが見つからない場合: BIOS 設定を確認（PCIe スロットが有効になっているか）または GPU が正しく装着されているか確認します
-     - ドライバーがロードされていない場合: NVIDIA ドライバーをインストールします（`apt install nvidia-driver-570-open`）
-     - `nvidia-smi` が見つからない場合: CUDA ツールキットをインストールします（`apt install nvidia-utils-570`）
-
+       # ドライバーのインストール状況を確認
+       dpkg -l | grep nvidia-driver
+      ```
+    - **対処方法**:
+      - PCI デバイスが見つからない場合: BIOS 設定を確認（PCIe スロットが有効になっているか）または GPU が正しく装着されているか確認します
+      - ドライバーがロードされていない場合: NVIDIA ドライバーをインストールします（`apt install nvidia-driver-570-open`）
+      - `nvidia-smi` が見つからない場合: CUDA ツールキットをインストールします（`apt install nvidia-utils-570`）
+     
 ----
 
 ### PyTorch CUDA 検証

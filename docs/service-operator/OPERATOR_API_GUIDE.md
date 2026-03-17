@@ -36,6 +36,9 @@ curl -H "Authorization: Bearer $JWT_TOKEN" \
 Complete API documentation is available on your running IaaS server:
 
 - **Swagger UI**: `${API_BASE_URL}/docs`
+<img width="497" height="661" alt="image" src="https://github.com/user-attachments/assets/c9af216a-ec91-40c1-8423-5c4c9025658f" />
+
+
 - **OpenAPI spec**: `${API_BASE_URL}/openapi.json`
 
 These provide the most current documentation for your deployed version.

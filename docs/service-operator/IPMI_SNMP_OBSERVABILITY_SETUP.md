@@ -1,4 +1,4 @@
-# IPMI and SNMP Observability Setup
+# IPMI (Intelligent Platform Management Interface) and SNMP (Simple Network Management Protocol) Observability Setup
 
 Configuring hardware and network monitoring for bare-metal servers and switches.
 

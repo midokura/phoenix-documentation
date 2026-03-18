@@ -35,6 +35,7 @@ Defines available VM instance types.
 - **ost_name**: OpenStack flavor name
 - **node_type**: Optional (e.g., "baremetal" for physical servers)
 
+
 ### 3. Networks
 
 Defines available networks for VMs.
@@ -69,6 +70,44 @@ kubectl config view --flatten \
   | sed "s#server: https://127.0.0.1:6443#server: https://$IP:6443#" \
   | base64 -w0
 ```
+
+### 5. PostgreSQL Credentials (Disaster Recovery)
+
+The `iaas-api` Helm chart generates random PostgreSQL credentials on first install. These survive normal Helm upgrades but are permanently lost if the cluster is destroyed or the Secret is deleted. Without the original credentials, existing S3 backups cannot be decrypted.
+
+To preserve credentials across cluster recreations, extract them before destroying the cluster and add them vault-encrypted to `inventory.yml`:
+
+```bash
+# Run from inside the deployment container (./scripts/platform-setup.sh --shell)
+kubectl get secret iaas-api-postgresql -n iaas-console -o jsonpath='{.data.password}' | base64 -d
+kubectl get secret iaas-api-postgresql -n iaas-console -o jsonpath='{.data.postgres-password}' | base64 -d
+kubectl get secret iaas-api-postgresql -n iaas-console -o jsonpath='{.data.replication-password}' | base64 -d
+kubectl get secret iaas-api-postgresql -n iaas-console -o jsonpath='{.data.backup-key}' | base64 -d
+```
+
+```yaml
+# inventory.yml
+all:
+  vars:
+    iaas_console:
+      postgresql_credentials:
+        password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          ...
+        postgres_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          ...
+        replication_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          ...
+        backup_key: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          ...
+```
+
+On the next deployment, the original credentials will be restored and existing S3 backups will remain decryptable.
+
+All four keys must be provided together — a partial configuration will cause the playbook to fail. When omitted, the chart generates random credentials as before.
 
 ## Setup Workflow
 

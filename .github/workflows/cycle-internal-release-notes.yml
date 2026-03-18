@@ -1,0 +1,49 @@
+name: Cycle Internal Release Notes
+
+on:
+  workflow_dispatch:
+    inputs:
+      rc_version:
+        description: 'Release candidate version (e.g. 26.1-rc1)'
+        required: true
+  workflow_call:
+    inputs:
+      rc_version:
+        type: string
+        required: true
+
+jobs:
+  cycle:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    env:
+      RC_VERSION: ${{ inputs.rc_version }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Cycle release notes
+        id: cycle
+        run: bash .github/scripts/cycle-internal-release-notes.sh
+
+      - name: Notify Slack
+        uses: archive/github-actions-slack@c643e5093620d65506466f2c9b317d5d29a5e517 # master
+        with:
+          slack-bot-user-oauth-access-token: ${{ secrets.SLACK_BOT_TOKEN_NOTIFICATIONS }}
+          # channels: phoenix-qa, phoenix-technical
+          slack-channel: C09NY5GT6J0,C08FM942JSG
+          slack-text: |
+            <!here>:
+            ✅ v${{ inputs.rc_version }} release notes have been merged.
+            📝 The draft for v${{ steps.cycle.outputs.new_rc_version }} is now open — please add your changes: ${{ steps.cycle.outputs.new_pr_url }}

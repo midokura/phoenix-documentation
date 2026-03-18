@@ -107,7 +107,7 @@ all:
 
 On the next deployment, the original credentials will be restored and existing S3 backups will remain decryptable.
 
-All four keys must be provided together — a partial configuration will fail the playbook. When omitted, the chart generates random credentials as before.
+All four keys must be provided together — a partial configuration will cause the playbook to fail. When omitted, the chart generates random credentials as before.
 
 ## Setup Workflow
 

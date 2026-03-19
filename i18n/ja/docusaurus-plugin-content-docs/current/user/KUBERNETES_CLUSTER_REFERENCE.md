@@ -1,4 +1,4 @@
-# Kubernetes Clusters
+# Kubernetes クラスタ
 
 Kubernetes クラスタのプロビジョニング。
 

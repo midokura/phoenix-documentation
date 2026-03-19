@@ -1,22 +1,23 @@
-# Observability for Users
+# ユーザー向けオブザーバビリティ
 
-Monitoring tenant resources with a Grafana Dashboard.
+Grafana ダッシュボードを使用したテナントリソースの監視。
 
-A Grafana Dashboard is provided that monitors all resources in the current Tenant. This Dashboard can be accessed by
-clicking the **Observability 🔗** tab in the left sidebar. The Dashboard provides insights into the health and
-performance of your resources, including metrics such as CPU usage, memory usage, and disk usage. It can also help diagnose
-issues and optimize resource utilization.
+現在のテナント内のすべてのリソースを監視する Grafana ダッシュボードが提供されています。  
+このダッシュボードは、左側のサイドバーにある **Observability 🔗** タブをクリックしてアクセスできます。
 
-## Customizations
+ダッシュボードでは、CPU 使用率、メモリ使用率、ディスク使用量などのメトリクスを含め、リソースの状態やパフォーマンスを可視化できます。  
+また、問題の特定やリソース利用の最適化にも役立ちます。
 
-Users can specify a time range for the data displayed in the Dashboard, allowing them to focus on specific periods of
-interest. They can also choose the update frequency of the dashboard, but note that if this frequency is greater than the
-frequency at which data is collected, the dashboard will not update with new data until the next collection cycle.
+## カスタマイズ
 
-## Limitations
+ダッシュボードに表示するデータの時間を範囲指定することで、関心のある特定の期間にフォーカスできます。  
+また、ダッシュボードの更新頻度も設定できます。ただし、この更新頻度がデータ収集の頻度を上回る場合、次の収集サイクルまで新しいデータは反映されません。
 
-Owing to how Grafana works, and to ensure that users only see data for their own resources, the Dashboard cannot be edited
-and filters can only be applied by clicking on the relevant resource in each panel in the Dashboard. This means that you
-cannot apply filters to the entire Dashboard at once, but only to individual panels.
+## 制限事項
 
-If you require extra observability, please contact support@midokura.com.
+Grafana の仕様および、ユーザー自身のリソースデータのみを参照できるようにするため、ダッシュボードの編集はできません。  
+また、フィルタはダッシュボード内の各パネルで該当するリソースをクリックすることでのみ適用できます。
+
+そのため、ダッシュボード全体に対して一括でフィルタを適用することはできず、個々のパネルごとに設定する必要があります。
+
+追加のオブザーバビリティが必要な場合は、support@midokura.com までお問い合わせください。

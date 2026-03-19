@@ -11,6 +11,10 @@ on:
       rc_version:
         type: string
         required: true
+    outputs:
+      merged_commit:
+        description: 'SHA of the merged release notes commit'
+        value: ${{ jobs.cycle.outputs.merged_commit }}
 
 jobs:
   cycle:
@@ -18,6 +22,8 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+    outputs:
+      merged_commit: ${{ steps.cycle.outputs.merged_commit }}
 
     env:
       RC_VERSION: ${{ inputs.rc_version }}
@@ -45,5 +51,5 @@ jobs:
           slack-channel: C09NY5GT6J0,C08FM942JSG
           slack-text: |
             <!here>:
-            ✅ v${{ inputs.rc_version }} release notes have been merged.
+            ✅ v${{ inputs.rc_version }} release notes have been merged (${{ steps.cycle.outputs.merged_commit }}).
             📝 The draft for v${{ steps.cycle.outputs.new_rc_version }} is now open — please add your changes: ${{ steps.cycle.outputs.new_pr_url }}

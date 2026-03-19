@@ -17,9 +17,12 @@ BLOG_FILE="${REPO_ROOT}/blog/.next-ai-factory-${MINOR_VERSION}.md"
 OLD_PR_NUMBER=$(gh pr list --state open --json number,title \
     | jq -r ".[] | select(.title == \"${OLD_PR_TITLE}\") | .number")
 
+MERGED_COMMIT=""
 if [[ -n "$OLD_PR_NUMBER" ]]; then
     echo "Merging PR #${OLD_PR_NUMBER}: ${OLD_PR_TITLE}"
     gh pr merge "$OLD_PR_NUMBER" --squash --delete-branch
+    MERGED_COMMIT=$(gh pr view "$OLD_PR_NUMBER" --json mergeCommit --jq '.mergeCommit.oid')
+    echo "Merged commit: ${MERGED_COMMIT}"
 else
     echo "No open PR found with title: ${OLD_PR_TITLE} — skipping merge"
 fi
@@ -58,3 +61,4 @@ fi
 
 echo "new_pr_url=${NEW_PR_URL}" >> "$GITHUB_OUTPUT"
 echo "new_rc_version=${NEXT_RC_VERSION}" >> "$GITHUB_OUTPUT"
+echo "merged_commit=${MERGED_COMMIT}" >> "$GITHUB_OUTPUT"

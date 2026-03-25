@@ -55,7 +55,7 @@ const config = {
           showReadingTime: true,
           blogTitle: 'Release Notes',
           blogSidebarTitle: 'Release Notes',
-          blogSidebarCount: 5,
+          blogSidebarCount: 4,
           feedOptions: {
             type: ['rss', 'atom'],
             xslt: true,

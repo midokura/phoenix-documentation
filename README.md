@@ -1,6 +1,6 @@
 # Midokura AI Factory Documentation Website
 
-These are the publicly available source files for the Midokura AI Factory Documentation [website](https://docs.midokura.com), which is build in [Docusaurus](https://docusaurus.io/).
+These are the publicly available source files for the Midokura AI Factory Documentation [website](https://docs.midokura.com) which is build in [Docusaurus](https://docusaurus.io/).
 
 ## Installation
 

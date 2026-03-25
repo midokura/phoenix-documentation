@@ -13,13 +13,6 @@ These release notes describe the revised steps, configuration details, and chang
 
 <!-- truncate  -->
 
-<!-- TODO: Add one section per major feature or change introduced in this release -->
-### Feature 1
-
-### Feature 2
-
-...
-
 ### Remove automatic K8s API wide-open security group rule cleanup
 
 The automatic cleanup task that removed the `0.0.0.0/0` inbound rule for port `6443` (Kubernetes API) from the management security group has been removed from the provisioning playbook.

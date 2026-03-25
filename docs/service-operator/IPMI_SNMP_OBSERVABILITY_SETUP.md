@@ -203,7 +203,7 @@ All passwords in the inventory must be encrypted with Ansible Vault before commi
 
 ```bash
 ansible-vault encrypt_string 'your-password-here' \
-  --name 'snmp_v3_password_long' \
+  --name 'snmp_password' \
   --ask-vault-password
 ```
 

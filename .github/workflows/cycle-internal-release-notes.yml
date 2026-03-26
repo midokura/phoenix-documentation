@@ -27,13 +27,22 @@ jobs:
 
     env:
       RC_VERSION: ${{ inputs.rc_version }}
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.PHOENIX_BOT_APP_ID }}
+          private-key: ${{ secrets.PHOENIX_BOT_PRIVATE_KEY }}
+          owner: midokura
+          repositories: phoenix-documentation
+
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           repository: midokura/phoenix-documentation
+          token: ${{ steps.generate-token.outputs.token }}
 
       - name: Configure git
         run: |
@@ -42,6 +51,8 @@ jobs:
 
       - name: Cycle release notes
         id: cycle
+        env:
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: bash .github/scripts/cycle-internal-release-notes.sh
 
       - name: Notify Slack

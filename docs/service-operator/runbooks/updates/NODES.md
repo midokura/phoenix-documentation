@@ -11,7 +11,11 @@ Use this procedure for OS updates, disaster recovery, or adding a new node (Cont
 - [ ] IPMI/BMC access to the target node
 - [ ] OpenStack admin credentials (for compute nodes with running instances)
 
-*Note: For OpenStack commands, run `platform-setup.sh --shell` to enter the management container.*
+:::note
+
+For OpenStack commands, run `platform-setup.sh --shell` to enter the management container.
+
+:::
 
 ## Procedure
 

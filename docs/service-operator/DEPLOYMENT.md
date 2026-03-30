@@ -13,7 +13,11 @@ Download the latest release from the provided URL
 
 Before running the deployment, you need to prepare several things. We'll go through them one by one.
 
-**Note:** All default paths below can be customized using CLI arguments (see [Options and Configuration](#options-and-configuration)).
+:::note
+
+All default paths below can be customized using CLI arguments (see [Options and Configuration](#options-and-configuration)).
+
+:::
 
 ### Prerequisites Checklist
 
@@ -128,7 +132,11 @@ Quick verification checklist. Click any item for detailed setup instructions bel
 
 ## Quick Start
 
-**Note:** All commands below assume you're in the `release-assets/` directory.
+:::note
+
+All commands below assume you're in the `release-assets/` directory.
+
+:::
 
 ### First-Time Setup
 

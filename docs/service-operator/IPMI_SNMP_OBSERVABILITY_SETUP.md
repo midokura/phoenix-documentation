@@ -82,7 +82,11 @@ ipmi_exporter_modules:
       - ipmi
 ```
 
-> **Note:** Credentials are shared across all targets that reference the same module. If servers require different credentials, define additional entries in `ipmi_exporter_modules` with different names and reference them via `ipmi_targets[*].module`.
+:::note
+
+Credentials are shared across all targets that reference the same module. If servers require different credentials, define additional entries in `ipmi_exporter_modules` with different names and reference them via `ipmi_targets[*].module`.
+
+:::
 
 ### Driver: Always Use `LAN_2_0`
 

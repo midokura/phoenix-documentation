@@ -17,7 +17,11 @@ verify-gpudirect              # GPUDirect RDMA ready?
 test-nccl                     # Single-server test (requires 2+ GPUs)
 ```
 
-> **Note:** RDMA verification is only required for multi-server distributed training. For single-server workloads (including multi-GPU), you only need GPU verification (`nvidia-smi` and PyTorch CUDA check).
+:::note
+
+RDMA verification is only required for multi-server distributed training. For single-server workloads (including multi-GPU), you only need GPU verification (`nvidia-smi` and PyTorch CUDA check).
+
+:::
 
 For multi-server testing, see the [test-nccl](#test-nccl) section.
 

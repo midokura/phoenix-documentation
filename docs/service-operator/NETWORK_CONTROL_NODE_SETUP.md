@@ -117,7 +117,11 @@ virt-install --name=${VM_NAME} \
   --noautoconsole
 ```
 
-**Note:** The exact VM creation method depends on your bastion's virtualization setup (KVM/libvirt, VMware, etc.). If you need PCI passthrough for additional network devices, add `--host-device=pci_XXXX_XX_XX_X` to the command.
+:::note
+
+The exact VM creation method depends on your bastion's virtualization setup (KVM/libvirt, VMware, etc.). If you need PCI passthrough for additional network devices, add `--host-device=pci_XXXX_XX_XX_X` to the command.
+
+:::
 
 The installation process is automated. Monitor progress via console:
 
@@ -216,7 +220,11 @@ cd /home/ubuntu/boot-http-server
 wget -O onie-updater.bin "https://vendor-url/onie-updater.bin"
 ```
 
-**Note:** The exact ONIE firmware filename and version will vary based on your switch hardware. Check your materials PDF for the correct download URL.
+:::note
+
+The exact ONIE firmware filename and version will vary based on your switch hardware. Check your materials PDF for the correct download URL.
+
+:::
 
 #### 4.3: Access Switch Console
 

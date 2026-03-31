@@ -1,3 +1,7 @@
+---
+sidebar_position: 10
+---
+
 # Kubernetes Clusters
 
 Provisioning Kubernetes Clusters.

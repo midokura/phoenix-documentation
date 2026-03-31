@@ -235,10 +235,11 @@ PING midokura.com (198.51.100.42) 1352(1380) bytes of data.
 ```
 
 :::note
+
 In this example, the router is aware of the MTU and can deal with the packet size for us.
 It replies with a message telling us "the MTU is 1380, I can't send your packet without fragmenting it".
 When this happens, the MTU setting in the client configuration is not necessary.
-Ping probes that fail with size 1472 and that work with size 1352, though, would indicate that 1380 <= MTU < 1500.
+Ping probes that fail with size 1472 and that work with size 1352, though, would indicate that 1380 ≥ MTU < 1500.
 
 :::
 

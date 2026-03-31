@@ -1,3 +1,7 @@
+---
+sidebar_position: 5
+---
+
 # VPN Configuration as a Tenant User
 
 Setting up the VPN as a Tenant User.

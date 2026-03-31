@@ -1,3 +1,7 @@
+---
+sidebar_position: 15
+---
+
 # GPU Server Verification
 
 Verifying GPU server configuration.

@@ -10,7 +10,11 @@ Installer links, deployment files, and any other needed assets will be provided 
 
 ## System requirements
 
-Note: documentation files referenced here are provided in a downloadable artefact included in the environment setup section.
+:::note
+
+Documentation files referenced here are provided in a downloadable artefact included in the environment setup section.
+
+:::
 
 - Before proceeding, operators are expected to ensure that the underlying infrastructure meets the system requirements listed below.
 - Operating system requirements for the OpenStack control nodes are available in [OS_REQUIREMENTS](./service-operator/OS_REQUIREMENTS.md)

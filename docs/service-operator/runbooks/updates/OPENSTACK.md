@@ -48,5 +48,9 @@ If the upgrade fails:
    platform-setup.sh --upgrade -vvv
    ```
 
-**Note:** If the upgrade cannot complete, contact the infrastructure team.
+:::note
+
+If the upgrade cannot complete, contact the infrastructure team.
 Downgrading OpenStack is complex and may require re-deploying from snapshot.
+
+:::

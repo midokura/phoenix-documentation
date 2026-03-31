@@ -28,7 +28,14 @@ Updating management cluster version.
    # All pods should be Running or Completed
    ```
 
-## Notes
+:::note
 
-- The management cluster runs on OpenStack VMs. If a node needs to be replaced (not just updated), the role will create a new VM and drain the old one.
-- The `kubeconfig` is vault-encrypted and stored in `assets/` dir after deployment. If it changes after the update, re-distribute the new file to any operators who need it.
+The management cluster runs on OpenStack VMs. If a node needs to be replaced (not just updated), the role will create a new VM and drain the old one.
+
+:::
+
+:::note
+
+The `kubeconfig` is vault-encrypted and stored in `assets/` dir after deployment. If it changes after the update, re-distribute the new file to any operators who need it.
+
+:::

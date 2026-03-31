@@ -73,11 +73,11 @@ export KUBECONFIG=/path/to/downloaded-kubeconfig.yaml
 kubectl get nodes
 ```
 
-**Note:** Kubernetes clusters are only accesible from the tenant VPN
-network. Please refer to the VPN Credentials guide for instructions on
-connecting to the VPN.
+:::note
 
----
+Kubernetes clusters are only accessible from the tenant VPN network. Please refer to the VPN Credentials guide for instructions on connecting to the VPN.
+
+:::
 
 ## Deleting a Cluster
 
@@ -86,4 +86,8 @@ connecting to the VPN.
 
 The cluster status changes to **DELETING** and the row is removed once the deletion completes. This action is irreversible.
 
-> **Note:** The delete button is disabled while a cluster is already in the **DELETING** state.
+:::note
+
+The delete button is disabled while a cluster is already in the **DELETING** state.
+
+:::

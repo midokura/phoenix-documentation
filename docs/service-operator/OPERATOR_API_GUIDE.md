@@ -107,7 +107,11 @@ curl -X POST \
      "${API_BASE_URL}/tenants"
 ```
 
-**Note**: Each user can belong to only one tenant at a time. When assigning users during tenant creation, you must provide their WireGuard public key for VPN access.
+:::note
+
+Each user can belong to only one tenant at a time. When assigning users during tenant creation, you must provide their WireGuard public key for VPN access.
+
+:::
 
 #### Delete a Tenant
 ```bash
@@ -127,7 +131,11 @@ curl -X PUT \
      "${API_BASE_URL}/tenants/{tenant_id}/users/{user_id}"
 ```
 
-**Note**: You must provide the user's WireGuard public key to configure VPN access. Each user can belong to only one tenant at a time.
+:::note
+
+You must provide the user's WireGuard public key to configure VPN access. Each user can belong to only one tenant at a time.
+
+:::
 
 #### Remove User from Tenant
 ```bash
@@ -157,7 +165,11 @@ curl -X POST \
      "${API_BASE_URL}/sshkeys"
 ```
 
-**Note**: The public key must be a valid SSH public key (for example, `ssh-rsa`, `ssh-ed25519`). The API will return `400 Bad Request` if the key format is invalid.
+:::note
+
+The public key must be a valid SSH public key (for example, `ssh-rsa`, `ssh-ed25519`). The API will return `400 Bad Request` if the key format is invalid.
+
+:::
 
 #### Delete an SSH Key
 
@@ -167,7 +179,11 @@ curl -X DELETE \
      "${API_BASE_URL}/sshkeys/{key_id}"
 ```
 
-**Note**: If the SSH key is currently assigned to a user, the API will return `409 Conflict` and the key will not be deleted. You must first unassign the key from any users before deleting it.
+:::note
+
+If the SSH key is currently assigned to a user, the API will return `409 Conflict` and the key will not be deleted. You must first unassign the key from any users before deleting it.
+
+:::
 
 #### Assign an SSH Key to a User
 
@@ -282,7 +298,9 @@ curl -X POST \
   ${API_BASE_URL}/tenants
 ```
 
-**Note**: You can also add users to existing tenants later:
+:::note
+
+You can also add users to existing tenants later:
 ```bash
 curl -X PUT \
   -H "Authorization: Bearer $JWT_TOKEN" \
@@ -292,6 +310,8 @@ curl -X PUT \
   }' \
   ${API_BASE_URL}/tenants/PROJECT_TENANT_ID/users/ADDITIONAL_USER_ID
 ```
+
+:::
 
 ### Use Case 4: Employee Offboarding
 
@@ -312,7 +332,11 @@ curl -X DELETE \
      ${API_BASE_URL}/users/USER_ID
 ```
 
-**Note**: When you delete a user, the system automatically removes that user from all tenants to which they belong. There's no need for manual removal from each tenant.
+:::note
+
+When you delete a user, the system automatically removes that user from all tenants to which they belong. There's no need for manual removal from each tenant.
+
+:::
 
 ### Use Case 5: Update User Role
 

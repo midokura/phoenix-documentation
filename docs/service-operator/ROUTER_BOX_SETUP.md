@@ -39,7 +39,11 @@ Make sure no partitions are mounted and flash the image to USB 1 with:
 sudo dd if=/path/to/ubuntu-24.04.3-live-server-amd64.iso of=/dev/sdX bs=4M status=progress conv=fsync
 ```
 
-**Note**: replace X with the actual drive letter (a, b, c ...), e.g. /dev/sdb. You can use `lsblk | grep sd` to see the available USB sticks connected.
+:::note
+
+Replace X with the actual drive letter (a, b, c ...), e.g. /dev/sdb. You can use `lsblk | grep sd` to see the available USB sticks connected.
+
+:::
 
 ### USB 2: Cloud-Init CIDATA Drive
 

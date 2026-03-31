@@ -46,6 +46,6 @@ Updates are distributed through the following channels:
 | AI Factory PaaS (iaas-console / observability) | **No downtime** | Rolling K8s deployment; brief pod restart only |
 | Management cluster update | **Management plane only** | OpenStack API and workloads unaffected; iaas-console & observability platform briefly unavailable |
 | OpenStack version upgrade | **Maintenance window required** | Service restarts, haproxy brief outage; notify tenants |
-| Configuration-only changes (inventory) | **Depends on what changed** | See [UPDATE_CONFIGURATION.md](UPDATE_CONFIGURATION.md) for per-variable impact |
+| Configuration-only changes (inventory) | **Depends on what changed** | See [CONFIGURATION](updates/CONFIGURATION) for per-variable impact |
 | Guest images update | **No downtime** | New images available immediately; existing instances unaffected |
 | Node OS re-provisioning | **Full node downtime** | Loss of compute capacity on target node; evacuate Nova instances first |

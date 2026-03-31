@@ -1,3 +1,5 @@
+_The Japanese version follows below. 日本語版は以下に続きます。_ 
+
 # Midokura AI Factory Documentation Website
 
 These are the publicly available source files for the Midokura AI Factory Documentation [website](https://docs.midokura.com), which is build in [Docusaurus](https://docusaurus.io/).
@@ -55,3 +57,65 @@ If we need to remove a no-longer-supported version of the docs from the website,
 ## Deployment
 
 - Any push to `main` results in a build to the website.
+
+# Midokura AI Factory ドキュメントサイト
+
+Midokura AI Factory ドキュメントサイト（[website](https://docs.midokura.com)）公開用ソースファイルです。本サイトは [Docusaurus](https://docusaurus.io/) をベースに構築されます。
+
+## インストール
+
+```bash
+yarn
+```
+
+## ローカル開発
+
+```bash
+yarn run start
+```
+
+コマンドを実行すると、ローカル開発サーバーが起動し、ブラウザで [http://localhost:3000/](http://localhost:3000/)
+ が自動的に開きます。
+変更の大半はサーバーを再起動することなく即時に反映されます。
+
+ローカルサーバーを停止するには、Control + C を押してください。
+
+## ビルド
+
+```bash
+yarn run build
+```
+
+コマンドを実行すると、`build` ディレクトリに静的コンテンツが生成されます。
+ローカルでビルド結果を確認したい場合に使用してください。`build` ディレクトリは本番サイトの構築には使用されません。
+
+## バージョンの追加
+
+新しいドキュメントバージョンを作成するには、以下を実行してください。
+
+```bash
+yarn docusaurus docs:version v9.9
+```
+
+`v9.9` の部分は、作成するバージョン番号に置き換えてください。
+
+コマンドを実行すると、
+
+- docs/ およびフォルダの内容が `versioned_docs/version-v9.9/` にコピーされます。
+- バージョン用のサイドバーファイル `versioned_sidebars/version-v9.9-sidebars.json` が作成されます。
+- `versions.json` に新しいバージョン番号が追加されます。
+
+変更を main ブランチにマージすると、サイトが再ビルドされ、ナビゲーションバーのドロップダウンに新しいバージョンが表示されます。
+
+## リリースノートの追加
+
+各ドキュメントバージョンには、リリースノートが必要です。リリースノートは、[release notes template](blog/.YYYY-MM-DD-aifactory-vX.X.md) を基に作成されます。
+
+## バージョンの削除
+
+サポート対象外となったバージョンをサイトから削除する場合は、`versions.json` から該当バージョンの情報を削除してください。
+この操作を行ってもソースファイル自体は削除されません。
+
+## デプロイ
+
+- `main` ブランチに変更を push すると、サイトが自動的にビルドされます。

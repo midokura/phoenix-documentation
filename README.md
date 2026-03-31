@@ -60,9 +60,7 @@ If we need to remove a no-longer-supported version of the docs from the website,
 
 # Midokura AI Factory ドキュメントサイト
 
-These are the publicly available source files for the Midokura AI Factory Documentation [website](https://docs.midokura.com), which is build in [Docusaurus](https://docusaurus.io/).
-Midokura AI Factory ドキュメントサイト（[website](https://docs.midokura.com)）公開用ソースファイルです。  
-本サイトは [Docusaurus](https://docusaurus.io/) を使用して構築されています。
+Midokura AI Factory ドキュメントサイト（[website](https://docs.midokura.com)）公開用ソースファイルです。本サイトは [Docusaurus](https://docusaurus.io/) をベースに構築されます。
 
 ## インストール
 

@@ -174,9 +174,7 @@ If DNS resolution fails, verify that the DNS servers specified in the WireGuard 
 
 ### Advanced VPN troubleshooting
 
-Some troubleshooting steps are very specific (to your OS, browser, or Internet connection), and / or
-not usually required.
-
+Some troubleshooting steps are very specific (to your OS, browser, or Internet connection), and / or not usually required.
 
 #### Checking Allowed Routes
 
@@ -199,7 +197,6 @@ When having connectivity issues to a resource, consider the address of the resou
 - Is the network covered by the VPN configuration?
 - Is there a conflict between a local (non-VPN) network resource and a VPN address range?
 
-
 #### MTU troubleshooting
 
 MTU (Maximum Transmission Unit) issues can cause packets to be silently dropped.
@@ -213,6 +210,7 @@ ping -4 -M do -s 1472 example.com
 ```
 
 :::note
+
 The IPv4 header adds 20 bytes, and the ICMP header adds 8 bytes to the packet size.
 Therefore, we need to use a payload size of 1472 to test sending exactly 1500 byte packets.
 
@@ -235,10 +233,12 @@ PING midokura.com (198.51.100.42) 1352(1380) bytes of data.
 ```
 
 :::note
+
 In this example, the router is aware of the MTU and can deal with the packet size for us.
 It replies with a message telling us "the MTU is 1380, I can't send your packet without fragmenting it".
+
 When this happens, the MTU setting in the client configuration is not necessary.
-Ping probes that fail with size 1472 and that work with size 1352, though, would indicate that 1380 <= MTU < 1500.
+Ping probes that fail with size 1472 and that work with size 1352, though, would indicate that 1380 ≥ MTU < 1500.
 
 :::
 
@@ -318,7 +318,6 @@ To allow using the system DNS resolver in Firefox:
 1. Open [about:preferences#privacy](Firefox's privacy preferences page)
 2. Scroll to **DNS over HTTPS**
 3. Select **Default Protection** or **Increased Protection** to allow using the system DNS, or **Off** to disable DoH altogether.
-
 
 #### Chrome
 

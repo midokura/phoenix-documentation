@@ -1,3 +1,7 @@
+---
+sidebar_position: 20
+---
+
 # Re-provision Node OS
 
 Re-provisioning a cluster node via PXE.

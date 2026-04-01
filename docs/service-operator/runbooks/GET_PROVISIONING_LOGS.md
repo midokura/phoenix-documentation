@@ -1,8 +1,11 @@
+---
+sidebar_position: 15
+---
+
 # Getting provisioning logs
 
 <!-- The text below is used as the preview text on the index card at https://docs.midokura.com/docs/next/category/runbooks -->
-Getting provisioning logs
-
+Getting provisioning logs.
 
 ## Purpose
 

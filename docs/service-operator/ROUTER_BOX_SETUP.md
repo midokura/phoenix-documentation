@@ -1,3 +1,7 @@
+---
+sidebar_position: 20
+---
+
 # Router Box Setup
 
 Setting up the router box.

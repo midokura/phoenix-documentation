@@ -1,4 +1,10 @@
+---
+sidebar_position: 20
+---
+
 # Management Cluster Subnet Migration
+
+Migrating to a different subnet.
 
 ## Overview
 

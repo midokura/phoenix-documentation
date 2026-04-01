@@ -1,3 +1,7 @@
+---
+sidebar_position: 10
+---
+
 # Setup Ceph - Generic
 
 Installing Ceph cluster on bare-metal nodes.

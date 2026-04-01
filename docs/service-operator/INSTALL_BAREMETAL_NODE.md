@@ -1,3 +1,7 @@
+---
+sidebar_position: 5
+---
+
 # Bare-Metal Node Enrollment and Server Creation
 
 Working with bare-metal nodes and servers.

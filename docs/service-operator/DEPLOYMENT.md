@@ -1,8 +1,13 @@
+---
+sidebar_position: 15
+---
+
 # Deployment Scripts
 
 Deploying GPU infrastructure clusters.
 
 This guide walks you through deploying GPU infrastructure clusters using containerized Ansible automation.
+
 The deployment scripts handle the complete setup of OpenStack, management clusters, and observability stack on physical infrastructure.
 
 **Getting the Release Package:**

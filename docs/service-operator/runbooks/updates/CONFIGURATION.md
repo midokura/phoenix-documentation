@@ -1,3 +1,7 @@
+---
+sidebar_position: 5
+---
+
 # Update Environment Configuration
 
 Configuring the environment.

@@ -1,3 +1,7 @@
+---
+sidebar_position: 25
+---
+
 # VPN Configuration as a Service Operator
 
 Setting up the VPN as a Service Operator.

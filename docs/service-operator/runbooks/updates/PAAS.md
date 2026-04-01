@@ -1,3 +1,7 @@
+---
+sidebar_position: 10
+---
+
 # Update AI Factory PaaS
 
 Updating the Helm charts.

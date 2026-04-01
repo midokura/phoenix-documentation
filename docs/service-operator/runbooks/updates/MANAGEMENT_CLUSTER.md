@@ -1,3 +1,7 @@
+---
+sidebar_position: 15
+---
+
 # Update Management Cluster
 
 Updating management cluster version.

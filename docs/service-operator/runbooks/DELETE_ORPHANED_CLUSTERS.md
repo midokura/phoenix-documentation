@@ -1,6 +1,10 @@
+---
+sidebar_position: 10
+---
+
 # Deleting orphaned tenant clusters
 
-Deleting orphaned tenant clusters
+Deleting orphaned tenant clusters.
 
 ## Purpose
 This runbook deletes Magnum clusters that are orphaned (their parent OpenStack project no longer exists). These clusters cannot self-cleanup and must be manually removed.

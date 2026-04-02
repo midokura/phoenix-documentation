@@ -221,6 +221,12 @@ curl -X PUT \
 
 **Scenario**: A new employee joins and needs access to an existing project.
 
+:::note
+
+If SSH access is required, assign SSH public keys to the users before creating the VMs, as all tenant's user keys are injected into the VM at creation time.
+
+:::
+
 **Workflow**:
 1. Create a new user account
 2. Add the user to existing tenant

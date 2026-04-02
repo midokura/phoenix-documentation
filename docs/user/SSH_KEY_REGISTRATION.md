@@ -27,7 +27,7 @@ This creates two files:
 
 ## Share Your Public Key with the Operator
 
-Provide the contents of `~/.ssh/id_ed25519.pub` to the operator. The operator steps for registering the key are outlined [here](/docs/service-operator/OPERATOR_API_GUIDE.md).
+Provide the contents of `~/.ssh/id_ed25519.pub` to the operator. The operator steps for registering the key are outlined [here](/docs/service-operator/OPERATOR_API_GUIDE).
 
 ## SSH into a VM
 

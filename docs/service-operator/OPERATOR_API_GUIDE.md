@@ -223,7 +223,7 @@ curl -X PUT \
 
 :::note
 
-If users need SSH access to VMs, assign an SSH key to the user before creating any VMs, as VMs inject all tenant users at creation time.
+If SSH access is required, assign SSH public keys to the users before creating the VMs, as all tenant's user keys are injected into the VM at creation time.
 
 :::
 

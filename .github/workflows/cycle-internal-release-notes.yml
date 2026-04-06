@@ -56,7 +56,7 @@ jobs:
         run: bash .github/scripts/cycle-internal-release-notes.sh
 
       - name: Notify Slack
-        uses: archive/github-actions-slack@c643e5093620d65506466f2c9b317d5d29a5e517 # master
+        uses: archive/github-actions-slack@433fef9978d3adae73168bfc9c5a7ce722780231 # master
         with:
           slack-bot-user-oauth-access-token: ${{ secrets.SLACK_BOT_TOKEN_NOTIFICATIONS }}
           # channels: phoenix-qa, phoenix-technical

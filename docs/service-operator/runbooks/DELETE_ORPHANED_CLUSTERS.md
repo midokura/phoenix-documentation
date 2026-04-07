@@ -16,7 +16,7 @@ This process should take approximately 10 to 15 minutes per cluster.
 Before starting, ensure you have:
 - [ ] SSH access to the OpenStack control node (for Terminal 1 / MariaDB access)
 - [ ] MariaDB (OpenStack Database) root password
-- [ ] Access to the `gpu-infrastructure` repository with ansible-vault credentials (to decrypt `admin-openrc.sh`)
+- [ ] OpenStack admin credentials (`admin-openrc.sh`) for your environment
 - [ ] OpenStack CLI installed with `python-heatclient` plugin (try `openstack stack delete --help`)
 - [ ] Access to Grafana for validation
 
@@ -46,9 +46,8 @@ Keep this terminal open, as you'll use it for all database queries.
 
 ### [Terminal 2: OpenStack] Setup Admin Credentials
 
-In the second terminal window, decrypt and source the admin credentials from your local machine. Run this from the `gpu-infrastructure` repository, adjusting the path to match your target environment (e.g. `openstack-qa.bcn`, `openstack-prod.bcn`):
+In the second terminal window, source the admin credentials for your environment from your local machine:
 ```bash
-ansible-vault decrypt --output=- infra-management/openstack-qa.bcn/config/admin-openrc.sh > admin-openrc.sh
 source admin-openrc.sh
 ```
 

@@ -46,10 +46,10 @@ Keep this terminal open, as you'll use it for all database queries.
 
 ### [Terminal 2: OpenStack] Setup Admin Credentials
 
-In the second terminal window, SSH to control node and source admin credentials:
+In the second terminal window, decrypt and source the admin credentials from your local machine. Run this from the `gpu-infrastructure` repository:
 ```bash
-ssh ubuntu@control0
-source /path/to/admin-openrc.sh
+ansible-vault decrypt --output=- infra-management/openstack-qa.bcn/config/admin-openrc.sh > admin-openrc.sh
+source admin-openrc.sh
 ```
 
 **Expected result:** No output, but you can verify with: `openstack token issue`

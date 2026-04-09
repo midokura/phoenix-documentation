@@ -1,8 +1,8 @@
 # CAPI Management Cluster
 
-How the management cluster runs Cluster API to provision tenant Kubernetes clusters.
+Cluster API (CAPI) runs in the management cluster and is used by OpenStack Magnum to provision tenant Kubernetes clusters.
 
-This document describes the role of the management cluster as a Cluster API (CAPI) management cluster, how the IaaS Console uses the CAPI driver to create tenant clusters, and what operators need to know to operate and troubleshoot this subsystem.
+This document describes how CAPI is deployed in the management cluster, how Magnum uses it as its backend driver, and what operators need to know to operate and troubleshoot this subsystem.
 
 :::note
 
@@ -12,30 +12,25 @@ This change is transparent to end users. Users continue to create and manage Kub
 
 ## Overview
 
-Tenant Kubernetes clusters are provisioned using [Cluster API (CAPI)](https://cluster-api.sigs.k8s.io/), a Kubernetes sub-project that manages the lifecycle of Kubernetes clusters as native Kubernetes objects.
+[Cluster API (CAPI)](https://cluster-api.sigs.k8s.io/) is a Kubernetes sub-project that manages the lifecycle of Kubernetes clusters as native Kubernetes objects. It runs in the management cluster alongside other platform services (observability stack, IaaS Console, etc.).
 
-The management cluster serves a dual role:
-
-- **Platform management cluster** — runs the platform control plane workloads (IaaS Console, observability stack, etc.)
-- **CAPI management cluster** — runs the CAPI controllers that reconcile tenant cluster lifecycle
-
-When a user requests a Kubernetes cluster through the IaaS Console, Magnum creates the corresponding CAPI objects (`Cluster`, `MachineDeployment`, etc.) in the management cluster. The CAPI controllers then reconcile those objects by calling the OpenStack API to provision the underlying infrastructure.
+When a user requests a Kubernetes cluster through the IaaS Console, the request goes through OpenStack Magnum, which uses CAPI as its backend driver. Magnum creates the corresponding CAPI objects (`Cluster`, `MachineDeployment`, etc.) in the management cluster. The CAPI controllers then reconcile those objects by calling the OpenStack API to provision the underlying infrastructure.
 
 ## Architecture
 
 ```
 IaaS Console
      │
+     ▼ (OpenStack Magnum API)
+  Magnum
+     │  creates/deletes Cluster objects via CAPI driver
      ▼
-  Magnum (CAPI driver)
-     │  creates/deletes Cluster objects
-     ▼
-Management Cluster (CAPI management cluster)
-     ├── capi-system            — Core CAPI controller manager
-     ├── capi-kubeadm-bootstrap-system  — Kubeadm bootstrap provider
+Management Cluster
+     ├── capi-system                       — Core CAPI controller manager
+     ├── capi-kubeadm-bootstrap-system     — Kubeadm bootstrap provider
      ├── capi-kubeadm-control-plane-system — Kubeadm control plane provider
-     ├── capo-system            — OpenStack infrastructure provider (CAPO)
-     └── magnum-system          — Tenant Cluster objects live here
+     ├── capo-system                       — OpenStack infrastructure provider (CAPO)
+     └── magnum-system                     — Tenant Cluster objects live here
            ├── Cluster/
            ├── Machine/
            ├── MachineDeployment/
@@ -113,7 +108,7 @@ See [Observability Alerts](./OBSERVABILITY_ALERTS.md) for alert configuration an
 
 ## Configuration
 
-The CAPI management cluster is deployed as part of the standard platform deployment. The deployment is handled by the `platform-setup.sh` script included in the release assets.
+CAPI is deployed as part of the standard platform deployment. The deployment is handled by the `platform-setup.sh` script included in the release assets.
 
 ## Related Resources
 

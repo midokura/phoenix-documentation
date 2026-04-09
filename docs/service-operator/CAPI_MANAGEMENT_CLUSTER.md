@@ -72,7 +72,7 @@ The Nova API microversion is pinned to **2.63** in Magnum's configuration. This 
 
 :::
 
-## Accessing the Management Cluster
+## Inspecting CAPI resources in the management cluster
 
 You need `kubectl` access to the management cluster to inspect CAPI resources.
 

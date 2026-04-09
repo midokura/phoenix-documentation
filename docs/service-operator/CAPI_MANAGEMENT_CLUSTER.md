@@ -6,7 +6,7 @@ This document describes how CAPI is deployed in the management cluster, how Magn
 
 :::note
 
-This change is transparent to end users. Users continue to create and manage Kubernetes clusters through the IaaS Console in the same way as before.
+This change is transparent to end users. Users continue to create and manage tenant Kubernetes clusters through the IaaS Console in the same way as before.
 
 :::
 

@@ -11,8 +11,8 @@ This runbook covers the five Grafana alerts that monitor the health and provisio
 | **CAPI Cluster in Failed Phase** | A `Cluster` object has entered the `Failed` phase |
 | **CAPI Machine in Failed Phase** | A `Machine` object has entered the `Failed` phase |
 | **CAPI MachineDeployment Degraded** | A `MachineDeployment` has fewer ready replicas than desired |
-| **CAPI Cluster Stuck in Provisioning** | A `Cluster` has been in `Pending` or `Provisioning` for more than X minutes |
-| **CAPI MachineSet Workers Not Ready** | A `MachineSet` has fewer ready workers than desired for more than X minutes |
+| **CAPI Cluster Stuck in Provisioning** | A `Cluster` has been in `Pending` or `Provisioning` beyond the configured threshold |
+| **CAPI MachineSet Workers Not Ready** | A `MachineSet` has fewer ready workers than desired beyond the configured threshold |
 
 ---
 
@@ -203,7 +203,7 @@ kubectl delete machine <machine-name> -n magnum-system
 
 ### Alert: CAPI Cluster Stuck in Provisioning
 
-This alert fires when a cluster has been in `Pending` or `Provisioning` for more than X minutes, indicating that provisioning has stalled.
+This alert fires when a cluster has been in `Pending` or `Provisioning` beyond the configured threshold, indicating that provisioning has stalled.
 
 #### 2.11 Check how long the cluster has been stuck
 
@@ -246,7 +246,7 @@ Common causes and actions:
 
 ### Alert: CAPI MachineSet Workers Not Ready
 
-This alert fires when worker nodes have not become ready within X minutes, typically meaning nodes provisioned but failed to join Kubernetes.
+This alert fires when worker nodes have not become ready within the configured threshold, typically meaning nodes provisioned but failed to join Kubernetes.
 
 #### 2.14 Check MachineSet and machine status
 

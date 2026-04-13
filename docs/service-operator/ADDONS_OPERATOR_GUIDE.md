@@ -18,6 +18,15 @@ Each add-on in the hardcoded catalog includes specific requirements that must be
 
 ## Monitoring
 
+### vLLM Dashboard (Model Provider)
+
+For clusters running the `model-provider` addon, use the **AI Assistant Metrics** dashboard in Grafana to monitor the vLLM inference engine. The dashboard provides:
+
+- **Requests Running / Waiting**: Current queue depth and active inference requests.
+- **Inference Latency (p50/p90/p99)**: End-to-end latency percentiles per model.
+
+The dashboard is included with the `phoenix-observability` stack. Search for **AI Assistant Metrics** in Grafana to find it.
+
 ### Prometheus Metrics
 
 The Cluster Add-ons feature exposes metrics through both the Flux controllers on the tenant clusters and the IaaS API itself.
@@ -48,7 +57,7 @@ All add-on operations are logged by the IaaS API with structured JSON details, i
 
 If a release becomes stuck or cannot be deleted via the API, an operator can manually clean it up using `kubectl` on the tenant cluster:
 
-1. **Identify the namespace**: Managed add-ons are installed in namespaces following the pattern `iaas-addon-{name}`.
+1. **Identify the namespace**: Managed add-ons are installed in namespaces following the pattern `iaas-addon-{instance-name}`, where the instance name is the full addon name returned by the API (for example, `jupyterhub-x7k2`).
 2. **Delete the HelmRelease**:
 
    ```bash
@@ -60,3 +69,19 @@ If a release becomes stuck or cannot be deleted via the API, an operator can man
    ```bash
    kubectl delete namespace iaas-addon-jupyterhub-x7k2
    ```
+
+### Model Provider PVC Lifecycle
+
+The `model-provider` add-on creates a dedicated **ReadWriteOnce PVC** for each deployed model to store model weights. These PVCs are provisioned from the `block-cinder` StorageClass by default.
+
+- One PVC is created per model at install time. The size is fixed per model (for example, `60Gi` for Qwen3.5 35B, `40Gi` for Kimi VL A3B, `10Gi` for Qwen3.5 4B).
+- **On uninstall, PVCs are deleted** along with all other add-on resources. Model weights stored in the PVC are not preserved between installs.
+- Because PVCs are `ReadWriteOnce`, each model replica is scheduled on a single node. Multi-node inference is not supported for a single model instance.
+
+If an uninstall gets stuck and PVCs remain orphaned, clean them up using the instance namespace (the namespace follows the pattern `iaas-addon-<instance-name>`, for example `iaas-addon-model-provider-x7k2`):
+
+```bash
+# Verify what will be deleted before removing
+kubectl get pvc -n iaas-addon-<instance-name>
+kubectl delete pvc --all -n iaas-addon-<instance-name>
+```

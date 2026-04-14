@@ -4,6 +4,23 @@ Accessing and configuring Grafana alerts.
 
 This document explains how to access and configure Grafana alerts, and describes all available alert rules.
 
+## Configuring Alert Thresholds
+
+Alert thresholds are configured in your environment's `inventory.yml` via the `phoenix_observability_alerts` variable. Only the values you specify are overridden — everything else keeps its default.
+
+```yaml
+phoenix_observability_alerts:
+  iaasApi:
+    p95latency: 500
+  ipmi:
+    fanHealthThreshold: 95
+    voltageHealthThreshold: 95
+  kubernetes:
+    cpuUtilizationThreshold: 90
+```
+
+See the full list of available keys in the [Available Alerts](#available-alerts) section below.
+
 ## Accessing Alerts
 
 Alerts are accessible through the Grafana Alerting section:
@@ -96,7 +113,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 - `severity: warning`
 - `slo: latency`
 
-**Threshold:** Configurable via `__IAAS_API_P95_LATENCY__` (default: 1000ms)
+**Threshold:** `alerts.iaasApi.p95latency` (default: 1000ms)
 
 ---
 
@@ -108,7 +125,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 - `severity: critical`
 - `slo: error_rate`
 
-**Threshold:** Configurable via `__IAAS_API_ERROR_RATE_THRESHOLD__` (default: 0.1%)
+**Threshold:** `alerts.iaasApi.errorRateThreshold` (default: 0.1%)
 
 ---
 
@@ -124,7 +141,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 - `severity: warning`
 - `slo: temperature_health`
 
-**Threshold:** Configurable via `__IPMI_TEMP_THRESHOLD__` (default: 99.9%)
+**Threshold:** `alerts.ipmi.temperatureHealthThreshold` (default: 99.9%)
 
 ---
 
@@ -136,7 +153,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 - `severity: critical`
 - `slo: fan_health`
 
-**Threshold:** Configurable via `__IPMI_FAN_THRESHOLD__` (default: 100%)
+**Threshold:** `alerts.ipmi.fanHealthThreshold` (default: 100%)
 
 ---
 
@@ -148,7 +165,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 - `severity: warning`
 - `slo: voltage_health`
 
-**Threshold:** Configurable via `__IPMI_VOLTAGE_THRESHOLD__` (default: 99.9%)
+**Threshold:** `alerts.ipmi.voltageHealthThreshold` (default: 99.9%)
 
 ---
 
@@ -164,7 +181,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 - `severity: warning`
 - `slo: pod_health`
 
-**Threshold:** Configurable via `__K8S_POD_HEALTH_THRESHOLD__` (default: 1%)
+**Threshold:** `alerts.kubernetes.podHealthThreshold` (default: 1%)
 
 ---
 
@@ -176,7 +193,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 - `severity: warning`
 - `slo: pod_health`
 
-**Threshold:** Configurable via `__K8S_FAILED_PODS_COUNT__` (default: 1)
+**Threshold:** `alerts.kubernetes.failedPodsCount` (default: 1)
 
 ---
 
@@ -188,7 +205,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 - `severity: warning`
 - `slo: cpu_utilization`
 
-**Threshold:** Configurable via `__K8S_CPU_THRESHOLD__` (default: 80%)
+**Threshold:** `alerts.kubernetes.cpuUtilizationThreshold` (default: 80%)
 
 ---
 
@@ -200,7 +217,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 - `severity: warning`
 - `slo: memory_utilization`
 
-**Threshold:** Configurable via `__K8S_MEMORY_THRESHOLD__` (default: 85%)
+**Threshold:** `alerts.kubernetes.memoryUtilizationThreshold` (default: 85%)
 
 ---
 
@@ -212,7 +229,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 - `severity: warning`
 - `slo: disk_utilization`
 
-**Threshold:** Configurable via `__K8S_DISK_THRESHOLD__` (default: 90%)
+**Threshold:** `alerts.kubernetes.diskUtilizationThreshold` (default: 90%)
 
 ---
 
@@ -228,7 +245,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 - `severity: critical`
 - `slo: nova_availability`
 
-**Threshold:** Configurable via `__OS_NOVA_THRESHOLD__` (default: 100%)
+**Threshold:** `alerts.openstack.novaAvailabilityThreshold` (default: 100%)
 
 ---
 
@@ -240,7 +257,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 - `severity: critical`
 - `slo: cinder_availability`
 
-**Threshold:** Configurable via `__OS_CINDER_THRESHOLD__` (default: 100%)
+**Threshold:** `alerts.openstack.cinderAvailabilityThreshold` (default: 100%)
 
 ---
 
@@ -252,7 +269,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 - `severity: warning`
 - `slo: neutron_availability`
 
-**Threshold:** Configurable via `__OS_NEUTRON_THRESHOLD__` (default: 99.9%)
+**Threshold:** `alerts.openstack.neutronAvailabilityThreshold` (default: 99.9%)
 
 ---
 
@@ -264,7 +281,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 - `severity: warning`
 - `slo: openstack_memory_capacity`
 
-**Threshold:** Configurable via `__OS_MEMORY_CAPACITY_THRESHOLD__` (default: 90%)
+**Threshold:** `alerts.openstack.memoryCapacityThreshold` (default: 90%)
 
 ---
 
@@ -276,7 +293,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 - `severity: warning`
 - `slo: openstack_cpu_capacity`
 
-**Threshold:** Configurable via `__OS_CPU_CAPACITY_THRESHOLD__` (default: 85%)
+**Threshold:** `alerts.openstack.cpuCapacityThreshold` (default: 85%)
 
 ---
 
@@ -288,7 +305,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 - `severity: warning`
 - `slo: openstack_storage_capacity`
 
-**Threshold:** Configurable via `__OS_STORAGE_CAPACITY_THRESHOLD__` (default: 90%)
+**Threshold:** `alerts.openstack.storageCapacityThreshold` (default: 90%)
 
 ---
 
@@ -304,7 +321,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 - `severity: warning`
 - `slo: vm_availability`
 
-**Threshold:** Configurable via `__VM_AVAILABILITY_THRESHOLD__` (default: 99.9%)
+**Threshold:** `alerts.vmManagement.availabilityThreshold` (default: 99.9%)
 
 ---
 
@@ -320,7 +337,7 @@ The Phoenix observability stack includes alerts organized into the following cat
 - `severity: warning`
 - `slo: magnum_orphaned_clusters`
 
-**Threshold:** Configurable via `__MAGNUM_ORPHANED_CLUSTERS_THRESHOLD__` (default: 0)
+**Threshold:** `alerts.magnum.orphanedClustersThreshold` (default: 0)
 
 ---
 
@@ -405,5 +422,3 @@ If you need different alert rules, you can create them manually through Grafana'
    - **Labels:** Add labels for routing and filtering
    - **Annotations:** Add summary and description templates
 4. Click "Save rule"
-
-

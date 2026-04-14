@@ -52,9 +52,40 @@ Retrieve the list of add-ons available for installation.
     "description": "Ray operator for distributed ML workloads",
     "version": "1.1.0",
     "params": {}
+  },
+  {
+    "name": "model-provider",
+    "display_name": "Model Provider",
+    "version": "0.1.9",
+    "params": {
+      "models": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "Models to deploy",
+        "catalog": [
+          {
+            "name": "qwen3.5-35b",
+            "display_name": "Qwen3.5 35B A3B GPTQ Int4",
+            "tags": ["text-to-text"]
+          },
+          {
+            "name": "kimi-vl-a3b",
+            "display_name": "Kimi VL A3B Instruct",
+            "tags": ["text-to-text", "vision"]
+          },
+          {
+            "name": "qwen3.5-4b-guardrail",
+            "display_name": "Qwen3.5 4B AWQ 4bit",
+            "tags": ["text-to-text", "guardrail"]
+          }
+        ]
+      }
+    }
   }
 ]
 ```
+
+The `tags` on each catalog entry indicate model capabilities: `text-to-text` for language generation, `vision` for image inputs, and `guardrail` for classification/safety tasks.
 
 ### List Installed Add-ons
 
@@ -113,13 +144,23 @@ Provision a new add-on instance on a cluster.
 }
 ```
 
-**cURL Example**:
+**cURL Example (JupyterHub)**:
 
 ```bash
 curl -X POST \
   -H "Authorization: Bearer $JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"addon": "jupyterhub", "params": {"cpu_limit": 1}}' \
+  "${API_BASE_URL}/clusters/abc-123/addons"
+```
+
+**cURL Example (Model Provider)**:
+
+```bash
+curl -X POST \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"addon": "model-provider", "params": {"models": ["qwen3.5-35b"]}}' \
   "${API_BASE_URL}/clusters/abc-123/addons"
 ```
 

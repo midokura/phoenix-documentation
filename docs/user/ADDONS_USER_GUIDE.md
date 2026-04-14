@@ -39,6 +39,94 @@ To remove an add-on:
 
 Uninstalling an add-on will remove all associated data and resources in that specific add-on's namespace.
 
+## Model Provider
+
+The **Model Provider** add-on deploys open-source language models on your cluster using vLLM, exposing an OpenAI-compatible inference API.
+
+### Available Models
+
+| Model name | Display name | Best suited for |
+|---|---|---|
+| `qwen3.5-35b` | Qwen3.5 35B A3B GPTQ Int4 | General-purpose text generation, tool calling, and reasoning tasks. |
+| `kimi-vl-a3b` | Kimi VL A3B Instruct | Multimodal tasks combining text and images (vision-language). Use when the prompt includes images or visual context. |
+| `qwen3.5-4b-guardrail` | Qwen3.5 4B AWQ 4bit | Lightweight guardrail or content classification tasks. Designed for fast, low-resource inference where a small model is sufficient. |
+
+### Installing the Model Provider
+
+When installing via the Add-ons tab, select one or more models from the catalog. Multiple models can be deployed simultaneously on the same add-on instance.
+
+To install via the API:
+
+```bash
+export CLUSTER_ID="<your-cluster-id>"
+
+curl -X POST \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"addon": "model-provider", "params": {"models": ["qwen3.5-35b"]}}' \
+  "${API_BASE_URL}/clusters/${CLUSTER_ID}/addons"
+```
+
+### Using the Inference Endpoint
+
+Once the add-on status is `deployed`, retrieve the inference endpoint URL using the instance name from the install response (for example, `model-provider-x7k2`):
+
+```bash
+export ADDON_NAME="model-provider-x7k2"
+curl -H "Authorization: Bearer $JWT_TOKEN" \
+  "${API_BASE_URL}/clusters/${CLUSTER_ID}/addons/${ADDON_NAME}"
+```
+
+The response `info.inference` field contains the base URL:
+
+```bash
+export INFERENCE_URL="http://<value from info.inference>"
+```
+
+**Text generation (chat completions)**:
+
+```bash
+curl -X POST "${INFERENCE_URL}/v1/chat/completions" \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "qwen3.5-35b",
+    "messages": [
+      {"role": "user", "content": "Explain Kubernetes resource limits in one paragraph."}
+    ]
+  }'
+```
+
+**Vision input (Kimi VL)**:
+
+```bash
+curl -X POST "${INFERENCE_URL}/v1/chat/completions" \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "kimi-vl-a3b",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {"type": "text", "text": "What is in this image?"},
+          {"type": "image_url", "image_url": {"url": "https://example.com/image.png"}}
+        ]
+      }
+    ]
+  }'
+```
+
+**List available models on the endpoint**:
+
+```bash
+curl "${INFERENCE_URL}/v1/models"
+```
+
+### Storage and Data Retention
+
+Each model uses a dedicated ReadWriteOnce PVC to store model weights. **Uninstalling the add-on deletes these PVCs**, so all downloaded model data is removed. Re-installing will re-download the model weights.
+
 ## Troubleshooting
 
 ### Failed Installations

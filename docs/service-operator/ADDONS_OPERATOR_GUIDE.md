@@ -70,7 +70,7 @@ If a release becomes stuck or cannot be deleted via the API, an operator can man
    kubectl delete namespace iaas-addon-jupyterhub-x7k2
    ```
 
-### Model Provider PVC Lifecycle
+### Model Provider Persistent Volume and Claims (PVC) Lifecycle
 
 The `model-provider` add-on creates a dedicated **ReadWriteOnce PVC** for each deployed model to store model weights. These PVCs are provisioned from the `block-cinder` StorageClass by default.
 

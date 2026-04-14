@@ -23,14 +23,13 @@ This guide shows how to register an application in Azure Active Directory and ob
 ### 1. Register an Application
 
 1. Go to [Azure Portal](https://portal.azure.com/)
-2. Search for and open **"Azure Active Directory"**
-3. In the left sidebar, click **"App registrations"**
-4. Click **"+ New registration"**
-5. Fill in the form:
+2. Use the top search bar to find and open **"App registrations"**
+3. Click **"+ New registration"**
+4. Fill in the form:
    - **Name**: Enter a name (for example, "IaaS Console")
    - **Supported account types**: Choose **"Accounts in this organizational directory only"** (single tenant) or the appropriate option for your organization
    - **Redirect URI**: Select **"Web"** and enter `https://console.phoenix-gpu.com/api/auth/azure/callback`
-6. Click **"Register"**
+5. Click **"Register"**
 
 ### 2. Copy the Application and Tenant IDs
 

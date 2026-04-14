@@ -71,7 +71,34 @@ kubectl config view --flatten \
   | base64 -w0
 ```
 
-### 5. PostgreSQL Credentials (Disaster Recovery)
+### 5. Azure Single Sign-On
+
+The IaaS Console supports Single Sign-On via Azure Active Directory. When configured, users can log in with their Azure AD accounts.
+
+To enable it, obtain the required credentials by following the [Azure SSO Setup Guide](./AZURE_SSO_SETUP.md) and add them to your inventory:
+
+```yaml
+# inventory.yml
+all:
+  vars:
+    iaas_console:
+      azure_client_id: "6088c67f-45dd-4bca-b08c-c6fbcd26c40b"
+      azure_tenant_id: "c36da824-36c5-4f3d-ae7c-a9e880782886"
+      azure_redirect_uri: "https://console.phoenix-gpu.com/api/auth/azure/callback"
+      azure_client_secret: !vault |
+        $ANSIBLE_VAULT;1.1;AES256
+        ...
+```
+
+**Variables:**
+- `azure_client_id`: Application (client) ID from the Azure app registration
+- `azure_tenant_id`: Directory (tenant) ID of your Azure AD tenant
+- `azure_redirect_uri`: Must match the redirect URI registered in Azure, in the form `https://<console-hostname>/api/auth/azure/callback`
+- `azure_client_secret`: Client secret generated in Azure — store vault-encrypted
+
+Azure SSO is optional. If `azure_client_id` is not set (or left empty), the feature is disabled and the deployment is unaffected.
+
+### 6. PostgreSQL Credentials (Disaster Recovery)
 
 The `iaas-api` Helm chart generates random PostgreSQL credentials on first install. These survive normal Helm upgrades but are permanently lost if the cluster is destroyed or the Secret is deleted. Without the original credentials, existing S3 backups cannot be decrypted.
 

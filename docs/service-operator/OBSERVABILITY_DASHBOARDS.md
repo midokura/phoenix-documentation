@@ -11,7 +11,7 @@ SLI thresholds used in the dashboards are configured in your environment's `inve
 ```yaml
 phoenix_observability_slis:
   sloAvailability: 99.5
-  fastLatencyLe: "0.5"
+  fastLatencyThreshold: "0.5"
   iaasApi:
     p95latency: 500
 ```
@@ -20,8 +20,8 @@ Available keys (with defaults):
 
 | Key | Default | Description |
 |-----|---------|-------------|
-| `fastLatencyLe` | `"1.0"` | Latency bucket upper bound (s) for fast endpoints |
-| `slowLatencyLe` | `"10.0"` | Latency bucket upper bound (s) for slow endpoints |
+| `fastLatencyThreshold` | `"1.0"` | Latency bucket upper bound (s) for fast endpoints |
+| `slowLatencyThreshold` | `"15.0"` | Latency bucket upper bound (s) for slow endpoints |
 | `fastReadRoutes` | _(long regex)_ | Route regex for fast GET endpoints |
 | `fastWriteRoutes` | _(long regex)_ | Route regex for fast non-GET endpoints |
 | `sloAvailability` | `99.9` | API availability SLO (%) |

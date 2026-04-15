@@ -36,6 +36,8 @@ Available keys (with defaults):
 | `sloStorageAvailability` | `100` | Ceph storage availability SLO (%) |
 | `sliCephLatencyThreshold` | `10` | Maximum acceptable Ceph OSD apply latency (ms) |
 | `sloCephLatency` | `99` | Ceph OSD latency SLO (%) |
+| `sloVpnAvailability` | `99` | VPN Availability SLO (%) |
+| `sliVpnAvailabilityWindowMinutes` | `30` | Time window to detect if there has been traffic in the VPN (min) |
 
 ## Accessing Grafana
 

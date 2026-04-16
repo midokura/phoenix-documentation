@@ -1,3 +1,7 @@
+---
+sidebar_position: xx
+---
+
 # Observability Dashboards
 
 Accessing and understand the Grafana dashboards.

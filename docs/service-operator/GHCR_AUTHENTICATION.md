@@ -1,3 +1,7 @@
+---
+sidebar_position: xx
+---
+
 # GitHub Container Registry (GHCR) Authentication
 
 Authenticating with ghcr.io.

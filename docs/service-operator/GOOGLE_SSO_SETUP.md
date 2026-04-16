@@ -1,3 +1,7 @@
+---
+sidebar_position: xx
+---
+
 # Google SSO Setup Guide
 
 Generating Google SSO credentials.

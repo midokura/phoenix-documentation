@@ -1,3 +1,7 @@
+---
+sidebar_position: xx
+---
+
 # IaaS Console Configuration
 
 Configuring JSON for the IaaS Console.

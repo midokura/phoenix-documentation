@@ -2,7 +2,7 @@
 sidebar_position: 5
 ---
 
-# Software Updates — Overview
+# Software Updates Overview
 
 Overview of all AI Factory software update procedures.
 

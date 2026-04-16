@@ -1,3 +1,7 @@
+---
+sidebar_position: xx
+---
+
 # Observability Alerts
 
 Accessing and configuring Grafana alerts.

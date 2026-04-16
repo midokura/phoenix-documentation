@@ -1,3 +1,7 @@
+---
+sidebar_position: 80
+---
+
 # OS Requirements
 
 Listing the OS requirements.

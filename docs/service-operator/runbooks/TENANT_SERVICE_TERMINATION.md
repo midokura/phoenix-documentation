@@ -66,8 +66,6 @@ curl -s -o /dev/null -w "%{http_code}" \
 
 **If you receive `409`:** The tenant has active Kubernetes clusters. Delete them first via the operator panel, then retry.
 
-**If you receive `500`:** Check iaas-api logs for the specific failure. The deletion may be partially complete. See [Troubleshooting](#troubleshooting).
-
 :::note
 
 Loki log deletion is asynchronous — the API submits a delete request for the tenant's log stream and Loki's compactor processes it in the background. All other data is removed synchronously before the `204` is returned.
@@ -147,10 +145,6 @@ All tenant data has been removed once the verification script reports `0 failed`
 ---
 
 ## Troubleshooting
-
-### `DELETE /api/tenants/<id>` returns `500`
-
-Check the iaas-api logs for the specific step that failed. Most cleanup steps are non-blocking — a 500 usually means a critical step (network or project deletion) failed. Identify the resource in OpenStack and delete it manually, then retry the API call.
 
 ### OpenStack project still exists after deletion
 

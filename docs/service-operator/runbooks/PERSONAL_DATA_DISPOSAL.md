@@ -1,5 +1,7 @@
 # Personal data disposal procedure
 
+Removing personal data for GDPR erasure request
+
 Procedure for removing personal data from all platform locations upon an individual user deletion (GDPR right-to-erasure request).
 
 ## Personal data stored by this platform

@@ -13,7 +13,7 @@ This runbook rotates the `mido_infra` Ed25519 key pair used by Ansible to access
 - [ ] `mido_infra.pem` present at `~/.ssh/mido_infra.pem`
 - [ ] Access to Bitwarden to update the stored key pair
 
-## Step 1 — Generate a new key pair
+## Step 1: Generate a new key pair
 
 ```bash
 ssh-keygen -t ed25519 -f ~/.ssh/mido_infra_new.pem -C "mido_infra" -N ""
@@ -23,7 +23,7 @@ This creates:
 - `~/.ssh/mido_infra_new.pem` — new private key
 - `~/.ssh/mido_infra_new.pem.pub` — new public key
 
-## Step 2 — Add the new public key to all hosts
+## Step 2: Add the new public key to all hosts
 
 Use the **old** key to connect and add the new public key to `authorized_keys` on all hosts. The old key remains active throughout this step.
 
@@ -43,7 +43,7 @@ ansible hedgehog_control -i ansible/inventories/<env>/ \
   -a "user=core key='$(cat ~/.ssh/mido_infra_new.pem.pub)' state=present"
 ```
 
-## Step 3 — Verify connectivity with the new key
+## Step 3: Verify connectivity with the new key
 
 Confirm the new key works on all hosts before removing the old one:
 
@@ -55,7 +55,7 @@ ansible all -i ansible/inventories/<env>/ \
 
 All hosts must return `pong`. Do not proceed if any host fails.
 
-## Step 4 — Remove the old public key from all hosts
+## Step 4: Remove the old public key from all hosts
 
 ```bash
 OLD_KEY=$(ssh-keygen -y -f ~/.ssh/mido_infra.pem)
@@ -75,7 +75,7 @@ ansible hedgehog_control -i ansible/inventories/<env>/ \
   -a "user=core key='${OLD_KEY}' state=absent"
 ```
 
-## Step 5 — Update the OpenStack Nova keypair
+## Step 5: Update the OpenStack Nova keypair
 
 The management cluster VMs use a Nova keypair. Delete the old one and register the new public key:
 
@@ -94,7 +94,7 @@ This only affects VMs created after this point. Existing management cluster node
 
 :::
 
-## Step 6 — Update the codebase
+## Step 6: Update the codebase
 
 Replace the hardcoded public key in the following three files with the output of `cat ~/.ssh/mido_infra_new.pem.pub`:
 
@@ -113,7 +113,7 @@ git add ansible/inventories/openstack-lab.tyo/inventory.yml \
 git commit -m "chore(ansible): rotate mido_infra SSH public key"
 ```
 
-## Step 7 — Replace the local key file and update Bitwarden
+## Step 7: Replace the local key file and update Bitwarden
 
 ```bash
 mv ~/.ssh/mido_infra_new.pem ~/.ssh/mido_infra.pem

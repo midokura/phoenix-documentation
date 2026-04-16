@@ -1,6 +1,6 @@
-# Key Rotation — Overview
+# Key Rotation Overview
 
-Overview of all AI Factory cryptographic key and credential rotation procedures.
+Rotating cryptographic keys and credentials.
 
 This document is the entry point for all AI Factory key rotation procedures. It describes which key types exist, their rotation schedule, and which rotations require downtime.
 

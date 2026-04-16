@@ -28,7 +28,7 @@ Beginning of GNU Affero General Public License v3.0 notices
 
 Copyright © 2014-2024 Grafana Labs
 
-Grafana is distributed under AGPL-3.0-only. For Apache-2.0 exceptions, see [LICENSING.md](https://github.com/grafana/grafana?tab=readme-ov-file#license).
+Grafana is distributed under AGPL-3.0-only. For Apache-2.0 exceptions, see the [License](https://github.com/grafana/grafana?tab=readme-ov-file#license).
 
 ---
 <!---

@@ -48,7 +48,11 @@ On the app registration's **Overview** page:
 4. Click **"Add"**
 5. Copy the **Value** immediately — this is your `AZURE_CLIENT_SECRET`
 
-**Important**: The secret value is only shown once. Store it securely (vault-encrypted in your inventory).
+:::warning
+
+The secret value is only shown once. Store it securely (vault-encrypted in your inventory).
+
+:::
 
 ## Reference
 

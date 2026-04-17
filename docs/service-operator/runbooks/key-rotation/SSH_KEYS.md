@@ -1,91 +1,130 @@
 # Rotate SSH Keys
 
-Rotating the `mido_infra` SSH key pair used for infrastructure access.
 
-This runbook rotates the `mido_infra` Ed25519 key pair used by Ansible to access all infrastructure hosts (OpenStack nodes, management cluster VMs, Hedgehog fabric, router). Rotation uses a zero-downtime approach: the new key is distributed to all hosts before the old key is removed.
+This runbook rotates the Ed25519 key pair used to access all infrastructure hosts (bare-metal nodes, management cluster VMs, Hedgehog fabric, router). Rotation uses a zero-downtime approach: the new key is added to all hosts before the old key is removed.
 
 **Rotation cadence:** every 6 months, aligned with the AI Factory release cycle.
 
 ## Prerequisites
 
-- [ ] Ansible container image built and available (`make image-build`)
-- [ ] Vault password for the target environment available
-- [ ] `mido_infra.pem` present at `~/.ssh/mido_infra.pem`
-- [ ] Access to Bitwarden to update the stored key pair
+- [ ] Previous keypair for accessing hosts and to rollback if necessary. 
+- [ ] OpenStack admin credentials (`infra-management/<env>/config/admin-openrc.sh`)
+
+:::note
+
+OpenStack commands can be run from your local workstation or from the management container (`platform-setup.sh --shell`).
+
+:::
 
 ## Step 1: Generate a new key pair
 
 ```bash
-ssh-keygen -t ed25519 -f ~/.ssh/mido_infra_new.pem -C "mido_infra" -N ""
+ssh-keygen -t ed25519 -f ~/.ssh/new_key.pem -C "<comment to identify the key>" -N ""
 ```
 
 This creates:
-- `~/.ssh/mido_infra_new.pem` — new private key
-- `~/.ssh/mido_infra_new.pem.pub` — new public key
+- `~/.ssh/new_key.pem` — new private key
+- `~/.ssh/new_key.pem.pub` — new public key
+
 
 ## Step 2: Add the new public key to all hosts
 
-Use the **old** key to connect and add the new public key to `authorized_keys` on all hosts. The old key remains active throughout this step.
+SSH into each host with the **old** key and append the new public key to `authorized_keys`. The old key remains active throughout this step.
+
+**Bare-metal nodes and management cluster VMs (`ubuntu` user):**
+
 
 ```bash
-ansible all -i ansible/inventories/<env>/ \
-  --private-key ~/.ssh/mido_infra.pem \
-  -m ansible.posix.authorized_key \
-  -a "user=ubuntu key='$(cat ~/.ssh/mido_infra_new.pem.pub)' state=present"
+NEW_KEY=$(cat ~/.ssh/new_key.pem.pub)
+
+for HOST in \
+  control0 control1 control2 \
+  compute0 compute1 \
+  storage0 storage1 storage2 \
+  gpu0 gpu1; do
+  ssh -i ~/.ssh/new_key.pem ubuntu@${HOST} \
+    "echo '${NEW_KEY}' >> ~/.ssh/authorized_keys"
+done
 ```
 
-For the Hedgehog control node (user `core`):
+Replace the host list with the actual hostnames for your environment.
+
+**Management cluster VMs** (OpenStack instances — list them first):
 
 ```bash
-ansible hedgehog_control -i ansible/inventories/<env>/ \
-  --private-key ~/.ssh/mido_infra.pem \
-  -m ansible.posix.authorized_key \
-  -a "user=core key='$(cat ~/.ssh/mido_infra_new.pem.pub)' state=present"
+source infra-management/<env>/config/admin-openrc.sh
+openstack server list --all-projects --key-name management-key -c ID -c Name -c Networks
+```
+
+Then for each VM:
+
+```bash
+ssh -i ~/.ssh/new_key.pem ubuntu@<VM-IP> \
+  "echo '${NEW_KEY}' >> ~/.ssh/authorized_keys"
+```
+
+**Hedgehog control node (`core` user):**
+
+```bash
+ssh -i ~/.ssh/new_key.pem core@<hedgehog-control-ip> \
+  "echo '${NEW_KEY}' >> ~/.ssh/authorized_keys"
 ```
 
 ## Step 3: Verify connectivity with the new key
 
-Confirm the new key works on all hosts before removing the old one:
+Confirm the new key works on every host before removing the old one. **Do not proceed if any host fails.**
 
 ```bash
-ansible all -i ansible/inventories/<env>/ \
-  --private-key ~/.ssh/mido_infra_new.pem \
-  -m ansible.builtin.ping
-```
+# Bare-metal node example
+ssh -i ~/.ssh/new_key.pem ubuntu@<host> "hostname"
 
-All hosts must return `pong`. Do not proceed if any host fails.
+# Management cluster VM example
+ssh -i ~/.ssh/new_key.pem ubuntu@<VM-IP> "hostname"
+
+# Hedgehog control node
+ssh -i ~/.ssh/new_key.pem core@<hedgehog-control-ip> "hostname"
+```
 
 ## Step 4: Remove the old public key from all hosts
 
-```bash
-OLD_KEY=$(ssh-keygen -y -f ~/.ssh/mido_infra.pem)
+Once all hosts are confirmed reachable with the new key, remove the old public key. Connect with the **new** key.
 
-ansible all -i ansible/inventories/<env>/ \
-  --private-key ~/.ssh/mido_infra_new.pem \
-  -m ansible.posix.authorized_key \
-  -a "user=ubuntu key='${OLD_KEY}' state=absent"
+```bash
+OLD_KEY=$(ssh-keygen -y -f ~/.ssh/old_key.pem)
+
+for HOST in \
+  control0 control1 control2 \
+  compute0 compute1 \
+  storage0 storage1 storage2 \
+  gpu0 gpu1; do
+  ssh -i ~/.ssh/new_key.pem ubuntu@${HOST} \
+    "grep -v '${OLD_KEY}' ~/.ssh/authorized_keys > /tmp/ak && mv /tmp/ak ~/.ssh/authorized_keys"
+done
 ```
 
-For the Hedgehog control node:
+For management cluster VMs and the Hedgehog control node, repeat the same pattern with the appropriate user and IP.
+
+Verify only the new key remains on a sample host:
 
 ```bash
-ansible hedgehog_control -i ansible/inventories/<env>/ \
-  --private-key ~/.ssh/mido_infra_new.pem \
-  -m ansible.posix.authorized_key \
-  -a "user=core key='${OLD_KEY}' state=absent"
+ssh -i ~/.ssh/new_key.pem ubuntu@<host> "cat ~/.ssh/authorized_keys"
 ```
 
-## Step 5: Update the OpenStack Nova keypair
+## Step 5 — Update the OpenStack keypair
 
-The management cluster VMs use a Nova keypair. Delete the old one and register the new public key:
+Management cluster VMs are launched with the Nova keypair `management-key`. Delete the old keypair and register the new public key so future VMs use the new key.
 
 ```bash
-# Source OpenStack credentials
 source infra-management/<env>/config/admin-openrc.sh
 
-# Replace the keypair
-openstack keypair delete mido_infra
-openstack keypair create --public-key ~/.ssh/mido_infra_new.pem.pub mido_infra
+openstack keypair delete management-key
+openstack keypair create --public-key ~/.ssh/new-key.pem.pub management-key
+```
+
+Confirm the update:
+
+```bash
+openstack keypair show management-key
 ```
 
 :::note
@@ -94,64 +133,40 @@ This only affects VMs created after this point. Existing management cluster node
 
 :::
 
-## Step 6: Update the codebase
-
-Replace the hardcoded public key in the following three files with the output of `cat ~/.ssh/mido_infra_new.pem.pub`:
-
-| File | Location |
-|------|----------|
-| `ansible/inventories/openstack-lab.tyo/inventory.yml` | `ssh_public_key` var and `authorized_keys` list |
-| `ansible/inventories/openstack-qa.bcn/inventory.yml` | `authorized_keys` list |
-| `ansible/playbooks/roles/openwrt_configure/defaults/main.yml` | `ssh_public_keys` list |
-
-Commit the changes:
-
-```bash
-git add ansible/inventories/openstack-lab.tyo/inventory.yml \
-        ansible/inventories/openstack-qa.bcn/inventory.yml \
-        ansible/playbooks/roles/openwrt_configure/defaults/main.yml
-git commit -m "chore(ansible): rotate mido_infra SSH public key"
-```
-
-## Step 7: Replace the local key file and update Bitwarden
-
-```bash
-mv ~/.ssh/mido_infra_new.pem ~/.ssh/mido_infra.pem
-mv ~/.ssh/mido_infra_new.pem.pub ~/.ssh/mido_infra.pub
-```
-
-Update the `mido_infra SSH key` item in Bitwarden with the new private key file contents. Archive the old key entry — do not delete it immediately, in case rollback is needed.
 
 ## Verify
 
-Run a final connectivity check using the renamed key:
+Run a final spot-check using the renamed key:
 
 ```bash
-ansible all -i ansible/inventories/<env>/ \
-  --private-key ~/.ssh/mido_infra.pem \
-  -m ansible.builtin.ping
+ssh -i ~/.ssh/new_key.pem ubuntu@<host> "hostname"
 ```
 
-All hosts must return `pong`.
+Verify the checklist:
+
+- [ ] `openstack keypair show management-key` shows the new fingerprint
+- [ ] SSH succeeds on all bare-metal nodes with `~/.ssh/new_key.pem`
+- [ ] SSH succeeds on all management cluster VMs with `~/.ssh/new_key.pem`
+- [ ] `~/.ssh/authorized_keys` on all hosts contains only the new key
 
 ## Rollback
 
-If any step fails, the old key is still present in `~/.ssh/mido_infra.pem` and remains active on all hosts until Step 4 completes. To abort:
+The old key is still active on all hosts until Step 4 completes. To abort before Step 4:
 
-1. Stop the rotation procedure.
-2. Remove the new public key from any hosts it was already added to:
+1. Stop the procedure.
+2. Remove the new public key from any hosts where it was already added:
 
    ```bash
-   ansible all -i ansible/inventories/<env>/ \
-     --private-key ~/.ssh/mido_infra.pem \
-     -m ansible.posix.authorized_key \
-     -a "user=ubuntu key='$(cat ~/.ssh/mido_infra_new.pem.pub)' state=absent"
+   NEW_KEY=$(cat ~/.ssh/new_key.pem.pub)
+
+   ssh -i ~/.ssh/new_key.pem ubuntu@<host> \
+     "grep -v '${NEW_KEY}' ~/.ssh/authorized_keys > /tmp/ak && mv /tmp/ak ~/.ssh/authorized_keys"
    ```
 
 3. Delete the new key files:
 
    ```bash
-   rm ~/.ssh/mido_infra_new.pem ~/.ssh/mido_infra_new.pem.pub
+   rm ~/.ssh/new_key.pem ~/.ssh/new_key.pem.pub
    ```
 
-If Step 4 already completed (old key removed) but Step 5 or later failed, restore from the Bitwarden archive and re-add the old public key to affected hosts manually.
+If Step 4 already completed (old key removed) but a later step failed, recover the old private key re-add the old public key to any affected hosts, then resume from the failed step.

@@ -82,7 +82,7 @@ kubectl run prune-backups --rm -it --restart=Never \
 
 **`RETENTION_DAYS=1`** deletes all objects older than 1 day, keeping only the most recent clean backup. `S3_BUCKET` defaults to `backup` and can be omitted unless your deployment uses a different bucket name.
 
-### Step 4 — Verify
+### Step 4: Verify
 
 ```bash
 # Confirm user record is gone

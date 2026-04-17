@@ -54,7 +54,7 @@ curl -s -o /dev/null -w "%{http_code}" \
 
 This call removes:
 - The user's email address from the PostgreSQL `user` table
-- The user's VPN configuration from all tenants they were assigned to
+- The user's VPN configuration from all tenants to which they were assigned
 
 ### Step 2: Wait for the next clean backup
 

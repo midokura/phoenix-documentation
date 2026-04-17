@@ -1,6 +1,6 @@
 # Tenant service termination — data disposal procedure
 
-Complete operational procedure for removing all data associated with a tenant upon service termination.
+Removing all tenant data upon service termination.
 
 ## Purpose
 

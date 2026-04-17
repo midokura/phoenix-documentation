@@ -89,6 +89,8 @@ ping vpn.example.com
 :::note
 The VPN server may not be responding to ping by design.
 
+:::
+
 #### Step 2: Verify VPN Connection
 
 After enabling the WireGuard connection:

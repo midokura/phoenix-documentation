@@ -56,7 +56,7 @@ This call removes:
 - The user's email address from the PostgreSQL `user` table
 - The user's VPN configuration from all tenants they were assigned to
 
-### Step 2 — Wait for the next clean backup
+### Step 2: Wait for the next clean backup
 
 The daily backup CronJob runs at **02:00 UTC**. Wait for the next run to complete — the resulting backup will contain no trace of the deleted user.
 

@@ -13,14 +13,6 @@ This document is the entry point for all AI Factory key rotation procedures. It 
 | **WireGuard VPN keys** | Operator VPN peer keys | 1 year | Brief (VPN reconnect) |
 | **Ansible Vault passwords** | Secrets encryption at rest (per environment) | 1 year | No |
 
-## Rotation Schedule
-
-Key rotation is aligned with the AI Factory release cycle (every 6 months). The table below shows what must be rotated at each interval:
-
-| Interval | Keys to rotate |
-|---|---|
-| Every release (~6 months) | SSH keys |
-| Annually (every 2nd release) | TLS certificates, WireGuard VPN keys, Ansible Vault passwords |
 
 ## Downtime Matrix
 

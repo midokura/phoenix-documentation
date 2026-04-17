@@ -66,7 +66,7 @@ To confirm the backup completed successfully:
 kubectl get jobs -n iaas-console -l component=backup --sort-by=.metadata.creationTimestamp | tail -3
 ```
 
-### Step 3 — Purge old backups
+### Step 3: Purge old backups
 
 Once a clean backup exists, run the prune script to delete all older backups that contained the user's email. The most recent backup (the clean one) is always preserved.
 

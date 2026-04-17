@@ -41,7 +41,7 @@ Backup purge does not happen on the same day as the deletion request. GDPR permi
 - [ ] Access to the Kubernetes cluster to run the prune job if needed before the next scheduled backup
 - [ ] `kubectl` configured for the target environment
 
-### Step 1 — Remove the user from the database
+### Step 1: Remove the user from the database
 
 ```bash
 curl -s -o /dev/null -w "%{http_code}" \

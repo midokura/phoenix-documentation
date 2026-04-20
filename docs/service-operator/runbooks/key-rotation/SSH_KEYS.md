@@ -1,7 +1,7 @@
 # Rotate SSH Keys
 
 
-This runbook rotates the Ed25519 key pair used to access all infrastructure hosts (bare-metal nodes, management cluster VMs, Hedgehog fabric, router). Rotation uses a zero-downtime approach: the new key is added to all hosts before the old key is removed.
+This runbook rotates the Ed25519 key pair used to access all infrastructure hosts (bare-metal nodes, management cluster VMs, Hedgehog fabric). Rotation uses a zero-downtime approach: the new key is added to all hosts before the old key is removed.
 
 **Rotation cadence:** every 6 months, aligned with the AI Factory release cycle.
 
@@ -42,7 +42,7 @@ for HOST in \
   compute0 compute1 \
   storage0 storage1 storage2 \
   gpu0 gpu1; do
-  ssh -i ~/.ssh/new_key.pem ubuntu@${HOST} \
+  ssh -i ~/.ssh/old_key.pem ubuntu@${HOST} \
     "echo '${NEW_KEY}' >> ~/.ssh/authorized_keys"
 done
 ```
@@ -110,7 +110,7 @@ Verify only the new key remains on a sample host:
 ssh -i ~/.ssh/new_key.pem ubuntu@<host> "cat ~/.ssh/authorized_keys"
 ```
 
-## Step 5 — Update the OpenStack keypair
+## Step 5: Update the OpenStack keypair
 
 Management cluster VMs are launched with the Nova keypair `management-key`. Delete the old keypair and register the new public key so future VMs use the new key.
 
@@ -118,7 +118,7 @@ Management cluster VMs are launched with the Nova keypair `management-key`. Dele
 source infra-management/<env>/config/admin-openrc.sh
 
 openstack keypair delete management-key
-openstack keypair create --public-key ~/.ssh/new-key.pem.pub management-key
+openstack keypair create --public-key ~/.ssh/new_key.pem.pub management-key
 ```
 
 Confirm the update:

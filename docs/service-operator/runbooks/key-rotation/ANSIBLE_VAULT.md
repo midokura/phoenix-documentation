@@ -111,7 +111,7 @@ Store the contents of `/tmp/new_vault_pass.txt` in your credential management sy
 
 ## Step 7: Persist the re-keyed artifacts
 
-Persist the re-keyed files according to your operator workflow (e.g. commit to your configuration repository, upload to your artifact store).
+Persist the re-keyed files according to your operator workflow (for example, commit to your configuration repository, upload to your artifact store).
 
 ## Step 8: Clean up temporary password files
 

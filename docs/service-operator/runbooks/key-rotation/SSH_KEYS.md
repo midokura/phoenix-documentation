@@ -7,7 +7,7 @@ This runbook rotates the Ed25519 key pair used to access all infrastructure host
 
 ## Prerequisites
 
-- [ ] Previous keypair for accessing hosts and to rollback if necessary. 
+- [ ] Previous keypair for accessing hosts and to rollback if necessary (on the scripts of this runbook this key appear on  `~/.ssh/old_key.pem`).
 - [ ] OpenStack admin credentials (`infra-management/<env>/config/admin-openrc.sh`)
 
 :::note
@@ -59,14 +59,14 @@ openstack server list --all-projects --key-name management-key -c ID -c Name -c 
 Then for each VM:
 
 ```bash
-ssh -i ~/.ssh/new_key.pem ubuntu@<VM-IP> \
+ssh -i ~/.ssh/old_key.pem ubuntu@<VM-IP> \
   "echo '${NEW_KEY}' >> ~/.ssh/authorized_keys"
 ```
 
 **Hedgehog control node (`core` user):**
 
 ```bash
-ssh -i ~/.ssh/new_key.pem core@<hedgehog-control-ip> \
+ssh -i ~/.ssh/old_key.pem core@<hedgehog-control-ip> \
   "echo '${NEW_KEY}' >> ~/.ssh/authorized_keys"
 ```
 

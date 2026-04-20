@@ -1,10 +1,8 @@
-# Tenant service termination — data disposal procedure
+# Tenant service termination data disposal
 
-Removing all tenant data upon service termination.
+Removing tenant data upon service termination
 
-## Purpose
-
-This runbook defines the procedure for terminating a tenant's service and ensuring all associated data is fully removed. The primary mechanism is the `DELETE /api/tenants/{tenant_id}` API endpoint, which orchestrates deletion of all tenant resources in the correct order.
+This runbook defines the procedure for terminating a tenant's service and ensuring all associated data is   fully removed. The primary mechanism is the `DELETE /api/tenants/{tenant_id}` API endpoint, which orchestrates deletion of all tenant resources in the correct order.
 
 :::important
 

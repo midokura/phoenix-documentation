@@ -87,3 +87,29 @@ loki_retention_period: "8760h"   # 1 year
 # loki_ceph_s3:
 #   bucket_quota_max_size: "2TiB"
 ```
+
+## Choosing a storage backend
+
+`phoenix_observability_storage: "ceph"` is the recommended setting and the default. `"local"` is acceptable for short-lived or test environments where data loss on node failure is tolerable.
+
+**Set the backend before the first deployment.** Changing it later requires manual intervention (see below).
+
+## Migrating from `local` to `ceph`
+
+Storage volumes cannot be changed in-place once created. To migrate an existing deployment:
+
+1. Delete the existing Prometheus and Loki volumes (this will lose current metrics and log history):
+
+```bash
+kubectl delete pvc prometheus-server storage-loki-0 -n observability
+```
+
+2. Set `phoenix_observability_storage: "ceph"` in your inventory.
+
+3. Run the platform setup to redeploy observability with Ceph-backed storage:
+
+```bash
+./scripts/platform-setup.sh --update
+```
+
+New volumes will be created automatically on the next deployment.

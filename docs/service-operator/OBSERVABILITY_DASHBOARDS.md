@@ -4,6 +4,41 @@ Accessing and understand the Grafana dashboards.
 
 This document explains how to access the Grafana dashboards and what each dashboard displays.
 
+## Configuring SLI Thresholds
+
+SLI thresholds used in the dashboards are configured in your environment's `inventory.yml` via the `phoenix_observability_slis` variable. Only the values you specify are overridden — everything else keeps its default.
+
+```yaml
+phoenix_observability_slis:
+  sloAvailability: 99.5
+  fastLatencyThreshold: "0.5"
+  iaasApi:
+    p95latency: 500
+```
+
+Available keys (with defaults):
+
+| Key | Default | Description |
+|-----|---------|-------------|
+| `fastLatencyThreshold` | `"1.0"` | Latency bucket upper bound (s) for fast endpoints |
+| `slowLatencyThreshold` | `"15.0"` | Latency bucket upper bound (s) for slow endpoints |
+| `fastReadRoutes` | _(long regex)_ | Route regex for fast GET endpoints |
+| `fastWriteRoutes` | _(long regex)_ | Route regex for fast non-GET endpoints |
+| `sloAvailability` | `99.9` | API availability SLO (%) |
+| `sloFastRead` | `95` | Fast read latency SLO (%) |
+| `sloSlowRead` | `95` | Slow read latency SLO (%) |
+| `sloFastWrite` | `95` | Fast write latency SLO (%) |
+| `sloSlowWrite` | `95` | Slow write latency SLO (%) |
+| `sloVmActiveRate` | `95` | VM active rate SLO (%) |
+| `sloK8sApiAvailability` | `99` | Kubernetes API availability SLO (%) |
+| `sloVmProvisioning` | `95` | VM provisioning success SLO (%) |
+| `sliCephStorageThreshold` | `20` | Minimum free Ceph storage (%) to count as available |
+| `sloStorageAvailability` | `100` | Ceph storage availability SLO (%) |
+| `sliCephLatencyThreshold` | `10` | Maximum acceptable Ceph OSD apply latency (ms) |
+| `sloCephLatency` | `99` | Ceph OSD latency SLO (%) |
+| `sloVpnAvailability` | `99` | VPN Availability SLO (%) |
+| `sliVpnAvailabilityWindowMinutes` | `30` | Time window to detect if there has been traffic in the VPN (min) |
+
 ## Accessing Grafana
 
 ### Via Ingress (Production)

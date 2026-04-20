@@ -98,7 +98,7 @@ for HOST in \
   storage0 storage1 storage2 \
   gpu0 gpu1; do
   ssh -i ~/.ssh/new_key.pem ubuntu@${HOST} \
-    "grep -v '${OLD_KEY}' ~/.ssh/authorized_keys > /tmp/ak && mv /tmp/ak ~/.ssh/authorized_keys"
+    "grep -v '${OLD_KEY}' ~/.ssh/authorized_keys > /tmp/ak && chmod 600 /tmp/ak && mv /tmp/ak ~/.ssh/authorized_keys"
 done
 ```
 
@@ -160,7 +160,7 @@ The old key is still active on all hosts until Step 4 completes. To abort before
    NEW_KEY=$(cat ~/.ssh/new_key.pem.pub)
 
    ssh -i ~/.ssh/new_key.pem ubuntu@<host> \
-     "grep -v '${NEW_KEY}' ~/.ssh/authorized_keys > /tmp/ak && mv /tmp/ak ~/.ssh/authorized_keys"
+     "grep -v '${NEW_KEY}' ~/.ssh/authorized_keys > /tmp/ak && chmod 600 /tmp/ak && mv /tmp/ak ~/.ssh/authorized_keys"
    ```
 
 3. Delete the new key files:
@@ -169,4 +169,4 @@ The old key is still active on all hosts until Step 4 completes. To abort before
    rm ~/.ssh/new_key.pem ~/.ssh/new_key.pem.pub
    ```
 
-If Step 4 already completed (old key removed) but a later step failed, recover the old private key re-add the old public key to any affected hosts, then resume from the failed step.
+If Step 4 already completed (old key removed) but a later step failed, recover the old private key and re-add the old public key to any affected hosts, then resume from the failed step.

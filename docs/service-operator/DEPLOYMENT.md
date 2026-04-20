@@ -99,6 +99,14 @@ Quick verification checklist. Click any item for detailed setup instructions bel
   └── ceph.client.glance.keyring
   ```
 
+- **How to generate:** Run `platform-setup.sh --provision-ceph` to provision the Ceph cluster. After provisioning, copy the generated keyrings from `./assets/ceph/` to `./keyrings/`:
+
+  ```bash
+  cp ./assets/ceph/*.keyring ./keyrings/
+  ```
+
+  See [CEPH_SETUP](./CEPH_SETUP) for the full provisioning procedure and keyring promotion steps.
+
 - **Purpose:** Allows OpenStack services (Cinder, Glance, Nova) to access Ceph storage
 - **Inventory configuration:** Your `inventory.yml` should reference these files:
 

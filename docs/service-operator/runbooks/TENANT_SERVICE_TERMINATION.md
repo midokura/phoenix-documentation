@@ -132,7 +132,7 @@ echo "=== Result: $PASS passed, $FAIL failed ==="
 
 :::note
 
-If the Loki check fails immediately after termination, wait a few minutes for the compactor to process the delete request and re-run the script. The 7-day retention policy (`retention_period: 168h`) also ensures any remaining log data expires automatically.
+If the Loki check fails immediately after termination, wait a few minutes for the compactor to process the delete request and re-run the script. The configured `loki_retention_period` (set in inventory) also ensures any remaining log data expires automatically once the retention window elapses.
 
 :::
 

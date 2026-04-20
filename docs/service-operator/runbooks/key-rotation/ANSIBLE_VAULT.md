@@ -1,5 +1,7 @@
 # Rotate Ansible Vault Passwords
 
+Rotating the Ansible Vault password
+
 This runbook rotates the Ansible Vault password used to encrypt secrets at rest for an AI Factory environment. Each environment has its own independent vault password, so run this procedure once per environment.
 
 **Rotation cadence:** every year.

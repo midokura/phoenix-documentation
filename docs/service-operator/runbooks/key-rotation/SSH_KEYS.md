@@ -52,7 +52,7 @@ Replace the host list with the actual hostnames for your environment.
 **Management cluster VMs** (OpenStack instances — list them first):
 
 ```bash
-source infra-management/<env>/config/admin-openrc.sh
+source <path-to-admin-openrc.sh>
 openstack server list --all-projects --key-name management-key -c ID -c Name -c Networks
 ```
 
@@ -115,7 +115,7 @@ ssh -i ~/.ssh/new_key.pem ubuntu@<host> "cat ~/.ssh/authorized_keys"
 Management cluster VMs are launched with the Nova keypair `management-key`. Delete the old keypair and register the new public key so future VMs use the new key.
 
 ```bash
-source infra-management/<env>/config/admin-openrc.sh
+source <path-to-admin-openrc.sh>
 
 openstack keypair delete management-key
 openstack keypair create --public-key ~/.ssh/new_key.pem.pub management-key

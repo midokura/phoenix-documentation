@@ -56,7 +56,9 @@ If not set, the chart default applies (7 days).
 
 ### S3 Bucket Configuration
 
-When `phoenix_observability_storage: "ceph"`, Loki stores logs in a Ceph RGW S3 bucket. The RGW user and bucket are created automatically if they don't exist. Override defaults via `loki_ceph_s3` — specify only the keys you want to change:
+When `phoenix_observability_storage: "ceph"`, Loki stores logs in a Ceph RGW S3 bucket. The RGW user and bucket are created automatically if they don't exist.
+
+The defaults work for most deployments and should not be changed unless you have a specific reason. Override via `loki_ceph_s3` — specify only the keys you want to change:
 
 ```yaml
 loki_ceph_s3:

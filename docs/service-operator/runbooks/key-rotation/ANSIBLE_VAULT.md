@@ -73,7 +73,7 @@ echo "${VAULT_FILES}" | xargs -d '\n' ansible-vault rekey \
 
 `ansible-vault rekey` replaces the encryption key in-place without touching the plaintext.
 
-If the management cluster kubeconfig is stored **outside** `${CLUSTER_DIR}` (e.g. the operator's local `~/.kube/config`), re-key it separately:
+If the management cluster kubeconfig is stored **outside** `${CLUSTER_DIR}` (for example, the operator's local `~/.kube/config`), re-key it separately:
 
 ```bash
 KUBECONFIG_PATH="<path-to-kubeconfig>"

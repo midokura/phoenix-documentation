@@ -1,7 +1,5 @@
 # Key Rotation Overview
 
-Rotating cryptographic keys and credentials.
-
 This document is the entry point for all AI Factory key rotation procedures. It describes which key types exist, their rotation schedule, and which rotations require downtime. The runbooks for those procedures are in the [Key Rotation Runbooks](./key-rotation/) section.
 
 ## Key Inventory
@@ -12,4 +10,10 @@ This document is the entry point for all AI Factory key rotation procedures. It 
 | **TLS certificates** | HAProxy, RabbitMQ, Octavia CA, backend services | 1 year | Brief (service restart) |
 | **WireGuard VPN keys** | Operator VPN peer keys | 1 year | Brief (VPN reconnect) |
 | **Ansible Vault passwords** | Secrets encryption at rest (per environment) | 1 year | No |
+
+:::note
+
+Runbooks for TLS certificates, WireGuard VPN keys, and Ansible Vault password rotation are not yet published.
+
+:::
 

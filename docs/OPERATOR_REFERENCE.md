@@ -35,10 +35,12 @@ To install the Phoenix cluster, the Operator will work from the bastion node ref
 
 ## Control plane installation
 
-- Prepare the Ceph cluster by following the steps explained in [CEPH_SETUP](./service-operator/CEPH_SETUP.md)
+- Set up the Ceph cluster following [CEPH_SETUP](./service-operator/CEPH_SETUP):
+  - Run `platform-setup.sh --provision-ceph` to provision the cluster, then promote the generated keyrings to `./keyrings/`
+  - Complete the RADOS Gateway setup: start the gateway service and create the admin user before deploying OpenStack; configure Keystone integration after
 - Download and extract [Ansible playbooks](https://midokurajpeast.blob.core.windows.net/phoenix-releases/v1.8/release-assets-0.0.0-1182-98fb456.zip?sp=r&st=2026-02-13T11:20:30Z&se=2050-02-13T19:35:30Z&spr=https&sv=2024-11-04&sr=b&sig=YUELOOSwWPidu8ceXhQN6G5qqziMM4BL9BKl5VoqJvA%3D).
 - Use the included `inventory.example.yml` as the base to input the configuration specific to your cluster
-- Execute them following the instructions in [DEPLOYMENT](./service-operator/DEPLOYMENT.md)
+- Execute them following the instructions in [DEPLOYMENT](./service-operator/DEPLOYMENT)
 - To configure switches, follow the instructions in
 [NETWORK_CONTROL_NODE_SETUP](./service-operator/NETWORK_CONTROL_NODE_SETUP.md) starting step 4
 

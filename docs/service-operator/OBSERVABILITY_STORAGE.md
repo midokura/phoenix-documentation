@@ -65,6 +65,7 @@ loki_ceph_s3:
   rgw_user: loki          # default
   bucket: lokilogs        # default
   rgw_port: 8080          # default
+  bucket_quota_max_size: "1TiB"  # default; set to "" to disable
   # rgw_host auto-resolved from ceph_rgw_hosts[0].ip
 ```
 

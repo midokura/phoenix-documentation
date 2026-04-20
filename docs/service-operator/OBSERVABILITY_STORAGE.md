@@ -1,6 +1,6 @@
 # Observability Storage
 
-Configuring storage backends for Prometheus metrics and Loki logs.
+Configuring storage backends for Prometheus metrics and Loki logs
 
 ## Storage Backend
 

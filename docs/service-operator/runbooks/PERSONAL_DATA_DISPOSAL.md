@@ -68,7 +68,7 @@ kubectl get jobs -n iaas-console -l component=backup --sort-by=.metadata.creatio
 
 ### Step 3: Purge old backups
 
-Once a clean backup exists, run the prune script to delete all older backups that contained the user's email. The most recent backup (the clean one) is always preserved.
+Once a clean backup exists, run the [`prune-s3-backups.sh`](https://github.com/midokura/iaas-console/blob/main/iaas-api/scripts/utils/prune-s3-backups.sh) script to delete all older backups that contained the user's email. The most recent backup (the clean one) is always preserved.
 
 ```bash
 kubectl run prune-backups --rm -it --restart=Never \

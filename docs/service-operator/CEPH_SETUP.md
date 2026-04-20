@@ -1,5 +1,7 @@
 # Setup Ceph
 
+Provisioning Ceph storage clusters via script on dedicated nodes.
+
 You can provision a Ceph storage cluster on dedicated nodes using the automated provisioning script. The script runs an Ansible playbook that handles the full lifecycle: installation, bootstrapping, node expansion, OSD provisioning, pool creation, and keyring generation.
 
 ## Prerequisites
@@ -19,7 +21,7 @@ The following variables must be set in `inventory.yml` before running the provis
 
 :::warning
 
-`provision_zap_disks` controls whether the playbook erases OSD disks before claiming them.
+`provision_zap_disks` controls if the playbook erases OSD disks before claiming them.
 
 - **Fresh disks / first-time provisioning**: set `provision_zap_disks: true`. Without it, the playbook will skip disk erasure and no OSDs will be created on uninitialized disks.
 - **Reprovisioning nodes with existing OSDs**: leave as `false` (the default) to keep existing OSD data intact.
@@ -32,13 +34,13 @@ Only set `provision_zap_disks: true` when you are certain the target disks can b
 
 All storage nodes listed in `ceph_mon_hosts` must have Ubuntu installed and be reachable via SSH from the bastion before running `--provision-ceph`.
 
-In a Phoenix deployment this is handled by the bootstrap phase (`platform-setup.sh --bootstrap`), which provisions the OpenWRT router VM and configures it as the DHCP/iPXE server for the provision network. HedgeHog provides the network underlay and manages the VPCs: the provision VPC is used to iPXE-boot and install the OS on all nodes, while the storage VPC carries Ceph replication and OSD traffic and maps to `ceph.public_network` in the inventory. Once the bootstrap phase completes and the nodes are up, they are ready for Ceph provisioning.
+In an AI Factory deployment this is handled by the bootstrap phase (`platform-setup.sh --bootstrap`), which provisions the OpenWRT router VM and configures it as the DHCP/iPXE server for the provision network. HedgeHog provides the network underlay and manages the VPCs: the provision VPC is used to iPXE-boot and install the OS on all nodes, while the storage VPC carries Ceph replication and OSD traffic and maps to `ceph.public_network` in the inventory. Once the bootstrap phase completes and the nodes are up, they are ready for Ceph provisioning.
 
 The connecting user requires passwordless `sudo` on each node.
 
 ## Installation
 
-### 1. Run the provisioning playbook
+### Run the provisioning playbook
 
 ```bash
 ./scripts/platform-setup.sh --provision-ceph
@@ -101,7 +103,7 @@ keyrings/
 └── ceph.client.glance.keyring
 ```
 
-The three service keyrings (`cinder`, `cinder-backup`, `glance`) are mounted read-only into the deployment container and consumed by OpenStack. The admin keyring is how `--provision-ceph` recognises an existing cluster: on subsequent runs it compares the stored key against the live cluster and aborts if they differ, preventing accidental re-bootstrapping of an existing installation. See the [Ceph Keyrings](./DEPLOYMENT.md#ceph-keyrings) section of the Deployment guide for how the service keyrings are referenced in `inventory.yml`.
+The three service keyrings (`cinder`, `cinder-backup`, and `glance`) are mounted read-only into the deployment container and consumed by OpenStack. The admin keyring is how `--provision-ceph` recognises an existing cluster: on subsequent runs it compares the stored key against the live cluster and aborts if they differ, preventing accidental re-bootstrapping of an existing installation. See the [Ceph Keyrings](./DEPLOYMENT#ceph-keyrings) section of the Deployment guide for how the service keyrings are referenced in `inventory.yml`.
 
 :::note
 

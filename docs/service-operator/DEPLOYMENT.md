@@ -105,7 +105,7 @@ Quick verification checklist. Click any item for detailed setup instructions bel
   cp ./assets/ceph/*.keyring ./keyrings/
   ```
 
-  See [CEPH_SETUP](./CEPH_SETUP.md) for the full provisioning procedure and keyring promotion steps.
+  See [CEPH_SETUP](./CEPH_SETUP) for the full provisioning procedure and keyring promotion steps.
 
 - **Purpose:** Allows OpenStack services (Cinder, Glance, Nova) to access Ceph storage
 - **Inventory configuration:** Your `inventory.yml` should reference these files:

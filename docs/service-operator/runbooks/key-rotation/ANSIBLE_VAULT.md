@@ -6,7 +6,7 @@ This runbook rotates the Ansible Vault password used to encrypt secrets at rest 
 
 ## What is protected by the vault password
 
-The following file types are encrypted at rest. Step 3 is the authoritative enumeration — this table describes what to expect to find.
+The following file types are encrypted at rest. Step 3 is the authoritative enumeration — this table describes what to expect to find in the file.
 
 | File pattern | Contents |
 |---|---|

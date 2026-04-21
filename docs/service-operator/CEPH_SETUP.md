@@ -114,3 +114,113 @@ The keyring role selects one of three modes per keyring based on local state:
 - **Import mode** (keyring present in `./keyrings/`, CephX client absent from cluster): imports the provided key and caps into the cluster, then falls through to verify.
 
 :::
+
+## RADOS Gateway
+
+The RADOS Gateway (RGW) provides S3-compatible object storage and Keystone authentication integration for the OpenStack Swift and S3 endpoints. Its setup spans two points in the deployment timeline: gateway service and admin user before OpenStack, Keystone integration after.
+
+### Before OpenStack deployment
+
+Connect to any Ceph monitor node and enter the cephadm shell:
+
+```bash
+ssh <ceph-node>
+sudo cephadm shell
+```
+
+#### 1. Start the gateway service
+
+```bash
+ceph orch apply rgw gateway --placement="3 <hostname-1> <hostname-2> <hostname-3>" --port=8080
+```
+
+Replace the hostnames with three Ceph nodes from your inventory (`ceph orch host ls` lists them).
+
+#### 2. Create the gateway admin user
+
+```bash
+radosgw-admin user create \
+  --uid="iaas-rgw-admin" \
+  --display-name="iaas management user for ceph object gateway admin API" \
+  --caps="users=*;buckets=*;usage=*;metadata=*"
+```
+
+Note the `access_key` and `secret_key` values from the command output.
+
+#### 3. Write access and secret keys to inventory
+
+Encrypt the keys with ansible-vault and add them to `inventory.yml`:
+
+```bash
+ansible-vault encrypt_string '<access_key_value>' --name 'rgw_auth.access_key'
+ansible-vault encrypt_string '<secret_key_value>' --name 'rgw_auth.secret_key'
+```
+
+```yaml
+rgw_auth:
+  access_key: !vault |
+    $ANSIBLE_VAULT;1.1;AES256
+    ...
+  secret_key: !vault |
+    $ANSIBLE_VAULT;1.1;AES256
+    ...
+```
+
+### After OpenStack deployment
+
+:::note
+
+The following steps require the live OpenStack Keystone endpoint. Run them after completing the OpenStack deployment described in [DEPLOYMENT](./DEPLOYMENT).
+
+The config settings below (URL, admin user, domain, project, and flags) are manual. The Keystone **password** is the exception: set `post_deployment.configure_ceph_rgw_keystone.active: true` in `inventory.yml` and the post-deployment playbook will read it from `passwords.yml` and restart the gateway automatically — no need to set it manually or run step 6.
+
+:::
+
+#### 4. Distribute the Keystone CA certificate
+
+The cephadm RGW containers use the host system CA bundle. Copy the Keystone CA certificate to **each Ceph node** listed in `ceph_mon_hosts` and update the trust store:
+
+```bash
+sudo cp /path/to/keystone-ca.crt /usr/local/share/ca-certificates/keystone-ca.crt
+sudo update-ca-certificates
+```
+
+#### 5. Configure Keystone integration
+
+Connect to a Ceph monitor node, enter the cephadm shell, and run:
+
+```bash
+# https://docs.ceph.com/en/latest/radosgw/keystone/
+# As of the Queens release, Keystone solely implements the Identity API v3.
+# Support for Identity API v2.0 has been removed in Queens in favor of the Identity API v3.
+# https://docs.openstack.org/keystone/latest/contributor/http-api.html
+ceph config set client.rgw.gateway rgw_keystone_api_version 3
+ceph config set client.rgw.gateway rgw_keystone_url https://<keystone-host>:5000
+ceph config set client.rgw.gateway rgw_keystone_verify_ssl true
+ceph config set client.rgw.gateway rgw_keystone_admin_user ceph_rgw
+ceph config set client.rgw.gateway rgw_keystone_admin_domain Default
+ceph config set client.rgw.gateway rgw_keystone_admin_project service
+
+# disable token cache because of https://tracker.ceph.com/issues/21226
+ceph config set client.rgw.gateway rgw_keystone_token_cache_size 0
+
+ceph config set client.rgw.gateway rgw_enable_usage_log true # logging
+
+# https://docs.ceph.com/en/latest/radosgw/multitenancy/#swift-with-keystone
+ceph config set client.rgw.gateway rgw_keystone_implicit_tenants true
+
+# options
+ceph config set client.rgw.gateway rgw_swift_account_in_url false
+
+# https://docs.ceph.com/en/latest/radosgw/s3/authentication/
+ceph config set client.rgw.gateway rgw_s3_auth_use_keystone true
+```
+
+Replace `<keystone-host>` with the hostname or IP of the OpenStack controller.
+
+#### 6. Restart the gateway service
+
+```bash
+ceph orch restart rgw.gateway
+```
+

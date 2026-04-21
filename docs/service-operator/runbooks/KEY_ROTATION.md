@@ -1,6 +1,6 @@
 # Key Rotation Overview
 
-This document is the entry point for all AI Factory key rotation procedures. It describes which key types exist, their rotation schedule, and which rotations require downtime. The runbooks for those procedures are in the [Key Rotation Runbooks](./key-rotation/) section.
+This document is the entry point for all AI Factory key rotation procedures. It describes which key types exist, their rotation schedule, and which rotations require downtime. The runbooks for those procedures are in the [Key Rotation Runbooks](./key-rotation) section.
 
 ## Key Inventory
 
@@ -13,8 +13,8 @@ This document is the entry point for all AI Factory key rotation procedures. It 
 
 ## Key Rotation Runbooks
 
-- [Rotate SSH Keys](./key-rotation/SSH_KEYS.md)
-- [Rotate Ansible Vault Passwords](./key-rotation/ANSIBLE_VAULT.md)
+- [Rotate SSH Keys](./key-rotation/SSH_KEYS)
+- [Rotate Ansible Vault Passwords](./key-rotation/ANSIBLE_VAULT)
 
 :::note
 

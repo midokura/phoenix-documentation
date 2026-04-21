@@ -37,8 +37,42 @@ This procedure is **irreversible**. Once executed, all tenant data — including
 - [ ] Operator-scoped API credentials for the iaas-api (Google OAuth or Keystone token)
 - [ ] The `tenant_id` UUID of the tenant to terminate (obtain from the operator panel or `GET /api/tenants`)
 - [ ] Confirmed with the account team that the tenant has been notified and the termination is authorised
-- [ ] OpenStack CLI configured for the target environment
 - [ ] `jq` installed locally
+- [ ] OpenStack CLI set up for the target environment (see below)
+
+### OpenStack CLI setup
+
+The `admin-openrc.sh` credentials file is Ansible Vault encrypted. You need a Python venv with the OpenStack client and the vault password (stored in `~/vault-key.txt` on Ansible machines, otherwise retrieve from Bitwarden — search "ansible vault"):
+
+```bash
+/usr/bin/python3 -m venv /tmp/venv-termination
+source /tmp/venv-termination/bin/activate
+pip install ansible-core==2.20.5 python-openstackclient==9.0.0
+
+echo 'VAULT_PASSWORD' > /tmp/vault-key.txt && chmod 600 /tmp/vault-key.txt
+ansible-vault decrypt \
+  infra-management/<env>/config/admin-openrc.sh \
+  --vault-password-file /tmp/vault-key.txt \
+  --output /tmp/admin-openrc.sh
+rm /tmp/vault-key.txt
+```
+
+The decrypted file may contain `http://` for the Keystone URL even though the endpoint listens on HTTPS. Fix it before sourcing:
+
+```bash
+sed -i 's|http://\(.*\):5000|https://\1:5000|' /tmp/admin-openrc.sh
+source /tmp/admin-openrc.sh
+export OS_INSECURE=true   # needed if the CA cert is not installed locally
+```
+
+Smoke test:
+
+```bash
+source /tmp/venv-termination/bin/activate
+source /tmp/admin-openrc.sh
+export OS_INSECURE=true
+openstack project list -c ID -c Name | head -5
+```
 
 ---
 
@@ -104,10 +138,10 @@ echo "=== Tenant data disposal verification: $TENANT_ID ==="
 echo
 
 echo "--- API ---"
-STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
-  -H "Authorization: Bearer $TOKEN" \
-  "https://$IAAS_API_HOST/api/tenants/$TENANT_ID")
-check "Tenant record deleted" "$STATUS" "404"
+FOUND=$(curl -s -H "Authorization: Bearer $TOKEN" \
+  "https://$IAAS_API_HOST/api/tenants" \
+  | jq --arg id "$TENANT_ID" '[.[] | select(.id == $id)] | length')
+check "Tenant record deleted" "$FOUND" "0"
 
 echo "--- OpenStack ---"
 PROJECT=$(openstack project show "$TENANT_ID" -f value -c id 2>/dev/null || echo "not_found")
@@ -120,8 +154,10 @@ NET_COUNT=$(openstack network list --project "$TENANT_ID" -f value 2>/dev/null |
 check "Networks deleted" "$NET_COUNT" "0"
 
 echo "--- Loki ---"
-LOG_COUNT=$(curl -s -G "http://$LOKI_HOST/loki/api/v1/query" \
+LOG_COUNT=$(curl -s -G "https://$LOKI_HOST/loki/api/v1/query_range" \
   --data-urlencode "query={tenant_id=\"$TENANT_ID\"}" \
+  --data-urlencode "start=$(date -d '7 days ago' +%s)000000000" \
+  --data-urlencode "end=$(date +%s)000000000" \
   --data-urlencode "limit=1" | jq '.data.result | length')
 check "Loki logs purged" "$LOG_COUNT" "0"
 

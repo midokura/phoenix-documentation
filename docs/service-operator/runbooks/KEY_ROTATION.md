@@ -1,6 +1,6 @@
 # Key Rotation Overview
 
-This document is the entry point for all AI Factory key rotation procedures. It describes which key types exist, their rotation schedule, and which rotations require downtime. The runbooks for those procedures are in the [Key Rotation Runbooks](./key-rotation) section.
+This document is the entry point for all AI Factory key rotation procedures. It describes which key types exist, their rotation schedule, and which rotations require downtime. The runbooks for those procedures are linked below.
 
 ## Key Inventory
 
@@ -21,4 +21,3 @@ This document is the entry point for all AI Factory key rotation procedures. It 
 Runbooks for TLS certificates, WireGuard VPN keys, and Ansible Vault password rotation are not yet published.
 
 :::
-

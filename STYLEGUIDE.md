@@ -59,9 +59,10 @@ Some **content** with _Markdown_ `syntax`.
 
 Key points:
 
-- The blank line after :::note and the one before the closing ::: are needed for prettier code formatter. Without these blank lines, the admonition might render as regular text.
+- The blank line after :::note and the one before the closing ::: are needed for prettier code formatter
+- Without these blank lines, the admonition might render as regular text
 
-More reading (about options beyond Note) [here[(https://docusaurus.io/docs/markdown-features/admonitions)].
+More reading (about options beyond Note) [here](https://docusaurus.io/docs/markdown-features/admonitions).
 
 ## No em dashes
 
@@ -69,6 +70,8 @@ More reading (about options beyond Note) [here[(https://docusaurus.io/docs/markd
 - Replace them with colons or just leave them out entirely
 
 ## Final line of the file must be blank
+
+![Penultimate](/static/img/styleguide/penultimate.jpg)
 
 - The very last line of any file should be a blank line
 - This is because text lines are terminated with newlines. So omitting the last newline technically makes the last line an incomplete text line
@@ -78,7 +81,7 @@ More reading (about options beyond Note) [here[(https://docusaurus.io/docs/markd
 
 If you have a text list of three or more items, you should use the Oxford Comma.
 
-![IOxford Comma](/static/img/styleguide/penultimate.jpg)
+![Oxford Comma](/static/img/styleguide/oxford-comma.png)
 
 - there must be a comma before the ‘and’ or ‘or’ before the final item
 

@@ -62,7 +62,7 @@ Key points:
 - The blank line after :::note and the one before the closing ::: are needed for prettier code formatter
 - Without these blank lines, the admonition might render as regular text
 
-More reading (about options beyond Note) [here](https://docusaurus.io/docs/markdown-features/admonitions)].
+More reading (about options beyond Note) [here](https://docusaurus.io/docs/markdown-features/admonitions).
 
 ## No em dashes
 

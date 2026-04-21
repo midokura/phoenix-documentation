@@ -17,6 +17,8 @@ This document is the entry point for all AI Factory key rotation procedures. It 
 - [Rotate Ansible Vault Passwords](./key-rotation/ANSIBLE_VAULT.md)
 
 :::note
+
 Runbooks for TLS certificates, WireGuard VPN keys, and Ansible Vault password rotation are not yet published.
+
 :::
 

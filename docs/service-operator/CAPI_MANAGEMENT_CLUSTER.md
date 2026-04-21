@@ -104,7 +104,7 @@ Five Grafana alerts monitor the health and provisioning lifecycle of tenant clus
 | **CAPI Cluster Stuck in Provisioning** | A `Cluster` has been provisioning for more than 30 minutes |
 | **CAPI MachineSet Workers Not Ready** | Workers have not become ready for more than 30 minutes |
 
-See [Observability Alerts](./OBSERVABILITY_ALERTS.md) for alert configuration and notification setup.
+See [Observability Alerts](./OBSERVABILITY_ALERTS) for alert configuration and notification setup.
 
 ## Configuration
 
@@ -112,6 +112,6 @@ CAPI is deployed as part of the standard platform deployment. The deployment is 
 
 ## Related Resources
 
-- [CAPI Cluster Health Alerts runbook](./runbooks/CAPI_CLUSTER_HEALTH_ALERTS.md) — how to respond to CAPI alerts
-- [Observability Alerts](./OBSERVABILITY_ALERTS.md) — full alert reference and notification setup
-- [IaaS Console Configuration](./IAAS_CONSOLE_CONFIGURATION.md) — IaaS Console operator reference
+- [CAPI Cluster Health Alerts runbook](./runbooks/CAPI_CLUSTER_HEALTH_ALERTS) — how to respond to CAPI alerts
+- [Observability Alerts](./OBSERVABILITY_ALERTS) — full alert reference and notification setup
+- [IaaS Console Configuration](./IAAS_CONSOLE_CONFIGURATION) — IaaS Console operator reference

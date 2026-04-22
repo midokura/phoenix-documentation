@@ -1,3 +1,6 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # VPN Configuration as a Service Operator
 
 Setting up the VPN as a Service Operator.
@@ -114,7 +117,10 @@ After enabling the WireGuard connection:
 
 ##### Check wg stats
 
-Check the status of the Wireguard client locally:
+<Tabs groupId="os">
+<TabItem value="linux" label="Linux">
+
+Check the status of the WireGuard client locally:
 
 `$ sudo wg`
 
@@ -126,7 +132,7 @@ interface: wg-tenant
   private key: (hidden)
   listening port: 49913
 
-peer: ExampleServerPublicKey+/+/+/+/+/+/+/+/+/+/+=
+peer: ExampleServerPublicKey+/+/+/+/+/+/+/+/+/+=
   endpoint: 203.0.113.42:4242
   allowed ips: 10.8.42.0/24, 172.31.42.0/24
   latest handshake: 1 minute, 30 seconds ago
@@ -142,7 +148,7 @@ interface: wg-tenant
   private key: (hidden)
   listening port: 45986
 
-peer: ExampleServerPublicKey+/+/+/+/+/+/+/+/+/+/+=
+peer: ExampleServerPublicKey+/+/+/+/+/+/+/+/+/+=
   endpoint: 203.0.113.42:4242
   allowed ips: 10.8.42.0/24, 172.31.42.0/24
   transfer: 0 B received, 444 B sent
@@ -156,6 +162,18 @@ In this case:
 - there is no "latest handshake" timestamp.
 
 :::
+
+</TabItem>
+<TabItem value="macos" label="macOS">
+
+The [WireGuard app from the Mac App Store](https://apps.apple.com/us/app/wireguard/id1451685025?mt=12) does not bundle the `wg` command-line tool, so `sudo wg` is not available.
+
+To check the status of a tunnel, open **System Settings → VPN**. This shows the connection state and transfer statistics for each configured tunnel.
+
+A working connection shows bytes being received. If received bytes remain at zero and there is no handshake, the keys are likely misconfigured — verify that the user's public key was registered correctly with the operator.
+
+</TabItem>
+</Tabs>
 
 ##### Ping the DNS endpoint
 
@@ -191,6 +209,28 @@ nslookup console.aifactory.example.com
 Both commands should return valid IP addresses.
 If DNS resolution fails, verify that the DNS servers specified in the WireGuard configuration are correct and reachable.
 
+:::note macOS App Store client: search domain not supported
+
+The `DNS` field in WireGuard supports a search domain suffix (e.g. `DNS = 172.31.0.254, tld`) that allows short hostnames to be resolved through the VPN. This feature is **not supported** by the App Store client.
+
+Configure the search domain via the system resolver instead:
+
+```ini
+# /etc/resolver/ai-factory.tld
+domain tld
+search tld
+nameserver 172.31.0.254
+```
+
+Then refresh DNS and verify the settings were applied:
+
+```sh
+sudo killall -HUP mDNSResponder
+scutil --dns
+```
+
+:::
+
 ### Advanced VPN troubleshooting
 
 Some troubleshooting steps are very specific (to your OS, browser, or Internet connection), and / or not usually required.
@@ -223,6 +263,9 @@ IPv4 over IPv6 connections, for example, may have an MTU lower than the standard
 This configuration is not always necessary, depending on whether the local network gateway is aware of the MTU.
 
 Test your connection's MTU:
+
+<Tabs groupId="os">
+<TabItem value="linux" label="Linux">
 
 ```bash
 ping -4 -M do -s 1472 example.com
@@ -261,51 +304,19 @@ Ping probes that fail with size 1472 and that work with size 1352, though, would
 
 :::
 
-##### For MacOS MTU testing: macOS `ping` flag differences
+</TabItem>
+<TabItem value="macos" label="macOS">
 
-The macOS `ping` utility differs from its Linux counterpart.
-
-To test MTU on macOS, use:
+The macOS `ping` utility differs from its Linux counterpart. Use `-D` instead of `-M do` to set the "do not fragment" flag. The `-4` flag is not needed as `ping` on macOS is IPv4-only.
 
 ```sh
 ping -D -s 1472 midokura.com
 ```
 
-- Use `-D` instead of `-M do` to set the "do not fragment" flag.
-- `ping` on macOS is IPv4-only, the `-4` flag is not needed.
+If this fails, try smaller packet sizes, for example, 1400 or 1300, to find the maximum working size. Ensure the MTU value in the VPN configuration is set appropriately for your network.
 
-#### macOS: WireGuard App Store Client specific information
-
-The [WireGuard app from the Mac App Store](https://apps.apple.com/us/app/wireguard/id1451685025?mt=12) has several differences from the standard WireGuard tools used on Linux.
-
-##### search domain not supported
-
-The `DNS` field in the WireGuard configuration supports a search domain suffix (e.g. `DNS = 172.31.0.254, tld`) that allows short hostnames to be resolved through the VPN. This feature is **not supported** by the App Store client.
-
-In this case, this needs to be set up via the system resolver, such as `/etc/resolver` instead:
-
-```ini
-# /etc/resolver/ai-factory.tld
-domain tld
-search tld
-nameserver 172.31.0.254
-```
-
-Save the file and force a DNS refresh as follows:
-
-```sh
-sudo killall -HUP mDNSResponder
-```
-
-You can check that the settings are applied by the following command. You should see the entries added in `/etc/resolver`.
-
-```sh
-scutil --dns
-```
-
-##### Checking connection status
-
-The App Store client does not bundle the `wg` command-line tool, so `sudo wg` is not available. To check the status of a tunnel, open **System Settings → VPN**, which shows connection state and transfer statistics for each configured tunnel.
+</TabItem>
+</Tabs>
 
 #### Ubuntu and NetworkManager
 

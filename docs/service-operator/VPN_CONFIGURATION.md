@@ -37,7 +37,23 @@ Provide this script to the user.
 
 ## Troubleshooting
 
-If users report VPN connectivity issues, use the following steps to help diagnose the problem.
+If users report VPN connectivity issues, use the following flowchart to identify the likely cause, then follow the linked sections for detailed steps.
+
+```mermaid
+flowchart TD
+    Start([VPN connectivity issue]) --> NetCheck{"Internet reachable?\nping midokura.com"}
+    NetCheck -- No --> NetFail["Fix internet connection\nbefore troubleshooting VPN"]
+    NetCheck -- Yes --> WGCheck{"WireGuard status:\nlatest handshake present\nand bytes received > 0?\nSee Step 2"}
+    WGCheck -- "No handshake or\n0 bytes received" --> KeyFail["Key mismatch\nVerify the user's public key\nwas registered correctly\nSee Step 2"]
+    WGCheck -- Yes --> DNSPing{"Ping DNS endpoint\n172.31.0.254\nSee Step 2"}
+    DNSPing -- "No response" --> Routes["Check AllowedIPs ranges\nSee Checking Allowed Routes"]
+    Routes --> MTU["Check MTU settings\nSee MTU Troubleshooting"]
+    DNSPing -- Responds --> DNSCheck{"DNS resolution OK?\nnslookup tests\nSee Testing DNS"}
+    DNSCheck -- Fails --> DNSConfig["Check DNS config\nin WireGuard file"]
+    DNSConfig --> MacOSNote["macOS App Store client:\nconfigure /etc/resolver\nSee macOS WireGuard client"]
+    DNSConfig --> DoH["Browser bypassing VPN DNS?\nDisable DoH\nSee Browser DNS-over-HTTPS"]
+    DNSCheck -- Works --> Done([VPN is working correctly])
+```
 
 ### Sample VPN Configuration
 

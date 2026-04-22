@@ -23,6 +23,6 @@ This document is the entry point for all AI Factory key rotation procedures. It 
 
 :::note
 
-Runbooks for TLS certificates and WireGuard VPN keys are not yet published.
+Runbook for WireGuard VPN keys is not yet published.
 
 :::

@@ -211,23 +211,13 @@ If DNS resolution fails, verify that the DNS servers specified in the WireGuard 
 
 :::note macOS App Store client: search domain not supported
 
-The `DNS` field in WireGuard supports a search domain suffix (e.g. `DNS = 172.31.0.254, tld`) that allows short hostnames to be resolved through the VPN. This feature is **not supported** by the App Store client.
-
-Configure the search domain via the system resolver instead:
+The App Store client does not support the search domain suffix in the `DNS` field (e.g. `DNS = 172.31.0.254, tld`). Use the DNS server address without a search domain instead:
 
 ```ini
-# /etc/resolver/ai-factory.tld
-domain tld
-search tld
-nameserver 172.31.0.254
+DNS = 172.31.0.254
 ```
 
-Then refresh DNS and verify the settings were applied:
-
-```sh
-sudo killall -HUP mDNSResponder
-scutil --dns
-```
+This routes all DNS queries through the VPN, rather than only queries matching the search domain.
 
 :::
 

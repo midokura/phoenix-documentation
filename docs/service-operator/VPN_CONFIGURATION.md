@@ -153,10 +153,11 @@ peer: ExampleServerPublicKey+/+/+/+/+/+/+/+/+/+=
 ```
 
 :::note
+
 In this case:
 - some data is sent (but there is no indication of whether that data is correctly received by the server)
-- zero bytes are received: either the server can not be validated and its data gets ignored, or the server can not validate the client, and does not reply.
-- there is no "latest handshake" timestamp.
+- zero bytes are received: either the server can not be validated and its data gets ignored, or the server can not validate the client, and does not reply
+- there is no "latest handshake" timestamp
 
 :::
 
@@ -167,7 +168,7 @@ The [WireGuard app from the Mac App Store](https://apps.apple.com/us/app/wiregua
 
 To check the status of a tunnel, open **System Settings → VPN**. This shows the connection state and transfer statistics for each configured tunnel.
 
-A working connection shows bytes being received. If received bytes remain at zero and there is no handshake, the keys are likely misconfigured — verify that the user's public key was registered correctly with the operator.
+A working connection shows bytes being received. If received bytes remain at zero and there is no handshake, the keys are likely misconfigured. In this case, verify that the user's public key was registered correctly with the operator.
 
 </TabItem>
 </Tabs>
@@ -235,8 +236,8 @@ AllowedIPs = 10.8.42.0/24, 172.31.0.0/24
 
 Typically, this will contain at least two networks:
 
-- the address range of the tenant VPN. In the example config, the client address is `172.31.42.42/32`, the range is `172.31.42.0/24`.
-- the address range of the tenant network resources. In the example config, this network is `10.8.42.0/24`.
+- the address range of the tenant VPN. In the example config, the client address is `172.31.42.42/32`, the range is `172.31.42.0/24`
+- the address range of the tenant network resources. In the example config, this network is `10.8.42.0/24`
 
 When having connectivity issues to a resource, consider the address of the resource:
 - Is it available on the VPN networks?
@@ -334,7 +335,7 @@ To allow using the system DNS resolver in Firefox:
 
 1. Open [about:preferences#privacy](Firefox's privacy preferences page)
 2. Scroll to **DNS over HTTPS**
-3. Select **Default Protection** or **Increased Protection** to allow using the system DNS, or **Off** to disable DoH altogether.
+3. Select **Default Protection** or **Increased Protection** to allow using the system DNS, or **Off** to disable DoH altogether
 
 #### Chrome
 

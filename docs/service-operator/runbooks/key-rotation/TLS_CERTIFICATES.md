@@ -1,5 +1,7 @@
 # Rotate TLS Certificates
 
+Rotating the TLS certificates
+
 This runbook rotates the TLS certificates that terminate OpenStack API traffic on HAProxy and the internal message bus. These certificates have a one-year validity and must be rotated before they expire, otherwise the OpenStack APIs stop accepting TLS connections.
 
 **Rotation cadence:** every 12 months. Rotation must complete before the `notAfter` date on `haproxy.pem`.

@@ -1,5 +1,7 @@
 # Public IP Access
 
+Setting up the public IP access
+
 ## Overview
 
 Public IP access allows users on the allowlist to reach platform services and VMs through public IPs without a VPN connection.

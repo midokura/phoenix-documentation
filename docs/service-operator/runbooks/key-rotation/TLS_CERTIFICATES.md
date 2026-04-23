@@ -94,7 +94,7 @@ Expect the run to take several minutes. API traffic may see brief TLS handshake 
 
 ## Step 4: Commit the new cert files
 
-The regenerated cert files are written to `config/certificates/` and vault-encrypted in place. Follow the designated configuration management policy to store / backup the new configuration (with the new secrets).
+The regenerated cert files are written to `config/certificates/` and vault-encrypted in place. Follow the designated configuration management policy to store/backup the new configuration (with the new secrets).
 
 ```bash
 cd ~/release/infra-management/<env>

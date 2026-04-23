@@ -166,7 +166,7 @@ In this case:
 
 The [WireGuard app from the Mac App Store](https://apps.apple.com/us/app/wireguard/id1451685025?mt=12) does not bundle the `wg` command-line tool, so `sudo wg` is not available.
 
-To check the status of a tunnel, open **System Settings → VPN**. This shows the connection state and transfer statistics for each configured tunnel.
+To check the status of a tunnel, open **Manage Tunnels** from the macOS Menu Bar. This shows the connection state including last handshake timestamp, as well as transfer statistics for each configured tunnel.
 
 A working connection shows bytes being received. If received bytes remain at zero and there is no handshake, the keys are likely misconfigured. In this case, verify that the user's public key was registered correctly with the operator.
 

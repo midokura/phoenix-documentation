@@ -216,6 +216,16 @@ DNS = 172.31.0.254
 ```
 
 This routes all DNS queries through the VPN, rather than only queries matching the search domain.
+Alternatively, one can set up search domains via the `resolver(5)` system resolver like so:
+
+```ini
+# /etc/resolver/ai-factory.tld
+domain tld
+search tld
+nameserver 172.31.0.254
+```
+
+For more information, please refer to the mac OS manual pages for `resolver(5)`.
 
 :::
 

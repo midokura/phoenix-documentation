@@ -10,6 +10,10 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
+  markdown: {
+    mermaid: true,
+  },
+
   title: 'Midokura AI Factory',
   tagline: 'High-end GPU servers for HPC and AI workloads delivered to your doorstep',
   favicon: 'img/favicon.ico',
@@ -131,6 +135,7 @@ const config = {
     }),
 
   themes: [
+    '@docusaurus/theme-mermaid',
     // ... Your other themes.
     [
       require.resolve("@easyops-cn/docusaurus-search-local"),

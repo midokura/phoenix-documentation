@@ -22,7 +22,7 @@ This runbook rotates the TLS certificates that terminate OpenStack API traffic o
 
 - **IaaS Console and observability ingresses** (`console.*`). These run in the management cluster and are issued by cert-manager against Let's Encrypt. Cert-manager renews them automatically ~30 days before expiry
 - **Root CA** (`certificates/ca/root.crt`, `certificates/private/root/`). Rotating the CA forces every client to refresh its trust bundle and is out of scope here. Schedule separately well before CA expiry
-- **Octavia CAs** Long-lived and not consumed by external clients. Rotate only as part of a full Octavia redeployment.
+- **Octavia CAs** Long-lived and not consumed by external clients. Rotate only as part of a full Octavia redeployment
 
 **Environments where this applies:** environments with `openstack_tls.enabled: true` in the inventory.
 

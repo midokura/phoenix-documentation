@@ -78,7 +78,7 @@ If `ca/root.crt` or `private/root/` is missing after this step, **stop**. Restor
 
 ## Step 3: Regenerate and apply
 
-From the bastion, run a [reconfigure](./updates/CONFIGURATION). This regenerates the deleted leaves (certificates) against the existing CA, re-templates `globals.yml`, and rolls necessary services with the new cert material.
+From the bastion, run a [reconfigure](service-operator/runbooks/updates/CONFIGURATION.md). This regenerates the deleted leaves (certificates) against the existing CA, re-templates `globals.yml`, and rolls necessary services with the new cert material.
 
 ```bash
 ./platform-setup.sh --reconfigure

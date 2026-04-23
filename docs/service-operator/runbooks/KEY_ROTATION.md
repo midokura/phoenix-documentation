@@ -19,7 +19,7 @@ This document is the entry point for all AI Factory key rotation procedures. It 
 
 - [Rotate SSH Keys](./key-rotation/SSH_KEYS)
 - [Rotate Ansible Vault Passwords](./key-rotation/ANSIBLE_VAULT)
-- [Rotate Openstack TLS certificates](./key-rotation/TLS_CERTIFICATES.md)
+- [Rotate Openstack TLS certificates](./key-rotation/TLS_CERTIFICATES)
 
 :::note
 

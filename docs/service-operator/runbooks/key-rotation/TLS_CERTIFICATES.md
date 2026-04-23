@@ -136,7 +136,7 @@ done
 
 The pre-rotation cert files are the ones currently committed in git. If the reconfigure fails, or if services regress after rotation:
 
-1. Restore the previous cert files from the configuration management system:
+1. Restore the previous cert files from the configuration management system
 
 2. Re-run the reconfigure to push the old material back into place:
 

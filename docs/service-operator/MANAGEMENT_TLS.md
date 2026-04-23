@@ -1,6 +1,6 @@
 # Management TLS
 
-Configuring Let's Encrypt certificates via Azure DNS for IaaS Console and OBS.
+Configuring Let's Encrypt certificates via Azure DNS for IaaS Console and OBS
 
 This document explains how to configure cert-manager to issue Let's Encrypt certificates using the DNS-01 challenge with Azure DNS.
 

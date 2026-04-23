@@ -12,7 +12,7 @@ This runbook rotates the TLS certificates that terminate OpenStack API traffic o
 
 | Component | Certificate file | Purpose |
 |---|---|---|
-| HAProxy external | `haproxy.pem` | Public OpenStack API endpoint (Keystone, Nova, Neutron, Glance, …) |
+| HAProxy external | `haproxy.pem` | Public OpenStack API endpoint (Keystone, Nova, Neutron, Glance, and so on) |
 | HAProxy internal | `haproxy-internal.pem` | Internal VIP endpoint |
 | Backend | `backend-cert.pem` / `backend-key.pem` | TLS between HAProxy and OpenStack services |
 | RabbitMQ | `rabbitmq-cert.pem` / `rabbitmq-key.pem` | AMQP TLS (client-server) |

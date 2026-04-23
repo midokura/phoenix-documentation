@@ -295,7 +295,7 @@ Ping probes that fail with size 1472 and that work with size 1352, though, would
 </TabItem>
 <TabItem value="macos" label="macOS">
 
-The macOS `ping` utility differs from its Linux counterpart. Use `-D` instead of `-M do` to set the "do not fragment" flag. The `-4` flag is not needed as `ping` on macOS is IPv4-only.
+To test MTU on macOS, use:
 
 ```sh
 ping -D -s 1472 midokura.com

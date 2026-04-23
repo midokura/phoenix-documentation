@@ -1,6 +1,6 @@
 # Operator API Usage Guide
 
-Using IaaS Operator APIs to manage users and tenants.
+Using IaaS Operator APIs to manage users and tenants
 
 ## Overview
 
@@ -215,7 +215,9 @@ curl -X PUT \
      "${API_BASE_URL}/users/{user_id}"
 ```
 
-## Common Use Cases and Workflows
+## Example Use Cases and Workflows
+
+Here are some common (or example) use cases provided as an orientation. This section does not purport to cover all use cases, just a focused subset of typical scenarios.
 
 ### Use Case 1: Create a New User and Add to Existing Tenant
 
@@ -319,7 +321,7 @@ curl -X PUT \
 
 :::
 
-### Use Case 4: Employee Offboarding
+### Use Case 4: Offboard an employee
 
 **Scenario**: An employee is leaving and needs to be removed from all systems.
 
@@ -344,7 +346,7 @@ When you delete a user, the system automatically removes that user from all tena
 
 :::
 
-### Use Case 5: Update User Role
+### Use Case 5: Update a User Role
 
 **Scenario**: Promoting a user from member to operator.
 

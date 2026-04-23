@@ -1,5 +1,7 @@
 # Public IP Access
 
+Setting up your public IP access
+
 > **Prerequisites:**
 > - Your IP is on the allowlist (contact your administrator)
 

@@ -52,7 +52,7 @@ The `wan` zone default policy is DROP. Two ip sets reference the allowlist files
 - Operators reach the full BGP public subnet (all VMs and services)
 - Tenants reach only the tenant FIP pool (VMs) and the shared services pool (IaaS Console, Grafana)
 
-See [Router Box Setup](./ROUTER_BOX_SETUP.md) for firewall configuration details.
+See [Router Box Setup](./ROUTER_BOX_SETUP) for firewall configuration details.
 
 ## VM Floating IP Assignment
 

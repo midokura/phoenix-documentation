@@ -21,7 +21,7 @@ For rotation schedules and individual runbooks, see the [Key Rotation Overview](
 
 ## Roles and Responsibilities
 
-The **service operator** is the sole role authorized to perform key management operations on the AI Factory platform. This includes key creation, distribution, rotation, revocation, and destruction.
+The **service operator** is the sole role authorized to perform key management operations on the AI Factory platform. This includes key creation, distribution, rotation, revocation, destruction, and maintaining the [operations log](#audit-trail).
 
 No other role (tenant user, tenant admin, or read-only observer) has access to platform key material.
 

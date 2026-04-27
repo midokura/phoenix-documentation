@@ -90,7 +90,7 @@ After a key is rotated, the old key material must be destroyed:
 
 | Key Type | Destruction step |
 |---|---|
-| SSH private key | Remove old private key file: `rm ~/.ssh/old_key.pem`. The old public key is removed from all hosts as part of the [SSH rotation runbook](./runbooks/key-rotation/SSH_KEYS) (Step 4). |
+| SSH private key | Delete the old private key file: `rm ~/.ssh/old_key.pem`. The old public key is removed from all hosts as part of the [SSH rotation runbook](./runbooks/key-rotation/SSH_KEYS) (Step 4). |
 | Ansible Vault password | Remove temporary password files from disk (`rm -f /tmp/old_vault_pass.txt`). This is Step 8 of the [Ansible Vault rotation runbook](./runbooks/key-rotation/ANSIBLE_VAULT). The old vault password is no longer valid once all files are re-keyed. |
 | TLS leaf certificates | Deleted as part of Step 2 of the [TLS rotation runbook](./runbooks/key-rotation/TLS_CERTIFICATES). Do not delete the CA or its private key. |
 | WireGuard private key | Remove old private key from workstation after confirming the new key establishes a handshake. |

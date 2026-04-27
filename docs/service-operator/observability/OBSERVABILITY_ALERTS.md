@@ -1,6 +1,10 @@
+---
+sidebar_position: 3
+---
+
 # Observability Alerts
 
-Accessing and configuring Grafana alerts.
+Accessing and configuring Grafana alerts
 
 This document explains how to access and configure Grafana alerts, and describes all available alert rules.
 

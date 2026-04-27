@@ -1,42 +1,121 @@
 # Setup Ceph
 
-Provisioning Ceph storage clusters via script on dedicated nodes.
+Provisioning Ceph storage clusters via script on dedicated nodes
 
 You can provision a Ceph storage cluster on dedicated nodes using the automated provisioning script. The script runs an Ansible playbook that handles the full lifecycle: installation, bootstrapping, node expansion, OSD provisioning, pool creation, and keyring generation.
 
 ## Prerequisites
 
-### Inventory variables
+### Prepare the inventory
 
-The following variables must be set in `inventory.yml` before running the provisioning playbook:
+Before running `--provision-ceph`, the bootstrap phase (`platform-setup.sh --bootstrap`) must have completed.
 
-| Variable | Required | Default | Description |
-| -------- | -------- | ------- | ----------- |
-| `ceph_mon_hosts` | Yes | - | List of Ceph monitor/storage node hostnames |
-| `ceph_mon_ips` | Yes | - | Storage VPC IPs, one per entry in `ceph_mon_hosts` |
-| `ceph.public_network` | Yes | - | Storage VPC CIDR (e.g. `10.33.0.0/24`) |
-| `ceph_fsid` | Yes | - | Stable cluster UUID; generate once with `uuidgen` and commit to inventory |
-| `ceph.osd_replication` | Yes | `2` | OSD replication factor |
-| `provision_zap_disks` | No | `false` | Must be `true` to allow disk erasure for OSD creation |
+The network fabric and storage network must be up. The nodes with `role: storage` in `servers.list` must have been PXE-booted and have Ubuntu installed — these are the nodes that will form the Ceph cluster.
+
+---
+
+**`ceph_mon_hosts`** · *required*
+
+Hostnames of the storage nodes, taken from `servers.list` entries with `role: storage`. The monitor count must be *odd and ≥ 3* for quorum; in an AI Factory deployment the same nodes serve as both Ceph monitors and OSDs.
+
+```yaml
+ceph_mon_hosts: [storage0, storage1, storage2]
+```
+
+---
+
+**`ceph_mon_ips`** · *required*
+
+Storage network IP of each node, in the *same order* as `ceph_mon_hosts`. Taken from the `storage_ip` field in `servers.list`.
+
+```yaml
+ceph_mon_ips: [10.33.0.20, 10.33.0.21, 10.33.0.22]
+```
+
+---
+
+**`ceph.public_network`** · *required*
+
+CIDR of the storage network — the same subnet as the `storage_ip` addresses above.
+
+```yaml
+ceph.public_network: 10.33.0.0/24
+```
+
+---
+
+**`ceph_fsid`** · *required*
+
+Stable UUID that identifies the cluster. Generate once with `uuidgen` and *commit it to inventory*.
+
+When running against an existing cluster, this must match its current FSID — a mismatch causes OSD device label lookups to fail and the playbook will not manage the cluster.
+
+```bash
+uuidgen
+```
+
+---
+
+**`ceph.osd_replication`** · *required* · default: `2`
+
+Number of data copies per object. `2` is standard; use `3` only for extra durability, which requires ≥ 3 OSDs.
+
+---
+
+**`ceph.pg_count`** · default: *auto*
+
+Per-pool placement group count. Omit to auto-calculate:
+
+```
+(OSD count × 100) / osd_replication / pool_count
+```
+
+rounded up to the next power of 2. For example, 6 OSDs with replication `2` across 4 pools → 64 PGs per pool.
+
+---
+
+**`provision_zap_disks`** · default: `false`
+
+Controls whether the playbook erases disks before claiming them as OSDs.
 
 :::warning
 
-`provision_zap_disks` controls if the playbook erases OSD disks before claiming them.
-
-- **Fresh disks / first-time provisioning**: set `provision_zap_disks: true`. Without it, the playbook will skip disk erasure and no OSDs will be created on uninitialized disks.
-- **Reprovisioning nodes with existing OSDs**: leave as `false` (the default) to keep existing OSD data intact.
+- **Fresh disks / first-time provisioning**: set `provision_zap_disks: true`. Without it, the playbook will skip disk erasure and *no OSDs will be created* on uninitialized disks.
+- **Reprovisioning nodes with existing OSDs**: leave as `false` to keep existing OSD data intact.
 
 Only set `provision_zap_disks: true` when you are certain the target disks can be wiped.
 
 :::
 
+---
+
+**`ceph_osd_devices`** · *optional*
+
+By default the playbook derives the OSD device map from the `data_disks` field under each storage node in `servers.list`:
+
+```yaml
+servers:
+  list:
+    storage0:
+      role: storage
+      storage:
+        data_disks:
+          - path: /dev/sdc
+          - path: /dev/sdd
+```
+
+Set `ceph_osd_devices` explicitly only if you need to use a different set of disks than what is defined in `servers.list`:
+
+```yaml
+ceph_osd_devices:
+  storage0: [/dev/sdc, /dev/sdd]
+  storage1: [/dev/sdc, /dev/sdd]
+  storage2: [/dev/sdc, /dev/sdd]
+```
+
 ### Storage node OS
 
-All storage nodes listed in `ceph_mon_hosts` must have Ubuntu installed and be reachable via SSH from the bastion before running `--provision-ceph`.
-
-In an AI Factory deployment this is handled by the bootstrap phase (`platform-setup.sh --bootstrap`), which provisions the OpenWRT router VM and configures it as the DHCP/iPXE server for the provision network. HedgeHog provides the network underlay and manages the VPCs: the provision VPC is used to iPXE-boot and install the OS on all nodes, while the storage VPC carries Ceph replication and OSD traffic and maps to `ceph.public_network` in the inventory. Once the bootstrap phase completes and the nodes are up, they are ready for Ceph provisioning.
-
-The connecting user requires passwordless `sudo` on each node.
+All storage nodes listed in `ceph_mon_hosts` must have Ubuntu installed, be reachable via SSH from the bastion, and the connecting user must have passwordless `sudo`.
 
 ## Installation
 
@@ -57,9 +136,9 @@ The playbook performs the following steps automatically:
 - Fetches or verifies the `client.admin` keyring and stores it under `./assets/ceph/`
 - Adds the remaining monitor nodes to the cluster and labels them as admin nodes
 - Provisions OSDs on all storage nodes by zapping and claiming the disks listed in inventory (only when `provision_zap_disks: true`)
-- Creates the RBD pools required by OpenStack (`images`, `volumes`, `backups`, `vms`) with replication and PG counts derived from inventory
+- Creates the RBD pools required by OpenStack (`images`, `volumes`, `backups`, `vms`) with replication and PG counts derived from inventory (`ceph.pg_count`, or auto-calculated if omitted)
 - Generates or verifies CephX keyrings for the OpenStack service clients (glance, cinder, cinder-backup), writing them vault-encrypted to `./assets/ceph/`
-- Runs a cluster health check and fails the playbook if the cluster is not in `HEALTH_OK` or `HEALTH_WARN` state
+- Runs a cluster health check as the final step and fails the playbook if the cluster is not in `HEALTH_OK` — a successful run confirms the cluster is operational
 - Enables the Prometheus metrics exporter on the cluster
 
 ## Selective Execution
@@ -85,6 +164,8 @@ Example: re-run only OSD provisioning:
 ./scripts/platform-setup.sh --provision-ceph --tags ceph_osds
 ```
 
+For safely taking a storage node offline for maintenance, see the [Ceph node maintenance](./runbooks/CEPH_NODE_MAINTENANCE) runbook.
+
 ## After Provisioning: Promote Keyrings
 
 The playbook writes vault-encrypted keyrings to `./assets/ceph/` after each run. Copy them to `./keyrings/` before running the OpenStack deployment:
@@ -109,15 +190,15 @@ The three service keyrings (`cinder`, `cinder-backup`, and `glance`) are mounted
 
 The keyring role selects one of three modes per keyring based on local state:
 
-- **Fetch mode** (keyring absent from `./keyrings/`): runs `ceph auth get-or-create`, which returns the existing key if the CephX client already exists on the cluster, or generates a new one if not. Running against an established cluster without a local copy re-fetches the live key rather than regenerating it.
-- **Verify mode** (keyring present in `./keyrings/`): SHA256-compares the stored key against the live cluster. Fails if they differ, catching out-of-band key changes before deployment.
-- **Import mode** (keyring present in `./keyrings/`, CephX client absent from cluster): imports the provided key and caps into the cluster, then falls through to verify.
+- **Fetch mode** (keyring absent from `./keyrings/`): runs `ceph auth get-or-create`, which returns the existing key if the CephX client already exists on the cluster, or generates a new one if not. Running against an established cluster without a local copy re-fetches the live key rather than regenerating it
+- **Verify mode** (keyring present in `./keyrings/`): SHA256-compares the stored key against the live cluster. Fails if they differ, catching out-of-band key changes before deployment
+- **Import mode** (keyring present in `./keyrings/`, CephX client absent from cluster): imports the provided key and caps into the cluster, then falls through to verify
 
 :::
 
 ## RADOS Gateway
 
-The RADOS Gateway (RGW) provides S3-compatible object storage and Keystone authentication integration for the OpenStack Swift and S3 endpoints. Its setup spans two points in the deployment timeline: gateway service and admin user before OpenStack, Keystone integration after.
+The RADOS Gateway (RGW) provides S3-compatible object storage and Keystone authentication integration for the OpenStack Swift and S3 endpoints. RGW is required for an AI Factory deployment — it backs the Swift and S3 object storage endpoints exposed to tenants. Its setup spans two points in the deployment timeline: gateway service and admin user before OpenStack, Keystone integration after.
 
 ### Before OpenStack deployment
 
@@ -216,11 +297,114 @@ ceph config set client.rgw.gateway rgw_swift_account_in_url false
 ceph config set client.rgw.gateway rgw_s3_auth_use_keystone true
 ```
 
-Replace `<keystone-host>` with the hostname or IP of the OpenStack controller.
+Replace `<keystone-host>` with the value of `kolla_internal_fqdn` from `globals.yml` — the FQDN (or IP, if no DNS is configured) that maps to the OpenStack internal VIP.
 
 #### 6. Restart the gateway service
+
+:::note
+
+If you set `post_deployment.configure_ceph_rgw_keystone.active: true` in `inventory.yml`, the post-deployment playbook restarts the gateway automatically after writing the Keystone password — skip this step.
+
+:::
 
 ```bash
 ceph orch restart rgw.gateway
 ```
 
+---
+
+## Troubleshooting
+
+Unless noted otherwise, `ceph` commands in this section must be run inside a `cephadm shell` on any monitor node:
+
+```bash
+ssh <ceph-node>
+sudo cephadm shell
+```
+
+### How to identify which phase failed
+
+The playbook prints the failing task name before exiting. Match the symptom to the phase below, then re-run with the corresponding `--tags` value after resolving the error.
+
+| Symptom in Ansible output | Resume with `--tags` |
+|---|---|
+| Failure during cephadm install or `bootstrap` task on the first monitor node | `ceph_bootstrap` |
+| Failure adding a monitor node or fetching the admin keyring | `ceph_nodes` |
+| Failure during OSD creation (`ceph orch apply osd`) | `ceph_osds` |
+| Failure creating RBD pools | `ceph_pools` |
+| Failure during keyring generation or import | `ceph_keyrings` |
+| Final health check fails — cluster not in `HEALTH_OK` | `ceph_health` |
+
+Example: OSD provisioning failed, bootstrap succeeded:
+
+```bash
+./scripts/platform-setup.sh --provision-ceph --tags ceph_osds
+```
+
+### Bootstrap succeeded but no OSDs were created
+
+Verify `provision_zap_disks: true` is set in inventory — without it, the OSD step completes silently with no disks claimed. Confirm the current state:
+
+```bash
+ceph osd tree
+```
+
+If the tree shows no OSDs, set `provision_zap_disks: true` and re-run:
+
+```bash
+./scripts/platform-setup.sh --provision-ceph --tags ceph_osds
+```
+
+### OSD provisioning fails — device already in use
+
+The target disk may have an existing partition table or OSD signature from a previous run. SSH to the storage node (outside the cephadm shell) and check the disk layout:
+
+```bash
+lsblk /dev/<disk>
+```
+
+If the disk has existing partitions or an OSD label and it is safe to erase, confirm `provision_zap_disks: true` is set and re-run the OSD phase. If the playbook still fails, zap the disk manually before re-running:
+
+```bash
+cephadm ceph-volume lvm zap /dev/<disk> --destroy
+```
+
+### Cluster does not reach `HEALTH_OK` after provisioning
+
+Run the health check phase to get current status and watch for ongoing events:
+
+```bash
+./scripts/platform-setup.sh --provision-ceph --tags ceph_health
+ceph -w
+```
+
+Common causes: not enough OSDs to satisfy the replication factor, or a monitor that has not fully joined. Check:
+
+```bash
+ceph osd stat
+ceph mon stat
+```
+
+If a monitor is missing, re-run the node expansion phase:
+
+```bash
+./scripts/platform-setup.sh --provision-ceph --tags ceph_nodes
+```
+
+### FSID mismatch — playbook refuses to manage existing cluster
+
+If the playbook fails with an FSID mismatch error, retrieve the actual FSID from any monitor node and update `ceph_fsid` in inventory to match:
+
+```bash
+ceph fsid
+```
+
+### Keyring files missing from `./assets/ceph/` after a successful run
+
+Re-run the keyring phase:
+
+```bash
+./scripts/platform-setup.sh --provision-ceph --tags ceph_keyrings
+```
+
+If the keyrings already exist in the cluster but were not written locally, check the vault password and write permissions under `./assets/`.

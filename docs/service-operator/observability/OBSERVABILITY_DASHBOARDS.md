@@ -1,6 +1,10 @@
+---
+sidebar_position: 2
+---
+
 # Observability Dashboards
 
-Accessing and understand the Grafana dashboards.
+Accessing and understand the Grafana dashboards
 
 This document explains how to access the Grafana dashboards and what each dashboard displays.
 

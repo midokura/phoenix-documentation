@@ -4,6 +4,35 @@ Configuring Let's Encrypt certificates via Azure DNS for IaaS Console and OBS
 
 This document explains how to configure cert-manager to issue Let's Encrypt certificates using the DNS-01 challenge with Azure DNS.
 
+## Azure DNS
+
+The playbook construct service hostnames from the inventory variables:
+
+```yaml
+management_cluster:
+  public: "119.15.114.17"
+
+cluster_name: phoenix.bcn
+cluster_public_domain: midocloud.net
+```
+
+For example, the IaaS Console host resolves to:
+
+```
+iaas_console_host: "console.{{ cluster_name }}.{{ cluster_public_domain }}"
+```
+
+which evaluates to `console.phoenix.bcn.midocloud.net`.
+
+You must add a **Recordset** in Azure DNS for each service subdomain in your `{{ cluster_public_domain }}` **DNS zone**, pointing to `{{ management_cluster.public }}`:
+
+| Subdomain | A record value |
+|---|---|
+| `console.{{ cluster_name }}.{{ cluster_public_domain }}` | `{{ management_cluster.public }}` |
+| `grafana.{{ cluster_name }}.{{ cluster_public_domain }}` | `{{ management_cluster.public }}` |
+| `loki.{{ cluster_name }}.{{ cluster_public_domain }}` | `{{ management_cluster.public }}` |
+| `prometheus.{{ cluster_name }}.{{ cluster_public_domain }}` | `{{ management_cluster.public }}` |
+
 ## DNS Forwarding for Internal Domains
 
 OpenWrt dnsmasq forwards ACME challenge queries to a public resolver so cert-manager can publish TXT records to Azure DNS and Let's Encrypt can resolve them.

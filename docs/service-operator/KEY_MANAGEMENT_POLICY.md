@@ -64,10 +64,10 @@ No key material is distributed over unencrypted channels (plaintext email, unenc
 
 Planned rotation follows the schedule and runbooks in [Key Rotation Overview](./runbooks/KEY_ROTATION):
 
-- SSH keys — every 6 months: [Rotate SSH Keys](./runbooks/key-rotation/SSH_KEYS)
-- TLS certificates — every 12 months: [Rotate TLS Certificates](./runbooks/key-rotation/TLS_CERTIFICATES)
-- WireGuard VPN keys — every 12 months: [Rotate WireGuard VPN Keys](./runbooks/key-rotation/WIREGUARD_KEYS)
-- Ansible Vault passwords — every 12 months: [Rotate Ansible Vault Passwords](./runbooks/key-rotation/ANSIBLE_VAULT)
+- SSH keys. Every 6 months: [Rotate SSH Keys](./runbooks/key-rotation/SSH_KEYS)
+- TLS certificates. Every 12 months: [Rotate TLS Certificates](./runbooks/key-rotation/TLS_CERTIFICATES)
+- WireGuard VPN keys. Every 12 months: [Rotate WireGuard VPN Keys](./runbooks/key-rotation/WIREGUARD_KEYS)
+- Ansible Vault passwords. Every 12 months: [Rotate Ansible Vault Passwords](./runbooks/key-rotation/ANSIBLE_VAULT)
 
 Rotation must complete before the key expires. For TLS certificates, rotation is recommended within 60 days of the `notAfter` date.
 

@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 # Observability Storage
 
 Configuring storage backends for Prometheus metrics and Loki logs

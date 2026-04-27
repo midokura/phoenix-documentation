@@ -6,7 +6,7 @@ This document explains how to configure cert-manager to issue Let's Encrypt cert
 
 ## Azure DNS
 
-The playbooks construct service hostnames from the inventory variables:
+The playbook construct service hostnames from the inventory variables:
 
 ```yaml
 management_cluster:

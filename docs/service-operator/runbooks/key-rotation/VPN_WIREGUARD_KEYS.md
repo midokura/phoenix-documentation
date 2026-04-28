@@ -58,7 +58,7 @@ The command must return without error. If it returns an HTTP error or connection
 
 ```bash
 wg genkey | tee private.key | wg pubkey > public.key
-cat public.key   # note this — needed in Step 5
+NEW_PUBLIC_KEY="$(cat public.key)"   # needed in Steps 5 and 7
 ```
 
 Keep `private.key` and `public.key` in a secure location. Delete them after the rotation is confirmed.
@@ -115,7 +115,6 @@ The file looks like:
 Replace `vpn_server_public_key` with the new public key from Step 3:
 
 ```bash
-NEW_PUBLIC_KEY="$(cat public.key)"
 jq --arg key "$NEW_PUBLIC_KEY" '.vpn_server_public_key = $key' \
   vpn-users.json > vpn-users-updated.json
 
@@ -206,7 +205,7 @@ Send each user their own file by email, with these instructions:
 >    ```
 > 3. Import `wg0.conf` into WireGuard and activate the tunnel.
 >
-> For platform-specific steps, follow the [VPN Configuration guide](<link-to-user-vpn-guide>).
+> For platform-specific steps, follow the [VPN Configuration guide](../../../user/VPN_CONFIGURATION.md).
 
 Delete the local scripts once all emails are sent:
 

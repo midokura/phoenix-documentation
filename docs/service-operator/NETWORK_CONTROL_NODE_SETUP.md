@@ -1,5 +1,5 @@
 ---
-sidebar_position: xx
+sidebar_position: 15
 ---
 
 # Network Control Node Setup

@@ -1,5 +1,5 @@
 ---
-sidebar_position: xx
+sidebar_position: 10
 ---
 
 # IaaS Console Configuration

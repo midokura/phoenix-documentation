@@ -1,5 +1,5 @@
 ---
-sidebar_position: xx
+sidebar_position: 55
 ---
 
 # GitHub Container Registry (GHCR) Authentication

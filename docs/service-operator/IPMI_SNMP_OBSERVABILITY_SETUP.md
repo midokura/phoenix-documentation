@@ -1,5 +1,5 @@
 ---
-sidebar_position: xx
+sidebar_position: 60
 ---
 
 # IPMI (Intelligent Platform Management Interface) and SNMP (Simple Network Management Protocol) Observability Setup

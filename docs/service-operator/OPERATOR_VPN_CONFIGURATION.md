@@ -1,5 +1,5 @@
 ---
-sidebar_position: xx
+sidebar_position: 75
 ---
 
 # Operator VPN: Adding operators to the WireGuard configuration

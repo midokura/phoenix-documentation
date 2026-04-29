@@ -1,5 +1,5 @@
 ---
-sidebar_position: xx
+sidebar_position: 35
 ---
 
 # Google SSO Setup Guide

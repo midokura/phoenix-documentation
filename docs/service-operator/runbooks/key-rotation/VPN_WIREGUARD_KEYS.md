@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Rotate WireGuard VPN Keys
 
-This runbook rotates the WireGuard private key for a tenant VPN server. After the Barbican integration is deployed (GPD-993), rotation is zero-touch on the server side: update the Barbican secret and the server picks it up automatically within 60 seconds — no SSH access, no restart, no signal required.
+This runbook rotates the WireGuard private key for a tenant VPN server. Rotation is zero-touch on the server side: update the Barbican secret and the server picks it up automatically within 60 seconds — no SSH access, no restart, no signal required.
 
 **Rotation cadence:** every 12 months, or immediately following a suspected key compromise.
 
@@ -24,9 +24,9 @@ There is no way to rotate keys transparently. Skipping this step will result in 
 
 ## How rotation works
 
-Each tenant VPN server runs `user-sync-agent`. When deployed with Barbican, it polls Barbican for the private key on every reconcile cycle (every 60 seconds). When the key changes, it calls `set_private_key()` which rewrites `/etc/wireguard/wg0.conf` and runs `wg syncconf` to apply the change to the live interface — no daemon restart needed.
+The VPN server polls Barbican for the private key every 60 seconds. When the key changes, it is applied to the live interface automatically — no restart needed.
 
-The public key counterpart lives in `vpn-users.json` in Swift as `vpn_server_public_key`. The API serves updated client configurations once the public key is updated. Clients must re-download and re-import their WireGuard config manually — this does not happen automatically on their devices.
+The `Get User VPN Config` API serves updated client configurations once the public key is updated. Clients must re-download and re-import their WireGuard config manually — this does not happen automatically on their devices.
 
 ## Prerequisites
 
@@ -134,7 +134,7 @@ rm -f vpn-users.json vpn-users-updated.json
 
 ## Step 6: Wait for automatic rotation
 
-The `user-sync-agent` reconcile loop runs every 60 seconds. It fetches the key from Barbican, detects the change, and calls `set_private_key()` to apply it live. No action is required on the server.
+The VPN server reconcile loop runs every 60 seconds. It fetches the key from Barbican, detects the change, and applies it live. No action is required on the server.
 
 Wait at least 60 seconds before proceeding.
 
@@ -142,9 +142,9 @@ Wait at least 60 seconds before proceeding.
 
 **Why the delete is necessary:** Barbican secrets are immutable — their payload cannot be changed after creation. The only way to store a new key is to delete the old secret and create a fresh one.
 
-This means there is an unavoidable gap between the delete and the recreate in Step 4 where no secret exists under the name `vpn-private-key-<tenant_id>`. If the `user-sync-agent` reconcile loop (every 60 seconds) fires during this gap, it will fail to resolve the secret by name and log a `BarbicanFetchError`. This will trigger a **Barbican fetch error alert** — this is expected and can be silenced for the duration of the rotation.
+This means there is an unavoidable gap between the delete and the recreate in Step 4 where no secret exists under the name `vpn-private-key-<tenant_id>`. If the reconcile loop (every 60 seconds) fires during this gap, it will fail to resolve the secret by name and log a `BarbicanFetchError`. This will trigger a **Barbican fetch error alert** — this is expected and can be silenced for the duration of the rotation.
 
-**The WireGuard tunnel is not affected.** The agent catches the error, leaves the existing key in `wg0.conf` untouched, and retries on the next cycle. Peers stay connected throughout.
+**The WireGuard tunnel is not affected.** The VPN server catches the error, leaves the existing key untouched, and retries on the next cycle. Peers stay connected throughout.
 
 **Execute the delete and store commands back-to-back without delay.** The longer the gap between them, the higher the chance the reconcile loop fires during it and triggers the alert. Running both commands in quick succession (as shown in Step 4) keeps the window to under a second in practice.
 
@@ -152,73 +152,17 @@ If the alert persists for more than 2 reconcile cycles (>2 minutes) after Step 4
 
 :::
 
-## Step 7: Generate and send new configs to all clients
+## Step 7: Notify clients to reconfigure
 
-The server key has changed. Every client needs a fresh config — the old one references the old server public key and will not work. Generate all configs now and email them.
+The server key has changed. Every client's existing WireGuard configuration is now invalid. Email all affected users and instruct them to re-download their VPN configuration from the portal and re-import it into WireGuard.
 
-Set up your API credentials (token from the Operator tab in the IaaS UI):
-
-```bash
-export API_BASE_URL="https://<console-url>/api"
-export JWT_TOKEN="<your-operator-token>"
-export TENANT_ID="<tenant_id>"
-```
-
-Fetch the list of users for the tenant and download a config script for each one:
-
-```bash
-mkdir -p vpn-configs
-
-USERS=$(curl -s -H "Authorization: Bearer $JWT_TOKEN" \
-  "${API_BASE_URL}/tenants" \
-  | jq -r ".[] | select(.id == \"$TENANT_ID\") | .users[] | [.id, .email] | @tsv")
-
-while IFS=$'\t' read -r user_id email; do
-  curl -s -H "Authorization: Bearer $JWT_TOKEN" \
-    "${API_BASE_URL}/users/${user_id}/vpn" \
-    -o "vpn-configs/generate-vpn-${email}.sh"
-  echo "OK  $email → vpn-configs/generate-vpn-${email}.sh"
-done <<< "$USERS"
-```
-
-You now have one `generate-vpn-<email>.sh` per user. Verify:
-
-```bash
-ls -1 vpn-configs/
-```
-
-:::danger Send each user their own file — do not mix them up
-
-Each script contains that user's unique assigned VPN IP address. Sending the wrong file to a user will break IP assignments for both users.
-
-:::
-
-Send each user their own file by email, with these instructions:
-
-> The VPN server key has been rotated. Your previous WireGuard configuration no longer works.
->
-> To reconnect:
-> 1. Remove your existing WireGuard tunnel (the AI Factory VPN interface).
-> 2. Run the attached script with your WireGuard private key:
->    ```bash
->    cat /path/to/your/private.key | bash ./generate-vpn-<your-email>.sh > wg0.conf
->    ```
-> 3. Import `wg0.conf` into WireGuard and activate the tunnel.
->
-> For platform-specific steps, follow the [VPN Configuration guide](../../../user/VPN_CONFIGURATION.md).
-
-Delete the local scripts once all emails are sent:
-
-```bash
-rm -rf vpn-configs/
-```
+Point them to the [VPN Configuration guide](../../../user/VPN_CONFIGURATION.md) for platform-specific steps.
 
 ## Step 8: Verify connectivity
 
-Once at least one client has reconfigured:
+Once at least one client has reconfigured, SSH into the VPN server and run:
 
 ```bash
-# On the vpn-server VM
 sudo wg show
 ```
 
@@ -227,14 +171,8 @@ Checklist:
 - [ ] `[Interface] public key` matches the new public key from Step 3
 - [ ] `latest handshake` timestamps are recent for reconnected peers
 - [ ] `ping <tenant-vpn-gateway-ip>` succeeds from a reconfigured peer
-- [ ] No errors in `user-sync-agent` logs: `journalctl -u user-sync-agent --since "5 minutes ago"`
 - [ ] All clients confirm they have successfully reconnected
-
-## Step 9: Clean up
-
-```bash
-rm -f private.key public.key
-```
+- [ ] Delete the local key files generated in Step 3: `rm -f private.key public.key`
 
 ## Rollback
 
@@ -258,39 +196,6 @@ openstack --os-cloud <env> secret list --name vpn-private-key-<tenant_id>
 
 If empty, skip the delete and go straight to `secret store`.
 
-**`user-sync-agent` is not picking up the new key**
+**Barbican returns 403 for the VPN server app credential**
 
-Check whether the VM is running in Barbican mode:
-
-```bash
-# On the vpn-server VM
-grep BARBICAN /etc/user-sync-agent.env
-```
-
-If `BARBICAN_SECRET_ID` is absent, the VM was provisioned before the Barbican integration. Use the [legacy rotation procedure](#legacy-rotation-pre-barbican) below.
-
-**Barbican returns 403 for the vpn-server app credential**
-
-The `vpn-credential-{tenant_id}` application credential may lack `secrets:get` permission in the Barbican policy. Check with the platform team — a role assignment update in the environment's `globals.yml` may be required.
-
-## Legacy rotation (pre-Barbican)
-
-For VMs provisioned before the Barbican integration (they carry `VPN_CONFIG_PRIVATE_KEY` in `/etc/user-sync-agent.env` instead of `BARBICAN_SECRET_ID`), rotation requires SSH access:
-
-1. Complete Step 1 (client coordination) — the same downtime applies.
-2. Generate a new keypair (Step 3 above).
-3. SSH into the vpn-server VM.
-4. Edit `/etc/wireguard/wg0.conf` and replace the `PrivateKey` value under `[Interface]`.
-5. Apply the change live:
-   ```bash
-   sudo wg syncconf wg0 <(sudo wg-quick strip wg0)
-   ```
-6. Update `vpn_server_public_key` in Swift (Step 5 above).
-7. Generate and send client configs (Step 7 above).
-8. Delete the local keypair files (Step 9 above).
-
-:::note
-
-New tenants created after the Barbican integration deployment use the zero-touch procedure automatically. Legacy VMs can be migrated by recreating the tenant, which provisions a new VM with Barbican enabled.
-
-:::
+The application credential for the tenant may lack `secrets:get` permission in the Barbican policy. Check with the platform team — a role assignment update may be required.

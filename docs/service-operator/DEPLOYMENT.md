@@ -1,3 +1,7 @@
+---
+sidebar_position: 50
+---
+
 # Deployment Scripts
 
 Deploying GPU infrastructure clusters

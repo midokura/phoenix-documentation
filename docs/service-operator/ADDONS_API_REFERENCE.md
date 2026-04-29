@@ -1,3 +1,7 @@
+---
+sidebar_position: 100
+---
+
 # Cluster Add-ons API Reference
 
 Managing add-ons on Kubernetes clusters with API endpoints.

@@ -1,3 +1,7 @@
+---
+sidebar_position: 20
+---
+
 # Setup Ceph
 
 Provisioning Ceph storage clusters via script on dedicated nodes

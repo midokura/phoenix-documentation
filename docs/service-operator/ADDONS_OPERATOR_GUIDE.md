@@ -1,3 +1,7 @@
+---
+sidebar_position: 95
+---
+
 # Cluster Add-ons
 
 Monitoring health of Cluster Add-ons and performing maintenance tasks.

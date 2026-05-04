@@ -25,25 +25,27 @@ Documentation files referenced here are provided in a downloadable artefact incl
 
 The sections below provide references to materials required to proceed with the provisioning process, which takes place from the Bastion node shown in the blueprint. On a high level, the process is based on a bundle of Ansible playbooks that will install and configure all components in the control plane.
 
-## Environment setup
+## Environment setup -> will be the Hardware runbook high level section
 
 To install the Phoenix cluster, the Operator will work from the bastion node reflected in the blueprint. Create a new directory `./phoenix`. This will serve to store artefacts and playbooks. All commands and paths in this document are relative to this directory.
 
-## Control plane installation
+## Control plane installation -> will be the softeare runbook high level section
 
 - Set up the Ceph cluster following [CEPH_SETUP](./CEPH_SETUP):
   - Run `platform-setup.sh --provision-ceph` to provision the cluster, then promote the generated keyrings to `./keyrings/`
   - Complete the RADOS Gateway setup: start the gateway service and create the admin user before deploying OpenStack; configure Keystone integration after
-- Download and extract [Ansible playbooks](https://midokurajpeast.blob.core.windows.net/phoenix-releases/v1.8/release-assets-0.0.0-1182-98fb456.zip?sp=r&st=2026-02-13T11:20:30Z&se=2050-02-13T19:35:30Z&spr=https&sv=2024-11-04&sr=b&sig=YUELOOSwWPidu8ceXhQN6G5qqziMM4BL9BKl5VoqJvA%3D).
+- Download and extract [Ansible playbooks](https://midokurajpeast.blob.core.windows.net/phoenix-releases/26.1.0). 
 - Use the included `inventory.example.yml` as the base to input the configuration specific to your cluster
 - Execute them following the instructions in [DEPLOYMENT](./DEPLOYMENT)
 - To configure switches, follow the instructions in
 [NETWORK_CONTROL_NODE_SETUP](./NETWORK_CONTROL_NODE_SETUP.md) starting step 4
 
-## IaaS Console - Tenant and User configuration
+## IaaS Console configuration
+
+### IaaS Console - Tenant and User configuration
 
 To create additional admin users, register tenants and tenant users, please refer to the instructions in [IAAS_CONSOLE_CONFIGURATION](./IAAS_CONSOLE_CONFIGURATION.md).
 
-## IaaS Console - Cluster Add-ons
+### IaaS Console - Cluster Add-ons
 
 Cluster Add-ons (such as JupyterHub and KubeRay) are pre-configured in the system. For information on monitoring the feature's health and performing manual maintenance, please refer to the [ADDONS_OPERATOR_GUIDE](./ADDONS_OPERATOR_GUIDE.md).

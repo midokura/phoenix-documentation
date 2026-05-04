@@ -2,7 +2,7 @@
   "label": "Service Operator",
   "position": 2,
   "link": {
-    "type": "generated-index",
-    "description": "Documentation for service operators managing the AI Factory IaaS platform."
+    "type": "doc",
+    "id": "service-operator/OPERATOR_REFERENCE"
   }
 }

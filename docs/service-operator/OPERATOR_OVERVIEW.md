@@ -12,7 +12,7 @@ Installer links, deployment files, and any other needed assets will be provided 
 
 :::note
 
-Documentation files referenced here are provided in a downloadable artefact included in the environment setup section.
+Documentation files referenced here are provided in a downloadable artefact included in the hardware setup section.
 
 :::
 
@@ -20,29 +20,56 @@ Documentation files referenced here are provided in a downloadable artefact incl
 - Operating system requirements for the OpenStack control nodes are available in [OS_REQUIREMENTS](./OS_REQUIREMENTS.md)
 - Operators are expected to set up their hardware according to our official [Blueprint](https://midokurajpeast.blob.core.windows.net/phoenix-releases/v1.8/phoenix-v1.2-blueprint.pdf?sp=r&st=2026-02-13T11:27:08Z&se=2050-02-13T19:42:08Z&spr=https&sv=2024-11-04&sr=b&sig=3vUMLFssAVFvqhIZeOkvDsmDXeLVY8FSSOGWXoBL7ns%3D), specifically with regard to network configuration, port and interface assignment.
   - Base Operating System for OSt controllers should be ubuntu-24.04
-- Storage. Operators are expected to provide a Ceph cluster, integrated in the infrastructure as defined in the blueprint. See more details in the [Environment setup](#environment-setup)
-- Set up a new Google Application that will be used as an SSO provider for the IaaS service. To follow this process, consult the
-[GOOGLE_SSO_SETUP](./GOOGLE_SSO_SETUP.md).
-- Set up credentials for the private registry at ghcr.io/midokura. We will provide you with this token via secure means, and it will be required during the control plane installation process. More info at [GHCR_AUTHENTICATION](./GHCR_AUTHENTICATION.md).
+- Storage. Operators are expected to provide a Ceph cluster, integrated in the infrastructure as defined in the blueprint. See more details in the [Hardware Setup](#hardware-setup)
+- Set up OAuth application(s) for SSO. Supported providers are Google ([GOOGLE_SSO_SETUP](./GOOGLE_SSO_SETUP.md)) and Azure ([AZURE_SSO_SETUP](./AZURE_SSO_SETUP.md)). See the Software Installation section for details.
+- Set up credentials for the private registry at ghcr.io/midokura. We will provide you with this token via secure means, and it will be required during the software installation process. More info at [GHCR_AUTHENTICATION](./GHCR_AUTHENTICATION.md).
 
 ## Overview
 
-The sections below provide references to materials required to proceed with the provisioning process, which takes place from the Bastion node shown in the blueprint. On a high level, the process is based on a bundle of Ansible playbooks that will install and configure all components in the control plane.
+The sections below cover the full provisioning process, split into hardware setup (racking, OS installation, network fabric, storage) and software installation (deploying the control plane via Ansible playbooks from the bastion node).
 
-## Environment setup -> will be the Hardware runbook high level section
+## Hardware Setup
 
-To install the Phoenix cluster, the Operator will work from the bastion node reflected in the blueprint. Create a new directory `./phoenix`. This will serve to store artefacts and playbooks. All commands and paths in this document are relative to this directory.
+The hardware setup covers all physical and foundational infrastructure steps required before deploying the control plane. Build the inventory file (`inventory.yml`) progressively as you complete each step, using the included `inventory.example.yml` as your starting point.
 
-## Control plane installation -> will be the softeare runbook high level section
+1. **Rack and cable hardware** following the official [Blueprint](https://midokurajpeast.blob.core.windows.net/phoenix-releases/v1.8/phoenix-v1.2-blueprint.pdf?sp=r&st=2026-02-13T11:27:08Z&se=2050-02-13T19:42:08Z&spr=https&sv=2024-11-04&sr=b&sig=3vUMLFssAVFvqhIZeOkvDsmDXeLVY8FSSOGWXoBL7ns%3D) — pay particular attention to network topology, port and interface assignment, and storage cabling.
+2. **Install OS on OpenStack control nodes** — Ubuntu 24.04 with RAID1 disks, VLAN interfaces, IOMMU, and required packages as specified in [OS_REQUIREMENTS](./OS_REQUIREMENTS.md).
+3. **Set up the Router Box** — configure BIOS (AMT, Secure Boot), flash Ubuntu 24.04 to the machine, and run the unattended cloud-init install as described in [ROUTER_BOX_SETUP](./ROUTER_BOX_SETUP.md).
+4. **Create the `bastion0` VM** on the router box — the KVM virtual machine that serves as the deployment host for all subsequent steps. See the [ROUTER_BOX_SETUP](./ROUTER_BOX_SETUP.md) bastion VM section.
+5. **Bootstrap the network environment** — provisions the OpenWRT router VM, PXE/TFTP server, local Docker registry, and HedgeHog controller VM:
+   ```bash
+   ./scripts/platform-setup.sh --bootstrap
+   ```
+   See [ROUTER_BOX_CONFIGURATION](./ROUTER_BOX_CONFIGURATION.md) for configuration details.
+6. **Set up the network fabric** — download the HedgeHog control node ISO, create the control VM, apply the fabric configuration, boot switches into ONIE, and install SONiC via HedgeHog auto-discovery. Follow all steps in [NETWORK_CONTROL_NODE_SETUP](./NETWORK_CONTROL_NODE_SETUP.md).
+7. **Provision the Ceph cluster** — storage nodes must have Ubuntu installed and be reachable via SSH from the bastion before this step:
+   - Run `platform-setup.sh --provision-ceph` to provision the cluster and generate keyrings, then promote them to `./keyrings/`
+   - Complete the RADOS Gateway setup: start the gateway service and create the admin user before deploying OpenStack; configure Keystone integration after OpenStack is deployed
+   - See [CEPH_SETUP](./CEPH_SETUP.md) for the full procedure.
 
-- Set up the Ceph cluster following [CEPH_SETUP](./CEPH_SETUP):
-  - Run `platform-setup.sh --provision-ceph` to provision the cluster, then promote the generated keyrings to `./keyrings/`
-  - Complete the RADOS Gateway setup: start the gateway service and create the admin user before deploying OpenStack; configure Keystone integration after
-- Download and extract [Ansible playbooks](https://midokurajpeast.blob.core.windows.net/phoenix-releases/26.1.0). 
-- Use the included `inventory.example.yml` as the base to input the configuration specific to your cluster
-- Execute them following the instructions in [DEPLOYMENT](./DEPLOYMENT)
-- To configure switches, follow the instructions in
-[NETWORK_CONTROL_NODE_SETUP](./NETWORK_CONTROL_NODE_SETUP.md) starting step 4
+## Software Installation
+
+The software installation covers all steps to deploy and configure the control plane. Complete the hardware setup above before proceeding. Steps 1–3 prepare credentials and inventory configuration that must be in place before the deployment script runs.
+
+1. **Set up GHCR credentials** — obtain a GitHub Personal Access Token with `read:packages` scope and add it to the inventory as described in [GHCR_AUTHENTICATION](./GHCR_AUTHENTICATION.md). If you plan to pre-populate the local Docker registry from GHCR during bootstrap (`registry_populate_images: true`), credentials must be obtained before Hardware Setup step 5.
+2. **Set up SSO** — create the OAuth application(s) for your identity provider(s) and add the resulting credentials to the inventory. Before starting, determine your IaaS Console hostname (`console.<cluster_name>.<cluster_public_domain>`) as it is required for the redirect URI configuration:
+   - Google: follow [GOOGLE_SSO_SETUP](./GOOGLE_SSO_SETUP.md) — produces `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`
+   - Azure: follow [AZURE_SSO_SETUP](./AZURE_SSO_SETUP.md) — produces `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`, and `AZURE_TENANT_ID`
+3. **Prepare TLS configuration** — create the Azure DNS zone, create a service principal with Contributor access, and add the resulting credentials to the inventory. Also point your public domain to the Azure DNS name servers. Follow steps 1–4 of [MANAGEMENT_TLS](./MANAGEMENT_TLS.md). Certificate issuance happens automatically during deployment.
+4. **Run the full deployment** — executes the Ansible playbooks to deploy OpenStack, the management cluster, and the observability stack. The bootstrap and switch configuration steps were already completed during hardware setup, so run only the master script:
+   ```bash
+   ./scripts/platform-setup.sh
+   ```
+   See [DEPLOYMENT](./DEPLOYMENT.md) for inventory configuration details, available tags, and troubleshooting.
+5. **Finalise TLS** — once the deployment completes, verify that Let's Encrypt staging certificates have been issued, then switch both `iaas_console_tls_cluster_issuer` and `obs_tls_cluster_issuer` to `letsencrypt-prod` in the inventory and re-run the deployment. See the Deploy section of [MANAGEMENT_TLS](./MANAGEMENT_TLS.md).
+6. **Configure VPN access** — add operators to the WireGuard VPN following [OPERATOR_VPN_CONFIGURATION](./OPERATOR_VPN_CONFIGURATION.md).
+7. **Verify the system is ready** — confirm deployment logs show no failures, management cluster nodes are in `Ready` state, and all pods are `Running`. See the [Verify Deployment Success](./DEPLOYMENT.md#verify-deployment-success) section of the deployment guide for the specific commands to run.
+
+:::note
+
+The verification steps above cover basic deployment health. A comprehensive end-to-end acceptance checklist — validating tenant workflows, GPU scheduling, IaaS Console access, and observability — is not yet documented and should be added here.
+
+:::
 
 ## IaaS Console configuration
 

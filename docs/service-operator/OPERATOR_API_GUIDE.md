@@ -1,3 +1,7 @@
+---
+sidebar_position: 70
+---
+
 # Operator API Usage Guide
 
 Using IaaS Operator APIs to manage users and tenants

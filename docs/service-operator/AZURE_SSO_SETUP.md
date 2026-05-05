@@ -1,3 +1,7 @@
+---
+sidebar_position: 30
+---
+
 # Azure SSO Setup Guide
 
 Generating Azure SSO credentials for the IaaS Console.

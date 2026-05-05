@@ -1,3 +1,7 @@
+---
+sidebar_position: 65
+---
+
 # Management TLS
 
 Configuring Let's Encrypt certificates via Azure DNS for IaaS Console and OBS

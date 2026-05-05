@@ -1,3 +1,7 @@
+---
+sidebar_position: 75
+---
+
 # Operator VPN: Adding operators to the WireGuard configuration
 
 Granting a new user access to the operator WireGuard VPN.

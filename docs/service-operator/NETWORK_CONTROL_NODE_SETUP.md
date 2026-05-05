@@ -1,3 +1,7 @@
+---
+sidebar_position: 15
+---
+
 # Network Control Node Setup
 
 Provisioning the control node and installing SONiC.

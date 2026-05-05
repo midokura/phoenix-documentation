@@ -1,3 +1,7 @@
+---
+sidebar_position: 45
+---
+
 # CAPI Management Cluster
 
 Cluster API (CAPI) runs in the management cluster and is used by OpenStack Magnum to provision tenant Kubernetes clusters.

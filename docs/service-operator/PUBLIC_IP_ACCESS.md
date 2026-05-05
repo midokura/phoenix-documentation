@@ -1,3 +1,7 @@
+---
+sidebar_position: 80
+---
+
 # Public IP Access
 
 Setting up the public IP access

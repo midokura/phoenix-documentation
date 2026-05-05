@@ -41,22 +41,19 @@ Always check those three template/draft files when moving docs.
 2. Identify which files are historical (already-versioned releases) vs. future (templates and next-release drafts).
 3. Only update the future-facing files.
 
-## Sidebar category entrypoints
+## Sidebar page ordering
 
-A sidebar category can use a doc as its landing page instead of a generated index. Set this in the category's `_category_.json`:
+To make a doc appear first within a section, add `sidebar_position: 1` to its frontmatter:
 
-```json
-{
-  "label": "Section Label",
-  "position": 2,
-  "link": {
-    "type": "doc",
-    "id": "section-folder/DOC_ID"
-  }
-}
+```markdown
+---
+sidebar_position: 1
+---
 ```
 
-The `id` is the doc's path relative to `docs/`, without the `.md` extension.
+This preserves the generated index as the section landing page while giving the doc visual prominence at the top of the sidebar.
+
+Avoid using the `_category_.json` `link: { type: "doc" }` override to set a doc as the section landing page — it replaces the generated index entirely, which breaks direct links to the section, forces all visitors through that single page, and requires manual maintenance whenever subsections are added.
 
 ## Commit and branch conventions
 
@@ -69,7 +66,7 @@ Preferred format: **`docs(scope): description (GPD-XXX)`**
 
 Examples:
 ```
-docs(operator): move OPERATOR_REFERENCE under service-operator section (GPD-1040)
+docs(operator): move OPERATOR_OVERVIEW under service-operator section (GPD-1040)
 docs(runbooks): add WireGuard VPN key rotation runbook (GPD-993)
 docs(observability): document alerts and SLIs configuration via inventory (GPD-757)
 ```

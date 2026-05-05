@@ -1,8 +1,4 @@
 {
   "label": "Service Operator",
-  "position": 2,
-  "link": {
-    "type": "doc",
-    "id": "service-operator/OPERATOR_REFERENCE"
-  }
+  "position": 2
 }

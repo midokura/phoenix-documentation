@@ -63,8 +63,9 @@ The `id` is the doc's path relative to `docs/`, without the `.md` extension.
 Preferred format: **`docs(scope): description (GPD-XXX)`**
 
 - `scope` is the area of the docs affected (e.g. `operator`, `runbooks`, `observability`, `ceph`, `iaas-console`)
-- Append the Jira ticket in parentheses at the end; use `(NOJIRA)` when there is no ticket
+- Append the Jira ticket in parentheses at the end; omit entirely if there is no ticket
 - Plain descriptions are acceptable for minor edits and dependency updates
+- The commit message **Must** explain what and why clearly
 
 Examples:
 ```

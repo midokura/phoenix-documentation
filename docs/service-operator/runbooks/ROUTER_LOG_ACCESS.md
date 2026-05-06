@@ -1,6 +1,4 @@
-# Router host log access
-
-Forwarding router logs to Grafana is unavailable.
+# Router Host Log Access
 
 ## Purpose
 

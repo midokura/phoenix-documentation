@@ -16,17 +16,16 @@ You'll deploy a VM on the bastion node that acts as the control plane for the He
 
 ### Prerequisites Checklist
 
-- [ ] **Bastion Node Access** - SSH access to bastion node → [Details](#bastion-node-access)
+- [ ] **Router0 Access** - SSH access to the router box (`router0`) → [Details](#router0-access)
 - [ ] **Control Node ISO** - Download URL for HedgeHog Control node ISO → [Details](#control-node-iso)
 - [ ] **Switch Access** - Serial console access to network switches → [Details](#switch-access)
 
-### Bastion Node Access
+### Router0 Access
 
-- **What it is:** SSH access to the bastion/jump host where the control VM will run
-- **Purpose:** Deploy and manage the network control node
+- **What it is:** SSH access to `router0`, the physical router box host
+- **Purpose:** Access the USB-to-serial adapters connected to the network switches
 - **What you need:**
-  - SSH key and credentials
-  - Sufficient resources on bastion: 8-12 vCPU, 16 GiB RAM, 35 GB disk space for the control VM
+  - SSH key and credentials for `router0`
 
 ### Control Node ISO
 

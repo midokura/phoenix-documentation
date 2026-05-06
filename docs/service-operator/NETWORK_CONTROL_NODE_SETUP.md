@@ -231,7 +231,7 @@ The exact ONIE firmware filename and version will vary based on your switch hard
 
 #### 4.3: Access Switch Console
 
-Connect to each switch via serial console:
+From `router0` (where the USB-to-serial adapters are connected), connect to each switch via serial console:
 
 ```bash
 sudo minicom -D /dev/ttyUSB1 -b 115200

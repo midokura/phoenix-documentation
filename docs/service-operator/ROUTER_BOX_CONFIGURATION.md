@@ -34,6 +34,12 @@ $ platform-setup.sh --bootstrap
 
 ## OpenWrt Router — DHCP Server
 
+:::caution[To be verified]
+
+During QA cycle 25.1.0 it was observed that DHCP is not enabled by default after bootstrap. This is a known gap pending a fix. Until resolved, verify that DHCP is enabled on the required interfaces before proceeding with node provisioning.
+
+:::
+
 The router runs dnsmasq as a DHCP server, providing IP address assignment to infrastructure nodes. It supports per-interface pools with configurable ranges, static MAC-to-IP leases, and the ability to disable dynamic allocation on specific interfaces.
 
 ### Variables

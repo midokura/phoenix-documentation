@@ -1,5 +1,7 @@
 # Router Host Log Access
 
+Getting logs from the router
+
 ## Purpose
 
 A known bug in the fluent-bit OpenWRT package ([openwrt/packages#28892](https://github.com/openwrt/packages/issues/28892)) prevents logs from being forwarded to Loki. Until the package is updated, router logs are not available in Grafana and must be read directly on the router host.

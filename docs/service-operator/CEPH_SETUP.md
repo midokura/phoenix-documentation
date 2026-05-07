@@ -233,7 +233,7 @@ The keyring role selects one of three modes per keyring based on local state:
 
 ## RADOS Gateway
 
-The RADOS Gateway (RGW) provides S3-compatible object storage and Keystone authentication integration for the OpenStack Swift and S3 endpoints. RGW is required for an AI Factory deployment — it backs the Swift and S3 object storage endpoints exposed to tenants. Its setup spans two points in the deployment timeline: gateway service and admin user before OpenStack, Keystone integration after.
+The RADOS Gateway (RGW) provides S3-compatible object storage and Keystone authentication integration for the OpenStack Swift and S3 endpoints. RGW is required for an AI Factory deployment — it backs the Swift and S3 object storage endpoints exposed to tenants. Its setup spans two points in the deployment timeline: gateway service and admin user before OpenStack, Keystone integration after. **Complete steps 1–3 before running `platform-setup.sh`** — the OpenStack deployment requires the RGW credentials to be present in `inventory.yml`.
 
 ### Before OpenStack deployment
 
@@ -265,12 +265,14 @@ Note the `access_key` and `secret_key` values from the command output.
 
 #### 3. Write access and secret keys to inventory
 
-Encrypt the keys with ansible-vault and add them to `inventory.yml`:
+Exit the cephadm shell and run the following commands **on the bastion** to encrypt the keys:
 
 ```bash
-ansible-vault encrypt_string '<access_key_value>' --name 'rgw_auth.access_key'
-ansible-vault encrypt_string '<secret_key_value>' --name 'rgw_auth.secret_key'
+ansible-vault encrypt_string '<access_key_value>' --name 'rgw_auth.access_key' --vault-password-file ~/vault-key.txt
+ansible-vault encrypt_string '<secret_key_value>' --name 'rgw_auth.secret_key' --vault-password-file ~/vault-key.txt
 ```
+
+Copy the encrypted output into `inventory.yml`:
 
 ```yaml
 rgw_auth:

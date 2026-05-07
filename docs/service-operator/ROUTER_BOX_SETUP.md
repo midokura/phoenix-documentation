@@ -248,13 +248,13 @@ sudo virt-install \
 
 :::caution[To be verified]
 
-During QA cycle 26.1.0 it was observed that both `router0` and `deployment0` may require an additional secondary default route to be added manually after setup:
+During QA cycle 25.1.0 it was observed that both `router0` and `deployment0` may require an additional secondary default route to be added manually after setup:
 
 ```bash
 sudo ip r add default via <gateway-ip> metric 25
 ```
 
-It is not yet confirmed whether this is a persistent requirement (missing from the netplan configuration above) or a transient condition specific to the QA environment. This must be clarified before this step can be considered complete for the 26.1.0 release.
+It is not yet confirmed whether this is a persistent requirement (missing from the netplan configuration above) or a transient condition specific to the QA environment. This must be clarified before this step can be considered complete for the 25.1.0 release.
 
 :::
 

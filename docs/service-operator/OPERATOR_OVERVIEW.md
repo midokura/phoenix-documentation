@@ -61,9 +61,10 @@ The software installation covers all steps to deploy and configure the control p
    ./scripts/platform-setup.sh
    ```
    See [DEPLOYMENT](./DEPLOYMENT.md) for inventory configuration details, available tags, and troubleshooting.
-5. **Finalise TLS** — once the deployment completes, verify that Let's Encrypt staging certificates have been issued, then switch both `iaas_console_tls_cluster_issuer` and `obs_tls_cluster_issuer` to `letsencrypt-prod` in the inventory and re-run the deployment. See the Deploy section of [MANAGEMENT_TLS](./MANAGEMENT_TLS.md).
-6. **Configure VPN access** — add operators to the WireGuard VPN following [OPERATOR_VPN_CONFIGURATION](./OPERATOR_VPN_CONFIGURATION.md).
-7. **Verify the system is ready** — confirm deployment logs show no failures, management cluster nodes are in `Ready` state, and all pods are `Running`. See the [Verify Deployment Success](./DEPLOYMENT.md#verify-deployment-success) section of the deployment guide for the specific commands to run.
+5. **Complete RADOS Gateway Keystone integration** — now that the OpenStack Keystone endpoint is live, complete the post-deployment RADOS Gateway steps: distribute the Keystone CA certificate to all Ceph nodes, configure the Keystone integration settings, and restart the gateway. See steps 4–6 of [CEPH_SETUP](./CEPH_SETUP.md#after-openstack-deployment).
+6. **Finalise TLS** — once the deployment completes, verify that Let's Encrypt staging certificates have been issued, then switch both `iaas_console_tls_cluster_issuer` and `obs_tls_cluster_issuer` to `letsencrypt-prod` in the inventory and re-run the deployment. See the Deploy section of [MANAGEMENT_TLS](./MANAGEMENT_TLS.md).
+7. **Configure VPN access** — add operators to the WireGuard VPN following [OPERATOR_VPN_CONFIGURATION](./OPERATOR_VPN_CONFIGURATION.md).
+8. **Verify the system is ready** — confirm deployment logs show no failures, management cluster nodes are in `Ready` state, and all pods are `Running`. See the [Verify Deployment Success](./DEPLOYMENT.md#verify-deployment-success) section of the deployment guide for the specific commands to run.
 
 :::note
 

@@ -80,6 +80,13 @@ Quick verification checklist. Click any item for detailed setup instructions bel
 - **What you need:** Just know the password - the script handles the file creation and cleanup
 - **Important:** The local file `~/vault-key.txt` will be mounted in the container as `/secrets/vault-key.txt` read-only file
 
+Before running the script, retrieve the vault password from Bitwarden and write it to the expected file:
+
+```bash
+echo -n 'your-vault-password' > ~/vault-key.txt
+chmod 600 ~/vault-key.txt
+```
+
 ### SSH Keys
 
 - **What it is:** SSH private keys to access cluster nodes

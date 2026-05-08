@@ -2,11 +2,9 @@
 sidebar_position: 1
 ---
 
-Operator Overview for AI Factory
-
-Operator Overview for AI Factory
-
 # Operator Overview
+
+Operator Overview for AI Factory
 
 This is the reference sheet for AI Factory, an end-to-end solution to operate private, multi-tenant AI factories. Operators will find below an overview of the materials, infrastructure, and other requirements, and an entry point to the procedure to provision and configure the system.
 

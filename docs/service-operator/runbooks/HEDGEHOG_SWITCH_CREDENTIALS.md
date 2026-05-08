@@ -129,7 +129,7 @@ EOF
 ## Step 6: Verify the patch was applied
 
 ```bash
-kubectl get fabricators.fabricator.githedgehog.com default -n fab -o yaml
+kubectl describe fabricators default -n fab
 ```
 
 In the output, locate the `spec.config.fabric.defaultSwitchUsers` and

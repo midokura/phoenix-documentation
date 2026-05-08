@@ -36,10 +36,40 @@ The hardware setup covers all physical and foundational infrastructure steps req
 2. **Install OS on OpenStack control nodes** — Ubuntu 24.04 with RAID1 disks, VLAN interfaces, IOMMU, and required packages as specified in [OS_REQUIREMENTS](./OS_REQUIREMENTS.md).
 3. **Set up the Router Box** — configure BIOS (AMT, Secure Boot), flash Ubuntu 24.04 to the machine, and run the unattended cloud-init install as described in [ROUTER_BOX_SETUP](./ROUTER_BOX_SETUP.md).
 4. **Create the `bastion0` VM** on the router box — the KVM virtual machine that serves as the deployment host for all subsequent steps. See the [ROUTER_BOX_SETUP](./ROUTER_BOX_SETUP.md) bastion VM section.
-5. **Bootstrap the network environment** — provisions the OpenWRT router VM, PXE/TFTP server, local Docker registry, and HedgeHog controller VM:
+5. **Bootstrap the network environment** — provisions the OpenWRT router VM, PXE/TFTP server, local Docker registry, and HedgeHog controller VM. Run in two phases with a manual credential-change step in between.
+
+   **Phase 1 — deploy the HedgeHog controller VM** (skips fabric provisioning):
    ```bash
-   ./scripts/platform-setup.sh --bootstrap
+   ./scripts/platform-setup.sh --bootstrap --skip-tags hedgehog-fabric
    ```
+
+   **Phase 2 — update Hedgehog VM credentials (while Phase 1 is waiting for SSH):**
+   The VM boots with a provisioning SSH key that Ansible does not have.
+   Phase 1 will pause waiting for SSH access (up to 10 minutes). In a separate
+   terminal, open a `virsh console` session and follow the
+   [Hedgehog VM credentials update](./runbooks/HEDGEHOG_VM_CREDENTIALS) runbook.
+   The key that must be added to unblock Phase 1 is the **environment SSH key** —
+   the public key corresponding to `ansible_ssh_private_key_file` in `inventory.yml`
+   for the `hedgehog_control` host group. Operator personal keys may be added at the
+   same time.
+
+   **Phase 3 — provision the HedgeHog fabric:**
+   ```bash
+   ./scripts/platform-setup.sh --bootstrap --tags hedgehog-fabric
+   ```
+
+   :::note
+
+   If the Phase 1 SSH wait timed out before credentials were updated, re-run with both
+   tags — the `hedgehog_controller` role is idempotent (VM already exists, so creation
+   steps are skipped) and only the SSH and Kubernetes API readiness checks re-run:
+
+   ```bash
+   ./scripts/platform-setup.sh --bootstrap --tags hedgehog-controller,hedgehog-fabric
+   ```
+
+   :::
+
    See [ROUTER_BOX_CONFIGURATION](./ROUTER_BOX_CONFIGURATION.md) for configuration details.
 6. **Set up the network fabric** — download the HedgeHog control node ISO, create the control VM, apply the fabric configuration, boot switches into ONIE, and install SONiC via HedgeHog auto-discovery. Follow all steps in [NETWORK_CONTROL_NODE_SETUP](./NETWORK_CONTROL_NODE_SETUP.md).
 7. **Provision the Ceph cluster** — storage nodes must have Ubuntu installed and be reachable via SSH from the bastion before this step:

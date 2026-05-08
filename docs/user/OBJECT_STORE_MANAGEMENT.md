@@ -2,7 +2,7 @@
 
 Managing S3-compatible object storage containers and credentials
 
-The platform provides S3-compatible object storage (Ceph RGW) for each tenant. You can create named containers (buckets), manage access credentials, and use any standard S3 client to upload, download, and manage objects.
+The platform provides S3-compatible object storage for each tenant. You can create named containers (buckets), manage access credentials, and use any standard S3 client to upload, download, and manage objects.
 
 ---
 
@@ -72,7 +72,7 @@ Once you have credentials and a container, you can use any S3-compatible client.
 
 The S3 endpoint URL is shown in **Storage > Settings** under **Access endpoint**.
 
-The region is always `us-east-1` (a convention used by Ceph RGW regardless of geographic location).
+The region is always `us-east-1` regardless of geographic location.
 
 ### AWS CLI
 

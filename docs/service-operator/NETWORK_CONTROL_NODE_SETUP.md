@@ -16,17 +16,16 @@ You'll deploy a VM on the bastion node that acts as the control plane for the He
 
 ### Prerequisites Checklist
 
-- [ ] **Bastion Node Access** - SSH access to bastion node → [Details](#bastion-node-access)
+- [ ] **Router0 Access** - SSH access to the router box (`router0`) → [Details](#router0-access)
 - [ ] **Control Node ISO** - Download URL for HedgeHog Control node ISO → [Details](#control-node-iso)
 - [ ] **Switch Access** - Serial console access to network switches → [Details](#switch-access)
 
-### Bastion Node Access
+### Router0 Access
 
-- **What it is:** SSH access to the bastion/jump host where the control VM will run
-- **Purpose:** Deploy and manage the network control node
+- **What it is:** SSH access to `router0`, the physical router box host
+- **Purpose:** Access the USB-to-serial adapters connected to the network switches
 - **What you need:**
-  - SSH key and credentials
-  - Sufficient resources on bastion: 8-12 vCPU, 16 GiB RAM, 35 GB disk space for the control VM
+  - SSH key and credentials for `router0`
 
 ### Control Node ISO
 
@@ -232,7 +231,7 @@ The exact ONIE firmware filename and version will vary based on your switch hard
 
 #### 4.3: Access Switch Console
 
-Connect to each switch via serial console:
+From `router0` (where the USB-to-serial adapters are connected), connect to each switch via serial console:
 
 ```bash
 sudo minicom -D /dev/ttyUSB1 -b 115200
@@ -294,6 +293,24 @@ kubectl fabric switch ssh --name <switch-name>
 ```
 
 Use the default HedgeHog admin password when prompted.
+
+Once switches are confirmed reachable, verify that the router's [LACP](https://en.wikipedia.org/wiki/Link_aggregation#Link_Aggregation_Control_Protocol) bond has recovered. The bond
+(`bond0`) is configured during bootstrap before the switch PortChannels exist; if it enters a
+churned state it does not self-recover even after the PortChannels come up.
+
+From `router-0`, check connectivity and inspect the bond:
+
+```bash
+ping <hedgehog-gateway-ip>   # from inventory, e.g. 10.30.0.2
+cat /proc/net/bonding/bond0
+```
+
+If `ping` fails and the bond shows `Partner Churn State: churned`, reboot `router-0` to
+force a clean LACP renegotiation:
+
+```bash
+sudo reboot
+```
 
 **Troubleshooting:** If the agent doesn't send heartbeats, check the agent logs via serial console:
 

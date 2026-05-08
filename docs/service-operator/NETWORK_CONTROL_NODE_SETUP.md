@@ -294,6 +294,24 @@ kubectl fabric switch ssh --name <switch-name>
 
 Use the default HedgeHog admin password when prompted.
 
+Once switches are confirmed reachable, verify that the router's LACP bond recovered. The bond
+(`bond0`) is configured during bootstrap before the switch PortChannels exist; if it enters a
+churned state it does not self-recover even after the PortChannels come up.
+
+From `router-0`, check connectivity and inspect the bond:
+
+```bash
+ping <hedgehog-gateway-ip>   # from inventory, e.g. 10.30.0.2
+cat /proc/net/bonding/bond0
+```
+
+If `ping` fails and the bond shows `Partner Churn State: churned`, reboot `router-0` to
+force a clean LACP renegotiation:
+
+```bash
+sudo reboot
+```
+
 **Troubleshooting:** If the agent doesn't send heartbeats, check the agent logs via serial console:
 
 ```bash

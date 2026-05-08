@@ -20,9 +20,45 @@ grep /etc/kolla/ironic-api/ironic.conf -Fe 'rabbit://'
 ```
 
 ## Operator: Enroll a Bare-Metal Node
-- **Access IaaS Console:** Sign in with an operator account
-- **Enroll the node:** Use the node enrollment workflow to register the hardware. Once submitted, the platform will automatically start the enrollment process
-- **Wait for Active state:** The system will progress through enrollment stages. When completed, the node’s status changes to **Active**, indicating it is ready to host bare-metal servers
+
+1. Sign in to the IaaS Console with an operator account.
+2. Click **Baremetal** in the left sidebar.
+3. Click **enroll BM** (top-right of the panel).
+4. Fill in the form:
+
+   | Field | Description |
+   |---|---|
+   | **Node Name** | A name for the node (for example, `gpu-node-01`). |
+   | **IPMI Address** | The IP address of the node’s BMC (for example, `192.168.1.100`). |
+   | **IPMI Port** | The IPMI port (default: `623`). |
+   | **IPMI Username** | The BMC login username. |
+   | **IPMI Password** | The BMC login password. |
+   | **MAC Address** | The MAC address of the PXE-boot network interface (format: `AA:BB:CC:DD:EE:FF`). |
+   | **Automatically inspect hardware after enrollment** | Runs hardware inspection immediately after enrollment (recommended). |
+
+5. Click **Enroll Node**.
+
+### Hardware Inspection
+
+If **Automatically inspect hardware after enrollment** was not selected, trigger inspection manually: select the node on the **Baremetal** page and click **Inspect** in the node status panel. Inspection boots a lightweight ramdisk that collects CPU, memory, disk, NIC, and boot configuration details.
+
+### Making a Node Available
+
+After inspection completes, move the node to `available` state: select the node and click **Provide** in the node status panel. The node is then ready for users to provision bare metal servers.
+
+### Node Lifecycle
+
+```
+enroll → manageable → inspecting → available → active
+```
+
+| State | Description |
+|---|---|
+| `enroll` | Newly registered; no hardware information yet. |
+| `manageable` | Platform has authenticated to the BMC; ready for inspection. |
+| `inspecting` | Hardware inspection in progress. |
+| `available` | Inspection complete; ready to be provisioned. |
+| `active` | OS deployed; server is running. |
 
 ## Users: Create a Bare-Metal Server
 - **Open Servers panel:** In the IaaS Console, go to **Servers**

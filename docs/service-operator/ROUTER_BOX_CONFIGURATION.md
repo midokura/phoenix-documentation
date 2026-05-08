@@ -339,6 +339,87 @@ openwrt_routers:
 ```
 
 ---
+## OpenWrt Router — banIP Intrusion Prevention
+
+  :::warning
+  In case of network issues please check if any of the following parameters need modification.   
+  :::
+
+  The router can run banIP as an IP-based intrusion prevention system. It downloads threat intelligence blocklists from external feeds and uses the router's firewall (nftables) to silently drop traffic from known-malicious IP addresses before it   
+  reaches any cluster service.              
+  This feature is conditional: it only activates when `banip_feeds` is defined in inventory.
+
+  ### Variables      
+
+  | Variable | Type | Default | Description |
+  |----------|------|---------|-------------|
+  | `banip_feeds` | list | *(see below)* | Threat intelligence feeds to subscribe to. Setting this variable enables banIP. |                    
+  | `banip_country` | list | `["by", "ru"]` | ISO 3166-1 alpha-2 country codes whose entire IP space is blocked |
+  | `banip_allowlist_hostnames` | list | `[]` | Hostnames that are never blocked, regardless of feed matches |                                  
+  | `banip_allowlist_networks` | list | `["192.168.0.0/16", "10.0.0.0/8"]` | IP ranges (CIDR) that are never blocked |           
+  | `banip_allowflag` | string | `"udp 51820"` | Protocol and ports always allowed through, regardless of blocklists |                          
+  | `banip_icmplimit` | integer | `1000` | Max ICMP packets per second before rate-limiting |                                                   
+  | `banip_synlimit` | integer | `1000` | Max TCP SYN packets per second (protects against connection flood attacks) |                          
+  | `banip_udplimit` | integer | `5000` | Max UDP packets per second |                                                                          
+  | `passthru_wan_nic` | string | `"eth1"` | WAN-facing network interface banIP monitors and protects |                                       
+                                            
+  ### Available Feeds   
+
+  Each entry in `banip_feeds`:            
+  | Feed | What it blocks |                                 
+  |------|----------------|                                             
+  | `backscatterer` | Compromised mail servers generating backscatter spam |
+  | `becyber` | Malicious attacker IPs from BeCyber threat intelligence |
+  | `cinsscore` | IPs exhibiting anomalous attack behaviour patterns |                                                                          
+  | `doh` | Public DNS-over-HTTPS servers (prevents bypassing local DNS filtering) |
+  | `drop` | Spamhaus DROP list — authoritative hijacked/malicious networks |                                                                   
+  | `firehol1` | FireHOL Level 1 — highest-confidence threat aggregation |                                                        
+  | `firehol2` | FireHOL Level 2 — moderate-confidence threat aggregation |                                                                     
+  | `firehol3` | FireHOL Level 3 — levels 1 & 2 plus botnets and malware |                                                                      
+  | `hagezi` | Threat Intelligence Platform blocklist for known malicious IPs |                                                               
+  | `proxy` | Open proxy servers commonly used for anonymous attacks |                                                                          
+  | `tor` | Tor exit node IPs |         
+  | `turris` | Community-sourced threat intel from the Turris Sentinel network |
+  | `vpn` | Commercial VPN provider IP ranges | 
+  | `webclient` | IPs that web clients should never communicate with |                                                                        
+                                                                                                                                                
+  ### Allowlist Priority
+
+  The allowlist always wins over blocklists. Any IP that resolves from `banip_allowlist_hostnames` or falls within a range in `banip_allowlist_networks`
+  is never blocked, even if it appears in a feed.
+
+  `banip_allowflag` operates differently — it allows traffic unconditionally on 
+  specific protocol/port combinations regardless of the source IP. The default value 
+  ensures WireGuard VPN tunnels always work even if a peer's IP is flagged by a feed.          
+
+  ### Example                        
+
+  ```yaml          
+  openwrt_routers:
+    hosts:         
+      router-0:
+        banip_feeds:                 
+          - "firehol1"              
+          - "drop"                
+          - "tor"
+          - "doh"
+        banip_country:
+          - "cn"
+          - "ru"
+        banip_allowlist_hostnames:
+          - "dc1.example.com"    # primary datacenter           
+          - "vpn.example.com"    # VPN gateway             
+        banip_allowlist_networks:    
+          - "192.168.0.0/16"     # management network     
+          - "10.0.0.0/8"         # frontend network
+        banip_allowflag: "udp 51820"
+        passthru_wan_nic: "eth1"
+        banip_icmplimit: 1000
+        banip_synlimit: 1000         
+        banip_udplimit: 5000 
+  ```
+
+---
 
 ## Deployment Host
 

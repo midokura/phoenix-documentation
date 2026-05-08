@@ -58,6 +58,12 @@ The hardware setup covers all physical and foundational infrastructure steps req
    ./scripts/platform-setup.sh --bootstrap --tags hedgehog-fabric
    ```
 
+   **Phase 4 — update Hedgehog fabricator credentials (before switch installation):**
+   Once Phase 3 completes, the fabricator spec still holds the installer ISO default
+   credentials for switch users. Before booting any switch into ONIE, update them by
+   following the [Hedgehog switch credentials update](./runbooks/HEDGEHOG_SWITCH_CREDENTIALS)
+   runbook.
+
    :::note
 
    If the Phase 1 SSH wait timed out before credentials were updated, re-run with both

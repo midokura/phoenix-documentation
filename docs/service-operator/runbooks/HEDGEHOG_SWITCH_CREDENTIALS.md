@@ -138,8 +138,8 @@ new hashes (not the ISO defaults) and that `authorizedKeys` lists all expected p
 
 ## Verify
 
-- [ ] `kubectl get fabricators` output shows updated password hashes for `admin` and `op`
-- [ ] `kubectl get fabricators` output shows updated `authorizedKeys` for `admin` and `op`
+- [ ] `kubectl describe fabricators default -n fab` output shows updated password hashes for `admin` and `op`
+- [ ] `kubectl describe fabricators default -n fab` output shows updated `authorizedKeys` for `admin` and `op`
 - [ ] Fabricator `control.defaultUser` reflects the keys set on the VM during bootstrap
 - [ ] Switches installed after this step accept SSH login with the authorised keys
 

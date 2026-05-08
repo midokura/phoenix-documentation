@@ -38,37 +38,6 @@ Deleting revokes all S3 access until new credentials are generated.
 1. In the **Settings** panel, click **Delete** next to the credentials.
 2. Confirm the deletion.
 
-### Via API
-
-```bash
-export JWT_TOKEN="<your-token>"
-export API_BASE_URL="https://<iaas-api-host>"
-
-# Retrieve existing credentials
-curl -H "Authorization: Bearer $JWT_TOKEN" "${API_BASE_URL}/api/storage/credentials"
-
-# Generate new credentials (or return existing ones if already present)
-curl -X POST \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  "${API_BASE_URL}/api/storage/credentials"
-
-# Rotate credentials (generates new key pair and invalidates the old one)
-curl -X POST \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  "${API_BASE_URL}/api/storage/credentials?rotate=true"
-
-# Delete credentials
-curl -X DELETE \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  "${API_BASE_URL}/api/storage/credentials"
-```
-
-Credential response:
-
-```json
-{ "access": "<access-key>", "secret": "<secret-key>" }
-```
-
 ---
 
 ## Managing Containers
@@ -81,43 +50,11 @@ Containers are named buckets that hold your objects.
 2. Enter a container name.
 3. Click **Create**.
 
-### Via API
-
-```bash
-curl -X POST \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"name": "my-container"}' \
-  "${API_BASE_URL}/api/storage/containers"
-```
-
-### Listing Containers
-
-```bash
-curl -H "Authorization: Bearer $JWT_TOKEN" "${API_BASE_URL}/api/storage/containers"
-```
-
-Each container in the response includes its name, object count, total size in bytes, and a direct access URL.
-
 ### Deleting a Container
 
 1. On the **Storage** page, click the delete icon on the container row.
 2. If the container is empty, it is deleted immediately.
 3. If the container still has objects, a confirmation dialog appears. Enter the container name and click **Force Delete** to remove it along with all its contents.
-
-### Via API
-
-```bash
-# Delete an empty container
-curl -X DELETE \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  "${API_BASE_URL}/api/storage/containers/<container-name>"
-
-# Force-delete a non-empty container
-curl -X DELETE \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  "${API_BASE_URL}/api/storage/containers/<container-name>?force=true"
-```
 
 :::warning
 
@@ -133,7 +70,7 @@ Once you have credentials and a container, you can use any S3-compatible client.
 
 ### Finding Your Endpoint
 
-The S3 endpoint URL is shown in **Storage > Settings** under **Access endpoint**. It is also available from the `url` field in the container list response.
+The S3 endpoint URL is shown in **Storage > Settings** under **Access endpoint**.
 
 The region is always `us-east-1` (a convention used by Ceph RGW regardless of geographic location).
 
@@ -142,7 +79,7 @@ The region is always `us-east-1` (a convention used by Ceph RGW regardless of ge
 Configure a named profile:
 
 ```bash
-aws configure --profile iaas
+aws configure --profile my-storage
 # AWS Access Key ID: <your-access-key>
 # AWS Secret Access Key: <your-secret-key>
 # Default region name: us-east-1
@@ -155,16 +92,16 @@ Use the profile with your endpoint:
 export S3_ENDPOINT="https://<your-endpoint>"
 
 # List containers
-aws s3 ls --profile iaas --endpoint-url "$S3_ENDPOINT"
+aws s3 ls --profile my-storage --endpoint-url "$S3_ENDPOINT"
 
 # Upload a file
-aws s3 cp myfile.txt s3://my-container/ --profile iaas --endpoint-url "$S3_ENDPOINT"
+aws s3 cp myfile.txt s3://my-container/ --profile my-storage --endpoint-url "$S3_ENDPOINT"
 
 # Download a file
-aws s3 cp s3://my-container/myfile.txt . --profile iaas --endpoint-url "$S3_ENDPOINT"
+aws s3 cp s3://my-container/myfile.txt . --profile my-storage --endpoint-url "$S3_ENDPOINT"
 
 # Sync a directory
-aws s3 sync ./data s3://my-container/data --profile iaas --endpoint-url "$S3_ENDPOINT"
+aws s3 sync ./data s3://my-container/data --profile my-storage --endpoint-url "$S3_ENDPOINT"
 ```
 
 ### Python (boto3)
@@ -200,19 +137,3 @@ s3.download_file("my-container", "myfile.txt", "myfile-downloaded.txt")
 
 - **Object Storage**: total objects stored across all containers, with a quota indicator.
 - **Block Storage**: volumes attached to your tenant's servers.
-
-### Via API
-
-```bash
-curl -H "Authorization: Bearer $JWT_TOKEN" "${API_BASE_URL}/api/storage/usage"
-```
-
-Response fields:
-
-| Field | Description |
-|---|---|
-| `objectStorageUsedBytes` | Total bytes stored in object storage. |
-| `objectStorageQuotaBytes` | Quota limit in bytes (null if unlimited). |
-| `blockStorageUsedBytes` | Total bytes used by block storage volumes. |
-| `blockStorageQuotaBytes` | Block storage quota in bytes (null if unlimited). |
-| `blockStorageVolumes` | List of volumes with name and size in bytes. |

@@ -2,7 +2,7 @@
 
 Creating and managing virtual machines
 
-This guide explains how to create and manage virtual machines (VMs) in the Console UI. All operations can be performed through the UI or directly via the API.
+This guide explains how to create and manage virtual machines (VMs) in the Console UI.
 
 ## Navigation
 
@@ -35,63 +35,11 @@ Before creating a VM, ensure:
 
 4. Click **Create**. The VM appears in the table while provisioning. It may take a few minutes to start up.
 
-### Via API
-
-Set your credentials and base URL:
-
-```bash
-export JWT_TOKEN="<your-token>"
-export API_BASE_URL="https://<iaas-api-host>"
-```
-
-Create the VM:
-
-```bash
-curl -X POST \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "my-vm",
-    "imageId": "<image-id>",
-    "variantId": "<flavor-id>",
-    "networkId": "<network-id>",
-    "assign_floating_ip": false
-  }' \
-  "${API_BASE_URL}/api/vms"
-```
-
-Response:
-
-```json
-{ "id": "<vm-id>" }
-```
-
-Retrieve available images, flavors, and networks before creating:
-
-```bash
-curl -H "Authorization: Bearer $JWT_TOKEN" "${API_BASE_URL}/api/images"
-curl -H "Authorization: Bearer $JWT_TOKEN" "${API_BASE_URL}/api/variants"
-curl -H "Authorization: Bearer $JWT_TOKEN" "${API_BASE_URL}/api/networks"
-```
-
 ---
 
 ## Listing Servers and Quota
 
 The **Servers** page shows all running VMs and bare metal servers. The quota bar at the top shows current usage for instances, vCPUs, RAM, and GPUs.
-
-### Via API
-
-```bash
-# Server list and quota in one call
-curl -H "Authorization: Bearer $JWT_TOKEN" "${API_BASE_URL}/api/servers"
-
-# Instances only
-curl -H "Authorization: Bearer $JWT_TOKEN" "${API_BASE_URL}/api/servers/instances"
-
-# Quota only
-curl -H "Authorization: Bearer $JWT_TOKEN" "${API_BASE_URL}/api/servers/quota"
-```
 
 ---
 
@@ -114,33 +62,6 @@ The floating IP address appears in the VM row once attached.
 3. Confirm in the dialog.
 
 The IP stays allocated to your tenant and can be reattached to the same or a different VM later.
-
-### Via API
-
-```bash
-# Attach: allocates a new IP from the external pool
-curl -X POST \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  "${API_BASE_URL}/api/vms/<vm-id>/floating-ip"
-
-# Attach a specific existing floating IP from your tenant
-curl -X POST \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"floating_ip_id": "<fip-id>"}' \
-  "${API_BASE_URL}/api/vms/<vm-id>/floating-ip"
-
-# Detach (IP stays allocated to your tenant)
-curl -X DELETE \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  "${API_BASE_URL}/api/vms/<vm-id>/floating-ip"
-```
-
-Attach response:
-
-```json
-{ "id": "<fip-id>", "address": "203.0.113.10" }
-```
 
 ---
 
@@ -169,16 +90,8 @@ VMs are only accessible from the tenant VPN network. Ensure your VPN connection 
 
 The VM and its associated SSH key are removed. This action is irreversible.
 
-### Via API
-
-```bash
-curl -X DELETE \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  "${API_BASE_URL}/api/servers/<server-id>"
-```
-
 :::note
 
-Infrastructure servers (VPN gateway nodes and Kubernetes cluster nodes) cannot be deleted through this endpoint.
+Infrastructure servers (VPN gateway nodes and Kubernetes cluster nodes) cannot be deleted from this panel.
 
 :::

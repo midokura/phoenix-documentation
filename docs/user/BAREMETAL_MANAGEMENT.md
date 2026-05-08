@@ -15,8 +15,6 @@ The workflow has two stages:
 
 Enrollment registers a new physical server with the platform using its IPMI (Intelligent Platform Management Interface) credentials. This is a one-time setup step per physical node.
 
-### From the UI
-
 1. Click **Baremetal** in the left sidebar.
 2. Click **enroll BM** (top-right of the panel).
 3. Fill in the form:
@@ -33,28 +31,6 @@ Enrollment registers a new physical server with the platform using its IPMI (Int
 
 4. Click **Enroll Node**.
 
-### Via API
-
-```bash
-export JWT_TOKEN="<your-token>"
-export API_BASE_URL="https://<iaas-api-host>"
-
-curl -X POST \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "gpu-node-01",
-    "ipmi_address": "192.168.1.100",
-    "ipmi_port": 623,
-    "ipmi_username": "admin",
-    "ipmi_password": "secret",
-    "mac_address": "AA:BB:CC:DD:EE:FF"
-  }' \
-  "${API_BASE_URL}/api/bms"
-```
-
-Response: the UUID of the newly enrolled node.
-
 ---
 
 ## Hardware Inspection
@@ -69,27 +45,7 @@ Inspection discovers:
 - Network interfaces (MAC addresses, speed, and link status)
 - Boot configuration (BIOS/UEFI mode)
 
-### From the UI
-
 On the **Baremetal** page, select the node and click **Inspect** in the node status panel. Inspection can be re-triggered from the same panel if it previously failed.
-
-### Via API
-
-Inspection requires the node to be in `enroll` or `manageable` state. The API handles the state transition automatically:
-
-```bash
-curl -X POST \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  "${API_BASE_URL}/api/bms/<bm-id>/actions/inspect"
-```
-
-To move a node to `manageable` state manually:
-
-```bash
-curl -X POST \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  "${API_BASE_URL}/api/bms/<bm-id>/actions/manage"
-```
 
 ---
 
@@ -97,17 +53,7 @@ curl -X POST \
 
 After inspection completes, the node must be moved to `available` state before it can be provisioned.
 
-### From the UI
-
 On the **Baremetal** page, select the node and click **Provide** in the node status panel.
-
-### Via API
-
-```bash
-curl -X POST \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  "${API_BASE_URL}/api/bms/<bm-id>/actions/provide"
-```
 
 ---
 
@@ -131,32 +77,15 @@ enroll → manageable → inspecting → available → active
 
 ## Listing Nodes
 
-### From the UI
-
 Click **Baremetal** in the left sidebar to see all enrolled nodes, their provision state, power state, maintenance status, and discovered hardware.
 
 Click the details icon on any row to view full hardware inventory, IPMI configuration, and boot information.
-
-### Via API
-
-```bash
-# List all nodes
-curl -H "Authorization: Bearer $JWT_TOKEN" "${API_BASE_URL}/api/bms"
-
-# Get a specific node
-curl -H "Authorization: Bearer $JWT_TOKEN" "${API_BASE_URL}/api/bms/<bm-id>"
-
-# Include hardware inventory
-curl -H "Authorization: Bearer $JWT_TOKEN" "${API_BASE_URL}/api/bms/<bm-id>?include_inventory=true"
-```
 
 ---
 
 ## Provisioning a Bare Metal Server
 
 Once a node is in `available` state, provision it by deploying an OS image. Provisioning typically takes 15–30 minutes.
-
-### From the UI
 
 1. Click **create server** in the **Servers** sidebar.
 2. Select **Bare Metal** as the server type.
@@ -172,33 +101,6 @@ Once a node is in `available` state, provision it by deploying an OS image. Prov
 4. Click **Provision Server**.
 
 The server will appear in the **Servers** panel while provisioning.
-
-### Via API
-
-The provision endpoint uses a multipart form:
-
-```bash
-curl -X POST \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  -F "name=my-bm-server" \
-  -F "flavor_id=<flavor-id>" \
-  -F "image_id=<image-id>" \
-  "${API_BASE_URL}/api/bms/provision"
-```
-
-To include a user script that runs at first boot:
-
-```bash
-curl -X POST \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  -F "name=my-bm-server" \
-  -F "flavor_id=<flavor-id>" \
-  -F "image_id=<image-id>" \
-  -F "user_script=@/path/to/setup.sh" \
-  "${API_BASE_URL}/api/bms/provision"
-```
-
-Response: the server ID of the provisioned instance.
 
 :::note
 
@@ -230,27 +132,11 @@ Bare metal servers are only accessible from the tenant VPN network. See [VPN Con
 
 Deleting deprovisions the server and returns the physical node to the pool.
 
-### From the UI
-
 1. Locate the server in the **Servers** panel.
 2. Click the **delete icon** on the row.
 3. Confirm the deletion.
 
 To remove the physical node enrollment entirely, delete it from the **Baremetal** panel after the server is deprovisioned.
-
-### Via API
-
-```bash
-# Delete the provisioned server instance
-curl -X DELETE \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  "${API_BASE_URL}/api/servers/<server-id>"
-
-# Delete the node enrollment (removes the node from the platform entirely)
-curl -X DELETE \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  "${API_BASE_URL}/api/bms/<bm-id>"
-```
 
 :::note
 

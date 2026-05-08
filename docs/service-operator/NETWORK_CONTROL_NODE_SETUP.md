@@ -294,7 +294,7 @@ kubectl fabric switch ssh --name <switch-name>
 
 Use the default HedgeHog admin password when prompted.
 
-Once switches are confirmed reachable, verify that the router's LACP bond recovered. The bond
+Once switches are confirmed reachable, verify that the router's [LACP](https://en.wikipedia.org/wiki/Link_aggregation#Link_Aggregation_Control_Protocol) bond has recovered. The bond
 (`bond0`) is configured during bootstrap before the switch PortChannels exist; if it enters a
 churned state it does not self-recover even after the PortChannels come up.
 

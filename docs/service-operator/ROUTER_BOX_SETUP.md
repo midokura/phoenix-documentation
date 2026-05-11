@@ -187,44 +187,68 @@ For real devices with Internet connectivity, uncomment the `packages` and change
 
 The `bastion0` VM will be used to bootstrap and deploy all components from the Phoenix environment. To set it up you just need to execute:
 
+:::info[Variables to set before running]
+
+| Variable | Description | Example |
+|---|---|---|
+| `MGMT_ROUTER_IP` | Management network gateway (OpenWRT router IP) | `192.168.33.251` |
+| `MGMT_DEPLOYMENT_IP` | Static IP to assign to the deployment VM. By convention use the `.250` address of the management subnet. | `192.168.33.250` |
+| `MGMT_SUBNET_PREFIX` | Subnet prefix length for the management network | `24` |
+| `SSH_KEY` | SSH public key for `ubuntu` user access. Obtain the public key with `cat ~/.ssh/<key-name>.pub` — it is a single line starting with `ssh-ed25519` or `ssh-rsa`. | `ssh-ed25519 AAAA...` |
+| `CONSOLE_PASS` | Password for console access via `virsh console`. Use a strong, unique password. | |
+
+:::
+
 ```bash
 LIBVIRT_DIR=/var/lib/libvirt/images
-MGMT_ROUTER_IP=192.168.33.251
-MGMT_DEPLOYMENT_IP=192.168.33.250
+MGMT_ROUTER_IP=<mgmt-router-ip>
+MGMT_DEPLOYMENT_IP=<deployment-vm-ip>
+MGMT_SUBNET_PREFIX=<prefix-length>
+SSH_KEY="<your-ssh-public-key>"
+CONSOLE_PASS="<console-password>"
+
 # Download the cloud image
 sudo wget https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img \
   -O $LIBVIRT_DIR/noble-server-cloudimg-amd64.img
 
-cat > user-data <<EOF
+cat > /tmp/user-data <<EOF
 #cloud-config
 hostname: bastion0
 user: ubuntu
+password: $CONSOLE_PASS
+chpasswd: { expire: false }
 ssh_authorized_keys:
-  - ssh-rsa AAAA... your-key-here
+  - $SSH_KEY
 package_update: true
 packages:
   - python3
   - python3-pip
   - python3-venv
-write_files:
-  - path: /etc/netplan/99-custom-dns.yaml
-    content: |
-      network:
-        version: 2
-        ethernets:
-          eth0:
-            dhcp4: false
-            addresses:
-              - $MGMT_DEPLOYMENT_IP/24
-            routes:
-              - { to: default, via: $MGMT_ROUTER_IP }
-            nameservers:
-              addresses: [$MGMT_ROUTER_IP, 8.8.8.8, 8.8.4.4] # First IP being OpenWRT router0
-              search: [example.com]
 EOF
-touch meta-data
 
-sudo cloud-localds $LIBVIRT_DIR/cloud-init.iso user-data meta-data
+touch /tmp/meta-data
+
+# Network config is provided as a separate file so cloud-init applies it
+# during the early network phase, preventing the auto-generated
+# 50-cloud-init.yaml (DHCP) from taking precedence.
+cat > /tmp/network-config <<EOF
+version: 2
+ethernets:
+  id0:
+    match:
+      name: "en*"
+    dhcp4: false
+    addresses:
+      - $MGMT_DEPLOYMENT_IP/$MGMT_SUBNET_PREFIX
+    routes:
+      - { to: default, via: $MGMT_ROUTER_IP }
+    nameservers:
+      addresses: [1.1.1.1, 1.0.0.1]
+      search: [jp]
+EOF
+
+sudo cloud-localds $LIBVIRT_DIR/cloud-init.iso /tmp/user-data /tmp/meta-data \
+  --network-config /tmp/network-config
 
 # Create a 128GB disk from the cloud image
 sudo qemu-img create \
@@ -245,6 +269,21 @@ sudo virt-install \
   --console pty,target_type=serial \
   --noautoconsole
 ```
+
+Once the VM boots, verify the static IP was applied and SSH in:
+
+```bash
+ping -c1 $MGMT_DEPLOYMENT_IP
+ssh -i ~/.ssh/mido_infra ubuntu@$MGMT_DEPLOYMENT_IP
+```
+
+:::note[Network configuration]
+
+The network config is passed via `--network-config` to `cloud-localds` rather than via `write_files`. This is required because Ubuntu 24.04 cloud images auto-generate `/etc/netplan/50-cloud-init.yaml` with DHCP during the early boot phase. Providing the config as a separate datasource file ensures it is applied before that auto-generated config, giving the static IP precedence.
+
+The interface matcher `name: "en*"` handles the fact that KVM virtio interfaces on Ubuntu 24.04 are named `enp1s0` or similar, not `eth0`.
+
+:::
 
 :::caution
 

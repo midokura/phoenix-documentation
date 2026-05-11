@@ -11,7 +11,8 @@ The deployment scripts handle the complete setup of OpenStack, management cluste
 
 **Getting the Release Package:**
 
-Download the latest release from the provided URL
+The release package URL and its checksum URL are provided in the release email sent to `all@midokura.com`
+with subject **"AI Factory v{VERSION} released"**.
 
 ## Before You Start
 
@@ -163,13 +164,24 @@ All commands below assume you're in the `release-assets/` directory.
 
 ### First-Time Setup
 
-1. Connect into the bastion host with ssh: `ssh ubuntu@<bastion0 domain>`.
-2. Download the release package from the provided URL: `curl <artifact url> -O release-assets.tar.gz`
-3. Extract the tar.gz archive into a folder called `release-assets`:
-`mkdir release-assets && tar -xzf release-assets.tar.gz -C release-assets`
-4. Change to release directory: `cd release-assets`
-5. Verify checksums: `sha256sum -c SHA256SUMS`
-6. Copy the crafted `inventory.yml` into the bastion: `scp ./inventory.yml ubuntu@<bastion0 domain>:release-assets/`
+1. Connect into the bastion host with ssh: `ssh ubuntu@<deployment0 domain>`.
+2. Download the release package and its checksum file using the URLs from the release email:
+   ```bash
+   curl -L -o ai-factory-<version>.tar.gz "<artifact-url>"
+   curl -L -o ai-factory-<version>.tar.gz.sha256 "<checksum-url>"
+   ```
+3. Verify the integrity of the downloaded archive. The checksum file contains only the bare SHA-256 hash, so the verification command is:
+   ```bash
+   echo "$(cat ai-factory-<version>.tar.gz.sha256)  ai-factory-<version>.tar.gz" | sha256sum -c
+   ```
+   Expected output: `ai-factory-<version>.tar.gz: OK`
+4. Extract the archive:
+   ```bash
+   mkdir release-assets && tar -xzf ai-factory-<version>.tar.gz -C release-assets
+   ```
+5. Change to release directory: `cd release-assets`
+6. Verify checksums of the extracted contents: `sha256sum -c SHA256SUMS`
+7. Copy the crafted `inventory.yml` into the bastion: `scp ./inventory.yml ubuntu@<deployment0 domain>:release-assets/`
 
 ### Complete Deployment
 

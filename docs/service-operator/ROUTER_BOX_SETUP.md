@@ -139,7 +139,7 @@ autoinstall:
     update: true
   updates: security
   package_update: true
-  packages: [ lm-sensors, vim, curl, tree, bridge-utils, libvirt-clients, chrony, git, build-essential, unzip, file, qemu-kvm, libvirt-daemon-system, virtiofsd, virtinst, guestfs-tools, cloud-image-utils ]
+  packages: [ lm-sensors, vim, curl, tree, bridge-utils, libvirt-clients, chrony, git, build-essential, unzip, file, qemu-kvm, libvirt-daemon-system, virtiofsd, virtinst, guestfs-tools, cloud-image-utils, python3-lxml ]
   late-commands:
     - 'sed -i "s|GRUB_TIMEOUT=0|\0\nGRUB_RECORDFAIL_TIMEOUT=3|" /target/etc/default/grub'
     - 'sed -i "s|timeout=30|timeout=3|" /target/boot/grub/grub.cfg'
@@ -246,15 +246,14 @@ sudo virt-install \
   --noautoconsole
 ```
 
-:::caution[To be verified]
+:::caution
 
-During QA cycle 25.1.0 it was observed that both `router0` and `deployment0` may require an additional secondary default route to be added manually after setup:
+If the main router is not yet configured or is being reconfigured during bootstrap (Hardware Setup step 6), OpenWRT will take over as the network router and `deployment0` will lose internet access — its netplan still points to the original upstream gateway. When this happens, update the default gateway on `deployment0` to the secondary router IP and apply:
 
 ```bash
-sudo ip r add default via <gateway-ip> metric 25
+sudo vim /etc/netplan/50-cloud-init.yaml  # change gateway IP from primary to secondary router
+sudo netplan apply
 ```
-
-It is not yet confirmed whether this is a persistent requirement (missing from the netplan configuration above) or a transient condition specific to the QA environment. This must be clarified before this step can be considered complete for the 25.1.0 release.
 
 :::
 

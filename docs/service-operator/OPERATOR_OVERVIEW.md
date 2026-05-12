@@ -61,6 +61,39 @@ The hardware setup covers all physical and foundational infrastructure steps req
    See [DEPLOYMENT](./DEPLOYMENT.md) for full details on each prerequisite.
 6. **Bootstrap the network environment** — provisions the OpenWRT router VM, PXE/TFTP server, local Docker registry, and HedgeHog controller VM. All commands run from the `release-assets/` directory on `bastion0`. Run in two phases with a manual credential-change step in between.
 
+   :::tip
+
+   Run all bootstrap commands inside a `tmux` or `screen` session. The bootstrap takes a long time (HedgeHog controller installation alone can take ~100 minutes) and an SSH session drop will kill the process mid-run.
+
+   ```bash
+   tmux new -s bootstrap
+   ```
+
+   If you get disconnected, reattach with `tmux attach -t bootstrap`.
+
+   :::
+
+   :::caution
+
+   If the main router is not yet configured or is being reconfigured, OpenWRT will take over as the network router during this step and `deployment0` will lose internet access. If this happens, update the default gateway on `deployment0` to the secondary router IP:
+
+   ```bash
+   sudo vim /etc/netplan/50-cloud-init.yaml  # change gateway IP from primary to secondary router
+   sudo netplan apply
+   ```
+
+   :::
+
+   :::note
+
+   The Router Box requires `python3-lxml` to be installed (included in the cloud-init packages list in [ROUTER_BOX_SETUP](./ROUTER_BOX_SETUP.md)). If the router box was provisioned without it, install it manually before running the bootstrap:
+
+   ```bash
+   sudo apt-get install -y python3-lxml
+   ```
+
+   :::
+
    **Phase 1 — deploy the HedgeHog controller VM** (skips fabric provisioning):
    ```bash
    ./scripts/platform-setup.sh --bootstrap --skip-tags hedgehog-fabric

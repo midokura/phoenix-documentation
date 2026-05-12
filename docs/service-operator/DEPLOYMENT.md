@@ -96,6 +96,10 @@ chmod 600 ~/vault-key.txt
   - Variable in inventory.yml: `ansible_ssh_private_key_file`
   - Test access: `ssh -i ~/.ssh/management-key.pem root@your-controller-hostname`
   - Create the keypair if needed: `ssh-keygen -t ed25519 -f ~/.ssh/management-key.pem`
+  - Set correct permissions — SSH will refuse to use a key file that is not locked down:
+    ```bash
+    chmod 600 ~/.ssh/management-key.pem
+    ```
 - **Important:** Always use `~/.ssh/` paths in your `inventory.yml`. Your `~/.ssh/` directory is automatically mounted inside the container as a read-only directory
 
 ### Ceph Keyrings

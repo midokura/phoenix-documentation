@@ -53,14 +53,22 @@ platform-setup.sh --bootstrap
 1. Boot the node into PXE mode using IPMI:
 
     ```bash
-    ipmitool -I lanplus -H <ipmi-ip> -U <user> -P <pass> chassis bootdev pxe
-    ipmitool -I lanplus -H <ipmi-ip> -U <user> -P <pass> power cycle
+    ipmitool -I lanplus -L OPERATOR -H <ipmi-ip> -U <user> -P <pass> chassis bootdev pxe
+    ipmitool -I lanplus -L OPERATOR -H <ipmi-ip> -U <user> -P <pass> power cycle
     ```
+
+    :::note
+
+    `-L OPERATOR` is required when using operator-level BMC credentials — the default privilege
+    escalation to ADMINISTRATOR will fail with those credentials.
+
+    :::
 
 2. Monitor the installation via IPMI Serial-over-LAN:
 
     ```bash
-    ipmitool -I lanplus -H <ipmi-ip> -U <user> -P <pass> sol activate
+    ipmitool -I lanplus -L OPERATOR -H <ipmi-ip> -U <user> -P <pass> sol activate
+
     ```
 
 ### 4. Verify

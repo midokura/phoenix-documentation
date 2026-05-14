@@ -53,14 +53,18 @@ platform-setup.sh --bootstrap
 1. Boot the node into PXE mode using IPMI:
 
     ```bash
-    ipmitool -I lanplus -L OPERATOR -H <ipmi-ip> -U <user> -P <pass> chassis bootdev pxe
+    ipmitool -I lanplus -L OPERATOR -H <ipmi-ip> -U <user> -P <pass> chassis bootdev pxe options=efiboot
+    ipmitool -I lanplus -L OPERATOR -H <ipmi-ip> -U <user> -P <pass> chassis bootparam get 5
     ipmitool -I lanplus -L OPERATOR -H <ipmi-ip> -U <user> -P <pass> power cycle
     ```
+
+    Verify the `bootparam get 5` output shows `EFI` (not `BIOS PC Compatible (legacy) boot`) before cycling power.
 
     :::note
 
     `-L OPERATOR` is required when using operator-level BMC credentials — the default privilege
-    escalation to ADMINISTRATOR will fail with those credentials.
+    escalation to ADMINISTRATOR will fail with those credentials. `options=efiboot` is required
+    to set UEFI PXE boot; without it the BMC defaults to legacy BIOS PXE which will not work.
 
     :::
 

@@ -14,10 +14,10 @@ The playbook construct service hostnames from the inventory variables:
 
 ```yaml
 management_cluster:
-  public: "119.15.114.17"
+  public: "203.0.113.10"
 
-cluster_name: phoenix.bcn
-cluster_public_domain: midocloud.net
+cluster_name: mycluster
+cluster_public_domain: example.com
 ```
 
 For example, the IaaS Console host resolves to:
@@ -26,7 +26,7 @@ For example, the IaaS Console host resolves to:
 iaas_console_host: "console.{{ cluster_name }}.{{ cluster_public_domain }}"
 ```
 
-which evaluates to `console.phoenix.bcn.midocloud.net`.
+which evaluates to `console.mycluster.example.com`. See [Console URL](./IAAS_CONSOLE_CONFIGURATION.md#console-url) for details.
 
 You must add a **Recordset** in Azure DNS for each service subdomain in your `{{ cluster_public_domain }}` **DNS zone**, pointing to `{{ management_cluster.public }}`:
 

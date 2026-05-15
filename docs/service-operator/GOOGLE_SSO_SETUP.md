@@ -8,14 +8,12 @@ Generating Google SSO credentials.
 
 This guide shows how to generate Google SSO credentials.
 
-**Example hostname**: `https://console.phoenix-gpu.com`
-
 ## Outputs of This Guide
 
 - **GOOGLE_CLIENT_ID**: Identifies your application
 - **GOOGLE_CLIENT_SECRET**: Secret key for authentication
-- **GOOGLE_REDIRECT_URI**: Callback URL after login
-  - Example: `https://console.phoenix-gpu.com/api/auth/callback`
+- **GOOGLE_REDIRECT_URI**: Callback URL after login, in the form `https://<console-hostname>/api/auth/callback`
+  - See [Console URL](./IAAS_CONSOLE_CONFIGURATION.md#console-url) for how to determine your console hostname
 
 ## Prerequisites
 
@@ -43,10 +41,10 @@ This guide shows how to generate Google SSO credentials.
 5. Enter a name (for example, "IaaS Console")
 6. Under **Authorized JavaScript origins**:
    - Click **"+ Add URI"**
-   - Add: `https://console.phoenix-gpu.com`
+   - Add: `https://console.mycluster.example.com`
 7. Under **Authorized redirect URIs**:
    - Click **"+ Add URI"**
-   - Add: `https://console.phoenix-gpu.com/api/auth/callback`
+   - Add: `https://console.mycluster.example.com/api/auth/callback`
 8. Click **"Create"**
 
 ### 3. Copy Your Credentials

@@ -140,6 +140,21 @@ On the next deployment, the original credentials will be restored and existing S
 
 All four keys must be provided together — a partial configuration will cause the playbook to fail. When omitted, the chart generates random credentials as before.
 
+## Console URL
+
+The IaaS Console is served at:
+
+```
+https://console.<cluster_name>.<cluster_public_domain>
+```
+
+Both values come from the inventory:
+
+- `cluster_name` — the short identifier for the deployment (e.g. `mycluster`)
+- `cluster_public_domain` — the public domain registered for the environment (e.g. `example.com`)
+
+TLS is enabled when `iaas_console_tls_enabled: true` is set in the inventory (the default scheme is `http` when omitted).
+
 ## Setup Workflow
 
 1. Configure flavors and networks for tenant use

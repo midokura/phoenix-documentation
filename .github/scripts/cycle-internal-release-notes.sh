@@ -11,7 +11,8 @@ NEXT_RC_VERSION="${MINOR_VERSION}-rc${NEXT_RC_NUM}"
 OLD_PR_TITLE="add[release notes]: add v${RC_VERSION} release notes"
 NEW_PR_TITLE="add[release notes]: add v${NEXT_RC_VERSION} release notes"
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-BLOG_FILE="${REPO_ROOT}/blog/.next-ai-factory-${MINOR_VERSION}.md"
+RELEASE_NOTES_FILE="${REPO_ROOT}/blog/${MINOR_VERSION}-releasenotes.md"
+UPGRADE_NOTES_FILE="${REPO_ROOT}/upgrade-guide/${MINOR_VERSION}-upgradeguide.md"
 
 # Merge old PR if it exists
 OLD_PR_NUMBER=$(gh pr list --state open --json number,title \
@@ -40,14 +41,51 @@ else
     git fetch origin main
     git checkout -b "$NEW_BRANCH" origin/main
 
-    if [[ ! -f "$BLOG_FILE" ]]; then
-        echo "error: blog file not found: ${BLOG_FILE}" >&2
-        exit 1
+    if [[ ! -f "$RELEASE_NOTES_FILE" ]]; then
+        echo "Release notes file not found — creating ${RELEASE_NOTES_FILE}"
+        cat > "$RELEASE_NOTES_FILE" <<EOF
+---
+slug: v${MINOR_VERSION}
+title: AI Factory v${MINOR_VERSION}
+date: $(date +%Y-%m-%d)
+authors: [midoteam]
+tags: [aifactory]
+---
+
+Version ${MINOR_VERSION} of AI Factory is now available.
+
+## Overview
+
+<!-- truncate -->
+EOF
     fi
 
-    sed -i "s/^## Operator reference/### Feature 1\n\nPut your changes here\n\n## Operator reference/" "$BLOG_FILE"
+    printf '\n### Feature 1\n\nPut your changes here\n' >> "$RELEASE_NOTES_FILE"
 
-    git add "$BLOG_FILE"
+    if [[ ! -f "$UPGRADE_NOTES_FILE" ]]; then
+        echo "Upgrade notes file not found — creating ${UPGRADE_NOTES_FILE}"
+        cat > "$UPGRADE_NOTES_FILE" <<EOF
+---
+slug: v${MINOR_VERSION}
+title: Upgrade to AI Factory v${MINOR_VERSION}
+date: $(date +%Y-%m-%d)
+authors: [midoteam]
+tags: [aifactory]
+---
+
+<!-- truncate -->
+
+## Operator reference
+
+The operator overview for this release of AI Factory can be found in the [/docs](/docs/service-operator/OPERATOR_OVERVIEW) section.
+
+Please contact support@midokura.com for more information.
+EOF
+    fi
+
+    sed -i "s/^## Operator reference/### Step 1\n\nPut your changes here\n\n## Operator reference/" "$UPGRADE_NOTES_FILE"
+
+    git add "$RELEASE_NOTES_FILE" "$UPGRADE_NOTES_FILE"
     git commit -m "${NEW_PR_TITLE}"
     git push origin "$NEW_BRANCH"
 

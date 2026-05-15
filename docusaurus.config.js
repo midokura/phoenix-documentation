@@ -101,10 +101,8 @@ const config = {
             position: 'left',
             label: 'Docs',
           },
-          {to: '/blog',
-           label: 'Release Notes',
-          position: 'left'
-          },
+          {to: '/blog', label: 'Release Notes', position: 'left'},
+          {to: '/upgrade-guide', label: 'Upgrade Guide', position: 'left'},
           //{
           //  type: 'localeDropdown',
           //  position: 'left',
@@ -133,6 +131,30 @@ const config = {
         darkTheme: prismThemes.dracula,
       },
     }),
+
+  plugins: [
+    [
+      '@docusaurus/plugin-content-blog',
+      {
+        id: 'upgrade-guide',
+        path: 'upgrade-guide',
+        routeBasePath: 'upgrade-guide',
+        blogTitle: 'Upgrade Guide',
+        blogSidebarTitle: 'Upgrade Guide',
+        blogSidebarCount: 4,
+        authorsMapPath: '../blog/authors.yml',
+        tags: '../blog/tags.yml',
+        showReadingTime: true,
+        feedOptions: {
+          type: ['rss', 'atom'],
+          xslt: true,
+        },
+        onInlineTags: 'warn',
+        onInlineAuthors: 'warn',
+        onUntruncatedBlogPosts: 'warn',
+      },
+    ],
+  ],
 
   themes: [
     '@docusaurus/theme-mermaid',

@@ -59,7 +59,7 @@ jobs:
         uses: archive/github-actions-slack@433fef9978d3adae73168bfc9c5a7ce722780231 # master
         with:
           slack-bot-user-oauth-access-token: ${{ secrets.SLACK_BOT_TOKEN_NOTIFICATIONS }}
-          # channels: phoenix-qa, phoenix-technical
+          # channels: phoenix-technical
           slack-channel: C08FM942JSG
           slack-text: |
             <!here>:

@@ -62,7 +62,7 @@ This removes the OSD from the CRUSH map and cluster maps.
 cephadm shell -- ceph-volume lvm zap <device> --destroy
 ```
 
-Replace `<device>` with the block device path (e.g. `/dev/sdb`). This destroys the LVM structures and wipes the BlueStore label.
+Replace `<device>` with the block device path (e.g. `/dev/vdb`). This destroys the LVM structures and wipes the BlueStore label.
 
 #### 6. Apply a raw per-device spec
 
@@ -78,6 +78,21 @@ spec:
   data_devices:
     paths:
       - <device>
+  method: raw
+```
+
+For example, for device `/dev/vdb` in host `storage0` it would be:
+
+```yaml
+service_type: osd
+service_id: "raw-storage0-vdb"
+placement:
+  hosts:
+    - storage0
+spec:
+  data_devices:
+    paths:
+      - /dev/vdb
   method: raw
 ```
 

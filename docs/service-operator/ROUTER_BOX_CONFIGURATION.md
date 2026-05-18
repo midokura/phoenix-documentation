@@ -342,7 +342,9 @@ openwrt_routers:
 ## OpenWrt Router — banIP Intrusion Prevention
 
   :::warning
-  In case of network issues please check if any of the following parameters need modification.   
+
+  In case of network issues please check if any of the following parameters need modification.
+  
   :::
 
   The router can run banIP as an IP-based intrusion prevention system. It downloads threat intelligence blocklists from external feeds and uses the router's firewall (nftables) to silently drop traffic from known-malicious IP addresses before it   

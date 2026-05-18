@@ -4,9 +4,13 @@ Migrate default os to custom raw spec
 
 ## Purpose
 
-Older clusters provisioned OSDs via `ceph orch daemon add osd --method raw`, which internally used LVM. These OSDs are not directly manageable by the orchestrator as individual devices. This section describes how to safely migrate them to raw BlueStore specs.
+Older clusters provisioned OSDs via `ceph orch daemon add osd --method raw`, which internally used LVM. These OSDs are not directly manageable by the orchestrator as individual devices. This section describes how to migrate them safely to raw BlueStore specs.
 
-> **This is a destructive, data-moving operation.** Each OSD must be decommissioned (data backfilled away) before the disk is wiped and reprovisioned. The cluster stays online throughout, but each OSD migration triggers a full rebalance cycle — budget significant time for large clusters.
+:::warning[This is a destructive, data-moving operation]
+
+Each OSD must be decommissioned (data backfilled away) before the disk is wiped and reprovisioned. The cluster stays online throughout, but each OSD migration triggers a full rebalance cycle. Budget significant time for large clusters.
+
+:::
 
 ### Prerequisites
 
@@ -40,7 +44,13 @@ This tells the cluster to stop using the OSD and begin backfilling its data to r
 watch cephadm shell -- ceph -s
 ```
 
-Wait until `health: HEALTH_OK` and `0 degraded` / `0 misplaced` before proceeding. **Do not continue if the cluster is not fully recovered** — proceeding while degraded risks data loss.
+Wait until `health: HEALTH_OK` and `0 degraded` / `0 misplaced` before proceeding.
+
+:::warning[Do not continue if the cluster is not fully recovered]
+
+Proceeding while degraded risks data loss.
+
+:::
 
 #### 3. Stop and remove the OSD daemon
 

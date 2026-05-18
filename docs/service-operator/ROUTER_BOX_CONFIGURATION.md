@@ -349,7 +349,7 @@ openwrt_routers:
   reaches any cluster service.              
   This feature is conditional: it only activates when `banip_feeds` is defined in inventory.
 
-  To check for banned IPs, you can access the LuCi Web UI of the router and go to "Services" -> "banIP" -> "Edit Blocklist"
+  To check for banned IPs, you can access the LuCi Web UI of the router and go to "Services" -> "banIP" -> "Edit Blocklist". Editing said blocklist and applying the changes will be effective, but bear in mind that most of the configuration of banIP is managed through the inventory.yaml and the deployment process.
 
   ### Variables      
 

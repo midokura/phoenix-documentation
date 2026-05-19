@@ -1,13 +1,15 @@
 # Migrating LVM OSDs to Raw BlueStore
 
-Migrating LVM-backed OSDs to raw BlueStore specs.
+Migrating LVM-backed OSDs to raw BlueStore specs
 
 ## Purpose
 
 Older clusters provisioned OSDs via `ceph orch daemon add osd --method raw`, which internally used LVM. These OSDs are not directly manageable by the orchestrator as individual devices. This section describes how to migrate them safely to raw BlueStore specs.
 
 :::warning
+
 This is a destructive, data-moving operation. Each OSD must be decommissioned (data backfilled away) before the disk is wiped and reprovisioned. The cluster stays online throughout, but each OSD migration triggers a full rebalance cycle — budget significant time for large clusters.
+
 :::
 
 ## Prerequisites
@@ -102,6 +104,7 @@ watch cephadm shell -- ceph -s
 Wait until `health: HEALTH_OK` and `0 degraded` / `0 misplaced` before proceeding.
 
 :::warning[Do not continue if the cluster is not fully recovered]
+
 
 Proceeding while degraded risks data loss.
 

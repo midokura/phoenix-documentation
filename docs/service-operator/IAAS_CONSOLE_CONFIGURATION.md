@@ -150,8 +150,8 @@ https://console.<cluster_name>.<cluster_public_domain>
 
 Both values come from the inventory:
 
-- `cluster_name` — the short identifier for the deployment (e.g. `mycluster`)
-- `cluster_public_domain` — the public domain registered for the environment (e.g. `example.com`)
+- `cluster_name` — the short identifier for the deployment (for example, `mycluster`)
+- `cluster_public_domain` — the public domain registered for the environment (for example, `example.com`)
 
 TLS is enabled when `iaas_console_tls_enabled: true` is set in the inventory (the default scheme is `http` when omitted).
 

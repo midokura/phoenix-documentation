@@ -9,25 +9,21 @@ PR_JSON=$(gh pr list --state all --json number,isDraft,title,state \
     | jq -r ".[] | select(.title == \"${RELEASE_NOTES_TITLE}\")")
 
 if [[ -z "$PR_JSON" ]]; then
-    echo "error: no PR found with title: ${RELEASE_NOTES_TITLE}" >&2
-    exit 1
+    echo "warning: no PR found with title: ${RELEASE_NOTES_TITLE} — skipping release notes merge (hotfix release?)"
+else
+    PR_NUMBER=$(echo "$PR_JSON" | jq -r '.number')
+    PR_STATE=$(echo "$PR_JSON" | jq -r '.state')
+    IS_DRAFT=$(echo "$PR_JSON" | jq -r '.isDraft')
+
+    if [[ "$PR_STATE" == "MERGED" ]]; then
+        echo "PR #${PR_NUMBER} is already merged. Skipping merge step."
+    elif [[ "$IS_DRAFT" == "true" ]]; then
+        echo "error: PR #${PR_NUMBER} is in draft mode" >&2
+        exit 1
+    else
+        gh pr merge "$PR_NUMBER" --squash --delete-branch
+    fi
 fi
-
-PR_NUMBER=$(echo "$PR_JSON" | jq -r '.number')
-PR_STATE=$(echo "$PR_JSON" | jq -r '.state')
-IS_DRAFT=$(echo "$PR_JSON" | jq -r '.isDraft')
-
-if [[ "$PR_STATE" == "MERGED" ]]; then
-    echo "PR #${PR_NUMBER} is already merged. Nothing to do."
-    exit 0
-fi
-
-if [[ "$IS_DRAFT" == "true" ]]; then
-    echo "error: PR #${PR_NUMBER} is in draft mode" >&2
-    exit 1
-fi
-
-gh pr merge "$PR_NUMBER" --squash --delete-branch
 
 DOCS_BRANCH="add-docs-version-${VERSION}"
 git fetch origin main

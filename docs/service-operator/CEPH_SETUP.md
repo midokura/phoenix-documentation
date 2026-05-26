@@ -121,6 +121,42 @@ ceph_osd_devices:
 
 All storage nodes listed in `ceph_mon_hosts` must have Ubuntu installed, be reachable via SSH from the bastion, and the connecting user must have passwordless `sudo`.
 
+### Verify disk allocation before provisioning
+
+Before running `--provision-ceph`, confirm that the OS RAID pair and data disks on each storage node match what is declared in `inventory.yml`. A mismatch — for example, the PXE installer landing the OS on a disk intended for Ceph — will cause the playbook to fail after zapping disks, with an error like:
+
+```
+Configured device storage2:/dev/nvme4n1 is not visible in 'ceph orch device ls'
+```
+
+On each storage node, run:
+
+```bash
+lsblk | grep -E "md0|nvme|sd"
+```
+
+Check that:
+- The RAID1 OS array (`md0`) is built from the two disks listed under `storage.disks` in `inventory.yml`
+- All disks listed under `storage.data_disks` in `inventory.yml` appear **without** partitions
+
+Example of a correct layout (inventory: `disks: [nvme0n1, nvme1n1]`, `data_disks: [nvme2n1..nvme7n1]`):
+
+```
+nvme0n1     ...  disk
+├─nvme0n1p1 ...  part  /boot/efi
+└─nvme0n1p2 ...  part
+  └─md0     ...  raid1 /
+nvme1n1     ...  disk
+├─nvme1n1p1 ...  part  /boot/efi2
+└─nvme1n1p2 ...  part
+  └─md0     ...  raid1 /
+nvme2n1     ...  disk            ← no partitions, available for Ceph
+nvme3n1     ...  disk
+...
+```
+
+If the OS landed on the wrong disk (e.g. `md0` uses `nvme4n1` instead of `nvme1n1`), re-provision the node via PXE before continuing — do not update the inventory to match the wrong layout, as this would permanently sacrifice a data disk.
+
 ## Installation
 
 ### Run the provisioning playbook

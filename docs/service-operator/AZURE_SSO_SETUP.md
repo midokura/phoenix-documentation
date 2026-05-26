@@ -8,15 +8,13 @@ Generating Azure SSO credentials for the IaaS Console.
 
 This guide shows how to register an application in Azure Active Directory and obtain the credentials required to enable Azure Single Sign-On.
 
-**Example hostname**: `https://console.phoenix-gpu.com`
-
 ## Outputs of This Guide
 
 - **AZURE_CLIENT_ID**: The application (client) ID of your Azure app registration
 - **AZURE_CLIENT_SECRET**: A client secret generated for the app registration
 - **AZURE_TENANT_ID**: The directory (tenant) ID of your Azure AD tenant
-- **AZURE_REDIRECT_URI**: Callback URL after login
-  - Must be: `https://console.phoenix-gpu.com/api/auth/azure/callback`
+- **AZURE_REDIRECT_URI**: Callback URL after login, in the form `https://<console-hostname>/api/auth/azure/callback`
+  - See [Console URL](./IAAS_CONSOLE_CONFIGURATION.md#console-url) for how to determine your console hostname
 
 ## Prerequisites
 
@@ -32,7 +30,7 @@ This guide shows how to register an application in Azure Active Directory and ob
 4. Fill in the form:
    - **Name**: Enter a name (for example, "IaaS Console")
    - **Supported account types**: Choose **"Accounts in this organizational directory only"** (single tenant) or the appropriate option for your organization
-   - **Redirect URI**: Select **"Web"** and enter `https://console.phoenix-gpu.com/api/auth/azure/callback`
+   - **Redirect URI**: Select **"Web"** and enter `https://console.mycluster.example.com/api/auth/azure/callback`
 5. Click **"Register"**
 
 ### 2. Copy the Application and Tenant IDs

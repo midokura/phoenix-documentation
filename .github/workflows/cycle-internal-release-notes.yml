@@ -33,7 +33,7 @@ jobs:
         id: generate-token
         uses: actions/create-github-app-token@v3
         with:
-          app-id: ${{ vars.PHOENIX_BOT_APP_ID }}
+          client-id: ${{ vars.PHOENIX_BOT_APP_ID }}
           private-key: ${{ secrets.PHOENIX_BOT_PRIVATE_KEY }}
           owner: midokura
           repositories: phoenix-documentation
@@ -59,9 +59,9 @@ jobs:
         uses: archive/github-actions-slack@433fef9978d3adae73168bfc9c5a7ce722780231 # master
         with:
           slack-bot-user-oauth-access-token: ${{ secrets.SLACK_BOT_TOKEN_NOTIFICATIONS }}
-          # channels: phoenix-qa, phoenix-technical
-          slack-channel: C09NY5GT6J0,C08FM942JSG
+          # channels: phoenix-technical
+          slack-channel: C08FM942JSG
           slack-text: |
             <!here>:
-            ✅ v${{ inputs.rc_version }} release notes have been merged (${{ steps.cycle.outputs.merged_commit }}).
-            📝 The draft for v${{ steps.cycle.outputs.new_rc_version }} is now open — please add your changes: ${{ steps.cycle.outputs.new_pr_url }}
+            ${{ steps.cycle.outputs.merged_commit != '' && format('✅ v{0} release notes have been merged ({1}).', inputs.rc_version, steps.cycle.outputs.merged_commit) || '' }}
+            📝 The draft for v${{ steps.cycle.outputs.new_rc_version }} is now open — please add your release notes and upgrade guide changes: ${{ steps.cycle.outputs.new_pr_url }}

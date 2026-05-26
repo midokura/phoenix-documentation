@@ -351,7 +351,6 @@ Connect to a Ceph monitor node, enter the cephadm shell, and run:
 # As of the Queens release, Keystone solely implements the Identity API v3.
 # Support for Identity API v2.0 has been removed in Queens in favor of the Identity API v3.
 # https://docs.openstack.org/keystone/latest/contributor/http-api.html
-ceph config set client.rgw.gateway rgw_keystone_api_version 3
 ceph config set client.rgw.gateway rgw_keystone_url https://<keystone-host>:5000
 ceph config set client.rgw.gateway rgw_keystone_verify_ssl false
 ceph config set client.rgw.gateway rgw_keystone_admin_user ceph_rgw

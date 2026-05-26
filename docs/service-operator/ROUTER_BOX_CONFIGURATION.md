@@ -342,12 +342,16 @@ openwrt_routers:
 ## OpenWrt Router — banIP Intrusion Prevention
 
   :::warning
-  In case of network issues please check if any of the following parameters need modification.   
+
+  In case of network issues please check if any of the following parameters need modification.
+  
   :::
 
   The router can run banIP as an IP-based intrusion prevention system. It downloads threat intelligence blocklists from external feeds and uses the router's firewall (nftables) to silently drop traffic from known-malicious IP addresses before it   
   reaches any cluster service.              
   This feature is conditional: it only activates when `banip_feeds` is defined in inventory.
+
+  To check for banned IPs, you can access the LuCi Web UI of the router and go to "Services" -> "banIP" -> "Edit Blocklist". Editing said blocklist and applying the changes will be effective, but bear in mind that most of the configuration of banIP is managed through the inventory.yaml and the deployment process.
 
   ### Variables      
 

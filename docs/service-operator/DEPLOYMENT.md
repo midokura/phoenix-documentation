@@ -174,12 +174,14 @@ All commands below assume you're in the `release-assets/` directory.
 ### Complete Deployment
 
 1. Bootstrap the network environment: `./scripts/platform-setup.sh --bootstrap`
-2. Configure the switches following this [guide](NETWORK_CONTROL_NODE_SETUP.md#43-access-switch-console).
-3. Run master script: `./scripts/platform-setup.sh`
-4. Enter vault password when prompted
-5. Wait for deployment to complete (1-2 hours)
-6. Review logs in `logs/`
-7. Verify services are running (see below)
+2. Configure the switches following this
+   [guide](NETWORK_CONTROL_NODE_SETUP.md#43-access-switch-console).
+3. Deploy ceph: `/scripts/platform-setup.ph --provision-ceph`.
+4. Run master script: `./scripts/platform-setup.sh`
+5. Enter vault password when prompted
+6. Wait for deployment to complete (1-2 hours)
+7. Review logs in `logs/`
+8. Verify services are running (see below)
 
 ### Verify Deployment Success
 

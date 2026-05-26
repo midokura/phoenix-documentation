@@ -16,16 +16,16 @@ You'll deploy a VM on the bastion node that acts as the control plane for the He
 
 ### Prerequisites Checklist
 
-- [ ] **Router0 Access** - SSH access to the router box (`router0`) → [Details](#router0-access)
+- [ ] **Router0 Access** - SSH access to `router0-host`, the physical router machine → [Details](#router0-access)
 - [ ] **Control Node ISO** - Download URL for HedgeHog Control node ISO → [Details](#control-node-iso)
 - [ ] **Switch Access** - Serial console access to network switches → [Details](#switch-access)
 
 ### Router0 Access
 
-- **What it is:** SSH access to `router0`, the physical router box host
+- **What it is:** SSH access to `router0-host`, the physical machine that hosts the router VM and the USB-to-serial adapters
 - **Purpose:** Access the USB-to-serial adapters connected to the network switches
 - **What you need:**
-  - SSH key and credentials for `router0`
+  - SSH key and credentials for `router0-host`
 
 ### Control Node ISO
 
@@ -163,7 +163,7 @@ ip addr show
 Note the IP address(es) and use them to SSH from your workstation if needed:
 
 ```bash
-ssh core@<control-node-ip>
+ssh core@<hedgehog_control_node_ip>
 ```
 
 Verify HedgeHog services are running:
@@ -231,7 +231,7 @@ The exact ONIE firmware filename and version will vary based on your switch hard
 
 #### 4.3: Access Switch Console
 
-From `router0` (where the USB-to-serial adapters are connected), connect to each switch via serial console:
+From `router0-host` (where the USB-to-serial adapters are connected), connect to each switch via serial console:
 
 ```bash
 sudo minicom -D /dev/ttyUSB1 -b 115200
@@ -268,11 +268,11 @@ From the switch console:
 
 Once switches are in ONIE mode, HedgeHog will automatically detect them on the management network and begin SONiC installation via DHCP.
 
-Monitor agent heartbeats and configuration from the control node:
+Monitor agent heartbeats and configuration from the hedgehog control node:
 
 ```bash
 # SSH to control node
-ssh core@<control-node-ip>
+ssh core@<hedgehog_control_node_ip>
 
 # Watch for agent heartbeats and configuration generation
 kubectl get agent -o wide -w

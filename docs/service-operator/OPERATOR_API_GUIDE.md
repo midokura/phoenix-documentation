@@ -23,8 +23,8 @@ To access the Operator APIs, you need to obtain an authentication token from the
 
 ### JWT Token Authentication
 ```bash
-# Set your API base URL (adjust for your environment)
-export API_BASE_URL="http://base-url/api"
+# Set your API base URL — see [Console URL](./IAAS_CONSOLE_CONFIGURATION.md#console-url)
+export API_BASE_URL="https://console.mycluster.example.com/api"
 
 # Set your JWT token (obtained from UI Operator tab)
 export JWT_TOKEN="your-jwt-token-from-ui-operator-tab"

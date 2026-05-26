@@ -1,0 +1,8 @@
+{
+  "label": "Software Update Runbooks",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "Runbooks for performing software and configuration updates."
+  }
+}

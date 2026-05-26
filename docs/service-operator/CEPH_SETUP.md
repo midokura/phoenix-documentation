@@ -417,6 +417,13 @@ If the symlink is absent on any RGW host, re-copy the cert and re-run `update-ca
 
 **Step 2 — Confirm SSL verification is currently failing**
 
+:::note
+
+The command of this step is expected to be executed in one of the storage nodes.
+
+:::
+
+
 ```bash
 RGW_CTR=$(sudo podman ps --filter "name=rgw" --format "{{.Names}}" | head -1)
 sudo podman exec "$RGW_CTR" curl -v https://<keystone-host>:5000/v3/ 2>&1 \

@@ -46,9 +46,10 @@ On the app registration's **Overview** page:
 
 1. In the left sidebar, click **"Certificates & secrets"**
 2. Under **"Client secrets"**, click **"+ New client secret"**
-3. Enter a description (for example, "iaas-console") and choose an expiry
+3. Enter a description (for example, "iaas-console") and choose an expiry date
 4. Click **"Add"**
 5. Copy the **Value** immediately — this is your `AZURE_CLIENT_SECRET`
+   - Example: `Bb2Cc~3Dd4.-Ee5Ff6Gg7Hh8Ii9Jj0_Kk1Ll2Mm3`
 
 :::warning
 

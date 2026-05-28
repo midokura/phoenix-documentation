@@ -15,6 +15,10 @@
     "message": "リリースノート",
     "description": "Navbar item with label Release Notes"
   },
+    "item.label.Upgrade Guide": {
+    "message": "アップグレードガイド",
+    "description": "Navbar item with label Upgrade Guide"
+  },
   "item.label.Tutorial": {
     "message": "チュートリアル",
     "description": "Navbar item with label Tutorial"

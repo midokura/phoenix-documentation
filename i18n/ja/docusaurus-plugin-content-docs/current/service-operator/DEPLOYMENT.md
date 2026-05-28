@@ -66,11 +66,14 @@ Quick verification checklist. Click any item for detailed setup instructions bel
 - **What it is:** Password to decrypt and encrypt configuration files
 - **Purpose:** Decrypts secrets in `inventory.yml` and other encrypted configuration files
 - **How it works:**
-  1. The script prompts you to enter the password interactively at the beginning
-  2. It temporarily stores the password in `~/vault-key.txt` during execution
-  3. The file is automatically removed when the script completes
-- **What you need:** Just know the password - the script handles the file creation and cleanup
-- **Important:** The local file `~/vault-key.txt` will be mounted in the container as `/secrets/vault-key.txt` read-only file
+  1. If the `VAULT_PASSWORD` environment variable is set, the script uses it automatically
+  2. Otherwise the script prompts you to enter the password interactively
+  3. The password is stored in a temporary file with restrictive permissions and deleted on exit via a signal trap
+- **What you need:** Retrieve the vault password from Bitwarden (search "ansible vault"). The script will prompt you when you run it, or you can pre-set it to avoid being prompted:
+
+```bash
+read -rsp "Vault password: " VAULT_PASSWORD && export VAULT_PASSWORD
+```
 
 ### SSH Keys
 
@@ -234,7 +237,6 @@ These options are shared across all scripts and can be specified via CLI argumen
 | CLI Argument | Environment Variable | Default | Description |
 |--------------|---------------------|---------|-------------|
 | `-i, --inventory PATH` | `INVENTORY` | `./inventory.yml` | Ansible inventory file |
-| `--vault-file PATH` | `VAULT_FILE` | `~/vault-key.txt` | Vault password file |
 | `--ssh-dir PATH` | `SSH_DIR` | `~/.ssh` | SSH directory path |
 | `--cache-dir PATH` | `CACHE_DIR` | `~/.cache/gpu-infrastructure` | Cache directory for images |
 | `--keyrings-dir PATH` | `KEYRINGS_DIR` | `./keyrings` | Ceph keyrings directory |
@@ -263,7 +265,7 @@ All scripts use common environment variables defined in `common.sh`:
 
 **Input parameters:**
 
-- `VAULT_FILE` - Vault password file path (default: `~/vault-key.txt`)
+- `VAULT_PASSWORD` - Vault password (if unset, the script prompts interactively)
 - `SSH_DIR` - SSH directory path (default: `~/.ssh`)
 - `CACHE_DIR` - Cache directory for images and Ansible facts (default: `~/.cache/gpu-infrastructure`)
 - `KEYRINGS_DIR` - Ceph keyrings directory (default: `./keyrings`)
@@ -316,9 +318,8 @@ podman images | grep gpu-infra-ansible
 ### Vault password errors
 
 ```bash
-# Verify vault file exists and has correct permissions
-ls -l ~/vault-key.txt
-chmod 600 ~/vault-key.txt
+# Check that VAULT_PASSWORD is set, or re-run the script and enter the password when prompted
+echo "${VAULT_PASSWORD:+set}"
 ```
 
 ### SSH connection failures
@@ -341,9 +342,8 @@ tail -f logs/*.log
 
 ## Security Notes
 
-- Vault password is stored temporarily in `~/vault-key.txt`
-- File is automatically removed when master script completes
-- File has restrictive permissions (600) - only readable by owner
+- Vault password travels as the `VAULT_PASSWORD` environment variable — never transferred as a file between hosts
+- A temporary file is created locally with restrictive permissions (umask 077) and deleted on exit via a signal trap (normal exit, SIGTERM, SIGINT)
 - Never commit vault password to version control
 - Keep vault password in a safe place
 
@@ -378,7 +378,7 @@ Additional files needed for deployment:
 
 **`platform-setup.sh`** - Thin wrapper for deployment
 
-- Prompts for vault password once (stored temporarily)
+- Reads `VAULT_PASSWORD` env var, or prompts once if unset (stored in a secure temporary file, deleted on exit)
 - Loads container image (optional `--skip-load-container`)
 - Passes all arguments directly to `ansible-playbook`
 - Runs master playbook (`main.yml`) with user-provided Ansible flags: `--tags`, `--skip-tags`, `-v`, etc.

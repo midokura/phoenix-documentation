@@ -42,19 +42,17 @@ This procedure is **irreversible**. Once executed, all tenant data — including
 
 ### OpenStack CLI setup
 
-The `admin-openrc.sh` credentials file is Ansible Vault encrypted. You need a Python venv with the OpenStack client and the vault password (stored in `~/vault-key.txt` on Ansible machines, otherwise retrieve from Bitwarden — search "ansible vault"):
+The `admin-openrc.sh` credentials file is Ansible Vault encrypted. You need a Python venv with the OpenStack client and the vault password (retrieve from Bitwarden — search "ansible vault"):
 
 ```bash
 /usr/bin/python3 -m venv /tmp/venv-termination
 source /tmp/venv-termination/bin/activate
 pip install ansible-core==2.20.5 python-openstackclient==9.0.0
 
-echo 'VAULT_PASSWORD' > /tmp/vault-key.txt && chmod 600 /tmp/vault-key.txt
 ansible-vault decrypt \
   infra-management/<env>/config/admin-openrc.sh \
-  --vault-password-file /tmp/vault-key.txt \
+  --ask-vault-pass \
   --output /tmp/admin-openrc.sh
-rm /tmp/vault-key.txt
 ```
 
 The decrypted file may contain `http://` for the Keystone URL even though the endpoint listens on HTTPS. Fix it before sourcing:

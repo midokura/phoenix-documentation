@@ -26,7 +26,7 @@ ansible-vault view inventory.yml
 To rotate the vault password:
 
 ```bash
-ansible-vault rekey --new-vault-password-file ~/new-vault-key.txt inventory.yml
+ansible-vault rekey --ask-vault-pass --ask-new-vault-pass inventory.yml
 ```
 
 ## How to Apply a Configuration Change

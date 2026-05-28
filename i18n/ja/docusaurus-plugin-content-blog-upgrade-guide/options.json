@@ -1,0 +1,14 @@
+{
+  "title": {
+    "message": "アップグレードガイド",
+    "description": "The title for the upgrade guide used in SEO"
+  },
+  "description": {
+    "message": "アップグレードガイド",
+    "description": "The description for the upgrade guide used in SEO"
+  },
+  "sidebar.title": {
+    "message": "アップグレードガイド",
+    "description": "The label for the left sidebar"
+  }
+}

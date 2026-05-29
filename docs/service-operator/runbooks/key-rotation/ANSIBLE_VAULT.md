@@ -33,15 +33,13 @@ ansible-vault --version
 Write the current vault password to a temporary file. The file must **not** have a trailing newline.
 
 ```bash
-printf '%s' '<old-vault-password>' > /tmp/old_vault_pass.txt
-chmod 600 /tmp/old_vault_pass.txt
+(umask 077; printf '%s' '<old-vault-password>' > /tmp/old_vault_pass.txt)
 ```
 
 ## Step 2: Generate a new vault password
 
 ```bash
-openssl rand -base64 32 | tr -d '\n' > /tmp/new_vault_pass.txt
-chmod 600 /tmp/new_vault_pass.txt
+(umask 077; openssl rand -base64 32 | tr -d '\n' > /tmp/new_vault_pass.txt)
 ```
 
 Verify it is a single line with no newline:

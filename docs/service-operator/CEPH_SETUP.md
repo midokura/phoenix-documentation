@@ -316,8 +316,8 @@ Note the `access_key` and `secret_key` values from the command output.
 Exit the cephadm shell and run the following commands **on the bastion** to encrypt the keys:
 
 ```bash
-ansible-vault encrypt_string '<access_key_value>' --name 'rgw_auth.access_key' --vault-password-file ~/vault-key.txt
-ansible-vault encrypt_string '<secret_key_value>' --name 'rgw_auth.secret_key' --vault-password-file ~/vault-key.txt
+ansible-vault encrypt_string '<access_key_value>' --name 'rgw_auth.access_key' --ask-vault-pass
+ansible-vault encrypt_string '<secret_key_value>' --name 'rgw_auth.secret_key' --ask-vault-pass
 ```
 
 Copy the encrypted output into `inventory.yml`:

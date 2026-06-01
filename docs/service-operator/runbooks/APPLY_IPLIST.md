@@ -82,17 +82,21 @@ shift $((OPTIND - 1))
 [[ -z "${SSH_KEY}" || -z "${JUMP_HOST}" || -z "${REMOTE_FILE}" || $# -ne 1 ]] && usage
 
 NEW_FILE="$1"
-PROXY="ProxyCommand ssh -W %h:%p -i ${SSH_KEY} ${JUMP_HOST}"
-SSH="ssh -i ${SSH_KEY} -o \"${PROXY}\""
-SCP="scp -O -i ${SSH_KEY} -o \"${PROXY}\""  # -O: legacy SCP protocol (no sftp on OpenWRT)
 
 [[ ! -f "${NEW_FILE}" ]] && { echo "ERROR: File not found: ${NEW_FILE}" >&2; exit 1; }
 [[ ! -f "${SSH_KEY}" ]]  && { echo "ERROR: SSH key not found: ${SSH_KEY}" >&2; exit 1; }
 
+PROXY="ProxyCommand ssh -W %h:%p -i ${SSH_KEY} ${JUMP_HOST}"
+SSH_OPTS=(-i "${SSH_KEY}" -o "${PROXY}")
+
 echo "=== Step 1: Diff (remote vs local) ==="
 REMOTE_TMP=$(mktemp)
-${SCP} "${ROUTER}:${REMOTE_FILE}" "${REMOTE_TMP}" 2>/dev/null \
-    && diff "${REMOTE_TMP}" "${NEW_FILE}" || true
+if scp -O "${SSH_OPTS[@]}" "${ROUTER}:${REMOTE_FILE}" "${REMOTE_TMP}"; then
+    diff "${REMOTE_TMP}" "${NEW_FILE}" || true
+else
+    echo "WARNING: Could not fetch remote file (may not exist yet). Local file contents:"
+    cat "${NEW_FILE}"
+fi
 rm -f "${REMOTE_TMP}"
 
 echo ""
@@ -101,15 +105,15 @@ read -rp "Diff looks correct? Proceed? [y/N] " CONFIRM
 
 echo ""
 echo "=== Step 2: Copy to router ==="
-${SCP} "${NEW_FILE}" "${ROUTER}:${REMOTE_FILE}"
+scp -O "${SSH_OPTS[@]}" "${NEW_FILE}" "${ROUTER}:${REMOTE_FILE}"
 
 echo ""
 echo "=== Step 3: Reload ipsets (no downtime) ==="
-${SSH} "${ROUTER}" fw4 reload-sets
+ssh "${SSH_OPTS[@]}" "${ROUTER}" fw4 reload-sets
 
 echo ""
 echo "=== Step 4: Validate ==="
-${SSH} "${ROUTER}" fw4 print
+ssh "${SSH_OPTS[@]}" "${ROUTER}" fw4 print
 ```
 
 ---

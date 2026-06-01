@@ -148,12 +148,3 @@ If it appears in the output, the cleanup is still stuck. There may be additional
 ```bash
 sudo ip netns list | grep -E '^(qrouter|qdhcp|fip)-'
 ```
-
-### Container exits immediately after start
-
-Check for a misconfiguration or missing config file:
-
-```bash
-sudo podman inspect neutron_l3_agent | python3 -m json.tool | grep -A5 '"ExitCode"'
-sudo podman logs neutron_l3_agent
-```

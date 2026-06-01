@@ -16,7 +16,7 @@ The alert query may show more firing series than there are failing agents. Each 
 
 :::
 
-The typical failure chain:
+The identified failure chain:
 
 1. A RabbitMQ node enters maintenance mode (`CONNECTION_FORCED - Node was put into maintenance mode`), causing the neutron-l3-agent on that control node to lose its AMQP connection and stop sending heartbeats — Neutron marks it `alive=False`.
 2. After reconnecting, the agent process dies inside its container. With no restart policy configured, the container stays running but hollow (wrapper script alive, agent dead) and Neutron keeps reporting it as `alive=False`.

@@ -127,13 +127,6 @@ The container is healthy on all affected nodes and the Grafana alert has cleared
 
 ---
 
-## Follow-up actions
-
-- **Add a restart policy** to prevent agents from staying silently dead for hours. Set `kolla_container_restart_policy: always` in `infra-management/<install>/globals.yml` and apply with `reconfigure-openstack`.
-- **Investigate the RabbitMQ maintenance event** — confirm whether it was intentional and, if so, add a post-maintenance health-check step to the relevant change-management runbook.
-
----
-
 ## Troubleshooting
 
 ### Script times out at the health check step

@@ -157,12 +157,3 @@ Check for a misconfiguration or missing config file:
 sudo podman inspect neutron_l3_agent | python3 -m json.tool | grep -A5 '"ExitCode"'
 sudo podman logs neutron_l3_agent
 ```
-
-### Alert does not clear after container is healthy
-
-Allow up to 2 minutes for the openstack-exporter scrape cycle to pick up the recovered agent state. If it does not clear, verify the agent is registered on the Neutron side from a node that has OpenStack CLI access:
-
-```bash
-source /etc/kolla/admin-openrc.sh
-openstack network agent list --agent-type l3
-```

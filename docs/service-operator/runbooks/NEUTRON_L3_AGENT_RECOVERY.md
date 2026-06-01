@@ -137,7 +137,13 @@ The container started but the agent is not passing its health check. Inspect the
 sudo podman logs --tail 100 neutron_l3_agent
 ```
 
-If `neutron-netns-cleanup` is still running, there may be additional namespace types (`qdhcp-*`, `fip-*`) that need the same treatment. List all Neutron namespaces and repeat the cleanup:
+To check whether `neutron-netns-cleanup` is still running inside the container:
+
+```bash
+sudo podman exec neutron_l3_agent ps aux | grep neutron-netns-cleanup
+```
+
+If it appears in the output, the cleanup is still stuck. There may be additional namespace types (`qdhcp-*`, `fip-*`) that need the same treatment. List all Neutron namespaces and repeat the cleanup:
 
 ```bash
 sudo ip netns list | grep -E '^(qrouter|qdhcp|fip)-'

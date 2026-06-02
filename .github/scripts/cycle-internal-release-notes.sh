@@ -11,8 +11,8 @@ NEXT_RC_VERSION="${MINOR_VERSION}-rc${NEXT_RC_NUM}"
 OLD_PR_TITLE="add[release notes]: add v${RC_VERSION} release notes"
 NEW_PR_TITLE="add[release notes]: add v${NEXT_RC_VERSION} release notes"
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-RELEASE_NOTES_FILE="${REPO_ROOT}/blog/${MINOR_VERSION}-releasenotes.md"
-UPGRADE_NOTES_FILE="${REPO_ROOT}/upgrade-guide/${MINOR_VERSION}-upgradeguide.md"
+RELEASE_NOTES_FILE="${REPO_ROOT}/blog/.v${MINOR_VERSION}-releasenotes.md"
+UPGRADE_NOTES_FILE="${REPO_ROOT}/upgrade-guide/.v${MINOR_VERSION}-upgradeguide.md"
 
 # Merge old PR if it exists
 OLD_PR_NUMBER=$(gh pr list --state open --json number,title \
@@ -29,7 +29,7 @@ else
 fi
 
 # Create new draft PR for next RC (skip if it already exists)
-NEW_BRANCH="add-release-notes-${NEXT_RC_VERSION}"
+NEW_BRANCH="add-release-notes-v${NEXT_RC_VERSION}"
 
 EXISTING_PR_NUMBER=$(gh pr list --state open --json number,title \
     | jq -r ".[] | select(.title == \"${NEW_PR_TITLE}\") | .number")

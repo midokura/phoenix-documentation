@@ -12,6 +12,8 @@ No traffic disruption is expected at any point during this process. The `fw4 rel
 - [ ] New iplist file ready locally
 - [ ] Network access to the router via a jump host
 
+> **Keep your inventory in sync**: The live change applied by this script will be overwritten the next time the platform is reconfigured. Update the corresponding iplist file in your inventory source **before** applying the live change, so the two stay consistent.
+
 ---
 
 ## Finding the Target File Path

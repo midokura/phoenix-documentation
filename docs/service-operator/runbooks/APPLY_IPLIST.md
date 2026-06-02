@@ -105,6 +105,7 @@ read -rp "Diff looks correct? Proceed? [y/N] " CONFIRM
 
 echo ""
 echo "=== Step 2: Copy to router ==="
+ssh "${SSH_OPTS[@]}" mkdir -pv "${ROUTER}:$(dirname "${REMOTE_FILE}")"
 scp -O "${SSH_OPTS[@]}" "${NEW_FILE}" "${ROUTER}:${REMOTE_FILE}"
 
 echo ""

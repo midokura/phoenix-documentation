@@ -294,22 +294,23 @@ kubectl fabric switch ssh --name <switch-name>
 
 Use the default HedgeHog admin password when prompted.
 
-Once switches are confirmed reachable, verify that the router's [LACP](https://en.wikipedia.org/wiki/Link_aggregation#Link_Aggregation_Control_Protocol) bond has recovered. The bond
-(`bond0`) is configured during bootstrap before the switch PortChannels exist; if it enters a
-churned state it does not self-recover even after the PortChannels come up.
+Once switches are confirmed reachable, recover the router's [LACP](https://en.wikipedia.org/wiki/Link_aggregation#Link_Aggregation_Control_Protocol) bond. The bond
+(`bond0`) is configured during bootstrap before the switch PortChannels exist; it always
+enters a churned state and does not self-recover even after the PortChannels come up.
 
-From `router-0`, check connectivity and inspect the bond:
+Run the post-switch setup step to detect and fix the churned bond automatically:
 
 ```bash
-ping <hedgehog-gateway-ip>   # from inventory, e.g. 10.30.0.2
-cat /proc/net/bonding/bond0
+./platform-setup.sh --post-switch-setup
 ```
 
-If `ping` fails and the bond shows `Partner Churn State: churned`, reboot `router-0` to
-force a clean LACP renegotiation:
+This checks `/proc/net/bonding/bond0` on `router-0` for a churned state and, if found, cycles the bond
+members to force a clean LACP renegotiation — without restarting the router.
+
+To inspect the bond manually before or after:
 
 ```bash
-sudo reboot
+cat /proc/net/bonding/bond0   # look for "Churn State: none" when healthy
 ```
 
 **Troubleshooting:** If the agent doesn't send heartbeats, check the agent logs via serial console:
@@ -344,6 +345,25 @@ cat /var/log/agent.log
   - `kubectl logs -n fab -l app.kubernetes.io/name=fabricator`
   - `kubectl logs -n fab -l app.kubernetes.io/name=fabric`
 - Ensure switches completed ONIE update and rebooted
+
+### PXE Not Working After Post-Switch Setup
+
+If PXE still fails after running `--post-switch-setup`, inspect the bond state manually
+from `router-0`:
+
+```bash
+cat /proc/net/bonding/bond0
+```
+
+Look for `Partner Churn State` and `Actor Churn State` — both should be `none` when healthy.
+If either shows `churned`, the bond members are still dead and the automatic reset did not
+take effect. In that case, restart the router as a last resort:
+
+```bash
+sudo reboot
+```
+
+After the router comes back up, PXE should recover automatically.
 
 ### Can't SSH to Control Node
 

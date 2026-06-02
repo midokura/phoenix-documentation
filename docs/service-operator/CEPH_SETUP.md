@@ -340,6 +340,7 @@ The `configure_ceph_rgw_keystone` post-deployment role handles Ceph RGW Keystone
 post_deployment:
   configure_ceph_rgw_keystone:
     active: true
+    # verify_ssl: true   # opt-in — enable only when Keystone uses a trusted CA cert
 ```
 
 ```bash
@@ -349,7 +350,7 @@ ansible-playbook post-deployment.yml \
   --extra-vars "cluster_directory=<path>"
 ```
 
-The role configures the Keystone URL, admin credentials, accepted roles, implicit tenants, SSL verification, and S3 authentication. If you need to set `rgw_keystone_token_cache_size`, `rgw_enable_usage_log`, or `rgw_swift_account_in_url`, apply them manually via `ceph config set`, for example:
+The role configures the Keystone URL, admin credentials, accepted roles, implicit tenants, SSL verification (opt-in, defaults to `false`), and S3 authentication. If you need to set `rgw_keystone_token_cache_size`, `rgw_enable_usage_log`, or `rgw_swift_account_in_url`, apply them manually via `ceph config set`, for example:
 
 ```bash
 ceph config set client.rgw.gateway rgw_enable_usage_log true
@@ -424,7 +425,13 @@ Verify the spec was accepted — confirm `extra_container_args` appears and `ssl
 sudo cephadm shell -- ceph orch ls rgw --export
 ```
 
-After the spec is applied, the post-deployment playbook handles setting `rgw_keystone_verify_ssl true` and redeploying the RGW daemons. Confirm the daemons return to `running`:
+After the spec is applied, set `verify_ssl: true` under `post_deployment.configure_ceph_rgw_keystone` in your inventory and re-run the playbook, or set it manually:
+
+```bash
+sudo cephadm shell -- ceph config set client.rgw.gateway rgw_keystone_verify_ssl true
+```
+
+The playbook redeploys the RGW daemons automatically when `verify_ssl: true` is set. Confirm the daemons return to `running`:
 
 ```bash
 sudo cephadm shell -- ceph orch ps --daemon-type rgw

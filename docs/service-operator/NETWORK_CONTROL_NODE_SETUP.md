@@ -304,7 +304,7 @@ Run the post-switch setup step to detect and fix the churned bond automatically:
 ./platform-setup.sh --post-switch-setup
 ```
 
-This checks `/proc/net/bonding/bond0` for a churned state and, if found, cycles the bond
+This checks `/proc/net/bonding/bond0` on `router-0` for a churned state and, if found, cycles the bond
 members to force a clean LACP renegotiation — without restarting the router.
 
 To inspect the bond manually before or after:

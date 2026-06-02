@@ -349,9 +349,17 @@ ansible-playbook post-deployment.yml \
   --extra-vars "cluster_directory=<path>"
 ```
 
-The role configures the Keystone URL, admin credentials, accepted roles, implicit tenants, SSL verification, and S3 authentication. If you need to set `rgw_keystone_token_cache_size`, `rgw_enable_usage_log`, or `rgw_swift_account_in_url`, apply them manually via `ceph config set`.
+The role configures the Keystone URL, admin credentials, accepted roles, implicit tenants, SSL verification, and S3 authentication. If you need to set `rgw_keystone_token_cache_size`, `rgw_enable_usage_log`, or `rgw_swift_account_in_url`, apply them manually via `ceph config set`, for example:
 
-If using SSL verification, copy the Keystone CA certificate to **each storage node running RGW** and update the trust store:
+```bash
+ceph config set client.rgw.gateway rgw_enable_usage_log true
+```
+
+If using SSL verification, complete the following steps. The RGW containers are RHEL-based and look for the CA bundle at `/etc/pki/tls/certs/ca-bundle.crt` — not the Ubuntu path — so the host CA bundle must be explicitly mounted into the container.
+
+**Step 1 — Distribute the Keystone CA certificate**
+
+Copy the Keystone CA certificate to **each storage node running RGW** and update the trust store:
 
 ```bash
 sudo cp /path/to/keystone-ca.crt /usr/local/share/ca-certificates/keystone-ca.crt
@@ -366,6 +374,80 @@ lrwxrwxrwx 1 root root 48 ... /etc/ssl/certs/keystone-ca.pem -> /usr/local/share
 ```
 
 If the symlink is absent on any RGW host, re-copy the cert and re-run `update-ca-certificates` on that host before continuing.
+
+**Step 2 — Export the current RGW spec**
+
+```bash
+sudo cephadm shell -- ceph orch ls rgw --export > ~/rgw-spec.yaml
+cat ~/rgw-spec.yaml
+```
+
+**Step 3 — Extract the TLS cert in block-scalar format**
+
+The spec export uses single-quoted YAML which folds newlines — do not copy the cert from there. Pull it directly from config-key:
+
+```bash
+sudo cephadm shell -- ceph config-key get rgw/cert/rgw.gateway | python3 -c "
+import sys
+cert = sys.stdin.read().strip()
+print('  rgw_frontend_ssl_certificate: |')
+for line in cert.split('\n'):
+    print('    ' + line)
+"
+```
+
+Copy the output — this is the correctly formatted block-scalar cert to paste into the spec.
+
+**Step 4 — Update the spec file**
+
+Edit `~/rgw-spec.yaml` and make two additions:
+
+1. Replace the `rgw_frontend_ssl_certificate` value under `spec:` with the block-scalar output from step 3 (`|` format — never single-quoted).
+2. Add `extra_container_args` at the top level (same indentation as `placement:` and `spec:`):
+
+```yaml
+extra_container_args:
+  - "-v"
+  - "/etc/ssl/certs/ca-certificates.crt:/etc/pki/tls/certs/ca-bundle.crt:ro"
+```
+
+**Step 5 — Apply the updated spec**
+
+```bash
+sudo cephadm shell --mount ~/rgw-spec.yaml:/tmp/rgw-spec.yaml -- \
+  ceph orch apply -i /tmp/rgw-spec.yaml
+```
+
+Verify the spec was accepted — confirm `extra_container_args` appears and `ssl: true` / `rgw_frontend_ssl_certificate:` are intact:
+
+```bash
+sudo cephadm shell -- ceph orch ls rgw --export
+```
+
+After the spec is applied, the post-deployment playbook handles setting `rgw_keystone_verify_ssl true` and redeploying the RGW daemons. Confirm the daemons return to `running`:
+
+```bash
+sudo cephadm shell -- ceph orch ps --daemon-type rgw
+```
+
+**Step 6 — Verify Keystone SSL is working**
+
+```bash
+RGW_CTR=$(sudo podman ps --filter "name=rgw" --format "{{.Names}}" | head -1)
+sudo podman exec "$RGW_CTR" curl -v https://<keystone-host>:5000/v3/ 2>&1 \
+  | grep -E "SSL certificate|verify|issuer|CAfile|error"
+```
+
+Expected:
+
+```
+*  CAfile: /etc/pki/tls/certs/ca-bundle.crt
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+*  issuer: CN=KollaTestCA
+*  SSL certificate verify ok.
+```
+
+Replace `<keystone-host>` with the value of `kolla_internal_fqdn` from `globals.yml`.
 
 ---
 

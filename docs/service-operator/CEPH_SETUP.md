@@ -350,11 +350,7 @@ ansible-playbook post-deployment.yml \
   --extra-vars "cluster_directory=<path>"
 ```
 
-The role configures the Keystone URL, admin credentials, accepted roles, implicit tenants, SSL verification (opt-in, defaults to `false`), and S3 authentication. If you need to set `rgw_keystone_token_cache_size`, `rgw_enable_usage_log`, or `rgw_swift_account_in_url`, apply them manually via `ceph config set`, for example:
-
-```bash
-ceph config set client.rgw.gateway rgw_enable_usage_log true
-```
+The role configures the Keystone URL, admin credentials, accepted roles, implicit tenants, SSL verification (opt-in, defaults to `false`), token cache (set to `0` to disable), usage logging, Swift account-in-URL, and S3 authentication.
 
 If using SSL verification, complete the following steps. The RGW containers are RHEL-based and look for the CA bundle at `/etc/pki/tls/certs/ca-bundle.crt` — not the Ubuntu path — so the host CA bundle must be explicitly mounted into the container.
 

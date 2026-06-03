@@ -245,10 +245,10 @@ From the ONIE prompt, update the ONIE firmware using the HTTP server (nginx cont
 ```bash
 # In ONIE prompt
 onie-stop
-onie-self-update http://192.168.0.XX:8080/onie-updater.bin
+onie-self-update http://172.20.0.250:8080/onie-updater.bin
 ```
 
-Replace `192.168.0.XX` with the IP address of the machine running the nginx container and `onie-updater.bin` with your actual ONIE firmware filename.
+The nginx container is typically running on `deployment0` at `172.20.0.250`. Replace `onie-updater.bin` with your actual ONIE firmware filename if it differs.
 
 #### 4.5: Boot into ONIE Mode
 
@@ -267,6 +267,12 @@ From the switch console:
 ### Step 5: Install SONiC via HedgeHog
 
 Once switches are in ONIE mode, HedgeHog will automatically detect them on the management network and begin SONiC installation via DHCP.
+
+:::warning
+
+During the SONiC first-boot sequence the switch console may display a prompt asking you to change the default password. **Do not change the password.** HedgeHog uses the default credentials to log in and apply the fabric configuration — if the password is changed at this point, HedgeHog will be unable to connect and the switch will not join the fabric.
+
+:::
 
 Monitor agent heartbeats and configuration from the hedgehog control node:
 

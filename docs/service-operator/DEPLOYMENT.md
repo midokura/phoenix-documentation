@@ -78,7 +78,7 @@ Quick verification checklist. Click any item for detailed setup instructions bel
   1. If the `VAULT_PASSWORD` environment variable is set, the script uses it automatically
   2. Otherwise the script prompts you to enter the password interactively
   3. The password is stored in a temporary file with restrictive permissions and deleted on exit via a signal trap
-- **What you need:** Retrieve the vault password from Bitwarden (search "ansible vault"). The script will prompt you when you run it, or you can pre-set it to avoid being prompted:
+- **What you need:** Retrieve the vault password from [Bitwarden](https://vault.bitwarden.com/#/vault?organizationId=f28d9d48-9bab-4b62-943c-a96c0105b65c&search=vault&itemId=383a8ea4-f163-4673-af79-b3a800a5f248&action=view) (search "ansible vault"). The script will prompt you when you run it, or you can pre-set it to avoid being prompted:
 
 ```bash
 read -rsp "Vault password: " VAULT_PASSWORD && export VAULT_PASSWORD
@@ -186,7 +186,7 @@ All commands below assume you're in the `release-assets/` directory.
    [guide](NETWORK_CONTROL_NODE_SETUP.md#43-access-switch-console).
 3. Deploy ceph: `/scripts/platform-setup.ph --provision-ceph`.
 4. Run master script: `./scripts/platform-setup.sh`
-5. Enter vault password when prompted
+5. Enter vault password when prompted (see [Vault Password](#vault-password))
 6. Wait for deployment to complete (1-2 hours)
 7. Review logs in `logs/`
 8. Verify services are running (see below)

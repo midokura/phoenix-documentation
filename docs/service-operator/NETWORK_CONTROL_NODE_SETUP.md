@@ -240,15 +240,15 @@ sudo minicom -D /dev/ttyUSB1 -b 115200
 
 #### 4.4: Update ONIE Firmware (only if not in the latest version)
 
-From the ONIE prompt, update the ONIE firmware using the HTTP server (nginx container) we set up in step 4.1:
+From the ONIE prompt, update the ONIE firmware using the HTTP server on the OpenWRT router:
 
 ```bash
 # In ONIE prompt
 onie-stop
-onie-self-update http://192.168.0.XX:8080/onie-updater.bin
+onie-self-update http://172.20.0.1/boot/firmware/dell-onie/onie-update-full-x86_64-dellemc_s5200_c3538-r0.3.40.5.1-26.bin
 ```
 
-Replace `192.168.0.XX` with the IP address of the machine running the nginx container and `onie-updater.bin` with your actual ONIE firmware filename.
+The firmware file is served by `uhttpd` on the OpenWRT router machine (`172.20.0.1`).
 
 #### 4.5: Boot into ONIE Mode
 
@@ -267,6 +267,12 @@ From the switch console:
 ### Step 5: Install SONiC via HedgeHog
 
 Once switches are in ONIE mode, HedgeHog will automatically detect them on the management network and begin SONiC installation via DHCP.
+
+:::warning
+
+During the SONiC first-boot sequence the switch console may display a prompt asking you to change the default password. **Do not change the password.** HedgeHog uses the default credentials to log in and apply the fabric configuration — if the password is changed at this point, HedgeHog will be unable to connect and the switch will not join the fabric.
+
+:::
 
 Monitor agent heartbeats and configuration from the hedgehog control node:
 
@@ -330,10 +336,9 @@ cat /var/log/agent.log
 
 ### Switch Not Getting ONIE Firmware
 
-- Verify HTTP server is accessible: `curl http://192.168.0.XX:8080/onie-updater.bin`
-- Check switch can reach HTTP server from management network
-- Verify ONIE firmware file is in correct directory
-- Check nginx container is running: `docker ps`
+- Verify HTTP server is accessible from the switch: `curl http://172.20.0.1/boot/firmware/dell-onie/onie-update-full-x86_64-dellemc_s5200_c3538-r0.3.40.5.1-26.bin`
+- Check switch can reach the OpenWRT router (`172.20.0.1`) from the management network
+- Verify the ONIE firmware file exists on the OpenWRT router under `/boot/firmware/dell-onie/`
 
 ### Switches Not Appearing in Fabric
 

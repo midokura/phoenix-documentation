@@ -347,7 +347,7 @@ sudo resolvectl flush-caches
 
 To allow using the system DNS resolver in Firefox:
 
-1. Open [about:preferences#privacy](Firefox's privacy preferences page)
+1. Open [Firefox's privacy preferences page](about:preferences#privacy)
 2. Scroll to **DNS over HTTPS**
 3. Select **Default Protection** or **Increased Protection** to allow using the system DNS, or **Off** to disable DoH altogether
 
@@ -355,6 +355,6 @@ To allow using the system DNS resolver in Firefox:
 
 To disable DoH in Chrome:
 
-1. Open [chrome://settings/security](Chrome's settings page)
+1. Open [Chrome's settings page](chrome://settings/security)
 2. Scroll to **Use secure DNS**
 3. Turn off the toggle, or select **With your current service provider**

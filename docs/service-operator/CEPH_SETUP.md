@@ -334,76 +334,33 @@ rgw_auth:
 
 ### After OpenStack deployment
 
-:::note
+The `configure_ceph_rgw_keystone` post-deployment role handles Ceph RGW Keystone integration. Enable it in your inventory and run the post-deployment playbook:
 
-The following steps require the live OpenStack Keystone endpoint. Run them after completing the OpenStack deployment described in [DEPLOYMENT](./DEPLOYMENT).
-
-The config settings below (URL, admin user, domain, project, and flags) are manual. The Keystone **password** is the exception: set `post_deployment.configure_ceph_rgw_keystone.active: true` in `inventory.yml` and the post-deployment playbook will read it from `passwords.yml` and restart the gateway automatically — no need to set it manually or run step 5.
-
-:::
-
-#### 4. Configure Keystone integration
-
-Connect to a Ceph monitor node, enter the cephadm shell, and run:
-
-```bash
-# https://docs.ceph.com/en/latest/radosgw/keystone/
-# As of the Queens release, Keystone solely implements the Identity API v3.
-# Support for Identity API v2.0 has been removed in Queens in favor of the Identity API v3.
-# https://docs.openstack.org/keystone/latest/contributor/http-api.html
-ceph config set client.rgw.gateway rgw_keystone_url https://<keystone-host>:5000
-ceph config set client.rgw.gateway rgw_keystone_verify_ssl false
-ceph config set client.rgw.gateway rgw_keystone_admin_user ceph_rgw
-ceph config set client.rgw.gateway rgw_keystone_admin_domain Default
-ceph config set client.rgw.gateway rgw_keystone_admin_project service
-
-# disable token cache because of https://tracker.ceph.com/issues/21226
-ceph config set client.rgw.gateway rgw_keystone_token_cache_size 0
-
-ceph config set client.rgw.gateway rgw_enable_usage_log true # logging
-
-# https://docs.ceph.com/en/latest/radosgw/multitenancy/#swift-with-keystone
-ceph config set client.rgw.gateway rgw_keystone_implicit_tenants true
-
-# options
-ceph config set client.rgw.gateway rgw_swift_account_in_url false
-
-# https://docs.ceph.com/en/latest/radosgw/s3/authentication/
-ceph config set client.rgw.gateway rgw_s3_auth_use_keystone true
+```yaml
+post_deployment:
+  configure_ceph_rgw_keystone:
+    active: true
+    # verify_ssl: true   # opt-in — enable only when Keystone uses a trusted CA cert
 ```
 
-Replace `<keystone-host>` with the value of `kolla_internal_fqdn` from `globals.yml` — the FQDN (or IP, if no DNS is configured) that maps to the OpenStack internal VIP.
-
-`rgw_keystone_verify_ssl` is set to `false` here so that Keystone auth is functional immediately after the gateway restart. Enabling SSL verification requires mounting the host CA bundle into the RGW containers, which is covered in step 6 below.
-
-#### 5. Restart the gateway service
-
-:::note
-
-If you set `post_deployment.configure_ceph_rgw_keystone.active: true` in `inventory.yml`, the post-deployment playbook restarts the gateway automatically after writing the Keystone password — skip this step.
-
-:::
-
 ```bash
-ceph orch restart rgw.gateway
+ansible-playbook post-deployment.yml \
+  -i <inventory> \
+  --vault-password-file <vault-password-file> \
+  --extra-vars "cluster_directory=<path>"
 ```
 
-#### 6. Enable Keystone SSL verification
+The role configures the Keystone URL, admin credentials, accepted roles, implicit tenants, SSL verification (opt-in, defaults to `false`), token cache (set to `0` to disable), usage logging, Swift account-in-URL, and S3 authentication.
 
-With Keystone auth working under `rgw_keystone_verify_ssl false`, complete the following steps to enable SSL verification. The RGW containers are RHEL-based and look for the CA bundle at `/etc/pki/tls/certs/ca-bundle.crt` — not the Ubuntu path — so the host CA bundle must be explicitly mounted into the container.
+If using SSL verification, complete the following steps. The RGW containers are RHEL-based and look for the CA bundle at `/etc/pki/tls/certs/ca-bundle.crt` — not the Ubuntu path — so the host CA bundle must be explicitly mounted into the container.
 
 **Step 1 — Distribute the Keystone CA certificate**
 
-Copy the Keystone CA certificate to **each storage node that will run RGW** and update the trust store:
+Copy the Keystone CA certificate to **each storage node running RGW** and update the trust store:
 
 ```bash
 sudo cp /path/to/keystone-ca.crt /usr/local/share/ca-certificates/keystone-ca.crt
 sudo update-ca-certificates
-```
-
-Confirm the symlink was created on each host before continuing:
-
-```bash
 ls -la /etc/ssl/certs/keystone-ca.pem
 ```
 
@@ -415,31 +372,14 @@ lrwxrwxrwx 1 root root 48 ... /etc/ssl/certs/keystone-ca.pem -> /usr/local/share
 
 If the symlink is absent on any RGW host, re-copy the cert and re-run `update-ca-certificates` on that host before continuing.
 
-**Step 2 — Confirm SSL verification is currently failing**
-
-:::note
-
-The command of this step is expected to be executed in one of the storage nodes.
-
-:::
-
-
-```bash
-RGW_CTR=$(sudo podman ps --filter "name=rgw" --format "{{.Names}}" | head -1)
-sudo podman exec "$RGW_CTR" curl -v https://<keystone-host>:5000/v3/ 2>&1 \
-  | grep -E "SSL certificate|verify|CAfile|error"
-```
-
-Expected: `SSL certificate problem: unable to get local issuer certificate`. If it already says `verify ok`, skip to step 7.
-
-**Step 3 — Export the current RGW spec**
+**Step 2 — Export the current RGW spec**
 
 ```bash
 sudo cephadm shell -- ceph orch ls rgw --export > ~/rgw-spec.yaml
 cat ~/rgw-spec.yaml
 ```
 
-**Step 4 — Extract the TLS cert in block-scalar format**
+**Step 3 — Extract the TLS cert in block-scalar format**
 
 The spec export uses single-quoted YAML which folds newlines — do not copy the cert from there. Pull it directly from config-key:
 
@@ -455,11 +395,11 @@ for line in cert.split('\n'):
 
 Copy the output — this is the correctly formatted block-scalar cert to paste into the spec.
 
-**Step 5 — Update the spec file**
+**Step 4 — Update the spec file**
 
 Edit `~/rgw-spec.yaml` and make two additions:
 
-1. Replace the `rgw_frontend_ssl_certificate` value under `spec:` with the block-scalar output from step 4 (`|` format — never single-quoted).
+1. Replace the `rgw_frontend_ssl_certificate` value under `spec:` with the block-scalar output from step 3 (`|` format — never single-quoted).
 2. Add `extra_container_args` at the top level (same indentation as `placement:` and `spec:`):
 
 ```yaml
@@ -468,7 +408,7 @@ extra_container_args:
   - "/etc/ssl/certs/ca-certificates.crt:/etc/pki/tls/certs/ca-bundle.crt:ro"
 ```
 
-**Step 6 — Apply the updated spec**
+**Step 5 — Apply the updated spec**
 
 ```bash
 sudo cephadm shell --mount ~/rgw-spec.yaml:/tmp/rgw-spec.yaml -- \
@@ -481,22 +421,19 @@ Verify the spec was accepted — confirm `extra_container_args` appears and `ssl
 sudo cephadm shell -- ceph orch ls rgw --export
 ```
 
-**Step 7 — Enable SSL verification**
+After the spec is applied, set `verify_ssl: true` under `post_deployment.configure_ceph_rgw_keystone` in your inventory and re-run the playbook, or set it manually:
 
 ```bash
 sudo cephadm shell -- ceph config set client.rgw.gateway rgw_keystone_verify_ssl true
 ```
 
-**Step 8 — Redeploy RGW daemons**
+The playbook redeploys the RGW daemons automatically when `verify_ssl: true` is set. Confirm the daemons return to `running`:
 
 ```bash
-sudo cephadm shell -- ceph orch redeploy rgw.gateway
-watch sudo cephadm shell -- ceph orch ps --daemon-type rgw
+sudo cephadm shell -- ceph orch ps --daemon-type rgw
 ```
 
-Wait for all daemons to return to `running`.
-
-**Step 9 — Verify Keystone SSL is working**
+**Step 6 — Verify Keystone SSL is working**
 
 ```bash
 RGW_CTR=$(sudo podman ps --filter "name=rgw" --format "{{.Names}}" | head -1)
@@ -514,29 +451,6 @@ Expected:
 ```
 
 Replace `<keystone-host>` with the value of `kolla_internal_fqdn` from `globals.yml`.
-
-:::warning
-
-**Temporary workaround — disable SSL verification**
-
-If Keystone auth is broken and you need RGW back urgently while the fix is applied:
-
-```bash
-sudo cephadm shell -- ceph config set client.rgw.gateway rgw_keystone_verify_ssl false
-sudo cephadm shell -- ceph orch restart rgw.gateway
-```
-
-Do not leave `rgw_keystone_verify_ssl false` in production.
-
-:::
-
-:::warning
-
-**Re-running the Ansible TLS task**
-
-Running `./scripts/platform-setup.sh --provision-ceph --tags ceph_rgw_tls` re-applies the RGW service spec from the Ansible template, which does not include `extra_container_args`. This removes the CA bundle mount and undoes the Keystone SSL fix — RGW containers will no longer trust the Keystone CA. After any re-run of that task, steps 2–7 above must be repeated.
-
-:::
 
 ---
 

@@ -35,7 +35,43 @@ The sections below cover the full provisioning process, split into hardware setu
 The hardware setup covers all physical and foundational infrastructure steps required before deploying the control plane. Build the inventory file (`inventory.yml`) progressively as you complete each step, using the included `inventory.example.yml` as your starting point.
 
 1. **Rack and cable hardware** following the official [Blueprint](https://midokurajpeast.blob.core.windows.net/phoenix-releases/v1.8/phoenix-v1.2-blueprint.pdf?sp=r&st=2026-02-13T11:27:08Z&se=2050-02-13T19:42:08Z&spr=https&sv=2024-11-04&sr=b&sig=3vUMLFssAVFvqhIZeOkvDsmDXeLVY8FSSOGWXoBL7ns%3D) — pay particular attention to network topology, port and interface assignment, and storage cabling.
-2. **Configure server BIOS** — apply the required BIOS settings on each server before installing the operating system. Save and reset after completing all changes.
+2. **Configure server BIOS and BMC** — apply the required BIOS and BMC settings on each server before installing the operating system.
+
+   **BMC configuration** (common to all servers — run through the BMC web interface):
+
+   Configuration › Account Services — create the following users:
+
+   | User name | Password | Network privilege | Account types |
+   |-----------|----------|-------------------|---------------|
+   | `operator` | unique per machine | Operator | Redfish/IPMI |
+   | `metrics` | observability password | User | Redfish/IPMI; SNMP (Auth: HMAC-MD5, Auth Key: observability password, Encryption: None) |
+
+   Configuration › Notifications › SNMP:
+
+   | Setting | Value |
+   |---------|-------|
+   | Enable SNMP | On |
+   | SNMPv3 | On |
+   | Auth | HMAC_MD5 |
+   | Encryption | None |
+
+   Configuration › Network › Port:
+
+   | Setting | Value |
+   |---------|-------|
+   | SNMP Port | On |
+
+   Configuration › BMC Settings:
+
+   | Setting | Value |
+   |---------|-------|
+   | Host Interface | Off |
+
+   :::note
+
+   Host Interface can only be set from the OS or EFI shell — setting it from the BIOS throws an error. Setting it to Off restricts OS-level IPMI access so that unprivileged OS users cannot add or change accounts or upgrade firmware (equivalent to KCS Control: Operator).
+
+   :::
 
    **Secure Boot key enrollment** (common to all server models; only required when Secure Boot is not in factory-default state, for example, after a firmware reset or key clear):
 
@@ -123,6 +159,46 @@ The hardware setup covers all physical and foundational infrastructure steps req
    | Advanced › Network Configuration › 1st NIC › IPv4 Network Configuration | Configured | Enabled |
    | Advanced › Network Configuration › 1st NIC › IPv4 Network Configuration | Enable DHCP | Enabled |
    | Security › Secure Boot | CSM Support | Disabled |
+
+   Boot priority and UEFI Network Drive BBS Priorities: same as 5019 above.
+
+   **SuperMicro AS-8126GS-NB3RT** (GPU hypervisor servers)
+
+   *BIOS*
+
+   | BIOS path | Setting | Value |
+   |-----------|---------|-------|
+   | Advanced › Boot Feature | Wait For "F1" If Error | Disabled |
+   | Advanced › CPU Configuration | Workload Profile | Virtualization (Hypervisors) |
+   | Advanced › NB Configuration | IOMMU | Enabled |
+   | Advanced › NB Configuration | DMAr Support | Enabled |
+   | Advanced › NB Configuration | Power Profile Selection | Auto (High-performance mode) |
+   | Advanced › PCIe/PCI/PnP Configuration | Above 4G Decoding | Enabled |
+   | Advanced › PCIe/PCI/PnP Configuration | Re-Size BAR Support | Enabled (required if GPUs installed) |
+   | Advanced › PCIe/PCI/PnP Configuration | SR-IOV Support | Enabled |
+   | Advanced › Network Configuration | IPv6 PXE Support | Disabled |
+
+   For each Nvidia BlueField NIC port, under **Advanced › Nvidia Network Adapter**:
+
+   | Path | Setting | Value |
+   |------|---------|-------|
+   | NIC Configuration | Legacy Boot Protocol | None |
+   | Device Level Configuration | Virtualization Mode | None |
+   | Device Level Configuration | PXE Boot Filters | Enabled |
+   | BlueField Internal CPU Configuration | Internal CPU Offload Engine | Disabled (1st port only) |
+   | (top level) | Network Link Type | Ethernet |
+
+   :::note
+
+   Virtualization Mode: None enables SR-IOV with 8 virtual functions per port. Internal CPU Offload Engine must be Disabled on the 1st port only.
+
+   :::
+
+   For GPU servers — create the OS boot RAID array before first boot via **Advanced › BROADCOM SAS 3808N Configuration Utility › Configure › Create Virtual Drive**:
+   - RAID Level: RAID1
+   - Media Type: SSD, Interface Type: NVMe
+   - Select drives C0:01:00 and C1:01:01 → Apply Changes
+   - Save Configuration: Confirm Enabled → Yes → OK
 
    Boot priority and UEFI Network Drive BBS Priorities: same as 5019 above.
 

@@ -35,10 +35,12 @@ The sections below cover the full provisioning process, split into hardware setu
 The hardware setup covers all physical and foundational infrastructure steps required before deploying the control plane. Build the inventory file (`inventory.yml`) progressively as you complete each step, using the included `inventory.example.yml` as your starting point.
 
 1. **Rack and cable hardware** following the official [Blueprint](https://midokurajpeast.blob.core.windows.net/phoenix-releases/v1.8/phoenix-v1.2-blueprint.pdf?sp=r&st=2026-02-13T11:27:08Z&se=2050-02-13T19:42:08Z&spr=https&sv=2024-11-04&sr=b&sig=3vUMLFssAVFvqhIZeOkvDsmDXeLVY8FSSOGWXoBL7ns%3D) — pay particular attention to network topology, port and interface assignment, and storage cabling.
-2. **Install OS on OpenStack control nodes** — Ubuntu 24.04 with RAID1 disks, VLAN interfaces, IOMMU, and required packages as specified in [OS_REQUIREMENTS](./OS_REQUIREMENTS.md).
-3. **Set up the Router Box** — configure BIOS (AMT, Secure Boot), flash Ubuntu 24.04 to the machine, and run the unattended cloud-init install as described in [ROUTER_BOX_SETUP](./ROUTER_BOX_SETUP.md).
-4. **Create the `bastion0` VM** on the router box — the KVM virtual machine that serves as the deployment host for all subsequent steps. See the [ROUTER_BOX_SETUP](./ROUTER_BOX_SETUP.md) bastion VM section.
-5. **Prepare the bastion for deployment** — before running the bootstrap script, the bastion must have the release package, a container runtime, and valid credentials in place. SSH into `bastion0` and complete the following:
+2. **Configure server BIOS and BMC** — apply BMC account and SNMP settings, configure Secure Boot, and apply model-specific BIOS settings as described in [BIOS_BMC_SETUP](./BIOS_BMC_SETUP.md).
+
+3. **Install OS on OpenStack control nodes** — Ubuntu 24.04 with RAID1 disks, VLAN interfaces, IOMMU, and required packages as specified in [OS_REQUIREMENTS](./OS_REQUIREMENTS.md).
+4. **Set up the Router Box** — configure BIOS (AMT, Secure Boot), flash Ubuntu 24.04 to the machine, and run the unattended cloud-init install as described in [ROUTER_BOX_SETUP](./ROUTER_BOX_SETUP.md).
+5. **Create the `bastion0` VM** on the router box — the KVM virtual machine that serves as the deployment host for all subsequent steps. See the [ROUTER_BOX_SETUP](./ROUTER_BOX_SETUP.md) bastion VM section.
+6. **Prepare the bastion for deployment** — before running the bootstrap script, the bastion must have the release package, a container runtime, and valid credentials in place. SSH into `bastion0` and complete the following:
    - **Download and extract the release package:**
      ```bash
      curl <artifact-url> -O release-assets.tar.gz
@@ -59,7 +61,7 @@ The hardware setup covers all physical and foundational infrastructure steps req
    - **Have the vault password ready** — the bootstrap script prompts for it at startup.
 
    See [DEPLOYMENT](./DEPLOYMENT.md) for full details on each prerequisite.
-6. **Bootstrap the network environment** — provisions the OpenWRT router VM, PXE/TFTP server, local Docker registry, and HedgeHog controller VM. All commands run from the `release-assets/` directory on `bastion0`. Run in two phases with a manual credential-change step in between.
+7. **Bootstrap the network environment** — provisions the OpenWRT router VM, PXE/TFTP server, local Docker registry, and HedgeHog controller VM. All commands run from the `release-assets/` directory on `bastion0`. Run in two phases with a manual credential-change step in between.
 
    :::tip
 
@@ -133,8 +135,8 @@ The hardware setup covers all physical and foundational infrastructure steps req
    :::
 
    See [ROUTER_BOX_CONFIGURATION](./ROUTER_BOX_CONFIGURATION.md) for configuration details.
-7. **Set up the network fabric** — download the HedgeHog control node ISO, create the control VM, apply the fabric configuration, boot switches into ONIE, and install SONiC via HedgeHog auto-discovery. Follow all steps in [NETWORK_CONTROL_NODE_SETUP](./NETWORK_CONTROL_NODE_SETUP.md).
-8. **Provision the Ceph cluster** — storage nodes must have Ubuntu installed and be reachable via SSH from the bastion before this step:
+8. **Set up the network fabric** — download the HedgeHog control node ISO, create the control VM, apply the fabric configuration, boot switches into ONIE, and install SONiC via HedgeHog auto-discovery. Follow all steps in [NETWORK_CONTROL_NODE_SETUP](./NETWORK_CONTROL_NODE_SETUP.md).
+9. **Provision the Ceph cluster** — storage nodes must have Ubuntu installed and be reachable via SSH from the bastion before this step:
    - Run `platform-setup.sh --provision-ceph` to provision the cluster and generate keyrings, then promote them to `./keyrings/`
    - Complete the RADOS Gateway setup: start the gateway service and create the admin user before deploying OpenStack; configure Keystone integration after OpenStack is deployed
    - See [CEPH_SETUP](./CEPH_SETUP.md) for the full procedure.
@@ -143,7 +145,7 @@ The hardware setup covers all physical and foundational infrastructure steps req
 
 The software installation covers all steps to deploy and configure the control plane. Complete the hardware setup above before proceeding. Steps 1–3 prepare credentials and inventory configuration that must be in place before the deployment script runs.
 
-1. **Set up GHCR credentials** — obtain a GitHub Personal Access Token with `read:packages` scope and add it to the inventory as described in [GHCR_AUTHENTICATION](./GHCR_AUTHENTICATION.md). If you plan to pre-populate the local Docker registry from GHCR during bootstrap (`registry_populate_images: true`), credentials must be obtained before Hardware Setup step 6.
+1. **Set up GHCR credentials** — obtain a GitHub Personal Access Token with `read:packages` scope and add it to the inventory as described in [GHCR_AUTHENTICATION](./GHCR_AUTHENTICATION.md). If you plan to pre-populate the local Docker registry from GHCR during bootstrap (`registry_populate_images: true`), credentials must be obtained before Hardware Setup step 7.
 2. **Set up SSO** — create the OAuth application(s) for your identity provider(s) and add the resulting credentials to the inventory. Before starting, determine your IaaS Console hostname (see [Console URL](./IAAS_CONSOLE_CONFIGURATION.md#console-url)) as it is required for the redirect URI configuration:
    - Google: follow [GOOGLE_SSO_SETUP](./GOOGLE_SSO_SETUP.md) — produces `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`
    - Azure: follow [AZURE_SSO_SETUP](./AZURE_SSO_SETUP.md) — produces `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`, and `AZURE_TENANT_ID`

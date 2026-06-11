@@ -37,7 +37,7 @@ The hardware setup covers all physical and foundational infrastructure steps req
 1. **Rack and cable hardware** following the official [Blueprint](https://midokurajpeast.blob.core.windows.net/phoenix-releases/v1.8/phoenix-v1.2-blueprint.pdf?sp=r&st=2026-02-13T11:27:08Z&se=2050-02-13T19:42:08Z&spr=https&sv=2024-11-04&sr=b&sig=3vUMLFssAVFvqhIZeOkvDsmDXeLVY8FSSOGWXoBL7ns%3D) — pay particular attention to network topology, port and interface assignment, and storage cabling.
 2. **Configure server BIOS** — apply the required BIOS settings on each server before installing the operating system. Save and reset after completing all changes.
 
-   **Secure Boot key enrollment** (common to all server models; only required when Secure Boot is not in factory-default state, e.g. after a firmware reset or key clear):
+   **Secure Boot key enrollment** (common to all server models; only required when Secure Boot is not in factory-default state, for example, after a firmware reset or key clear):
 
    1. In BIOS, navigate to **Security › Secure Boot**, set CSM Support to **Disabled**, then open **Key Management** and perform the following sequence:
       - **Factory Key Provision**: Enabled → Install factory defaults: Yes → Reset without saving: No

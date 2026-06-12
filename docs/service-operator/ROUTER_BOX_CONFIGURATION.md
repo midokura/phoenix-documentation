@@ -578,3 +578,93 @@ hedgehog_host:
         vm_mac: "02:7f:3c:a9:4d:e2"
         autostart: true
 ```
+
+---
+
+## Reprovisioning the Router and Hedgehog VMs
+
+Bootstrap does not remove existing VMs. When you need to fully reprovision the OpenWRT router and Hedgehog controller (e.g., to apply a new KVM image or reset the network fabric), you must destroy them first and then re-run bootstrap.
+
+This requires special care because the OpenWRT router is both the **default gateway** and the **DNS server** for `router-0-host` and `deployment0`. Destroying it without preparation leaves both machines without internet access, which bootstrap needs to pull images.
+
+Additionally, the router terminates the **operator WireGuard VPN**. If you are connected through the primary WireGuard endpoint, you will lose connectivity the moment the router VM is destroyed.
+
+### Step 1 — Obtain and connect via the backup WireGuard configuration
+
+The backup router runs a separate WireGuard instance. You cannot simply change the endpoint in your existing client config — you need a dedicated configuration with a keypair registered on the backup router and an IP assigned to you.
+
+Contact **Xavi Leon** and ask him for a backup VPN connection. He will generate the client config for you. In BCN QA the backup endpoint is `oxigen-backup.midocloud.net:41820`; ask him for the equivalent in your environment.
+
+Once you receive the config file, import it into your WireGuard client, connect, and verify you have access to the management network before proceeding.
+
+### Step 2 — Reconfigure `router-0-host` to use the backup gateway
+
+> [!NOTE]
+> Once you switch WireGuard endpoints DNS resolves through a different path — reconnect using the IP address directly.
+
+```bash
+ssh ubuntu@<router-0-host-ip> -i ~/.ssh/mido_infra.pem
+```
+
+Add a temporary route and point DNS to a public resolver — **do not edit netplan**, as bootstrap will restore the original config:
+
+```bash
+sudo ip route add default via <backup-gateway-ip> metric 10
+sudo resolvectl dns virbr-libvirt 8.8.8.8
+ping -c3 1.1.1.1
+```
+
+### Step 3 — Reconfigure `deployment0` to use the backup gateway
+
+```bash
+ssh ubuntu@<deployment0-ip> -i ~/.ssh/mido_infra.pem
+```
+
+```bash
+sudo ip route add default via <backup-gateway-ip> metric 10
+sudo resolvectl dns enp1s0 8.8.8.8
+ping -c3 1.1.1.1
+```
+
+### Step 4 — Destroy the existing VMs
+
+From `router-0-host`:
+
+```bash
+virsh destroy dc-virt-router-0
+virsh undefine dc-virt-router-0 --remove-all-storage --nvram --managed-save --snapshots-metadata
+virsh destroy hedgehog-controller
+virsh undefine hedgehog-controller --remove-all-storage --nvram --managed-save --snapshots-metadata
+```
+
+### Step 5 — Run bootstrap
+
+From `deployment0`, inside the release-assets directory:
+
+```bash
+./scripts/platform-setup.sh --bootstrap
+```
+
+Bootstrap will recreate the OpenWRT router and Hedgehog VMs. The OpenWRT router brings back the original default gateway and DNS for the management network.
+
+### Step 6 — Restore connectivity after bootstrap
+
+Once bootstrap completes and the OpenWRT router VM is running again:
+
+**On `router-0-host`:**
+
+```bash
+sudo ip route del default via <backup-gateway-ip>
+sudo resolvectl dns virbr-libvirt <MGMT_ROUTER_IP>
+ping -c3 1.1.1.1
+```
+
+**On `deployment0`:**
+
+```bash
+sudo ip route del default via <backup-gateway-ip>
+sudo resolvectl dns enp1s0 <MGMT_ROUTER_IP>
+ping -c3 1.1.1.1
+```
+
+**On your local machine** — disconnect the backup WireGuard config and reconnect using your normal operator VPN config.

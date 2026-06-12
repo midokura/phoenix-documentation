@@ -589,6 +589,14 @@ This requires special care because the OpenWRT router is both the **default gate
 
 Additionally, the router terminates the **operator WireGuard VPN**. If you are connected through the primary WireGuard endpoint, you will lose connectivity the moment the router VM is destroyed.
 
+:::note[BCN QA reference values]
+- `router-0-host` IP: `172.20.0.4`
+- `deployment0` IP: `172.20.0.250`
+- Backup gateway (out-of-band router): `172.20.0.254`
+- OpenWRT router (`MGMT_ROUTER_IP`): `172.20.0.1`
+- Backup WireGuard endpoint: `oxigen-backup.midocloud.net:41820`
+:::
+
 ### Step 1 — Obtain and connect via the backup WireGuard configuration
 
 The backup router runs a separate WireGuard instance. You cannot simply change the endpoint in your existing client config — you need a dedicated configuration with a keypair registered on the backup router and an IP assigned to you.
@@ -646,6 +654,19 @@ From `deployment0`, inside the release-assets directory:
 ```
 
 Bootstrap will recreate the OpenWRT router and Hedgehog VMs. The OpenWRT router brings back the original default gateway and DNS for the management network.
+
+> [!NOTE]
+> If you only destroyed one of the VMs, scope the bootstrap to avoid reprovisioning the other:
+>
+> Router only:
+> ```bash
+> ./scripts/platform-setup.sh --bootstrap --tags router --skip-tags hedgehog,pxesetup
+> ```
+>
+> Hedgehog only:
+> ```bash
+> ./scripts/platform-setup.sh --bootstrap --tags hedgehog --skip-tags router,pxesetup
+> ```
 
 ### Step 6 — Restore connectivity after bootstrap
 

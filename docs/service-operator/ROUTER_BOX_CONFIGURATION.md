@@ -592,20 +592,20 @@ Additionally, the router terminates the **operator WireGuard VPN**. If you are c
 :::note[BCN QA reference values]
 - `router-0-host` IP: `172.20.0.4`
 - `deployment0` IP: `172.20.0.250`
-- Backup gateway (out-of-band router): `172.20.0.254`
+- Out-of-band gateway: `172.20.0.254`
 - OpenWRT router (`MGMT_ROUTER_IP`): `172.20.0.1`
-- Backup WireGuard endpoint: `oxigen-backup.midocloud.net:41820`
+- Out-of-band WireGuard endpoint: `oxigen-backup.midocloud.net:41820`
 :::
 
-### Step 1 — Obtain and connect via the backup WireGuard configuration
+### Step 1 — Obtain and connect via the out-of-band WireGuard configuration
 
-The backup router runs a separate WireGuard instance. You cannot simply change the endpoint in your existing client config — you need a dedicated configuration with a keypair registered on the backup router and an IP assigned to you.
+The out-of-band router runs a separate WireGuard instance. You cannot simply change the endpoint in your existing client config — you need a dedicated configuration with a keypair registered on the out-of-band router and an IP assigned to you.
 
-Contact **Xavi Leon** and ask him for a backup VPN connection. He will generate the client config for you. In BCN QA the backup endpoint is `oxigen-backup.midocloud.net:41820`; ask him for the equivalent in your environment.
+Contact **Xavi Leon** and ask him for an out-of-band VPN connection. He will generate the client config for you. In BCN QA the endpoint is `oxigen-backup.midocloud.net:41820`; ask him for the equivalent in your environment.
 
 Once you receive the config file, import it into your WireGuard client, connect, and verify you have access to the management network before proceeding.
 
-### Step 2 — Reconfigure `router-0-host` to use the backup gateway
+### Step 2 — Reconfigure `router-0-host` to use the out-of-band gateway
 
 > [!NOTE]
 > Once you switch WireGuard endpoints DNS resolves through a different path — reconnect using the IP address directly.
@@ -617,24 +617,34 @@ ssh ubuntu@<router-0-host-ip> -i ~/.ssh/mido_infra.pem
 Add a temporary route and point DNS to a public resolver — **do not edit netplan**, as bootstrap will restore the original config:
 
 ```bash
-sudo ip route add default via <backup-gateway-ip> metric 10
+sudo ip route add default via <out-of-band-gateway-ip> metric 10
 sudo resolvectl dns virbr-libvirt 8.8.8.8
 ping -c3 1.1.1.1
+ping google.com
 ```
 
-### Step 3 — Reconfigure `deployment0` to use the backup gateway
+### Step 3 — Reconfigure `deployment0` to use the out-of-band gateway
 
 ```bash
 ssh ubuntu@<deployment0-ip> -i ~/.ssh/mido_infra.pem
 ```
 
 ```bash
-sudo ip route add default via <backup-gateway-ip> metric 10
+sudo ip route add default via <out-of-band-gateway-ip> metric 10
 sudo resolvectl dns enp1s0 8.8.8.8
 ping -c3 1.1.1.1
+ping google.com
 ```
 
-### Step 4 — Destroy the existing VMs
+### Step 4 — Take a snapshot of the OpenWRT router
+
+Before destroying the VMs, take a snapshot of the router configuration from `router-0-host`:
+
+```bash
+/home/ubuntu/gpu-infrastructure/scripts/openwrt/snapshot-router.sh
+```
+
+### Step 5 — Destroy the existing VMs
 
 From `router-0-host`:
 
@@ -645,7 +655,7 @@ virsh destroy hedgehog-controller
 virsh undefine hedgehog-controller --remove-all-storage --nvram --managed-save --snapshots-metadata
 ```
 
-### Step 5 — Run bootstrap
+### Step 6 — Run bootstrap
 
 From `deployment0`, inside the release-assets directory:
 
@@ -668,24 +678,26 @@ Bootstrap will recreate the OpenWRT router and Hedgehog VMs. The OpenWRT router 
 > ./scripts/platform-setup.sh --bootstrap --tags hedgehog --skip-tags router,pxesetup
 > ```
 
-### Step 6 — Restore connectivity after bootstrap
+### Step 7 — Restore connectivity after bootstrap
 
 Once bootstrap completes and the OpenWRT router VM is running again:
 
 **On `router-0-host`:**
 
 ```bash
-sudo ip route del default via <backup-gateway-ip>
+sudo ip route del default via <out-of-band-gateway-ip>
 sudo resolvectl dns virbr-libvirt <MGMT_ROUTER_IP>
 ping -c3 1.1.1.1
+ping google.com
 ```
 
 **On `deployment0`:**
 
 ```bash
-sudo ip route del default via <backup-gateway-ip>
+sudo ip route del default via <out-of-band-gateway-ip>
 sudo resolvectl dns enp1s0 <MGMT_ROUTER_IP>
 ping -c3 1.1.1.1
+ping google.com
 ```
 
-**On your local machine** — disconnect the backup WireGuard config and reconnect using your normal operator VPN config.
+**On your local machine** — disconnect the out-of-band WireGuard config and reconnect using your normal operator VPN config.

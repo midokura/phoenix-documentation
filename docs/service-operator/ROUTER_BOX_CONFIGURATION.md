@@ -534,10 +534,25 @@ The role uses the merge pattern: defaults are defined in `hedgehog_defaults` and
 | `hedgehog.bridge_name` | string | `virbr-libvirt` | Host bridge for upstream VM connectivity |
 | `hedgehog.vm_mac` | string | `02:7f:3c:a9:4d:e2` | MAC address of the VM's bridge interface |
 | `hedgehog.mgmt_nic_pci` | string | `pci_0000_01_00_1` | PCI address of the NIC to pass through for switch management |
+| `hedgehog.login_password` | string | **required** | New password for the `core` user on the VM (vault-encrypt in production) |
+| `hedgehog.authorized_keys` | list | **required** | SSH keys to authorize on the VM and switches; each entry is `{name, key}` |
+| `hedgehog.switch_users` | mapping | **required** | `admin` and `op` switch user credentials (password + authorized keys) |
 
 The `mgmt_nic_pci` is the most important variable to override: it must point to a physical NIC on the host that is cabled to the management switch where the fabric switches are connected. Use the `pci_XXXX_XX_XX_X` format (underscores instead of colons/dots).
 
 The `iso_url` must point to a signed URL (e.g., Azure Blob Storage SAS URL) for the Hedgehog installer image. The built-in default may expire — check the expiration date and update as needed.
+
+### Credential Rotation
+
+Bootstrap automatically rotates all default HedgeHog credentials on first run:
+
+1. **VM SSH access**: Operator keys from `authorized_keys` are installed using the ISO default password (`HHFab.Admin!`). On re-runs, the ISO password no longer works and this step is skipped gracefully.
+2. **VM password**: The `core` user password is changed to `login_password` via `chpasswd`, then the playbook verifies the ISO default is rejected.
+3. **Fabricator CRD**: `spec.config.control.defaultUser` and `spec.config.fabric.defaultSwitchUsers` are patched with the `switch_users` credentials. Passwords are hashed with SHA-256-crypt at runtime — provide plaintext in the inventory.
+
+Subsequent bootstrap runs are safe to re-run. The ISO default password no longer works after the first run, so the key-installation step is skipped; the password and CRD patch steps are always applied (idempotent).
+
+Bootstrap fails with a clear error if `login_password`, `authorized_keys`, or `switch_users` is missing.
 
 ### Provisioning Process
 
@@ -549,7 +564,7 @@ The `iso_url` must point to a signed URL (e.g., Azure Blob Storage SAS URL) for 
 
 ### Example
 
-In most cases you only need to override `iso_url` and `mgmt_nic_pci`:
+Minimal configuration — `iso_url`, `mgmt_nic_pci`, and the three required credential variables must always be set:
 
 ```yaml
 hedgehog_host:
@@ -558,6 +573,26 @@ hedgehog_host:
       hedgehog:
         iso_url: "https://storage.example.com/hedgehog-installer.iso?token=xxx"
         mgmt_nic_pci: "pci_0000_58_00_0"
+        login_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          ...
+        authorized_keys:
+          - name: "env-key"
+            key: "ssh-ed25519 AAAA... env@example"
+          - name: "operator1"
+            key: "ssh-ed25519 AAAA... operator1@example"
+        switch_users:
+          admin:
+            password: !vault |
+              $ANSIBLE_VAULT;1.1;AES256
+              ...
+            authorized_keys:
+              - "ssh-ed25519 AAAA... env@example"
+          op:
+            password: !vault |
+              $ANSIBLE_VAULT;1.1;AES256
+              ...
+            authorized_keys: []
 ```
 
 Full override example:
@@ -577,4 +612,24 @@ hedgehog_host:
         bridge_name: "virbr-libvirt"
         vm_mac: "02:7f:3c:a9:4d:e2"
         autostart: true
+        login_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          ...
+        authorized_keys:
+          - name: "env-key"
+            key: "ssh-ed25519 AAAA... env@example"
+          - name: "operator1"
+            key: "ssh-ed25519 AAAA... operator1@example"
+        switch_users:
+          admin:
+            password: !vault |
+              $ANSIBLE_VAULT;1.1;AES256
+              ...
+            authorized_keys:
+              - "ssh-ed25519 AAAA... env@example"
+          op:
+            password: !vault |
+              $ANSIBLE_VAULT;1.1;AES256
+              ...
+            authorized_keys: []
 ```

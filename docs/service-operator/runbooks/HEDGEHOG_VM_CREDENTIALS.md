@@ -2,6 +2,15 @@
 
 Updating the `core` user password and SSH authorized keys on the Hedgehog control node VM
 
+:::note
+
+As of v26.1.0, the bootstrap playbook automatically rotates HedgeHog VM credentials on
+first run using the `hedgehog.login_password` and `hedgehog.authorized_keys` inventory
+variables. **This runbook is no longer required during initial bootstrap.** Use it only
+to rotate credentials on a running system after bootstrap is complete.
+
+:::
+
 ## Purpose
 
 The Hedgehog control node VM runs Flatcar Linux. Flatcar manages SSH authorized keys
@@ -9,10 +18,7 @@ through the `update-ssh-keys` tool — direct edits to `~/.ssh/authorized_keys` 
 overwritten on every reboot because Flatcar regenerates that file from its registered
 key sources. Use `update-ssh-keys` for all key changes.
 
-This procedure is performed via `virsh console` on the hypervisor host. It must be
-carried out during the bootstrap process, while the `hedgehog-controller` Ansible play
-is waiting for SSH access (see
-[Operator Overview](../OPERATOR_OVERVIEW#hardware-setup)).
+This procedure is performed via `virsh console` on the hypervisor host.
 
 ## Prerequisites
 

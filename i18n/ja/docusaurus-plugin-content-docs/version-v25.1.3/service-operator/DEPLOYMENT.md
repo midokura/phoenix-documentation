@@ -1,5 +1,7 @@
 # Deployment Scripts
 
+bar
+
 Deploying GPU infrastructure clusters.
 
 This guide walks you through deploying GPU infrastructure clusters using containerized Ansible automation.

@@ -42,7 +42,11 @@ Host Interface can only be set from the OS or EFI shell — setting it from the 
 
 ## Secure Boot key enrollment
 
-Common to all server models; only required when Secure Boot is not in factory-default state, for example, after a firmware reset or key clear.
+:::info Optional
+
+Only required when Secure Boot is required and when it is not in factory-default state, for example, after a firmware reset or key clear. Note that if the server is re-provisioned, some steps need to be done again.
+
+:::
 
 1. In BIOS, navigate to **Security › Secure Boot**, set CSM Support to **Disabled**, then open **Key Management** and perform the following sequence:
    - **Factory Key Provision**: Enabled → Install factory defaults: Yes → Reset without saving: No

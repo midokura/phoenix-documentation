@@ -172,3 +172,74 @@ For GPU servers — create the OS boot RAID array before first boot via **Advanc
 - Save Configuration: Confirm Enabled → Yes → OK
 
 Boot priority and UEFI Network Drive BBS Priorities: same as 5019 above.
+
+## MS-01 (Intel AMT)
+
+The MS-01 uses Intel Active Management Technology (AMT) for out-of-band management instead of a dedicated BMC.
+
+### BIOS update
+
+If the installed BIOS version is below v1.27, update it first:
+
+1. Format a USB stick with a single EFI FAT32 partition.
+2. Place the [UEFI shell binary](https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface#UEFI_Shell) on the partition.
+3. Download and unpack the [MS-01 BIOS v1.27 package](https://pc-file.s3.us-west-1.amazonaws.com/ms-01/Bios/MS-01-AHWSA-V1.27_4_28_V2.zip) onto the same partition.
+4. In BIOS setup, disable **Security › Secure Boot**.
+5. Reboot into the EFI shell (force it from the BIOS boot menu if it does not boot automatically).
+6. Run `AfuEfiFlash.nsh`.
+
+### AMT setup
+
+1. Enter the BIOS setup screen and open **MEBx** (Intel Management Engine BIOS Extension).
+2. Set the AMT password — default credentials are `admin`/`admin`. Store the new password securely.
+3. Open **AMT Network Setup** and assign a static IP. Record the address in the static IP inventory for BMC devices.
+
+### BIOS settings
+
+| BIOS path | Setting | Value |
+|-----------|---------|-------|
+| Advanced › Onboard Devices | Aperture Size | 128 MB |
+| Advanced › Onboard Devices | HD Audio | Disabled |
+| Advanced › Onboard Devices | Deep S5 | Disabled |
+| Advanced › Onboard Devices | SR-IOV | Enabled |
+| Advanced › Onboard Devices | Above 4G Decoding | Enabled |
+| Advanced › Onboard Devices | Re-Size BAR Support | Enabled |
+| Advanced › Onboard Devices | DMA Control Guarantee | Enabled |
+| Advanced › Onboard Devices | SA GV | Disabled |
+| Advanced › ACPI Settings | Restore On AC Power Loss | Always On |
+| Advanced › ACPI Settings | Wake Up On LAN | Enabled |
+| Advanced › HM Monitor & Smart Fan | CPU Fan Smart Mode | Full Mode |
+| Advanced › HM Monitor & Smart Fan | M.2 Fan 1 Smart Mode | Full Mode |
+| Advanced › HM Monitor & Smart Fan | M.2 Fan 2 Smart Mode | Full Mode |
+| Advanced › Network Stack Configuration | Network Stack | Disabled |
+| Advanced › Network Stack Configuration | IPv4 PXE Support | Disabled |
+| Advanced › Network Stack Configuration | IPv6 PXE Support | Disabled |
+| Security | Secure Boot | Disabled (BIOS update and OS install); Enabled (post-install) |
+
+### AMT activation
+
+After completing the BIOS settings:
+
+1. In the AMT BIOS menu, set **Network Access State** to **Network Active**.
+2. In the AMT BIOS menu, open the **User Consent** menu and set:
+   - **User Opt-in**: None
+   - **Opt-in Configurable from Remote IT**: Enabled
+
+### Connecting via AMT
+
+Use [MeshCommander](https://www.meshcommander.com/) (bundled in the `meshcmd` tool) to connect to an AMT device:
+
+```bash
+wget "https://alt.meshcentral.com/meshagents?meshcmd=6" -O meshcmd
+chmod +x meshcmd
+./meshcmd MeshCommander
+```
+
+Open http://localhost:3000, then:
+
+1. **Add Computer**
+2. Fill in:
+   - **Friendly Name**: name matching the inventory
+   - **Hostname**: `<inventory-name>.<environment-tld>` — the DHCP/DNS entry configured in the routers
+   - **Auth / Security**: Digest / TLS
+3. **OK**, then **Connect**

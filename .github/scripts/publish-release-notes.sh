@@ -3,7 +3,12 @@ set -euo pipefail
 
 : "${VERSION:?VERSION is required}"
 
-RELEASE_NOTES_TITLE="add[release notes]: add v${VERSION} release notes"
+if [[ ! "$VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+.*$ ]]; then
+    echo "error: VERSION must start with 'v' and match vXX.Y.N format (got: ${VERSION})" >&2
+    exit 1
+fi
+
+RELEASE_NOTES_TITLE="add[release notes]: add ${VERSION} release notes"
 
 PR_JSON=$(gh pr list --state all --json number,isDraft,title,state \
     | jq -r ".[] | select(.title == \"${RELEASE_NOTES_TITLE}\")")
@@ -37,12 +42,12 @@ yarn install --frozen-lockfile
 yarn docusaurus docs:version "$VERSION"
 
 git add .
-git commit -m "docs: add versioned snapshot for v${VERSION}"
+git commit -m "docs: add versioned snapshot for ${VERSION}"
 git push origin "$DOCS_BRANCH"
 
 DOCS_PR_URL=$(gh pr create \
-    --title "docs: add versioned snapshot for v${VERSION}" \
-    --body "Automated versioned docs snapshot for v${VERSION}." \
+    --title "docs: add versioned snapshot for ${VERSION}" \
+    --body "Automated versioned docs snapshot for ${VERSION}." \
     --base main \
     --head "$DOCS_BRANCH")
 

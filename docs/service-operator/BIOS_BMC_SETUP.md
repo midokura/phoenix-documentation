@@ -40,6 +40,15 @@ Host Interface can only be set from the OS or EFI shell — setting it from the 
 
 :::
 
+Machines that contain GPUs or network cards should set their fan mode accordingly to help cool these cards.
+Go to BMC setting — Configuration › Fan Mode:
+
+| Setting | Value |
+|---------|-------|
+| Fan Mode | HeavyIO Speed |
+
+![BMC Fan Mode set to HeavyIO Speed](./bmc-fanmode-heavyio.png)
+
 ## Secure Boot key enrollment
 
 :::info Optional

@@ -101,6 +101,8 @@ Here are a couple of spellings or capitalisations that are sometimes incorrect.
 
 We use Mermaid for creating diagrams and charts.
 
+```
+
 ```mermaid
 flowchart TD
     Start([Start here]) --> Diamond{"A Question"}
@@ -108,6 +110,8 @@ flowchart TD
     Diamond -- Yes --> AnotherDiamond{"Another\nQuestion"}
     AnotherDiamond -- "No" --> BadEnding["End"]
     AnotherDiamond -- Yes --> Done([Nice work])
+```
+
 ```
 
 The example Mermaid code above renders as this image:

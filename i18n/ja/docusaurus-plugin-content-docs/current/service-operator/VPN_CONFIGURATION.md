@@ -103,7 +103,7 @@ flowchart TD
     NetCheck -- はい --> WGCheck{"WireGuardの状態:\nlatest handshakeが表示されていて、受信バイト数が0より多い?\n参照: Step 2"}
     WGCheck -- "handshakeの表示がない、または\n受信バイト数が0" --> KeyFail["鍵の不一致\nユーザーの公開鍵が正しく登録されているか確認\n参照: Step 2"]
     WGCheck -- はい --> DNSPing{"DNSエンドポイントに対するping\n172.31.0.254\n参照: Step 2"}
-    DNSPing -- "No response" --> Routes["AllowedIPs範囲の確認\n参照: Allowed Routesの確認"]
+    DNSPing -- 応答なし --> Routes["AllowedIPs範囲の確認\n参照: Allowed Routesの確認"]
     Routes --> MTU["MTU設定の確認\nMTUトラブルシューティングへ"]
     DNSPing -- 応答あり --> DNSCheck{"DNS解決はOK?\nnslookupテスト\n参照: DNSのテスト"}
     DNSCheck -- 失敗 --> DNSConfig["WireGuardファイルのDNS設定を確認"]

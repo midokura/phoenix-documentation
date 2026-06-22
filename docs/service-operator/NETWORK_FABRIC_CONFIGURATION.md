@@ -571,14 +571,21 @@ ECMP headroom), indexed inside the `/24` as:
 
 ```
 
-with `spine_base = 10`, `leaf_base = 20` (frontend) or `60` (backend).
+with `spine_base = 10`, `leaf_base = 20` (frontend) or `60` (backend). Because
+every leaf ID is `≥ leaf_base` and every spine ID is `≥ spine_base` within a
+zone, `row` is always `≥ 0`; a negative `row` would mean a switch ID outside
+its zone/role range, which is invalid (see the switch ID table above).
 
 Example (frontend, spine0=10, leaf0=20, leaf1=21):
 
-| Pair                   | `/28`               | Link 1 (leaf/spine) | Link 2 (leaf/spine) |
-|------------------------|---------------------|---------------------|---------------------|
-| leaf0(20) ↔ spine0(10) | `172.30.128.0/28`   | `.0` / `.1`         | `.2` / `.3`         |
-| leaf1(21) ↔ spine0(10) | `172.30.128.160/28` | `.160` / `.161`     | `.162` / `.163`     |
+| Pair                   | `row` calculation              | `pair_block` calculation                     | `/28`               | Link 1 (leaf/spine) | Link 2 (leaf/spine) |
+| ---------------------- | ------------------------------- | ---------------------------------------------- | -------------------- | -------------------- | -------------------- |
+| leaf0(20) ↔ spine0(10) | `(20−20)*10 + (10−10)` = `0`   | `172.30.128.0` + `0*16` = `172.30.128.0`      | `172.30.128.0/28`   | `.0` / `.1`         | `.2` / `.3`         |
+| leaf1(21) ↔ spine0(10) | `(21−20)*10 + (10−10)` = `10`  | `172.30.128.0` + `10*16` = `172.30.128.160`   | `172.30.128.160/28` | `.160` / `.161`     | `.162` / `.163`     |
+
+Within the `/28`, `/31` links are consumed in order (first link `.0`/`.1`,
+second link `.2`/`.3`, and so on), with the lower-ID switch (here, the leaf)
+always taking the lower address of the pair.
 
 **Mesh (leaf ↔ leaf, no spine)** — per-zone `/24` inside `172.30.192.0/18`:
 
@@ -587,13 +594,23 @@ Example (frontend, spine0=10, leaf0=20, leaf1=21):
 | frontend | `172.30.192.0/24` |
 | backend  | `172.30.193.0/24` |
 
-Each leaf pair gets a `/28`, indexed by pair order within the zone.
+Each leaf pair gets a fixed `/28`, indexed inside the `/24` by ascending leaf
+ID order — the first leaf pair in the zone (by lowest IDs) gets the first
+`/28`, the next pair gets the next `/28`, and so on:
 
-Example (backend, leaf0=60, leaf1=61):
+```text
+pair_block = zone_block + (pair_index * 16)
+```
 
-| Pair                  | `/28`             | Link 1 (low/high) | Link 2 (low/high) |
-|-----------------------|-------------------|-------------------|-------------------|
-| leaf0(60) ↔ leaf1(61) | `172.30.192.0/28` | `.0` / `.1`       | `.2` / `.3`       |
+where `pair_index` is the 0-based position of the `(leaf_a, leaf_b)` pair when
+all mesh-connected pairs in the zone are sorted by `(leaf_a_id, leaf_b_id)`.
+
+Example (backend, leaf0=60, leaf1=61 — the first and only mesh pair in the
+zone, so `pair_index = 0`):
+
+| Pair                  | `pair_block` calculation                  | `/28`             | Link 1 (low/high) | Link 2 (low/high) |
+|-----------------------|---------------------------------------------|-------------------|--------------------|--------------------|
+| leaf0(60) ↔ leaf1(61) | `172.30.192.0` + `0*16` = `172.30.192.0`   | `172.30.192.0/28` | `.0` / `.1`        | `.2` / `.3`        |
 
 
 ### Adding a new switch

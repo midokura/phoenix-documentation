@@ -111,6 +111,7 @@ flowchart TD
     AnotherDiamond -- "No" --> BadEnding["End"]
     AnotherDiamond -- Yes --> Done([Nice work])
 ```
+```
 
 The example Mermaid code above renders as this image:
 

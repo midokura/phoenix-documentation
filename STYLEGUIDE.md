@@ -74,7 +74,7 @@ More reading (about options beyond Note) [here](https://docusaurus.io/docs/markd
 ![Penultimate](/static/img/styleguide/penultimate.jpg)
 
 - The very last line of any file should be a blank line
-- This is because text lines are terminated with newlines. So omitting the last newline technically makes∫ the last line an incomplete text line
+- This is because text lines are terminated with newlines. So omitting the last newline technically makes the last line an incomplete text line
 - More importantly, David Lopez's OCD is triggered if it is missing
 
 ## Oxford comma

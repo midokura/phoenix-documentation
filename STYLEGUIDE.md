@@ -112,8 +112,6 @@ flowchart TD
     AnotherDiamond -- Yes --> Done([Nice work])
 ```
 
-```
-
 The example Mermaid code above renders as this image:
 
 ![mermaid](static/img/styleguide/mermaid.png)

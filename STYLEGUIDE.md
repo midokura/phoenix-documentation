@@ -102,7 +102,6 @@ Here are a couple of spellings or capitalisations that are sometimes incorrect.
 We use Mermaid for creating diagrams and charts.
 
 ````
-
 ```mermaid
 flowchart TD
     Start([Start here]) --> Diamond{"A Question"}
@@ -123,7 +122,3 @@ flowchart TD
     AnotherDiamond -- "No" --> BadEnding["End"]
     AnotherDiamond -- Yes --> Done([Nice work])
 ```
-
-hjfjk
-
-![mermaid](static/img/styleguide/mermaid.png)

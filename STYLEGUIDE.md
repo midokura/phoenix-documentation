@@ -88,3 +88,28 @@ If you have a text list of three or more items, you should use the Oxford Comma.
 ## ALL CAPS
 
 DON’T USE ALL CAPS FOR EMPHASIS! All caps is shouting at the customer. If you need to add emphasis, try adding an admonition block or even bolding the phrase instead.
+
+## Spellings and capitalisation
+
+Here are a couple of spellings or capitalisations that are sometimes incorrect.
+
+| Spelling | Explanation |
+| -------- | -------- |
+| Hedgehog | Initial capital, but the second 'h' is lowercase. |
+
+## Diagrams
+
+We use Mermaid for creating diagrams and charts.
+
+```mermaid
+flowchart TD
+    Start([Start here]) --> Diamond{"A Question"}
+    Diamond -- No --> BadEnding["End"]
+    Diamond -- Yes --> AnotherDiamond{"Another\nQuestion"}
+    AnotherDiamond -- "No" --> BadEnding["End"]
+    AnotherDiamond -- Yes --> Done([Nice work])
+```
+
+The example Mermaid code above renders as this image:
+
+![mermaid](static/img/styleguide/mermaid.png)

@@ -50,13 +50,13 @@ IP/ASN addressing convention this repo follows.
       port for every link.
 - [ ] **Port naming** — server ports use the OS interface name (for example
       `ens2f0np0`, `eth0`); switch ports use the SONiC port name (for example
-      `E1/1`).
+      `E1/1`). You can find more information on naming convention [here](https://docs.hedgehog.cloud/latest/user-guide/profiles/#port-naming).
 
 ### How a Connection Is Named
 
 Every connection has a `name` that becomes the HedgeHog resource name. Names
 must be unique across the whole fabric. The convention used in existing
-environments is `<server>--<role>` for server connections and
+environments is `<server>--<zone>` for server connections and
 `<switchA>--<switchB>` for switch connections, for example
 `gpu0--frontend` or `frontend-leaf0--frontend-spine0`.
 
@@ -105,7 +105,7 @@ hedgehog_switches:
 |---|---|---|
 | `name` | yes | Unique switch name (becomes the `Switch` resource name); referenced by all connections. |
 | `profile` | yes | Hardware/SONiC profile for the switch model (for example `dell-s5232f-on`). |
-| `description` | yes | Free-text description; convention is `<name>--<profile>`. |
+| `description` | yes | convention is `<name>--<profile>`. |
 | `ip` | yes | Management IP of the switch, with prefix (for example `172.30.0.20/21`). See the [appendix](#appendix-switch-ip--asn-convention). |
 | `protocol_ip` | yes | BGP protocol loopback, `/32` (for example `172.30.8.20/32`). |
 | `vtep_ip` | for leaves | VXLAN tunnel endpoint loopback, `/32`. Required on leaves that terminate the overlay; omit on switches that do not. |
@@ -130,7 +130,10 @@ switches, and those switches must share a redundancy group of type `eslag` so
 that EVPN multi-homing (ESI-LAG) is programmed consistently across them.
 
 ```yaml
-redundancy:
+hedgehog_switches:
+  frontend_leaf0:
+    [...]
+    redundancy:
   group: frontend-redundancy-0
   type: eslag
 ```
@@ -194,7 +197,7 @@ single port**, with no bonding (no LACP, no multi-homing). This is the simplest
 connection type. Recommended for the backend NIC that is PCI-passed-through to
 the VM, and hence, does not need redundancy.
 
-If the server needs redundancy across two switches, use
+If the server needs redundancy across two switches to support switch failover scenarios, use
 [ESLAG](#eslag-server-connection) instead.
 
 **Configuration**
@@ -217,7 +220,7 @@ hedgehog_unbundled_connections:
 
 | Field | Required | Description |
 |---|---|---|
-| `name` | yes | Unique name of the connection (becomes the `Connection` resource name). |
+| `name` | yes | Unique name of the connection (becomes the `Connection` resource name). Convention is `<server>--<zone>` for eslag connections, `<server>--<switch> for bundled connections, and `<server>--<switch_port>` for unbundled connections. |
 | `server` | yes | Name of the server, as registered in `hedgehog_servers`. |
 | `server_interface` | yes | The server's OS interface name for this link (for example `ens1`, `eth0`). |
 | `switch` | yes | Name of the switch, as registered in `hedgehog_switches`. |
@@ -385,7 +388,7 @@ hedgehog_fabric_connections:
 
 | Field | Required | Description |
 |---|---|---|
-| `name` | yes | Unique name of the connection (one per spine-leaf pair). |
+| `name` | yes | Unique name of the connection (one per spine-leaf pair). Convention is <switchA>--<switchB>|
 | `links` | yes | List of links — one entry per physical cable between this spine and leaf. |
 | `links[].leaf.ip` | yes | Point-to-point IP for the leaf end of the link (typically a `/31`). |
 | `links[].leaf.switch` | yes | Name of the leaf switch. |
@@ -524,7 +527,7 @@ Reserve a single `/16` per environment, carved into purpose-specific blocks:
 | `172.30.128.0/18` | Fabric P2P links (spine ↔ leaf), `/31` per link  |
 | `172.30.192.0/18` | Mesh P2P links (leaf ↔ leaf), `/31` per link     |
 
-Block boundaries are aligned on `/21` and `/18`, giving headroom for hundreds of
+Block boundaries are aligned on `/22` and `/18`, giving headroom for hundreds of
 switches and thousands of P2P links.
 
 ### Switch ID — the single source of truth
@@ -566,9 +569,6 @@ never disturbs existing addresses. The rule for which end gets which address is:
 Each `(leaf, spine)` pair gets a fixed `/28` (16 IPs = 8 `/31` links — enough
 ECMP headroom), indexed inside the `/24` as:
 
-```text
-row = (leaf_id − leaf_base) * 10 + (spine_id − spine_base)
-pair_block = zone_block + (row * 16)
 ```
 
 with `spine_base = 10`, `leaf_base = 20` (frontend) or `60` (backend).
@@ -595,18 +595,15 @@ Example (backend, leaf0=60, leaf1=61):
 |-----------------------|-------------------|-------------------|-------------------|
 | leaf0(60) ↔ leaf1(61) | `172.30.192.0/28` | `.0` / `.1`       | `.2` / `.3`       |
 
-> Mesh between zones is not currently supported by this convention. If needed in
-> the future, allocate a dedicated `/24` from `172.30.192.0/18` for inter-zone
-> links.
 
 ### Adding a new switch
 
+# IMPORTANT: **Do not touch any existing switch's addresses.**
 1. Pick the next unused ID inside the zone/role range above.
 2. Set `ip`, `protocol_ip`, `vtep_ip`, and `asn` from the formulas.
 3. For each fabric link, compute the pair `/28` using the row formula and consume
    the next free `/31` inside it; assign the lower IP to the lower-ID switch.
 4. For each mesh link, allocate the next free `/28` in the zone's mesh `/24`.
-5. **Do not touch any existing switch's addresses.**
 
 > This convention mirrors the canonical reference in the infrastructure repo
 > (`docs/015-switch-ip-convention.md`); keep the two in sync if the scheme

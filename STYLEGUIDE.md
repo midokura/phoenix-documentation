@@ -114,4 +114,15 @@ flowchart TD
 
 The example Mermaid code above renders as this image:
 
+```mermaid
+flowchart TD
+    Start([Start here]) --> Diamond{"A Question"}
+    Diamond -- No --> BadEnding["End"]
+    Diamond -- Yes --> AnotherDiamond{"Another\nQuestion"}
+    AnotherDiamond -- "No" --> BadEnding["End"]
+    AnotherDiamond -- Yes --> Done([Nice work])
+```
+
+hjfjk
+
 ![mermaid](static/img/styleguide/mermaid.png)

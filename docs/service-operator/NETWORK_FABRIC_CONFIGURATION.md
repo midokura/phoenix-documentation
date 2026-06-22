@@ -49,7 +49,7 @@ IP/ASN addressing convention this repo follows.
 - [ ] **Physical wiring map** — know which server NIC connects to which switch
       port for every link.
 - [ ] **Port naming** — server ports use the OS interface name (for example
-      `ens2f0np0`, `eth0`); switch ports use the SONiC port name (for example
+      `ens2f0np0`, `eth0`); switch ports use the HedgeHog port name (for example
       `E1/1`). You can find more information on naming convention [here](https://docs.hedgehog.cloud/latest/user-guide/profiles/#port-naming).
 
 ### How a Connection Is Named

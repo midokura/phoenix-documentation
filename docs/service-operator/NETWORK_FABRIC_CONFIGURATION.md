@@ -550,7 +550,7 @@ For a switch with ID `N`:
 - `asn:         65100 + (N − 10)`
 
 The ASN formula yields the table above without gaps; each switch gets a unique
-private ASN inside the 65000–65534 range.
+valid private ASN.
 
 ### P2P link allocation
 

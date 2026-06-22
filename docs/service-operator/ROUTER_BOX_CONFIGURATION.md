@@ -291,7 +291,7 @@ Import/export filter rules are Bird filter expressions. Common patterns:
 
 - `"net = 119.15.113.1/32"` — match a specific prefix
 - `"net ~ [ 119.15.113.0/24{24,32} ]"` — match a prefix range
-- `proto = "openstack_*"` — match routes learned from a specific protocol
+- `proto ~ "openstack_*"` — match routes learned from a specific protocol
 - `ifname = "eth2.104"` — match routes on a specific interface
 
 ### Typical Topology

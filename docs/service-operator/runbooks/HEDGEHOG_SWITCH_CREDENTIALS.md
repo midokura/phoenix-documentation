@@ -17,11 +17,20 @@ Two sets of credentials are configured:
 
 The fabricator reconciler propagates changes automatically; no additional trigger is needed.
 
+:::note
+
+As of v26.1.0, the bootstrap playbook automatically patches the Fabricator CRD with
+operator-defined switch credentials using the `hedgehog.switch_users` inventory variable,
+before any switch is booted. **This runbook is no longer required during initial bootstrap.**
+Use it only to rotate switch credentials on an existing deployment.
+
+:::
+
 ## When to run
 
-After Phase 3 of bootstrap (`--bootstrap --tags hedgehog-fabric`) completes and before
-booting any switch into ONIE for SONiC installation. Updating after switch installation is
-also possible, but requires re-provisioning the affected switches to apply the new credentials.
+On an existing deployment, when rotating switch credentials after initial bootstrap.
+Updating after switch installation requires re-provisioning the affected switches to apply
+the new credentials.
 
 ## Prerequisites
 

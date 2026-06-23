@@ -59,7 +59,7 @@ The hardware setup covers all physical and foundational infrastructure steps req
    - **Have the vault password ready** — the bootstrap script prompts for it at startup.
 
    See [DEPLOYMENT](./DEPLOYMENT.md) for full details on each prerequisite.
-6. **Bootstrap the network environment** — provisions the OpenWRT router VM, PXE/TFTP server, local Docker registry, and HedgeHog controller VM. All commands run from the `release-assets/` directory on `bastion0`. Run in two phases with a manual credential-change step in between.
+6. **Bootstrap the network environment** — provisions the OpenWRT router VM, PXE/TFTP server, local Docker registry, and HedgeHog controller VM. All commands run from the `release-assets/` directory on `bastion0`.
 
    :::tip
 
@@ -94,37 +94,39 @@ The hardware setup covers all physical and foundational infrastructure steps req
 
    :::
 
+   :::note
+
+   Before running bootstrap, configure these required credential variables in your inventory.
+   Bootstrap will fail with a clear error if any are missing:
+
+   - `hedgehog.login_password` — new password for the `core` user on the VM (vault-encrypt in production)
+   - `hedgehog.authorized_keys` — list of SSH keys to authorize on the VM; each entry is `{name, key}`
+   - `hedgehog.switch_users` — `admin` and `op` switch user credentials (password + authorized keys for each)
+
+   See [Router Services Configuration](./ROUTER_BOX_CONFIGURATION#hedgehog-controller) for the full variable schema and examples.
+
+   :::
+
    **Phase 1 — deploy the HedgeHog controller VM** (skips fabric provisioning):
    ```bash
    ./scripts/platform-setup.sh --bootstrap --skip-tags hedgehog-fabric
    ```
+   Credential rotation runs automatically: operator SSH keys are installed using the ISO default
+   password, the `core` user password is then changed and verified, and the Fabricator CRD is
+   patched with operator-defined credentials — all without manual intervention.
 
-   **Phase 2 — update Hedgehog VM credentials (while Phase 1 is waiting for SSH):**
-   The VM boots with a provisioning SSH key that Ansible does not have.
-   Phase 1 will pause waiting for SSH access (up to 10 minutes). In a separate
-   terminal, open a `virsh console` session and follow the
-   [Hedgehog VM credentials update](./runbooks/HEDGEHOG_VM_CREDENTIALS) runbook.
-   The key that must be added to unblock Phase 1 is the **environment SSH key** —
-   the public key corresponding to `ansible_ssh_private_key_file` in `inventory.yml`
-   for the `hedgehog_control` host group. Operator personal keys may be added at the
-   same time.
-
-   **Phase 3 — provision the HedgeHog fabric:**
+   **Phase 2 — provision the HedgeHog fabric:**
    ```bash
    ./scripts/platform-setup.sh --bootstrap --tags hedgehog-fabric
    ```
-
-   **Phase 4 — update Hedgehog fabricator credentials (before switch installation):**
-   Once Phase 3 completes, the fabricator spec still holds the installer ISO default
-   credentials for switch users. Before booting any switch into ONIE, update them by
-   following the [Hedgehog switch credentials update](./runbooks/HEDGEHOG_SWITCH_CREDENTIALS)
-   runbook.
+   Switches boot into ONIE and are provisioned with the credentials already configured in the
+   Fabricator CRD during Phase 1.
 
    :::note
 
-   If the Phase 1 SSH wait timed out before credentials were updated, re-run with both
-   tags — the `hedgehog_controller` role is idempotent (VM already exists, so creation
-   steps are skipped) and only the SSH and Kubernetes API readiness checks re-run:
+   If Phase 1 times out during the Kubernetes API readiness check, re-run with both tags — the
+   `hedgehog_controller` role is idempotent (VM already exists, so creation steps are skipped)
+   and only the readiness checks and credential rotation re-run:
 
    ```bash
    ./scripts/platform-setup.sh --bootstrap --tags hedgehog-controller,hedgehog-fabric

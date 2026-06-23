@@ -102,7 +102,8 @@ The hardware setup covers all physical and foundational infrastructure steps req
    **Phase 2 — update Hedgehog VM credentials (while Phase 1 is waiting for SSH):**
    The VM boots with a provisioning SSH key that Ansible does not have.
    Phase 1 will pause waiting for SSH access (up to 10 minutes). In a separate
-   terminal, open a `virsh console` session and follow the
+   terminal, ssh `router-0-host`, open a `virsh console` session into the hedgehog VM,
+   and follow the
    [Hedgehog VM credentials update](./runbooks/HEDGEHOG_VM_CREDENTIALS) runbook.
    The key that must be added to unblock Phase 1 is the **environment SSH key** —
    the public key corresponding to `ansible_ssh_private_key_file` in `inventory.yml`
@@ -133,8 +134,8 @@ The hardware setup covers all physical and foundational infrastructure steps req
    :::
 
    See [ROUTER_BOX_CONFIGURATION](./ROUTER_BOX_CONFIGURATION.md) for configuration details.
-7. **Set up the network fabric** — download the HedgeHog control node ISO, create the control VM, apply the fabric configuration, boot switches into ONIE, and install SONiC via HedgeHog auto-discovery. Follow all steps in [NETWORK_CONTROL_NODE_SETUP](./NETWORK_CONTROL_NODE_SETUP.md).
-8. **Provision the Ceph cluster** — storage nodes must have Ubuntu installed and be reachable via SSH from the bastion before this step:
+8. **Set up the network fabric** — download the HedgeHog control node ISO, create the control VM, apply the fabric configuration, boot switches into ONIE, and install SONiC via HedgeHog auto-discovery. Follow all steps in [NETWORK_CONTROL_NODE_SETUP](./NETWORK_CONTROL_NODE_SETUP.md).
+9. **Provision the Ceph cluster** — storage nodes must have Ubuntu installed and be reachable via SSH from the bastion before this step:
    - Run `platform-setup.sh --provision-ceph` to provision the cluster and generate keyrings, then promote them to `./keyrings/`
    - Complete the RADOS Gateway setup: start the gateway service and create the admin user before deploying OpenStack; configure Keystone integration after OpenStack is deployed
    - See [CEPH_SETUP](./CEPH_SETUP.md) for the full procedure.

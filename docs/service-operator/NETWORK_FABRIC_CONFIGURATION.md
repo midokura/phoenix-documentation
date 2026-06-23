@@ -4,7 +4,7 @@ sidebar_position: 16
 
 # Network Fabric Configuration
 
-Defining the physical connections operators must configure in the HedgeHog network fabric.
+Defining the physical connections operators must configure in the Hedgehog network fabric.
 
 > **Note:** The AI Factory uses the [HedgeHog Open Network
 > Fabric](https://docs.hedgehog.cloud/latest/user-guide/overview/) for its

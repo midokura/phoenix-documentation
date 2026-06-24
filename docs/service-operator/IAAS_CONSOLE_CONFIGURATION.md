@@ -63,7 +63,7 @@ The `hedgehog_kubeconfig_b64` in the inventory allows the IaaS Console to intera
 Steps to generate:
 
 ```sh
-# Connect to the control node
+# Connect to the Hedgehog control node
 ssh core@hedgehog0
 
 # Get the public IP of eth0 (used to access the cluster from IaaS)

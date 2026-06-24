@@ -58,13 +58,13 @@ Defines available networks for VMs.
 
 ### 4. Hedgehog Kubeconfig
 
-The `hedgehog_kubeconfig_b64` in the inventory allows the IaaS Console to interact with the Hedgehog Kubernetes cluster. It must be provided as a base64-encoded kubeconfig containing the public IP of the control node.
+The `hedgehog_kubeconfig_b64` in the inventory allows the IaaS Console to interact with the Hedgehog Kubernetes cluster. It must be provided as a base64-encoded kubeconfig containing the IP address of the hedgehog management node.
 
 Steps to generate:
 
 ```sh
-# Connect to the control node
-ssh core@control-1.bcn
+# Connect to the Hedgehog management node
+ssh core@hedgehog0
 
 # Get the public IP of eth0 (used to access the cluster from IaaS)
 IP=$(ip -4 addr show eth0 | grep inet | awk '{print $2}' | cut -d/ -f1)

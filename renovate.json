@@ -10,5 +10,9 @@
   "internalChecksFilter": "strict",
   "addLabels": [
     "dependencies"
-  ]
+  ],
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "minimumReleaseAge": "2 days"
+  }
 }

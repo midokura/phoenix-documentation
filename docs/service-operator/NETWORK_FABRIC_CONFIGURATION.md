@@ -73,6 +73,13 @@ hardware profile, role in the topology, and — for redundant leaves — to whic
 `hedgehog_switches` is a **dictionary** keyed by an arbitrary local key. The
 `name` field is what is actually applied and what connections reference.
 
+Both leaves and spines are registered under `hedgehog_switches`, but they follow
+different rules. Leaves are covered in [Leaf
+Configuration](#leaf-configuration) below; spines have stricter constraints and
+are covered separately in [Spine Configuration](#spine-configuration).
+
+### Leaf Configuration
+
 ```yaml
 hedgehog_switches:
   frontend_leaf0:
@@ -108,9 +115,9 @@ hedgehog_switches:
 | `description` | yes | convention is `<name>--<profile>`. |
 | `ip` | yes | Management IP of the switch, with prefix (for example, `172.30.0.20/21`). See the [appendix](#appendix-switch-ip--asn-convention). |
 | `protocol_ip` | yes | BGP protocol loopback, `/32` (for example, `172.30.8.20/32`). |
-| `vtep_ip` | for leaves | VXLAN tunnel endpoint loopback, `/32`. Required on leaves that terminate the overlay; omit on switches that do not. |
-| `role` | yes | Topology role: `spine` or `server-leaf`. |
-| `asn` | yes | BGP ASN for the switch (private range, derived from the switch ID — see appendix). |
+| `vtep_ip` | yes | VXLAN tunnel endpoint loopback, `/32`. Required on leaves, which terminate the overlay. |
+| `role` | yes | Topology role for a leaf: `server-leaf`. |
+| `asn` | yes | BGP ASN for the leaf (private range, derived from the switch ID — see appendix). |
 | `boot.mac` | yes | MAC address of the switch's management/boot port; used by the fabric to identify the switch during ONIE/SONiC install. |
 | `ecmp.roce_qpn` | no | Enable RoCE QPN-based ECMP hashing. Set `false` unless RoCE is in use. |
 | `enable_all_ports` | no | When `true`, brings up every port; normally `false` so only declared ports come up. |
@@ -119,6 +126,62 @@ hedgehog_switches:
 | `redundancy` | no | Redundancy group membership — see [Redundancy Groups](#redundancy-groups). Set to `{}` (or omit) for a standalone switch. |
 | `port_breakouts` | no | Optional map of port → breakout mode (for example, splitting a 100G port into 4×25G). |
 | `port_speeds` | no | Optional map of port → fixed speed override. |
+
+### Spine Configuration
+
+Spines are registered under `hedgehog_switches` like leaves, but the fabric's
+validating admission webhook (`vswitch.kb.io`) enforces two constraints that do
+**not** apply to leaves:
+
+- **ASN must be `65100`.** Spines only accept `asn: 65100`; any other value is
+  rejected at apply time. This is unlike leaves, whose ASN is derived from the
+  switch ID.
+- **No `vtep_ip`.** Spines do not terminate VXLANs, so a `vtep_ip` is not
+  allowed and must be omitted. The VTEP loopback is only valid on leaves.
+
+```yaml
+hedgehog_switches:
+  frontend_spine0:
+    name: "frontend-spine0"
+    profile: "dell-s5232f-on"
+    description: "frontend-spine0--dell-s5232f-on"
+    # Switch ID 10 (frontend spine, range 10-19). See appendix.
+    ip: "172.30.0.10/21"
+    protocol_ip: "172.30.8.10/32"
+    # No vtep_ip: spines do not terminate the overlay.
+    role: "spine"
+    asn: 65100
+    boot:
+      mac: "b0:4f:13:7f:1d:b0"
+    ecmp:
+      roce_qpn: false
+    enable_all_ports: false
+    roce: false
+    vlan_namespaces:
+      - "operator"
+      - "tenant"
+    # No redundancy group: spines are not part of an ESLAG domain.
+    redundancy: {}
+```
+
+**Fields** (differences from a leaf)
+
+| Field | Required | Description |
+|---|---|---|
+| `vtep_ip` | **must be omitted** | Not allowed on spines — they do not terminate VXLANs. The webhook rejects a spine that declares a `vtep_ip`. |
+| `role` | yes | Topology role for a spine: `spine`. |
+| `asn` | yes | **Must be `65100`.** Spines accept no other ASN; the webhook rejects any other value. |
+| `redundancy` | no | Leave as `{}` (or omit) — spines do not participate in ESLAG redundancy domains. |
+
+All other fields (`name`, `profile`, `description`, `ip`, `protocol_ip`,
+`boot.mac`, `ecmp`, `enable_all_ports`, `roce`, `vlan_namespaces`,
+`port_breakouts`, `port_speeds`) behave the same as for a
+[leaf](#leaf-configuration).
+
+> **Webhook errors:** Violating either constraint fails the apply with an
+> admission webhook error, for example:
+> `spine frontend-spine-1 ASN 65104 is not the expected spine ASN 65100`, or
+> `VTEP IP is not allowed for spine switches`.
 
 ### Redundancy Groups
 
@@ -539,19 +602,26 @@ switches and thousands of P2P links.
 Every switch is assigned a permanent two-digit **switch ID** from a per-zone,
 per-role range. Once assigned, an ID is **never reused or reshuffled**.
 
-| Zone     | Role        | Switch ID range | ASN range   |
-|----------|-------------|-----------------|-------------|
-| frontend | spine       | 10–19           | 65100–65109 |
-| frontend | server-leaf | 20–49           | 65110–65139 |
-| backend  | spine       | 50–59           | 65150–65159 |
-| backend  | server-leaf | 60–99           | 65160–65199 |
+| Zone     | Role        | Switch ID range | ASN          |
+|----------|-------------|-----------------|--------------|
+| frontend | spine       | 10–19           | `65100` only |
+| frontend | server-leaf | 20–49           | 65110–65139  |
+| backend  | spine       | 50–59           | `65100` only |
+| backend  | server-leaf | 60–99           | 65160–65199  |
 
-For a switch with ID `N`:
+**Spine ASN:** All spines must use `asn: 65100` regardless of switch ID or zone —
+the fabric webhook rejects any other value. See [Spine
+Configuration](#spine-configuration).
+
+For a **leaf** with ID `N`:
 
 - `ip:          172.30.0.N/21`
 - `protocol_ip: 172.30.8.N/32`
 - `vtep_ip:     172.30.12.N/32`
 - `asn:         65100 + (N − 10)`
+
+A **spine** with ID `N` follows the same `ip` and `protocol_ip` formulas, has no
+`vtep_ip` (spines do not terminate VXLANs), and always uses `asn: 65100`.
 
 The ASN formula yields the table above without gaps; each switch gets a unique
 valid private ASN.

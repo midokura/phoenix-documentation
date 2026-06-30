@@ -6,7 +6,7 @@ sidebar_position: 16
 
 Defining the physical connections operators must configure in the Hedgehog network fabric.
 
-> **Note:** The AI Factory uses the [HedgeHog Open Network
+> **Note:** The AI Factory uses the [Hedgehog Open Network
 > Fabric](https://docs.hedgehog.cloud/latest/user-guide/overview/) for its
 > switching layer. This guide documents the AI Factory conventions on top of it;
 > for the underlying fabric concepts and resource reference, see the public

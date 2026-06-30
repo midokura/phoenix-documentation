@@ -10,7 +10,7 @@ Defining the physical connections operators must configure in the Hedgehog netwo
 > Fabric](https://docs.hedgehog.cloud/latest/user-guide/overview/) for its
 > switching layer. This guide documents the AI Factory conventions on top of it;
 > for the underlying fabric concepts and resource reference, see the public
-> HedgeHog documentation at
+> Hedgehog documentation at
 > <https://docs.hedgehog.cloud/latest/user-guide/overview/>.
 
 The fabric is described declaratively in the environment inventory. Before any
@@ -45,19 +45,19 @@ IP/ASN addressing convention this repo follows.
       `hedgehog_switches` (see [Switch Configuration](#switch-configuration))
       before any connection can reference it
 - [ ] **Servers registered** — every `server` you reference below must already be
-      defined in `hedgehog_servers`.
+      defined in `hedgehog_servers`
 - [ ] **Physical wiring map** — know which server NIC connects to which switch
-      port for every link.
-- [ ] **Port naming** — server ports use the OS interface name (for example
-      `ens2f0np0`, `eth0`); switch ports use the HedgeHog port name (for example
-      `E1/1`). You can find more information on naming convention [here](https://docs.hedgehog.cloud/latest/user-guide/profiles/#port-naming).
+      port for every link
+- [ ] **Port naming** — server ports use the OS interface name (for example,
+      `ens2f0np0`, `eth0`); switch ports use the Hedgehog port name (for example,
+      `E1/1`). You can find more information on the naming convention [here](https://docs.hedgehog.cloud/latest/user-guide/profiles/#port-naming).
 
 ### How a Connection Is Named
 
-Every connection has a `name` that becomes the HedgeHog resource name. Names
+Every connection has a `name` that becomes the Hedgehog resource name. Names
 must be unique across the whole fabric. The convention used in existing
 environments is `<server>--<zone>` for server connections and
-`<switchA>--<switchB>` for switch connections, for example
+`<switchA>--<switchB>` for switch connections, for example,
 `gpu0--frontend` or `frontend-leaf0--frontend-spine0`.
 
 ---
@@ -65,10 +65,10 @@ environments is `<server>--<zone>` for server connections and
 ## Switch Configuration
 
 Before any connection can reference a switch, the switch itself must be
-registered under `hedgehog_switches`. Each entry becomes a HedgeHog `Switch`
+registered under `hedgehog_switches`. Each entry becomes a Hedgehog `Switch`
 custom resource and tells the fabric the switch's identity (ASN, loopbacks),
-hardware profile, role in the topology, and — for redundant leaves — which
-[redundancy group](#redundancy-groups) it belongs to.
+hardware profile, role in the topology, and — for redundant leaves — to which
+[redundancy group](#redundancy-groups) it belongs.
 
 `hedgehog_switches` is a **dictionary** keyed by an arbitrary local key. The
 `name` field is what is actually applied and what connections reference.
@@ -104,10 +104,10 @@ hedgehog_switches:
 | Field | Required | Description |
 |---|---|---|
 | `name` | yes | Unique switch name (becomes the `Switch` resource name); referenced by all connections. |
-| `profile` | yes | Hardware/SONiC profile for the switch model (for example `dell-s5232f-on`). |
+| `profile` | yes | Hardware/SONiC profile for the switch model (for example, `dell-s5232f-on`). |
 | `description` | yes | convention is `<name>--<profile>`. |
-| `ip` | yes | Management IP of the switch, with prefix (for example `172.30.0.20/21`). See the [appendix](#appendix-switch-ip--asn-convention). |
-| `protocol_ip` | yes | BGP protocol loopback, `/32` (for example `172.30.8.20/32`). |
+| `ip` | yes | Management IP of the switch, with prefix (for example, `172.30.0.20/21`). See the [appendix](#appendix-switch-ip--asn-convention). |
+| `protocol_ip` | yes | BGP protocol loopback, `/32` (for example, `172.30.8.20/32`). |
 | `vtep_ip` | for leaves | VXLAN tunnel endpoint loopback, `/32`. Required on leaves that terminate the overlay; omit on switches that do not. |
 | `role` | yes | Topology role: `spine` or `server-leaf`. |
 | `asn` | yes | BGP ASN for the switch (private range, derived from the switch ID — see appendix). |
@@ -117,7 +117,7 @@ hedgehog_switches:
 | `roce` | no | Enable RoCE (RDMA over Converged Ethernet) on the switch. `false` unless required. |
 | `vlan_namespaces` | yes | List of VLAN namespaces this switch participates in (must exist in `hedgehog_vlan_namespaces`). |
 | `redundancy` | no | Redundancy group membership — see [Redundancy Groups](#redundancy-groups). Set to `{}` (or omit) for a standalone switch. |
-| `port_breakouts` | no | Optional map of port → breakout mode (for example splitting a 100G port into 4×25G). |
+| `port_breakouts` | no | Optional map of port → breakout mode (for example, splitting a 100G port into 4×25G). |
 | `port_speeds` | no | Optional map of port → fixed speed override. |
 
 ### Redundancy Groups
@@ -150,7 +150,7 @@ hedgehog_switches:
   `frontend-leaf1`, both switches carry
   `redundancy: { group: frontend-redundancy-0, type: eslag }`.
 - Leave it as `redundancy: {}` (or omit it) for switches that are **not** part of
-  any multi-homing domain — for example back-end leaves that only host unbundled
+  any multi-homing domain — for example, back-end leaves that only host unbundled
   (single-homed) connections.
 
 **Declare the matching switch group**
@@ -177,10 +177,10 @@ hedgehog_switch_groups:
 
 These describe how a compute, storage, GPU, or control server attaches to the
 fabric. Choose **unbundled** when the server reaches the fabric through a single
-port or link redundancy is not a requirement (e.g. backend connections);
+port or link redundancy is not a requirement (for example, backend connections);
 **bundled** when the server runs a LAG (LACP bond) to a *single* switch; and
 **ESLAG** when the server is multi-homed across two or more switches for
-redundancy (e.g. frontend connections).
+redundancy (for example, frontend connections).
 
 | Connection | Server side | Switches | Redundancy |
 | --- | --- | --- | --- |
@@ -222,9 +222,9 @@ hedgehog_unbundled_connections:
 |---|---|---|
 | `name` | yes | Unique name of the connection (becomes the `Connection` resource name). Convention is `<server>--<zone>` for eslag connections, `<server>--<switch> for bundled connections, and `<server>--<switch_port>` for unbundled connections. |
 | `server` | yes | Name of the server, as registered in `hedgehog_servers`. |
-| `server_interface` | yes | The server's OS interface name for this link (for example `ens1`, `eth0`). |
+| `server_interface` | yes | The server's OS interface name for this link (for example, `ens1`, `eth0`). |
 | `switch` | yes | Name of the switch, as registered in `hedgehog_switches`. |
-| `switch_port` | yes | The switch port the server is cabled to (for example `E1/17`). |
+| `switch_port` | yes | The switch port the server is cabled to (for example, `E1/17`). |
 
 ---
 
@@ -325,14 +325,18 @@ hedgehog_eslag_connections:
 |---|---|---|
 | `name` | yes | Unique name of the connection. |
 | `fallback` | no (default `true`) | When `true`, the bond forwards traffic before LACP negotiation completes. Required for PXE boot, since iPXE does not speak LACP. Leave at the default unless you have a specific reason to disable it. |
-| `links` | yes | List of links, **2 to 4 entries**, one per switch the server is multi-homed to. |
+| `links` | yes | List of links, **2 to 4 entries**, one per switch to which the server is multi-homed. |
 | `links[].server` | yes | Server name, as registered in `hedgehog_servers`. |
 | `links[].server_port` | yes | The server's OS interface name for this member link. |
 | `links[].switch` | yes | Switch name for this member link, as registered in `hedgehog_switches`. |
-| `links[].switch_port` | yes | The switch port this member link is cabled to. |
+| `links[].switch_port` | yes | The switch port to which this member link is cabled. |
 
-> **Note:** Each link should land on a **different** switch. Two links across two
+> :::note
+
+Each link should land on a **different** switch. Two links across two
 > switches is the most common layout; up to four switches are supported.
+
+:::
 
 ---
 
@@ -398,7 +402,7 @@ hedgehog_fabric_connections:
 | `links[].spine.port` | yes | Spine switch port for this cable. |
 
 > **IP addressing:** The `leaf.ip` and `spine.ip` on a single link must be the
-> two usable addresses of the same `/31` (for example `172.30.128.0/31` →
+> two usable addresses of the same `/31` (for example, `172.30.128.0/31` →
 > `.0` and `.1`). Do not reuse a `/31` across links.
 
 ---
@@ -497,7 +501,7 @@ treated as one redundancy domain. See [Redundancy Groups](#redundancy-groups).
 
 - [Network Control Node Setup](NETWORK_CONTROL_NODE_SETUP.md) — provisioning the
   control node and installing SONiC before configuring the fabric.
-- HedgeHog Connections documentation: https://docs.hedgehog.cloud/25.04/user-guide/connections/
+- Hedgehog Connections documentation: https://docs.hedgehog.cloud/25.04/user-guide/connections/
 - HedgeHog Switches and Servers: https://docs.hedgehog.cloud/25.04/user-guide/switches-and-servers/
 
 ---
@@ -615,7 +619,11 @@ zone, so `pair_index = 0`):
 
 ### Adding a new switch
 
-# IMPORTANT: **Do not touch any existing switch's addresses.**
+:::note[Important]
+
+Do not touch any existing switch's addresses.
+
+:::
 1. Pick the next unused ID inside the zone/role range above.
 2. Set `ip`, `protocol_ip`, `vtep_ip`, and `asn` from the formulas.
 3. For each fabric link, compute the pair `/28` using the row formula and consume

@@ -33,7 +33,7 @@ IP/ASN addressing convention this repo follows.
 
 > **Where these go:** All connections are declared in the environment inventory
 > file (for example, `ansible/inventories/<environment>/inventory.yml`) and
-> applied by the `hedgehog` Ansible role. Each connection becomes a HedgeHog
+> applied by the `hedgehog` Ansible role. Each connection becomes a Hedgehog
 > `Connection` custom resource on the control node. The physical cabling on the
 > rack must match exactly what you declare here.
 

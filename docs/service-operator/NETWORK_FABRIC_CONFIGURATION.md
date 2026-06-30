@@ -43,7 +43,7 @@ IP/ASN addressing convention this repo follows.
 
 - [ ] **Switches registered** — every switch must be defined under
       `hedgehog_switches` (see [Switch Configuration](#switch-configuration))
-      before any connection can reference it.
+      before any connection can reference it
 - [ ] **Servers registered** — every `server` you reference below must already be
       defined in `hedgehog_servers`.
 - [ ] **Physical wiring map** — know which server NIC connects to which switch

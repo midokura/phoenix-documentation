@@ -146,14 +146,14 @@ Boot priority: #1 UEFI Hard Disk, #2 UEFI Network, #3 UEFI Built-in EFI Shell, #
 
 Boot priority and UEFI Network Drive BBS Priorities: same as 5019 above.
 
-### SuperMicro AS-8126GS-NB3RT
+### SuperMicro AS-1115CS, ASG-2115S, and AS-8126GS-NB3RT
 
 GPU hypervisor servers.
 
 | BIOS path | Setting | Value |
 |-----------|---------|-------|
 | Advanced › Boot Feature | Wait For "F1" If Error | Disabled |
-| Advanced › CPU Configuration | Workload Profile | Virtualization (Hypervisors) |
+| Advanced › CPU Configuration | Workload Profile | Virtualization (Hypervisors) (AS-1115CS and AS-8126GS-NB3RT only) |
 | Advanced › NB Configuration | IOMMU | Enabled |
 | Advanced › NB Configuration | DMAr Support | Enabled |
 | Advanced › NB Configuration | Power Profile Selection | Auto (High-performance mode) |
@@ -162,7 +162,7 @@ GPU hypervisor servers.
 | Advanced › PCIe/PCI/PnP Configuration | SR-IOV Support | Enabled |
 | Advanced › Network Configuration | IPv6 PXE Support | Disabled |
 
-For each Nvidia BlueField NIC port, under **Advanced › Nvidia Network Adapter**:
+AS-8126GS-NB3RT machines have BlueField-3 NICs. For each NIC port, under **Advanced › Nvidia Network Adapter**:
 
 | Path | Setting | Value |
 |------|---------|-------|

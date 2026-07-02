@@ -68,3 +68,29 @@ if [[ "$STATE" != "MERGED" ]]; then
     echo "error: PR #${DOCS_PR_NUMBER} did not merge within ${TIMEOUT}s (state: ${STATE})" >&2
     exit 1
 fi
+
+MERGE_TIME=$(gh pr view "$DOCS_PR_NUMBER" --json mergedAt --jq '.mergedAt')
+echo "PR #${DOCS_PR_NUMBER} merged at ${MERGE_TIME}, waiting for deploy workflow..."
+
+DEPLOY_TIMEOUT=600
+DEPLOY_ELAPSED=0
+DEPLOY_RUN_ID=""
+while [[ $DEPLOY_ELAPSED -lt $DEPLOY_TIMEOUT ]]; do
+    DEPLOY_RUN_ID=$(gh run list \
+        --workflow=deploy.yml \
+        --branch=main \
+        --json databaseId,createdAt,status \
+        --jq ".[] | select(.createdAt >= \"${MERGE_TIME}\") | .databaseId" \
+        | head -1)
+    [[ -n "$DEPLOY_RUN_ID" ]] && break
+    sleep 10
+    DEPLOY_ELAPSED=$((DEPLOY_ELAPSED + 10))
+done
+
+if [[ -z "$DEPLOY_RUN_ID" ]]; then
+    echo "error: no deploy workflow run found after PR merge within ${DEPLOY_TIMEOUT}s" >&2
+    exit 1
+fi
+
+echo "Found deploy run ${DEPLOY_RUN_ID}, waiting for it to complete..."
+gh run watch "$DEPLOY_RUN_ID" --exit-status

@@ -16,7 +16,7 @@ In most cases the cause is a transient error on an OpenStack backing service (Ke
 
 ## Prerequisites
 
-- SSH mido admin private key (`~/.ssh/mido_infra`) on your local machine or `bastion0`
+- SSH mido admin private key (`~/.ssh/infra`) on your local machine or `bastion0`
 - OpenStack CLI access (local or on `bastion0`)
 
 ### SSH to VPN servers

@@ -206,6 +206,8 @@ Example: re-run only OSD provisioning:
 
 For safely taking a storage node offline for maintenance, see the [Ceph node maintenance](./runbooks/CEPH_NODE_MAINTENANCE) runbook.
 
+## After Provisioning
+
 ## Verify Cluster is Ready
 
 Before promoting keyrings or starting the RADOS Gateway setup, confirm the cluster is healthy and PG autoscaling has completed.
@@ -237,7 +239,12 @@ ceph osd pool get <pool> pg_num
 
 The relevant pools are `images`, `volumes`, `backups`, and `vms`. Only proceed to the next step once all pools show matching `pg_num` and `pg_num_target` and the cluster is in `HEALTH_OK`.
 
-## After Provisioning: Promote Keyrings
+
+## Changing `provision_zap_disks` to `false`
+
+Now that the Ceph cluster is in Ready state, to prevent wiping stored data, it is a good time to set the inventory's `provision_zap_disks` variable to `false`.
+
+### Promote Keyrings
 
 The playbook writes vault-encrypted keyrings to `./assets/ceph/` after each run. Copy them to `./keyrings/` before running the OpenStack deployment:
 

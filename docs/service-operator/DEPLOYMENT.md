@@ -222,6 +222,210 @@ kubectl get pods -A  # Should show Running pods
 - Check the logs in `logs/main-*.log` for error details
 - See [Partial Execution](#partial-execution) below to retry specific steps
 
+### End-to-End Acceptance Checklist
+
+The infrastructure checks above confirm the control plane is up, but they do not verify that the product works end-to-end for a user. Complete the following checklist before announcing the environment as ready.
+
+All commands below run from `bastion0` unless noted otherwise.
+
+#### 1. Console public access
+
+Verify the IaaS Console is reachable via its public IP from a whitelisted external address (for example, from your office network or operator VPN):
+
+```bash
+# Replace with the values from your inventory:
+#   console_public_ip  - the floating IP assigned to the console load balancer
+#   cluster_name       - value of cluster_name in inventory
+#   cluster_public_domain - value of cluster_public_domain in inventory
+curl -kfsSL -m 10 \
+  https://<console_public_ip> \
+  -H "Host: console.<cluster_name>.<cluster_public_domain>" \
+  | grep -i title
+```
+
+Expected output: a line containing `IaaS UI`.
+
+If this fails but the console is reachable via its private IP (`https://<console_lb_private_ip>`), the issue is in the router's DNAT or BGP routing. See checks 2 and 3 below.
+
+#### 2. BGP routing health
+
+SSH into the router and confirm that all floating IP `/32` routes are `unicast`, not `blackhole`. The FIP subnet `/24` blackhole route is expected (it is the aggregate announcement); individual `/32` entries must not be blackhole.
+
+```bash
+ssh router0.<cluster_name>.<cluster_public_domain>
+
+birdc show route protocol openstack_control0
+```
+
+Expected: all entries show `unicast`. Example of a healthy entry:
+
+```
+119.15.113.17/32  unicast [openstack_control0 ...] * (100) [i]
+    via <next_hop> on bond0.104
+```
+
+If any `/32` shows `blackhole`, the FIP subnet IP is not bound to an interface that BIRD's `direct` protocol can see as up. Check the `bird_bgp_direct_interfaces` inventory setting and the `vbgp` interface state on the router.
+
+#### 3. IP whitelists populated
+
+Verify the operator IP whitelist is not empty on the router. An empty whitelist causes the DNAT firewall rules to reference an undefined set and silently drop all inbound traffic.
+
+```bash
+ssh router0.<cluster_name>.<cluster_public_domain>
+
+nft list set inet fw4 allow_operators
+```
+
+Expected: the set exists and contains at least one IP entry. If it is empty or the set does not exist, follow the [Apply IP List](./runbooks/APPLY_IPLIST.md) runbook before proceeding.
+
+#### 4. Hedgehog fabric state
+
+If this is a redeployment (not a first-time install), confirm that the Hedgehog controller was reprovisioned cleanly and holds no tenant networks from the previous deployment. Leftover networks cause VPC subnet conflicts when the IaaS Console tries to create the default tenant.
+
+Create a test tenant via the IaaS API and check the IaaS API logs for VPC overlap errors:
+
+```bash
+# Set up your operator token and API base URL (see OPERATOR_API_GUIDE.md)
+export API_BASE_URL="https://console.<cluster_name>.<cluster_public_domain>/api"
+export JWT_TOKEN="<your-operator-jwt-token>"
+
+# Create a test tenant
+curl -fsS -X POST \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "acceptance-test", "users": []}' \
+  "${API_BASE_URL}/tenants"
+```
+
+If the request returns a `403` with a message containing `overlaps with subnet`, Hedgehog still has stale tenant networks. You must destroy and reprovision the Hedgehog VM before continuing:
+
+```bash
+# On router-0-host:
+virsh destroy hedgehog-controller
+virsh undefine hedgehog-controller --remove-all-storage --nvram --managed-save --snapshots-metadata
+```
+
+Then re-run the bootstrap to reprovision Hedgehog and repeat this check.
+
+#### 5. VPN agent health
+
+After creating the test tenant above, verify that its VPN agent reconciles successfully. A failing VPN agent means users will not receive VPN access and cluster creation will fail with `vpn_public_network not found`.
+
+```bash
+export KUBECONFIG=/infra-management/kubeconfig
+
+# List VPN server pods across all tenant namespaces
+kubectl get pods -A | grep vpn
+```
+
+All VPN server pods should be in `Running` state. Then confirm there are no active reconciliation errors in Grafana. In **Grafana > Explore**, select **Prometheus** and run:
+
+```
+rate(vpn_agent_reconciliation_errors_total[10m])
+  * on(instance) group_left(tenant_id)
+  (vpn_agent_info)
+```
+
+Expected: the query returns no data or all series have value `0`. If errors are firing for the test tenant, follow the [VPN Agent Reconciliation Failure](./runbooks/VPN_RECONCILIATION_FAILURE.md) runbook.
+
+#### 6. Cluster creation
+
+Create a GPU cluster inside the test tenant and confirm it reaches the `Running` state. This validates OpenStack scheduling, Hedgehog network provisioning, and the management cluster's CAPI controllers end-to-end.
+
+Log into the IaaS Console at `https://console.<cluster_name>.<cluster_public_domain>`, switch to the test tenant, and create a cluster with the minimum available flavor. Monitor its status in the console until it shows `Running`.
+
+Alternatively, poll via the API:
+
+```bash
+# Create the cluster (replace TENANT_ID with the ID returned in check 4)
+curl -fsS -X POST \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "acceptance-cluster", "flavor": "<minimum_flavor>"}' \
+  "${API_BASE_URL}/tenants/<TENANT_ID>/clusters"
+
+# Poll status
+curl -fsS \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  "${API_BASE_URL}/tenants/<TENANT_ID>/clusters"
+```
+
+Expected: the cluster transitions from `Pending` to `Running` within 10-15 minutes. If it stays in `Pending`, check CAPI controller logs:
+
+```bash
+kubectl logs -n capi-system \
+  $(kubectl get pods -n capi-system -o name | grep capi-controller) \
+  --tail=50
+```
+
+#### 7. Floating IP reachability
+
+Assign a floating IP to a VM in the test cluster and verify it is reachable from an external whitelisted address. This confirms the full routing path: BGP announcement, DNAT, and return path via the BGP tunnel.
+
+From the IaaS Console, note the floating IP assigned to a running VM (or the VPN server), then from your operator workstation:
+
+```bash
+ping -c 4 <floating_ip>
+```
+
+If `ping` is blocked by firewall policy, use `curl` with a known open port instead. Connectivity confirms the DNAT and PBR rules are working.
+
+If the ping times out, run `tcpdump` on the router to confirm whether traffic is arriving on the BGP tunnel interface but the reply is leaving through the wrong interface (routing asymmetry):
+
+```bash
+ssh router0.<cluster_name>.<cluster_public_domain>
+tcpdump -i any -n host <floating_ip>
+```
+
+Reply packets should leave via the BGP tunnel interface (`wg_*`), not through the office uplink (`eth1`).
+
+#### 8. Object storage
+
+Verify that Ceph RADOS Gateway is serving S3 correctly. Create a storage bucket from the IaaS Console under the test tenant and confirm it is listed after creation.
+
+If bucket creation fails with a certificate or connectivity error, check that the RGW Keystone integration was completed after deployment (see Software Installation step 5 in [OPERATOR_OVERVIEW](./OPERATOR_OVERVIEW.md)), and verify the RGW certificate:
+
+```bash
+# On a Ceph node (or via the Ansible container):
+RGW_CTR=$(sudo podman ps --filter "name=rgw" --format "{{.Names}}" | head -1)
+sudo podman exec "$RGW_CTR" \
+  curl -v https://<keystone_host>:5000/v3/ 2>&1 \
+  | grep -E "SSL certificate|verify|issuer|CAfile|error"
+```
+
+Expected: no TLS errors. If Keystone certificate verification fails, redistribute the CA certificate to the Ceph nodes and restart the gateway (see [CEPH_SETUP](./CEPH_SETUP.md)).
+
+#### 9. GPU node scheduling
+
+SSH into a GPU bare-metal server provisioned in the test cluster and run the GPU verification checklist:
+
+```bash
+nvidia-smi
+source /opt/pytorch-venv/bin/activate
+python -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}')"
+verify-rdma
+verify-gpudirect
+```
+
+See [GPU Server Verification](../user/GPU_SERVER_VERIFICATION.md) for expected output and troubleshooting.
+
+#### Acceptance complete
+
+Once all nine checks pass, delete the test tenant to leave the environment clean:
+
+```bash
+# Delete the test cluster first, then the tenant
+curl -fsS -X DELETE \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  "${API_BASE_URL}/tenants/<TENANT_ID>/clusters/<CLUSTER_ID>"
+
+curl -fsS -X DELETE \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  "${API_BASE_URL}/tenants/<TENANT_ID>"
+```
+
+The environment is ready for end users when all checks pass without errors.
+
 ### Partial Execution
 
 Use `--tags` and `--skip-tags` to control which steps run.

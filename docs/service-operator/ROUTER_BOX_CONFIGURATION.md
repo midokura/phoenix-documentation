@@ -294,6 +294,32 @@ Import/export filter rules are Bird filter expressions. Common patterns:
 - `proto ~ "openstack_*"` — match routes learned from a specific protocol
 - `ifname = "eth2.104"` — match routes on a specific interface
 
+### BGP loopback interface (vbgp)
+
+Bird requires its router ID interface to be up before it will install kernel routes. A dedicated dummy interface (`vbgp`) is used for this: it stays up unconditionally without needing a physical peer, and the public subnet IP is assigned to it so Bird can advertise the prefix.
+
+This requires `kmod-dummy` to be present in the OpenWrt image. Once available, define the device and interface in inventory:
+
+```yaml
+openwrt_network_devicesgroup:
+  openwrt_routers:
+    vbgp:
+      type: "dummy"
+      ipv6: "0"
+
+openwrt_network_interfaceshost:
+  bgp:
+    proto: "static"
+    device: "vbgp"
+    delegate: "0"
+    auto: "1"
+    disabled: "0"
+    ipaddr:
+      - "119.15.113.1/24"   # public subnet IP assigned to the BGP loopback
+```
+
+Then include `vbgp` in `bird_bgp_direct_interfaces` and in any relevant export filters so Bird picks up its connected route.
+
 ### Typical Topology
 
 ```
@@ -316,7 +342,8 @@ openwrt_routers:
       bird_bgp_announced_prefixes:
         - "119.15.113.0/24"
       bird_bgp_direct_interfaces:
-        - "eth2.104"       # External VLAN interface
+        - "bond0.104"      # External VLAN interface
+        - "vbgp"           # BGP loopback (dummy interface)
 
       bird_bgp_neighbors:
         # iBGP to edge router via WireGuard tunnel
@@ -326,8 +353,9 @@ openwrt_routers:
           import:
             - "net = 119.15.113.1/32"
           export:
-            - proto = "openstack_*"
-            - ifname = "eth2.104"
+            - proto ~ "openstack_*"
+            - ifname = "bond0.104"
+            - ifname = "vbgp"
 
         # iBGP to OpenStack Neutron (receives floating IP host routes)
         - name: openstack_control0
@@ -336,6 +364,23 @@ openwrt_routers:
           import:
             - "net ~ [ 119.15.113.0/24{24,32} ]"
           export: []
+
+  vars:
+    openwrt_network_devicesgroup:
+      openwrt_routers:
+        vbgp:
+          type: "dummy"
+          ipv6: "0"
+
+    openwrt_network_interfaceshost:
+      bgp:
+        proto: "static"
+        device: "vbgp"
+        delegate: "0"
+        auto: "1"
+        disabled: "0"
+        ipaddr:
+          - "119.15.113.1/24"
 ```
 
 ---

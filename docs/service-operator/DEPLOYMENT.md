@@ -320,13 +320,11 @@ Then re-run the bootstrap to reprovision Hedgehog and repeat this check.
 After creating the test tenant above, verify that its VPN agent reconciles successfully. A failing VPN agent means users will not receive VPN access and cluster creation will fail with `vpn_public_network not found`.
 
 ```bash
-export KUBECONFIG=/infra-management/kubeconfig
-
-# List VPN server pods across all tenant namespaces
-kubectl get pods -A | grep vpn
+# List VPN servers across all tenants
+openstack server list --all-projects | grep -i vpn
 ```
 
-All VPN server pods should be in `Running` state. Then confirm there are no active reconciliation errors in Grafana. In **Grafana > Explore**, select **Prometheus** and run:
+All VPN servers should be in `ACTIVE` state. Then confirm there are no active reconciliation errors in Grafana. In **Grafana > Explore**, select **Prometheus** and run:
 
 ```
 rate(vpn_agent_reconciliation_errors_total[10m])

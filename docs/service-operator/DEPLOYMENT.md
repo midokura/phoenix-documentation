@@ -324,7 +324,7 @@ After creating the test tenant above, verify that its VPN agent reconciles succe
 openstack server list --all-projects | grep -i vpn-server
 ```
 
-All VPN servers should be in `ACTIVE` state. Then confirm there are no active reconciliation errors in Grafana. In **Grafana > Explore**, select **Prometheus** and run:
+All VPN servers should be in `ACTIVE` state. Then confirm there are no active reconciliation errors in Grafana. The Grafana URL follows the pattern `https://grafana.<cluster_name>.<cluster_public_domain>/`. In **Grafana > Explore**, select **Prometheus** and run:
 
 ```
 rate(vpn_agent_reconciliation_errors_total[10m])

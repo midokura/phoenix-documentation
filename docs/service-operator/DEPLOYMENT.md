@@ -340,22 +340,6 @@ Create a GPU cluster inside the test tenant and confirm it reaches the `Running`
 
 Log into the IaaS Console at `https://console.<cluster_name>.<cluster_public_domain>`, switch to the test tenant, and create a cluster with the minimum available flavor. Monitor its status in the console until it shows `Running`.
 
-Alternatively, poll via the API:
-
-```bash
-# Create the cluster (replace TENANT_ID with the ID returned in check 4)
-curl -fsS -X POST \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"name": "acceptance-cluster", "flavor": "<minimum_flavor>"}' \
-  "${API_BASE_URL}/tenants/<TENANT_ID>/clusters"
-
-# Poll status
-curl -fsS \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  "${API_BASE_URL}/tenants/<TENANT_ID>/clusters"
-```
-
 Expected: the cluster transitions from `Pending` to `Running` within 10-15 minutes. If it stays in `Pending`, check CAPI controller logs:
 
 ```bash

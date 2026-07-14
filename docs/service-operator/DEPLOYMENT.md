@@ -230,22 +230,30 @@ All commands below run from `bastion0` unless noted otherwise.
 
 #### 1. Console public access
 
-Verify the IaaS Console is reachable via its public IP from a whitelisted external address (for example, from your office network or operator VPN):
+Verify the IaaS Console is reachable from a whitelisted external address (for example, from your office network or operator VPN):
 
 ```bash
 # Replace with the values from your inventory:
-#   console_public_ip  - the floating IP assigned to the console load balancer
-#   cluster_name       - value of cluster_name in inventory
+#   cluster_name          - value of cluster_name in inventory
 #   cluster_public_domain - value of cluster_public_domain in inventory
+curl -kfsSL -m 10 \
+  https://console.<cluster_name>.<cluster_public_domain> \
+  | grep -i title
+```
+
+Expected output: a line containing `IaaS UI`.
+
+If this fails, retry using the console's public IP directly to distinguish a DNS failure from a routing failure:
+
+```bash
+# console_public_ip - the floating IP assigned to the console load balancer
 curl -kfsSL -m 10 \
   https://<console_public_ip> \
   -H "Host: console.<cluster_name>.<cluster_public_domain>" \
   | grep -i title
 ```
 
-Expected output: a line containing `IaaS UI`.
-
-If this fails but the console is reachable via its private IP (`https://<console_lb_private_ip>`), the issue is in the router's DNAT or BGP routing. See checks 2 and 3 below.
+If the DNS-based request fails but the IP-based request succeeds, the issue is DNS resolution. If both fail, the issue is in the router's DNAT or BGP routing. See checks 2 and 3 below.
 
 #### 2. BGP routing health
 

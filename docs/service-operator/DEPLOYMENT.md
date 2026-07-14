@@ -260,7 +260,7 @@ If the DNS-based request fails but the IP-based request succeeds, the issue is D
 SSH into the router and confirm that all floating IP `/32` routes are `unicast`, not `blackhole`. The FIP subnet `/24` blackhole route is expected (it is the aggregate announcement); individual `/32` entries must not be blackhole.
 
 ```bash
-ssh -i ssh_key 10.30.0.1
+ssh -i ssh_key root@10.30.0.1
 
 birdc show route protocol openstack_control0
 ```
@@ -279,7 +279,7 @@ If any `/32` shows `blackhole`, the FIP subnet IP is not bound to an interface t
 Verify the operator IP whitelist is not empty on the router. An empty whitelist causes the DNAT firewall rules to reference an undefined set and silently drop all inbound traffic.
 
 ```bash
-ssh -i ssh_key 10.30.0.1
+ssh -i ssh_key root@10.30.0.1
 
 nft list set inet fw4 allow_operators
 ```
@@ -381,7 +381,7 @@ If `ping` is blocked by firewall policy, use `curl` with a known open port inste
 If the ping times out, run `tcpdump` on the router to confirm whether traffic is arriving on the BGP tunnel interface but the reply is leaving through the wrong interface (routing asymmetry):
 
 ```bash
-ssh -i ssh_key 10.30.0.1
+ssh -i ssh_key root@10.30.0.1
 tcpdump -i any -n host <floating_ip>
 ```
 

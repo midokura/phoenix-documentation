@@ -317,7 +317,7 @@ Then re-run the bootstrap to reprovision Hedgehog and repeat this check.
 
 #### 5. VPN agent health
 
-After creating the test tenant above, verify that its VPN agent reconciles successfully. A failing VPN agent means users will not receive VPN access and cluster creation will fail with `vpn_public_network not found`.
+After creating the test tenant above, verify that its VPN agent reconciles successfully. A failing VPN agent means users will not receive VPN access.
 
 ```bash
 # List VPN servers across all tenants
@@ -334,25 +334,11 @@ rate(vpn_agent_reconciliation_errors_total[10m])
 
 Expected: the query returns no data or all series have value `0`. If errors are firing for the test tenant, follow the [VPN Agent Reconciliation Failure](./runbooks/VPN_RECONCILIATION_FAILURE.md) runbook.
 
-#### 6. Cluster creation
+#### 6. Floating IP reachability
 
-Create a GPU cluster inside the test tenant and confirm it reaches the `Running` state. This validates OpenStack scheduling, Hedgehog network provisioning, and the management cluster's CAPI controllers end-to-end.
+Assign a floating IP to the VPN server VM in the test tenant and verify it is reachable from an external whitelisted address. This confirms the full routing path: BGP announcement, DNAT, and return path via the BGP tunnel.
 
-Log into the IaaS Console at `https://console.<cluster_name>.<cluster_public_domain>`, switch to the test tenant, and create a cluster with the minimum available flavor. Monitor its status in the console until it shows `Running`.
-
-Expected: the cluster transitions from `Pending` to `Running` within 10-15 minutes. If it stays in `Pending`, check CAPI controller logs:
-
-```bash
-kubectl logs -n capi-system \
-  $(kubectl get pods -n capi-system -o name | grep capi-controller) \
-  --tail=50
-```
-
-#### 7. Floating IP reachability
-
-Assign a floating IP to a VM in the test cluster and verify it is reachable from an external whitelisted address. This confirms the full routing path: BGP announcement, DNAT, and return path via the BGP tunnel.
-
-From the IaaS Console, note the floating IP assigned to a running VM (or the VPN server), then from your operator workstation:
+From the IaaS Console, note the floating IP assigned to the VPN server VM, then from your operator workstation:
 
 ```bash
 ping -c 4 <floating_ip>
@@ -369,7 +355,7 @@ tcpdump -i any -n host <floating_ip>
 
 Reply packets should leave via the BGP tunnel interface (`wg_*`), not through the office uplink (`eth1`).
 
-#### 8. Object storage
+#### 7. Object storage
 
 Verify that Ceph RADOS Gateway is serving S3 correctly. Create a storage bucket from the IaaS Console under the test tenant and confirm it is listed after creation.
 
@@ -385,9 +371,9 @@ sudo podman exec "$RGW_CTR" \
 
 Expected: no TLS errors. If Keystone certificate verification fails, redistribute the CA certificate to the Ceph nodes and restart the gateway (see [CEPH_SETUP](./CEPH_SETUP.md)).
 
-#### 9. GPU node scheduling
+#### 8. GPU node scheduling
 
-SSH into a GPU bare-metal server provisioned in the test cluster and run the GPU verification checklist:
+SSH into a GPU bare-metal server in the test tenant and run the GPU verification checklist:
 
 ```bash
 nvidia-smi
@@ -401,14 +387,9 @@ See [GPU Server Verification](../user/GPU_SERVER_VERIFICATION.md) for expected o
 
 #### Acceptance complete
 
-Once all nine checks pass, delete the test tenant to leave the environment clean:
+Once all eight checks pass, delete the test tenant to leave the environment clean:
 
 ```bash
-# Delete the test cluster first, then the tenant
-curl -fsS -X DELETE \
-  -H "Authorization: Bearer $JWT_TOKEN" \
-  "${API_BASE_URL}/tenants/<TENANT_ID>/clusters/<CLUSTER_ID>"
-
 curl -fsS -X DELETE \
   -H "Authorization: Bearer $JWT_TOKEN" \
   "${API_BASE_URL}/tenants/<TENANT_ID>"

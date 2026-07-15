@@ -422,14 +422,20 @@ Verify that a user can provision a VM through the IaaS Console and reach it over
 
 1. Log into the IaaS Console as the test tenant user.
 2. Create a VM using any available flavor and image.
-3. Once the VM reaches `ACTIVE` state, connect to the tenant VPN.
-4. SSH into the VM using the private IP shown in the Console:
+3. Once the VM reaches `ACTIVE` state, set up WireGuard VPN access for the test user following the [VPN Configuration](./VPN_CONFIGURATION.md) guide. This involves adding the user to the tenant with their public key and fetching the generated VPN configuration script.
+4. Activate the WireGuard tunnel:
+
+```bash
+sudo wg-quick up <config>.conf
+```
+
+5. SSH into the VM using the private IP shown in the Console:
 
 ```bash
 ssh ubuntu@<vm_private_ip>
 ```
 
-Expected: the SSH session opens successfully. If the connection times out, verify that the VPN agent is healthy (check 5) and that the VPN client is connected before retrying.
+Expected: the SSH session opens successfully. If the connection times out, verify that the VPN agent is healthy (check 5) and that the WireGuard tunnel is active (`sudo wg show`) before retrying.
 
 5. From inside the VM, verify outbound internet connectivity:
 

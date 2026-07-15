@@ -305,6 +305,30 @@ curl -fsS -X POST \
   "${API_BASE_URL}/tenants"
 ```
 
+Save the tenant ID from the response for the steps below:
+
+```bash
+export TENANT_ID="<id-from-response>"
+```
+
+Then add yourself to the tenant so you can access its resources in subsequent checks:
+
+```bash
+# Get your user ID
+export USER_ID=$(curl -fsS \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  "${API_BASE_URL}/users/me" | jq -r '.id')
+
+# Assign yourself to the test tenant
+curl -fsS -X PUT \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{}' \
+  "${API_BASE_URL}/tenants/${TENANT_ID}/users/${USER_ID}"
+```
+
+Expected: HTTP 204 No Content.
+
 If the request returns a `403` with a message containing `overlaps with subnet`, Hedgehog still has stale tenant networks. You must destroy and reprovision the Hedgehog VM before continuing:
 
 ```bash
@@ -320,8 +344,8 @@ Then re-run the bootstrap to reprovision Hedgehog and repeat this check.
 After creating the test tenant above, verify that its VPN agent reconciles successfully. A failing VPN agent means users will not receive VPN access.
 
 ```bash
-# Scope the OpenStack client to the test tenant using the ID from the response above
-export OS_PROJECT_NAME="<tenant-id>"
+# Scope the OpenStack client to the test tenant
+export OS_PROJECT_NAME="$TENANT_ID"
 
 # List VPN servers in the test tenant
 openstack server list | grep -i vpn-server

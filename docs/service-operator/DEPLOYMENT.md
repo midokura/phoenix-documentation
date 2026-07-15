@@ -431,6 +431,14 @@ ssh ubuntu@<vm_private_ip>
 
 Expected: the SSH session opens successfully. If the connection times out, verify that the VPN agent is healthy (check 5) and that the VPN client is connected before retrying.
 
+5. From inside the VM, verify outbound internet connectivity:
+
+```bash
+curl -fsSL --max-time 10 https://www.google.com -o /dev/null && echo "OK"
+```
+
+Expected: `OK`. If the request times out, the VM's default route or NAT is not configured correctly.
+
 #### Acceptance complete
 
 Once all eight checks pass, delete the test tenant to leave the environment clean:

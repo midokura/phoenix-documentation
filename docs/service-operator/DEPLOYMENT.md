@@ -320,8 +320,11 @@ Then re-run the bootstrap to reprovision Hedgehog and repeat this check.
 After creating the test tenant above, verify that its VPN agent reconciles successfully. A failing VPN agent means users will not receive VPN access.
 
 ```bash
-# List VPN servers across all tenants
-openstack server list --all-projects | grep -i vpn-server
+# Scope the OpenStack client to the test tenant using the ID from the response above
+export OS_PROJECT_NAME="<tenant-id>"
+
+# List VPN servers in the test tenant
+openstack server list | grep -i vpn-server
 ```
 
 All VPN servers should be in `ACTIVE` state. Then confirm there are no active reconciliation errors in Grafana. The Grafana URL follows the pattern `https://grafana.<cluster_name>.<cluster_public_domain>/`. In **Grafana > Explore**, select **Prometheus** and run:

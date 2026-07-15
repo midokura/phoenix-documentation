@@ -274,6 +274,15 @@ Expected: all entries show `unicast`. Example of a healthy entry:
 
 If any `/32` shows `blackhole`, the FIP subnet IP is not bound to an interface that BIRD's `direct` protocol can see as up. Check the `bird_bgp_direct_interfaces` inventory setting and the `vbgp` interface state on the router.
 
+Before checking the router, verify on `bastion0` that all BGP dynamic routing agents are associated with the BGP speaker:
+
+```bash
+SPEAKER_ID=$(openstack bgp speaker list -f value -c ID)
+openstack bgp dragent list --bgp-speaker "$SPEAKER_ID"
+```
+
+Expected: all control nodes (`control0`, `control1`, `control2`) appear in the list with `Alive = True` and `State = True`. If any node is missing, the BGP speaker is not distributing routes through that agent and floating IPs announced from it will not be advertised to the router.
+
 #### 3. IP whitelists populated
 
 Verify the operator IP whitelist is not empty on the router. An empty whitelist causes the DNAT firewall rules to reference an undefined set and silently drop all inbound traffic.

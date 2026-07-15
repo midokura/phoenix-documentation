@@ -416,19 +416,20 @@ sudo podman exec "$RGW_CTR" \
 
 Expected: no TLS errors. If Keystone certificate verification fails, redistribute the CA certificate to the Ceph nodes and restart the gateway (see [CEPH_SETUP](./CEPH_SETUP.md)).
 
-#### 8. GPU node scheduling
+#### 8. VM provisioning and SSH access
 
-SSH into a GPU bare-metal server in the test tenant and run the GPU verification checklist:
+Verify that a user can provision a VM through the IaaS Console and reach it over SSH. This confirms that the compute, networking, and VPN paths are all working end-to-end.
+
+1. Log into the IaaS Console as the test tenant user.
+2. Create a VM using any available flavor and image.
+3. Once the VM reaches `ACTIVE` state, connect to the tenant VPN.
+4. SSH into the VM using the private IP shown in the Console:
 
 ```bash
-nvidia-smi
-source /opt/pytorch-venv/bin/activate
-python -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}')"
-verify-rdma
-verify-gpudirect
+ssh ubuntu@<vm_private_ip>
 ```
 
-See [GPU Server Verification](../user/GPU_SERVER_VERIFICATION.md) for expected output and troubleshooting.
+Expected: the SSH session opens successfully. If the connection times out, verify that the VPN agent is healthy (check 5) and that the VPN client is connected before retrying.
 
 #### Acceptance complete
 

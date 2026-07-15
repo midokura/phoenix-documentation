@@ -339,9 +339,18 @@ Expected: the query returns no data or all series have value `0`. If errors are 
 
 #### 6. Floating IP reachability
 
-Assign a floating IP to the VPN server VM in the test tenant and verify it is reachable from an external whitelisted address. This confirms the full routing path: BGP announcement, DNAT, and return path via the BGP tunnel.
+Verify that the VPN server VM in the test tenant is reachable from an external whitelisted address. This confirms the full routing path: BGP announcement, DNAT, and return path via the BGP tunnel.
 
-From the IaaS Console, note the floating IP assigned to the VPN server VM, then from your operator workstation:
+The VPN agent automatically assigns a floating IP to the VPN server when the tenant is created. Retrieve it from the output of the previous step:
+
+```bash
+openstack server list | grep -i vpn-server
+```
+
+The addresses column shows both the private IP and the floating IP, for example:
+`vpn_public_network=10.30.26.160, 119.15.113.109`
+
+Use the second address (the public one) to verify reachability from your operator workstation:
 
 ```bash
 ping -c 4 <floating_ip>

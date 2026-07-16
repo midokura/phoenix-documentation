@@ -236,7 +236,7 @@ Verify the IaaS Console is reachable from a whitelisted external address (for ex
 # Replace with the values from your inventory:
 #   cluster_name          - value of cluster_name in inventory
 #   cluster_public_domain - value of cluster_public_domain in inventory
-curl -kfsSL -m 10 \
+curl -kvL -m 10 \
   https://console.<cluster_name>.<cluster_public_domain> \
   | grep -i title
 ```
@@ -247,7 +247,7 @@ If this fails, retry using the console's public IP directly to distinguish a DNS
 
 ```bash
 # console_public_ip - the floating IP assigned to the console load balancer
-curl -kfsSL -m 10 \
+curl -kvL -m 10 \
   https://<console_public_ip> \
   -H "Host: console.<cluster_name>.<cluster_public_domain>" \
   | grep -i title
@@ -307,7 +307,7 @@ export API_BASE_URL="https://console.<cluster_name>.<cluster_public_domain>/api"
 export JWT_TOKEN="<your-operator-jwt-token>"
 
 # Create a test tenant
-curl -fsS -X POST \
+curl -v -X POST \
   -H "Authorization: Bearer $JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"name": "acceptance-test", "users": []}' \
@@ -324,12 +324,12 @@ Then add yourself to the tenant so you can access its resources in subsequent ch
 
 ```bash
 # Get your user ID
-export USER_ID=$(curl -fsS \
+export USER_ID=$(curl -v \
   -H "Authorization: Bearer $JWT_TOKEN" \
   "${API_BASE_URL}/users/me" | jq -r '.id')
 
 # Assign yourself to the test tenant
-curl -fsS -X PUT \
+curl -v -X PUT \
   -H "Authorization: Bearer $JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{}' \
@@ -440,17 +440,38 @@ Expected: the SSH session opens successfully. If the connection times out, verif
 5. From inside the VM, verify outbound internet connectivity:
 
 ```bash
-curl -fsSL --max-time 10 https://www.google.com -o /dev/null && echo "OK"
+curl -vL --max-time 10 https://www.google.com -o /dev/null && echo "OK"
 ```
 
 Expected: `OK`. If the request times out, the VM's default route or NAT is not configured correctly.
 
 #### Acceptance complete
 
-Once all eight checks pass, delete the test tenant to leave the environment clean:
+Once all eight checks pass, delete the test tenant to leave the environment clean.
+
+Before deleting, move yourself to a different tenant. The API does not allow
+deleting the tenant you are currently assigned to. Reassign yourself to the
+Default tenant first:
 
 ```bash
-curl -fsS -X DELETE \
+# Get the Default tenant ID
+DEFAULT_TENANT_ID=$(curl -v \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  "${API_BASE_URL}/tenants" \
+  | jq -r '.[] | select(.name == "Default tenant") | .id')
+
+# Move yourself to the Default tenant
+curl -v -X PUT \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{}' \
+  "${API_BASE_URL}/tenants/${DEFAULT_TENANT_ID}/users/${USER_ID}"
+```
+
+Then delete the test tenant:
+
+```bash
+curl -v -X DELETE \
   -H "Authorization: Bearer $JWT_TOKEN" \
   "${API_BASE_URL}/tenants/${TENANT_ID}"
 ```

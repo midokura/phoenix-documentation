@@ -306,18 +306,13 @@ Create a test tenant via the IaaS API and check the IaaS API logs for VPC overla
 export API_BASE_URL="https://console.<cluster_name>.<cluster_public_domain>/api"
 export JWT_TOKEN="<your-operator-jwt-token>"
 
-# Create a test tenant
-curl -v -X POST \
+# Create a test tenant and capture its ID
+export TENANT_ID=$(curl -v -X POST \
   -H "Authorization: Bearer $JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"name": "acceptance-test", "users": []}' \
-  "${API_BASE_URL}/tenants"
-```
-
-Save the tenant ID from the response for the steps below:
-
-```bash
-export TENANT_ID="<id-from-response>"
+  "${API_BASE_URL}/tenants" \
+  | jq -r '.id')
 ```
 
 Then add yourself to the tenant so you can access its resources in subsequent checks:

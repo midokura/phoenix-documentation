@@ -277,7 +277,7 @@ If any `/32` shows `blackhole`, the FIP subnet IP is not bound to an interface t
 Before checking the router, verify on `bastion0` that all BGP dynamic routing agents are associated with the BGP speaker:
 
 ```bash
-SPEAKER_ID=$(openstack bgp speaker list -f value -c ID)
+export SPEAKER_ID=$(openstack bgp speaker list -f value -c ID)
 openstack bgp dragent list --bgp-speaker "$SPEAKER_ID"
 ```
 

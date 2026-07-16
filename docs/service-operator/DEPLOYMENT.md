@@ -381,10 +381,10 @@ The addresses column shows both the private IP and the floating IP, for example:
 Use the second address (the public one) to verify reachability from your operator workstation:
 
 ```bash
-ping -c 4 <floating_ip>
+nc -zvu <floating_ip> 51820
 ```
 
-If `ping` is blocked by firewall policy, use `curl` with a known open port instead. Connectivity confirms the DNAT and PBR rules are working.
+Expected: `Connection to <floating_ip> 51820 port [udp/*] succeeded!`. Connectivity confirms the DNAT and PBR rules are working.
 
 If the ping times out, run `tcpdump` on the router to confirm whether traffic is arriving on the BGP tunnel interface but the reply is leaving through the wrong interface (routing asymmetry):
 

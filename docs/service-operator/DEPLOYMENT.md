@@ -452,7 +452,7 @@ Once all eight checks pass, delete the test tenant to leave the environment clea
 ```bash
 curl -fsS -X DELETE \
   -H "Authorization: Bearer $JWT_TOKEN" \
-  "${API_BASE_URL}/tenants/<TENANT_ID>"
+  "${API_BASE_URL}/tenants/${TENANT_ID}"
 ```
 
 The environment is ready for end users when all checks pass without errors.

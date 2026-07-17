@@ -305,6 +305,51 @@ If specific OSDs remain `down` after 5 minutes, restart them individually:
 ssh <storage-node> "sudo cephadm shell -- ceph orch daemon restart osd.<id>"
 ```
 
+### VM disk filesystem corruption after unclean shutdown
+
+If an instance fails to boot after a cold start due to filesystem corruption (visible in the console log as fsck errors or a recovery shell), repair the disk image directly on the storage node while the VM is stopped.
+
+**On `iaas-maintenance` — stop the instance:**
+
+```bash
+SERVER_ID=<vm-id>
+openstack server stop $SERVER_ID
+
+# Wait until power state is 4 (Shutdown)
+watch -n5 "openstack server show $SERVER_ID -c OS-EXT-STS:power_state -f value"
+```
+
+**On the storage node — map, repair, and unmap:**
+
+```bash
+SERVER_ID=<vm-id>
+RBD_IMAGE="vms/${SERVER_ID}_disk"
+
+# Confirm no active watchers before mapping
+sudo rbd status $RBD_IMAGE
+
+# Map the image and note the device path (e.g. /dev/rbd0)
+sudo rbd device map $RBD_IMAGE
+
+# Identify the partition to repair (typically the largest one)
+sudo lsblk /dev/rbdXX
+
+# Run filesystem check
+sudo e2fsck -fy /dev/rbdXXpY
+
+# Unmap when done
+sudo rbd device unmap /dev/rbdXX
+```
+
+**On `iaas-maintenance` — restart and verify:**
+
+```bash
+openstack server start $SERVER_ID
+
+# Check boot output for errors
+openstack console log show $SERVER_ID | tail -20
+```
+
 ### Management cluster unavailable after cold start
 
 If the K3s management cluster or its services are unreachable after a cold start, confirm DNS is working from a management node:

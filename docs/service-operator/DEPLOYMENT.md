@@ -246,7 +246,7 @@ Expected output: a line containing `IaaS UI`.
 If this fails, retry using the console's public IP directly to distinguish a DNS failure from a routing failure:
 
 ```bash
-curl -vL -m 10 \
+curl -kvL -m 10 \
   https://10.32.0.24 \
   -H "Host: console.<cluster_name>.<cluster_public_domain>" \
   | grep -i title

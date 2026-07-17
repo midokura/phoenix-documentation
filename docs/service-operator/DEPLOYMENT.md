@@ -236,7 +236,7 @@ Verify the IaaS Console is reachable from a whitelisted external address (for ex
 # Replace with the values from your inventory:
 #   cluster_name          - value of cluster_name in inventory
 #   cluster_public_domain - value of cluster_public_domain in inventory
-curl -kvL -m 10 \
+curl -vL -m 10 \
   https://console.<cluster_name>.<cluster_public_domain> \
   | grep -i title
 ```
@@ -246,9 +246,8 @@ Expected output: a line containing `IaaS UI`.
 If this fails, retry using the console's public IP directly to distinguish a DNS failure from a routing failure:
 
 ```bash
-# console_public_ip - the floating IP assigned to the console load balancer
-curl -kvL -m 10 \
-  https://<console_public_ip> \
+curl -vL -m 10 \
+  https://10.32.0.24 \
   -H "Host: console.<cluster_name>.<cluster_public_domain>" \
   | grep -i title
 ```
@@ -257,12 +256,20 @@ If the DNS-based request fails but the IP-based request succeeds, the issue is D
 
 #### 2. BGP routing health
 
-SSH into the router and confirm that all floating IP `/32` routes are `unicast`, not `blackhole`. The FIP subnet `/24` blackhole route is expected (it is the aggregate announcement); individual `/32` entries must not be blackhole.
+SSH into the router and confirm that all BGP sessions are established, then verify that all floating IP `/32` routes are `unicast`, not `blackhole`. The FIP subnet `/24` blackhole route is expected (it is the aggregate announcement); individual `/32` entries must not be blackhole.
+
+First, check that the upstream datacenter session and the OpenStack BGP speaker sessions are all in `ESTABLISHED` state:
 
 ```bash
-ssh -i ssh_key root@10.30.0.1
+ssh -i ssh_key root@10.30.0.1 birdc show protocol
+```
 
-birdc show route protocol openstack_control0
+Expected: the upstream datacenter peer and all `openstack_*` entries show `Established`. If any session is not established, resolve the BGP session issue before proceeding.
+
+Then confirm the routes themselves:
+
+```bash
+ssh -i ssh_key root@10.30.0.1 birdc show route protocol openstack_control0
 ```
 
 Expected: all entries show `unicast`. Example of a healthy entry:
@@ -291,15 +298,26 @@ Verify the operator IP whitelist is not empty on the router. An empty whitelist 
 ssh -i ssh_key root@10.30.0.1
 
 nft list set inet fw4 allow_operators
+
+ls /etc/iplists/ # should show operator and tenant lists
 ```
 
-Expected: the set exists and contains at least one IP entry. If it is empty or the set does not exist, follow the [Apply IP List](./runbooks/APPLY_IPLIST.md) runbook before proceeding.
+Expected: the set exists and contains at least one IP entry, and `/etc/iplists/` shows both operator and tenant list files. If the set is empty or does not exist, follow the [Apply IP List](./runbooks/APPLY_IPLIST.md) runbook before proceeding.
 
 #### 4. Hedgehog fabric state
 
 If this is a redeployment (not a first-time install), confirm that the Hedgehog controller was reprovisioned cleanly and holds no tenant networks from the previous deployment. Leftover networks cause VPC subnet conflicts when the IaaS Console tries to create the default tenant.
 
-Create a test tenant via the IaaS API and check the IaaS API logs for VPC overlap errors:
+First, check directly on Hedgehog for stale VPCs. The VPC name prefix matches the beginning of the OpenStack tenant ID, so any entry here from a previous deployment indicates leftover state:
+
+```bash
+kubectl get vpc
+kubectl get vpcattachment
+```
+
+Expected: both lists are empty (no entries from previous deployments). If stale VPCs are present, destroy and reprovision the Hedgehog VM before continuing.
+
+Then create a test tenant via the IaaS API and check the IaaS API logs for VPC overlap errors:
 
 ```bash
 # Set up your operator token and API base URL (see OPERATOR_API_GUIDE.md)
@@ -375,7 +393,7 @@ The VPN agent automatically assigns a floating IP to the VPN server when the ten
 openstack server list | grep -i vpn-server
 ```
 
-The addresses column shows both the private IP and the floating IP, for example:
+The addresses column shows both the tenant network private IP and the public floating IP, for example:
 `vpn_public_network=10.30.26.160, 119.15.113.109`
 
 Use the second address (the public one) to verify reachability from your operator workstation:
@@ -386,18 +404,11 @@ nc -zvu <floating_ip> 51820
 
 Expected: `Connection to <floating_ip> 51820 port [udp/*] succeeded!`. Connectivity confirms the DNAT and PBR rules are working.
 
-If the ping times out, run `tcpdump` on the router to confirm whether traffic is arriving on the BGP tunnel interface but the reply is leaving through the wrong interface (routing asymmetry):
-
-```bash
-ssh -i ssh_key root@10.30.0.1
-tcpdump -i any -n host <floating_ip>
-```
-
-Reply packets should leave via the BGP tunnel interface (`wg_*`), not through the office uplink (`eth1`).
+If connectivity fails, check for traffic asymmetry: run `mtr` from your operator workstation to the VPN server, and from the VPN server back to your operator workstation. Both paths should show the same route in reverse. Asymmetric routing indicates a PBR or BGP misconfiguration on the router.
 
 #### 7. Object storage
 
-Verify that Ceph RADOS Gateway is serving S3 correctly. Create a storage bucket from the IaaS Console under the test tenant and confirm it is listed after creation.
+Verify that Ceph RADOS Gateway is serving S3-compatible object storage correctly. Create a storage bucket from the IaaS Console under the test tenant and confirm it is listed after creation.
 
 If bucket creation fails with a certificate or connectivity error, check that the RGW Keystone integration was completed after deployment (see Software Installation step 5 in [OPERATOR_OVERVIEW](./OPERATOR_OVERVIEW.md)), and verify the RGW certificate:
 
@@ -435,7 +446,7 @@ Expected: the SSH session opens successfully. If the connection times out, verif
 5. From inside the VM, verify outbound internet connectivity:
 
 ```bash
-curl -vL --max-time 10 https://www.google.com -o /dev/null && echo "OK"
+curl -vL --max-time 10 https://docs.midokura.com -o /dev/null && echo "OK"
 ```
 
 Expected: `OK`. If the request times out, the VM's default route or NAT is not configured correctly.

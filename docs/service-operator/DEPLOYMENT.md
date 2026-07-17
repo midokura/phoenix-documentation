@@ -394,7 +394,23 @@ nc -zvu <floating_ip> 51820
 
 Expected: `Connection to <floating_ip> 51820 port [udp/*] succeeded!`. Connectivity confirms the DNAT and PBR rules are working.
 
-If connectivity fails, check for traffic asymmetry: run `mtr` from your operator workstation to the VPN server, and from the VPN server back to your operator workstation. Both paths should show the same route in reverse. Asymmetric routing indicates a PBR or BGP misconfiguration on the router.
+If connectivity fails, check for traffic asymmetry:
+
+1. From your operator workstation, run `mtr` toward the VPN server's floating IP:
+
+   ```bash
+   mtr --report --report-cycles 10 <floating_ip>
+   ```
+
+2. SSH into the VPN server (via the WireGuard tunnel set up in check 8) and run `mtr` back toward your operator workstation's public IP:
+
+   ```bash
+   mtr --report --report-cycles 10 <your_operator_public_ip>
+   ```
+
+3. Compare the two outputs. The hops in run 2 should be the reverse of the hops in run 1 — same routers, same interfaces, opposite order. For example, if the outbound path is `workstation → router → VPN server`, the return path must be `VPN server → router → workstation`, not `VPN server → some other gateway → workstation`.
+
+If the return path exits through a different gateway, the VPN server's default route is not pointing back through the BGP tunnel. Check the PBR rules and the `wg_*` interface routing table on the router.
 
 #### 7. Object storage
 

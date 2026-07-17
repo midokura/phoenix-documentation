@@ -66,8 +66,6 @@ Capture the UUIDs of all active instances and shut them down through the OpenSta
 Take into consideration that this step will make phoenix system unavailable, both customer and system VM's will be stopped. 
 
 ```bash
-source /infra-management/config/admin-openrc.sh
-
 # Save running instance UUIDs
 openstack server list --status ACTIVE --format value --column ID \
   > /infra-management/.nova-running-vms
@@ -210,8 +208,6 @@ All containers should show `Up … (healthy)`.
 Read the UUID list saved in Step 2 of the stop sequence and start each instance:
 
 ```bash
-source /infra-management/config/admin-openrc.sh
-
 if [[ -s /infra-management/.nova-running-vms ]]; then
   while IFS= read -r vm_id; do
     [ -z "$vm_id" ] && continue

@@ -26,7 +26,7 @@ Skipping the stop sequence risks:
 
 ### Open the deployment container
 
-All OpenStack and Kolla Ansible commands run inside the deployment container. From `deployment0`, open a shell in it:
+All OpenStack and Kolla Ansible commands run inside the deployment container. From the deployment bastion open a shell in it:
 
 ```bash
 ./scripts/platform-setup.sh --shell
@@ -49,6 +49,7 @@ Do not proceed if Ceph reports `HEALTH_WARN` or `HEALTH_ERR` — stopping OSDs d
 ### Step 2: Save and stop running Nova instances
 
 Capture the UUIDs of all active instances and shut them down through the OpenStack API. This allows the guest operating systems to flush their filesystems before the Nova containers stop.
+Take into consideration that this step will make phoenix system unavailable, both customer and system VM's will be stopped. 
 
 ```bash
 source /infra-management/config/admin-openrc.sh
@@ -123,13 +124,13 @@ Shut down the cluster nodes in this order to minimise dependency issues:
 3. Storage nodes (Ceph)
 4. Control nodes
 
-The specific shutdown mechanism depends on your infrastructure. Using IPMI from `deployment0`:
+The specific shutdown mechanism depends on your infrastructure. Using IPMI from bastion:
 
 ```bash
 ipmitool -H <host-bmc-ip> -U <user> -P <password> chassis power off
 ```
 
-Shut down `deployment0` last, after all other nodes are confirmed off.
+Shut down bastion last, after all other nodes are confirmed off.
 
 ---
 

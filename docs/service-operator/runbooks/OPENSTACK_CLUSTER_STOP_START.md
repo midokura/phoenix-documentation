@@ -24,9 +24,23 @@ Skipping the stop sequence risks:
 
 ## Stop sequence
 
-### Open the deployment container
+### Open a tmux session and the deployment container
 
-All OpenStack and Kolla Ansible commands run inside the deployment container. From the deployment bastion open a shell in it:
+All operations in this runbook must run inside a tmux session. This protects long-running commands (especially `kolla-ansible stop` and `deploy`) from SSH disconnections — an interrupted stop or deploy can leave Galera or Ceph in an inconsistent state that requires manual recovery.
+
+From `deployment0`, start a named session:
+
+```bash
+tmux new-session -s cluster-maintenance
+```
+
+If you reconnect after a disconnection, reattach with:
+
+```bash
+tmux attach-session -t cluster-maintenance
+```
+
+Inside the tmux session, open a shell in the deployment container:
 
 ```bash
 ./scripts/platform-setup.sh --shell
@@ -147,7 +161,15 @@ Bring up the nodes in reverse order:
 
 Wait for SSH to be available on each group before proceeding to the next.
 
-### Step 2: Open the deployment container and verify all hosts are reachable
+### Step 2: Open a tmux session and the deployment container
+
+As in the stop sequence, all operations must run inside a tmux session. Reattach to the existing session if it is still open, or create a new one:
+
+```bash
+tmux attach-session -t cluster-maintenance || tmux new-session -s cluster-maintenance
+```
+
+Inside the tmux session, open the deployment container shell:
 
 ```bash
 ./scripts/platform-setup.sh --shell

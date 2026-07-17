@@ -351,16 +351,6 @@ curl -v -X PUT \
 
 Expected: HTTP 204 No Content.
 
-If the request returns a `403` with a message containing `overlaps with subnet`, Hedgehog still has stale tenant networks. You must destroy and reprovision the Hedgehog VM before continuing:
-
-```bash
-# On router-0-host:
-virsh destroy hedgehog-controller
-virsh undefine hedgehog-controller --remove-all-storage --nvram --managed-save --snapshots-metadata
-```
-
-Then re-run the bootstrap to reprovision Hedgehog and repeat this check.
-
 #### 5. VPN agent health
 
 After creating the test tenant above, verify that its VPN agent reconciles successfully. A failing VPN agent means users will not receive VPN access.

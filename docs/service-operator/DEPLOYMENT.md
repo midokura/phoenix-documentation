@@ -389,10 +389,10 @@ The addresses column shows both the tenant network private IP and the public flo
 Use the second address (the public one) to verify reachability from your operator workstation:
 
 ```bash
-nc -zvu <floating_ip> 51820
+nc -zv <floating_ip> 22
 ```
 
-Expected: `Connection to <floating_ip> 51820 port [udp/*] succeeded!`. Connectivity confirms the DNAT and PBR rules are working.
+Expected: `Connection to <floating_ip> 22 port [tcp/ssh] succeeded!`. Connectivity confirms the DNAT and PBR rules are working.
 
 If connectivity fails, check for traffic asymmetry:
 

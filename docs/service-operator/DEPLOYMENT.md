@@ -462,22 +462,22 @@ Expected: `OK`. If the request times out, the VM's default route or NAT is not c
 Once all eight checks pass, delete the test tenant to leave the environment clean.
 
 Before deleting, move yourself to a different tenant. The API does not allow
-deleting the tenant you are currently assigned to. Reassign yourself to the
-Default tenant first:
+deleting the tenant you are currently assigned to. Pick any other existing
+tenant and reassign yourself to it:
 
 ```bash
-# Get the Default tenant ID
-DEFAULT_TENANT_ID=$(curl -v \
+# Pick any tenant that is not the test tenant
+OTHER_TENANT_ID=$(curl -v \
   -H "Authorization: Bearer $JWT_TOKEN" \
   "${API_BASE_URL}/tenants" \
-  | jq -r '.[] | select(.name == "Default tenant") | .id')
+  | jq -r --arg id "$TENANT_ID" '.[] | select(.id != $id) | .id' | head -1)
 
-# Move yourself to the Default tenant
+# Move yourself to that tenant
 curl -v -X PUT \
   -H "Authorization: Bearer $JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{}' \
-  "${API_BASE_URL}/tenants/${DEFAULT_TENANT_ID}/users/${USER_ID}"
+  "${API_BASE_URL}/tenants/${OTHER_TENANT_ID}/users/${USER_ID}"
 ```
 
 Then delete the test tenant:

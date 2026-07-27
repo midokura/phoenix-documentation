@@ -4,9 +4,9 @@ sidebar_position: 1
 
 # Operator Overview
 
-Operator Overview for AI Factory
+Operator Overview for AIsware
 
-This is the reference sheet for AI Factory, an end-to-end solution to operate private, multi-tenant AI factories. Operators will find below an overview of the materials, infrastructure, and other requirements, and an entry point to the procedure to provision and configure the system.
+This is the reference sheet for AIsware, an end-to-end solution to operate private, multi-tenant AI factories. Operators will find below an overview of the materials, infrastructure, and other requirements, and an entry point to the procedure to provision and configure the system.
 
 Installer links, deployment files, and any other needed assets will be provided to clients directly. You can request them using the support@midokura.com email address.
 

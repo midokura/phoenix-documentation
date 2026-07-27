@@ -1,4 +1,4 @@
-# Update AI Factory PaaS
+# Update AIsware PaaS
 
 Updating the Helm charts.
 

@@ -146,7 +146,7 @@ Finally exit shell mode.
 
 ### Start the subnet migration
 
-Run the provisioning script with `./scripts/platform-setup.sh -e migrate_mgt_cluster: true` to trigger the migration on an existing AI Factory deployment.
+Run the provisioning script with `./scripts/platform-setup.sh -e migrate_mgt_cluster: true` to trigger the migration on an existing AIsware deployment.
 
 This variable gates the backup, teardown, and restore steps. **Normal deployments (no migration) are completely unaffected** — the variable defaults to `false` and all migration steps are skipped.
 

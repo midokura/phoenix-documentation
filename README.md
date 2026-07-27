@@ -1,8 +1,8 @@
 _The Japanese version follows below. 日本語版は以下に続きます。_ 
 
-# Midokura AI Factory Documentation Website
+# Midokura AIsware Documentation Website
 
-These are the publicly available source files for the Midokura AI Factory Documentation [website](https://docs.midokura.com), which is build in [Docusaurus](https://docusaurus.io/).
+These are the publicly available source files for the Midokura AIsware Documentation [website](https://docs.midokura.com), which is build in [Docusaurus](https://docusaurus.io/).
 
 ## Installation
 
@@ -58,9 +58,9 @@ If we need to remove a no-longer-supported version of the docs from the website,
 
 - Any push to `main` results in a build to the website.
 
-# Midokura AI Factory ドキュメントサイト
+# Midokura AIsware ドキュメントサイト
 
-Midokura AI Factory ドキュメントサイト（[website](https://docs.midokura.com)）公開用ソースファイルです。本サイトは [Docusaurus](https://docusaurus.io/) をベースに構築されます。
+Midokura AIsware ドキュメントサイト（[website](https://docs.midokura.com)）公開用ソースファイルです。本サイトは [Docusaurus](https://docusaurus.io/) をベースに構築されます。
 
 ## インストール
 

@@ -269,7 +269,7 @@ Expected: the upstream datacenter peer and all `openstack_*` entries show `Estab
 Then confirm the routes themselves:
 
 ```bash
-ssh -i ssh_key root@10.30.0.1 birdc show route protocol openstack_control0
+ssh -i ssh_key root@10.30.0.1 birdc show route
 ```
 
 Expected: all entries show `unicast`. Example of a healthy entry:

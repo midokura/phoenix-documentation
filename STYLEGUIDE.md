@@ -130,7 +130,3 @@ flowchart TD
     AnotherDiamond -- "No" --> BadEnding["End"]
     AnotherDiamond -- Yes --> Done([Nice work])
 ```
-
-## Hedgehog
-
-It's 'Hedgehog' - the second 'h' is lowercase.

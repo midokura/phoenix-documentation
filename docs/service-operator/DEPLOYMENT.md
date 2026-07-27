@@ -222,6 +222,274 @@ kubectl get pods -A  # Should show Running pods
 - Check the logs in `logs/main-*.log` for error details
 - See [Partial Execution](#partial-execution) below to retry specific steps
 
+### End-to-End Acceptance Checklist
+
+The infrastructure checks above confirm the control plane is up, but they do not verify that the product works end-to-end for a user. Complete the following checklist before announcing the environment as ready.
+
+All commands below run from `bastion0` unless noted otherwise.
+
+#### 1. Console public access
+
+Verify the IaaS Console is reachable from a whitelisted external address (for example, from your office network or operator VPN):
+
+```bash
+# Replace with the values from your inventory:
+#   cluster_name          - value of cluster_name in inventory
+#   cluster_public_domain - value of cluster_public_domain in inventory
+curl -vL -m 10 \
+  https://console.<cluster_name>.<cluster_public_domain> \
+  | grep -i title
+```
+
+Expected output: a line containing `IaaS UI`.
+
+If this fails, retry using the console's public IP directly to distinguish a DNS failure from a routing failure:
+
+```bash
+curl -kvL -m 10 \
+  https://10.32.0.24 \
+  -H "Host: console.<cluster_name>.<cluster_public_domain>" \
+  | grep -i title
+```
+
+If the DNS-based request fails but the IP-based request succeeds, the issue is DNS resolution. If both fail, the issue is in the router's DNAT or BGP routing. See checks 2 and 3 below.
+
+#### 2. BGP routing health
+
+SSH into the router and confirm that all BGP sessions are established, then verify that all floating IP `/32` routes are `unicast`, not `blackhole`. The FIP subnet `/24` blackhole route is expected (it is the aggregate announcement); individual `/32` entries must not be blackhole.
+
+First, check that the upstream datacenter session and the OpenStack BGP speaker sessions are all in `ESTABLISHED` state:
+
+```bash
+ssh -i ssh_key root@10.30.0.1 birdc show protocol
+```
+
+Expected: the upstream datacenter peer and all `openstack_*` entries show `Established`. If any session is not established, resolve the BGP session issue before proceeding.
+
+Then confirm the routes themselves:
+
+```bash
+ssh -i ssh_key root@10.30.0.1 birdc show route
+```
+
+Expected: all entries show `unicast`. Example of a healthy entry:
+
+```
+119.15.113.17/32  unicast [openstack_control0 ...] * (100) [i]
+    via <next_hop> on bond0.104
+```
+
+If any `/32` shows `blackhole`, the FIP subnet IP is not bound to an interface that BIRD's `direct` protocol can see as up. Check the `bird_bgp_direct_interfaces` inventory setting and the `vbgp` interface state on the router.
+
+Before checking the router, verify on `bastion0` that all BGP dynamic routing agents are associated with the BGP speaker:
+
+```bash
+export SPEAKER_ID=$(openstack bgp speaker list -f value -c ID)
+openstack bgp dragent list --bgp-speaker "$SPEAKER_ID"
+```
+
+Expected: all control nodes (`control0`, `control1`, `control2`) appear in the list with `Alive = True` and `State = True`. If any node is missing, the BGP speaker is not distributing routes through that agent and floating IPs announced from it will not be advertised to the router.
+
+#### 3. IP whitelists populated
+
+Verify the operator IP whitelist is not empty on the router. An empty whitelist causes the DNAT firewall rules to reference an undefined set and silently drop all inbound traffic.
+
+```bash
+ssh -i ssh_key root@10.30.0.1
+
+nft list set inet fw4 allow_operators
+
+ls /etc/iplists/ # should show operator and tenant lists
+```
+
+Expected: the set exists and contains at least one IP entry, and `/etc/iplists/` shows both operator and tenant list files. If the set is empty or does not exist, follow the [Apply IP List](./runbooks/APPLY_IPLIST.md) runbook before proceeding.
+
+#### 4. Hedgehog fabric state
+
+If this is a redeployment (not a first-time install), confirm that the Hedgehog controller was reprovisioned cleanly and holds no tenant networks from the previous deployment. Leftover networks cause VPC subnet conflicts when the IaaS Console tries to create the default tenant.
+
+First, check directly on Hedgehog for stale VPCs. The VPC name prefix matches the beginning of the OpenStack tenant ID, so any entry here from a previous deployment indicates leftover state:
+
+```bash
+kubectl get vpc
+kubectl get vpcattachment
+```
+
+Expected: both lists are empty (no entries from previous deployments). If stale VPCs are present, destroy and reprovision the Hedgehog VM before continuing.
+
+Then create a test tenant via the IaaS API and check the IaaS API logs for VPC overlap errors:
+
+```bash
+# Set up your operator token and API base URL (see OPERATOR_API_GUIDE.md)
+export API_BASE_URL="https://console.<cluster_name>.<cluster_public_domain>/api"
+export JWT_TOKEN="<your-operator-jwt-token>"
+
+# Create a test tenant and capture its ID
+export TENANT_ID=$(curl -v -X POST \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "acceptance-test", "users": []}' \
+  "${API_BASE_URL}/tenants" \
+  | jq -r '.id')
+```
+
+Then add yourself to the tenant so you can access its resources in subsequent checks:
+
+```bash
+# Get your user ID
+export USER_ID=$(curl -v \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  "${API_BASE_URL}/users/me" | jq -r '.id')
+
+# Assign yourself to the test tenant
+curl -v -X PUT \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{}' \
+  "${API_BASE_URL}/tenants/${TENANT_ID}/users/${USER_ID}"
+```
+
+Expected: HTTP 204 No Content.
+
+#### 5. VPN agent health
+
+After creating the test tenant above, verify that its VPN agent reconciles successfully. A failing VPN agent means users will not receive VPN access.
+
+```bash
+# Scope the OpenStack client to the test tenant
+export OS_PROJECT_NAME="$TENANT_ID"
+
+# List VPN servers in the test tenant
+openstack server list | grep -i vpn-server
+```
+
+All VPN servers should be in `ACTIVE` state. Then confirm there are no active reconciliation errors in Grafana. The Grafana URL follows the pattern `https://grafana.<cluster_name>.<cluster_public_domain>/`. In **Grafana > Explore**, select **Prometheus** and run:
+
+```
+rate(vpn_agent_reconciliation_errors_total[10m])
+  * on(instance) group_left(tenant_id)
+  (vpn_agent_info)
+```
+
+Expected: the query returns no data or all series have value `0`. If errors are firing for the test tenant, follow the [VPN Agent Reconciliation Failure](./runbooks/VPN_RECONCILIATION_FAILURE.md) runbook.
+
+#### 6. Floating IP reachability
+
+Verify that the VPN server VM in the test tenant is reachable from an external whitelisted address. This confirms the full routing path: BGP announcement, DNAT, and return path via the BGP tunnel.
+
+The VPN agent automatically assigns a floating IP to the VPN server when the tenant is created. Retrieve it from the output of the previous step:
+
+```bash
+openstack server list | grep -i vpn-server
+```
+
+The addresses column shows both the tenant network private IP and the public floating IP, for example:
+`vpn_public_network=10.30.26.160, 119.15.113.109`
+
+Use the second address (the public one) to verify reachability from your operator workstation:
+
+```bash
+nc -zv <floating_ip> 22
+```
+
+Expected: `Connection to <floating_ip> 22 port [tcp/ssh] succeeded!`. Connectivity confirms the DNAT and PBR rules are working.
+
+If connectivity fails, check for traffic asymmetry:
+
+1. From your operator workstation, run `mtr` toward the VPN server's floating IP:
+
+   ```bash
+   mtr --report --report-cycles 10 <floating_ip>
+   ```
+
+2. SSH into the VPN server (via the WireGuard tunnel set up in check 8) and run `mtr` back toward your operator workstation's public IP:
+
+   ```bash
+   mtr --report --report-cycles 10 <your_operator_public_ip>
+   ```
+
+3. Compare the two outputs. The hops in run 2 should be the reverse of the hops in run 1 — same routers, same interfaces, opposite order. For example, if the outbound path is `workstation → router → VPN server`, the return path must be `VPN server → router → workstation`, not `VPN server → some other gateway → workstation`.
+
+If the return path exits through a different gateway, the VPN server's default route is not pointing back through the BGP tunnel. Check the PBR rules and the `wg_*` interface routing table on the router.
+
+#### 7. Object storage
+
+Verify that Ceph RADOS Gateway is serving S3-compatible object storage correctly. Create a storage bucket from the IaaS Console under the test tenant and confirm it is listed after creation.
+
+If bucket creation fails with a certificate or connectivity error, check that the RGW Keystone integration was completed after deployment (see Software Installation step 5 in [OPERATOR_OVERVIEW](./OPERATOR_OVERVIEW.md)), and verify the RGW certificate:
+
+```bash
+# On a Ceph node (or via the Ansible container):
+RGW_CTR=$(sudo podman ps --filter "name=rgw" --format "{{.Names}}" | head -1)
+sudo podman exec "$RGW_CTR" \
+  curl -v https://<keystone_host>:5000/v3/ 2>&1 \
+  | grep -E "SSL certificate|verify|issuer|CAfile|error"
+```
+
+Expected: no TLS errors. If Keystone certificate verification fails, redistribute the CA certificate to the Ceph nodes and restart the gateway (see [CEPH_SETUP](./CEPH_SETUP.md)).
+
+#### 8. VM provisioning and SSH access
+
+Verify that a user can provision a VM through the IaaS Console and reach it over SSH. This confirms that the compute, networking, and VPN paths are all working end-to-end.
+
+1. Log into the IaaS Console as the test tenant user.
+2. Create a VM using any available flavor and image.
+3. Once the VM reaches `ACTIVE` state, set up WireGuard VPN access for the test user following the [VPN Configuration](./VPN_CONFIGURATION.md) guide. This involves adding the user to the tenant with their public key and fetching the generated VPN configuration script.
+4. Activate the WireGuard tunnel:
+
+```bash
+sudo wg-quick up <config>.conf
+```
+
+5. SSH into the VM using the private IP shown in the Console:
+
+```bash
+ssh ubuntu@<vm_private_ip>
+```
+
+Expected: the SSH session opens successfully. If the connection times out, verify that the VPN agent is healthy (check 5) and that the WireGuard tunnel is active (`sudo wg show`) before retrying.
+
+5. From inside the VM, verify outbound internet connectivity:
+
+```bash
+curl -vL --max-time 10 https://docs.midokura.com -o /dev/null && echo "OK"
+```
+
+Expected: `OK`. If the request times out, the VM's default route or NAT is not configured correctly.
+
+#### Acceptance complete
+
+Once all eight checks pass, delete the test tenant to leave the environment clean.
+
+Before deleting, move yourself to a different tenant. The API does not allow
+deleting the tenant you are currently assigned to. Pick any other existing
+tenant and reassign yourself to it:
+
+```bash
+# Pick any tenant that is not the test tenant
+OTHER_TENANT_ID=$(curl -v \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  "${API_BASE_URL}/tenants" \
+  | jq -r --arg id "$TENANT_ID" '.[] | select(.id != $id) | .id' | head -1)
+
+# Move yourself to that tenant
+curl -v -X PUT \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{}' \
+  "${API_BASE_URL}/tenants/${OTHER_TENANT_ID}/users/${USER_ID}"
+```
+
+Then delete the test tenant:
+
+```bash
+curl -v -X DELETE \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  "${API_BASE_URL}/tenants/${TENANT_ID}"
+```
+
+The environment is ready for end users when all checks pass without errors.
+
 ### Partial Execution
 
 Use `--tags` and `--skip-tags` to control which steps run.

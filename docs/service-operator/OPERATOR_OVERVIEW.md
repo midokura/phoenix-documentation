@@ -160,13 +160,7 @@ The software installation covers all steps to deploy and configure the control p
 5. **Complete RADOS Gateway Keystone integration** — now that the OpenStack Keystone endpoint is live, complete the post-deployment RADOS Gateway steps: distribute the Keystone CA certificate to all Ceph nodes, configure the Keystone integration settings, and restart the gateway. See steps 4–6 of [CEPH_SETUP](./CEPH_SETUP.md#after-openstack-deployment).
 6. **Finalise TLS** — once the deployment completes, verify that Let's Encrypt staging certificates have been issued, then switch both `iaas_console_tls_cluster_issuer` and `obs_tls_cluster_issuer` to `letsencrypt-prod` in the inventory and re-run the deployment. See the Deploy section of [MANAGEMENT_TLS](./MANAGEMENT_TLS.md).
 7. **Configure VPN access** — add operators to the WireGuard VPN following [OPERATOR_VPN_CONFIGURATION](./OPERATOR_VPN_CONFIGURATION.md).
-8. **Verify the system is ready** — confirm deployment logs show no failures, management cluster nodes are in `Ready` state, and all pods are `Running`. See the [Verify Deployment Success](./DEPLOYMENT.md#verify-deployment-success) section of the deployment guide for the specific commands to run.
-
-:::note
-
-The verification steps above cover basic deployment health. A comprehensive end-to-end acceptance checklist — validating tenant workflows, GPU scheduling, IaaS Console access, and observability — is not yet documented and should be added here.
-
-:::
+8. **Verify the system is ready** — confirm deployment logs show no failures, management cluster nodes are in `Ready` state, all pods are `Running`, and the full product flow works end-to-end. See the [Verify Deployment Success](./DEPLOYMENT.md#verify-deployment-success) section of the deployment guide for the infrastructure checks, and the [End-to-End Acceptance Checklist](./DEPLOYMENT.md#end-to-end-acceptance-checklist) for the full acceptance procedure covering console public access, BGP routing, tenant creation, VPN health, cluster creation, floating IP reachability, object storage, and GPU scheduling.
 
 ## IaaS Console configuration
 

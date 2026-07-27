@@ -6,6 +6,14 @@ Our [Docs website](https://docs.midokura.com) is build in Docusaurus and so uses
 
 There are a couple of style points that pop up frequently in our writing, so I'm going to address those here.
 
+## Product name is AIsware
+
+The product name is AIsware.
+
+It is written as capital 'AI' and then lowercase 'sware'.
+
+Note that the logo treats the spelling differently, but for the written word we use 'AIsware'.
+
 ## Line 3 of every file (index card preview)
 
 Each file should have the following format at the start:
@@ -122,3 +130,7 @@ flowchart TD
     AnotherDiamond -- "No" --> BadEnding["End"]
     AnotherDiamond -- Yes --> Done([Nice work])
 ```
+
+## Hedgehog
+
+It's 'Hedgehog' - the second 'h' is lowercase.

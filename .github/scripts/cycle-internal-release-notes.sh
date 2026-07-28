@@ -46,13 +46,13 @@ else
         cat > "$RELEASE_NOTES_FILE" <<EOF
 ---
 slug: v${MINOR_VERSION}
-title: AI Factory v${MINOR_VERSION}
+title: AIsware v${MINOR_VERSION}
 date: $(date +%Y-%m-%d)
 authors: [midoteam]
 tags: [aifactory]
 ---
 
-Version ${MINOR_VERSION} of AI Factory is now available.
+Version ${MINOR_VERSION} of AIsware is now available.
 
 ## Overview
 
@@ -67,7 +67,7 @@ EOF
         cat > "$UPGRADE_NOTES_FILE" <<EOF
 ---
 slug: v${MINOR_VERSION}
-title: Upgrade to AI Factory v${MINOR_VERSION}
+title: Upgrade to AIsware v${MINOR_VERSION}
 date: $(date +%Y-%m-%d)
 authors: [midoteam]
 tags: [aifactory]
@@ -77,7 +77,7 @@ tags: [aifactory]
 
 ## Operator reference
 
-The operator overview for this release of AI Factory can be found in the [/docs](/docs/service-operator/OPERATOR_OVERVIEW) section.
+The operator overview for this release of AIsware can be found in the [/docs](/docs/service-operator/OPERATOR_OVERVIEW) section.
 
 Please contact support@midokura.com for more information.
 EOF

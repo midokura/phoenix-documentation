@@ -3,7 +3,7 @@
 
 This runbook rotates the Ed25519 key pair used to access all infrastructure hosts (bare-metal nodes, management cluster VMs, Hedgehog fabric). Rotation uses a zero-downtime approach: the new key is added to all hosts before the old key is removed.
 
-**Rotation cadence:** every 6 months, aligned with the AI Factory release cycle.
+**Rotation cadence:** every 6 months, aligned with the AIsware release cycle.
 
 ## Prerequisites
 

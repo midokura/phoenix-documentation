@@ -14,7 +14,7 @@ const config = {
     mermaid: true,
   },
 
-  title: 'Midokura AI Factory',
+  title: 'Midokura AIsware',
   tagline: 'High-end GPU servers for HPC and AI workloads delivered to your doorstep',
   favicon: 'img/favicon.ico',
 
@@ -89,7 +89,7 @@ const config = {
         respectPrefersColorScheme: true,
       },
       navbar: {
-        title: 'AI Factory Documentation',
+        title: 'AIsware Documentation',
         logo: {
           alt: 'Midokura Logo',
           src: 'img/logo.png',

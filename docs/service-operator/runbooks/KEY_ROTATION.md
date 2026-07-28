@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Key Rotation Overview
 
-This document is the entry point for all AI Factory key rotation procedures. It describes which key types exist, their rotation schedule, and which rotations require downtime. The runbooks for those procedures are linked below.
+This document is the entry point for all AIsware key rotation procedures. It describes which key types exist, their rotation schedule, and which rotations require downtime. The runbooks for those procedures are linked below.
 
 For the full key management policy (lifecycle, approval workflow, audit trail), see [Key Management Policy](../KEY_MANAGEMENT_POLICY).
 

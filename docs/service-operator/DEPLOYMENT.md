@@ -12,7 +12,7 @@ The deployment scripts handle the complete setup of OpenStack, management cluste
 **Getting the Release Package:**
 
 The release package URL and its checksum URL are provided in the release email sent to `all@midokura.com`
-with subject **"AI Factory v{VERSION} released"**.
+with subject **"AIsware v{VERSION} released"**.
 
 ## Before You Start
 

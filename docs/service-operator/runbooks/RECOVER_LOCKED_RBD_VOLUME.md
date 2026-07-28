@@ -219,7 +219,7 @@ Expected output: empty.
 
 ## Step 7: Recover VMs
 
-If the goal is to bring the VM back into service, restart it via OpenStack or the AI Factory Console.
+If the goal is to bring the VM back into service, restart it via OpenStack or the AIsware Console.
 
 ```bash
 openstack server start <server-id>
@@ -266,7 +266,7 @@ In order to simulate a hypervisor crash in QA environment, one needs to send the
 
 The prerequisites are the same as this runbook (ssh + `sudo` access to hypervisor nodes)
 
-- Create a VM in AI Factory Console
+- Create a VM in AIsware Console
 - find its hypervisor host and instance name (here, `gpu0` and `instance-00000dc5`)
 - ssh to the hypervisor host
 - find the PID of the qemu hypervisor process, for example:

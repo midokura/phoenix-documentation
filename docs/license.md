@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Licenses
 
-Third-party Notices for Midokura, AI Factory.
+Third-party Notices for Midokura, AIsware.
 
 THIRD PARTY SOFTWARE NOTICES AND INFORMATION
 

@@ -4,11 +4,11 @@ sidebar_position: 40
 
 # Key Management Policy
 
-Formal key management process for the AI Factory platform.
+Formal key management process for the AIsware platform.
 
 ## Scope
 
-This policy applies to all cryptographic key material managed by the AI Factory service operator role:
+This policy applies to all cryptographic key material managed by the AIsware service operator role:
 
 | Key Type | Algorithm | Used For |
 |---|---|---|
@@ -21,7 +21,7 @@ For rotation schedules and individual runbooks, see the [Key Rotation Overview](
 
 ## Roles and Responsibilities
 
-The **service operator** is the sole role authorized to perform key management operations on the AI Factory platform. This includes key creation, distribution, rotation, revocation, destruction, and maintaining the [operations log](#audit-trail).
+The **service operator** is the sole role authorized to perform key management operations on the AIsware platform. This includes key creation, distribution, rotation, revocation, destruction, and maintaining the [operations log](#audit-trail).
 
 No other role (tenant user, tenant admin, or read-only observer) has access to platform key material.
 

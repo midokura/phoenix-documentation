@@ -20,7 +20,7 @@ The network fabric and storage network must be up. The nodes with `role: storage
 
 **`ceph_mon_hosts`** · *required*
 
-Hostnames of the storage nodes, taken from `servers.list` entries with `role: storage`. The monitor count must be *odd and ≥ 3* for quorum; in an AI Factory deployment the same nodes serve as both Ceph monitors and OSDs.
+Hostnames of the storage nodes, taken from `servers.list` entries with `role: storage`. The monitor count must be *odd and ≥ 3* for quorum; in an AIsware deployment the same nodes serve as both Ceph monitors and OSDs.
 
 ```yaml
 ceph_mon_hosts: [storage0, storage1, storage2]
@@ -276,7 +276,7 @@ The keyring role selects one of three modes per keyring based on local state:
 
 ## RADOS Gateway
 
-The RADOS Gateway (RGW) provides S3-compatible object storage and Keystone authentication integration for the OpenStack Swift and S3 endpoints. RGW is required for an AI Factory deployment — it backs the Swift and S3 object storage endpoints exposed to tenants. Its setup spans two points in the deployment timeline: gateway service and admin user before OpenStack, Keystone integration after. **Complete steps 1–3 before running `platform-setup.sh`** — the OpenStack deployment requires the RGW credentials to be present in `inventory.yml`.
+The RADOS Gateway (RGW) provides S3-compatible object storage and Keystone authentication integration for the OpenStack Swift and S3 endpoints. RGW is required for an AIsware deployment — it backs the Swift and S3 object storage endpoints exposed to tenants. Its setup spans two points in the deployment timeline: gateway service and admin user before OpenStack, Keystone integration after. **Complete steps 1–3 before running `platform-setup.sh`** — the OpenStack deployment requires the RGW credentials to be present in `inventory.yml`.
 
 ### Before OpenStack deployment
 

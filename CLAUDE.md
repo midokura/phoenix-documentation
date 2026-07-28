@@ -1,6 +1,6 @@
 # phoenix-documentation
 
-Docusaurus-based documentation for the AI Factory solution, deployed as GitHub Pages at docs.midokura.com. Jira project: GPD.
+Docusaurus-based documentation for the AIsware solution, deployed as GitHub Pages at docs.midokura.com. Jira project: GPD.
 
 ## Project structure
 
@@ -75,7 +75,7 @@ PRs reference the Jira ticket in the title where applicable.
 
 ## Operator provisioning guide
 
-`docs/service-operator/OPERATOR_OVERVIEW.md` is the canonical provisioning guide and the `service-operator` section entrypoint (`sidebar_position: 1`). It contains the ordered Hardware Setup and Software Installation step lists that operators follow to bring up a new AI Factory cluster.
+`docs/service-operator/OPERATOR_OVERVIEW.md` is the canonical provisioning guide and the `service-operator` section entrypoint (`sidebar_position: 1`). It contains the ordered Hardware Setup and Software Installation step lists that operators follow to bring up a new AIsware cluster.
 
 Any PR that adds, removes, or reorders installation steps — new runbooks, new scripts, changed tool versions, or updated dependencies between steps — should also update the relevant step(s) in `OPERATOR_OVERVIEW.md` to keep it consistent with the rest of the docs.
 

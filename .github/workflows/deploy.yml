@@ -57,7 +57,15 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0
+        with:
+          # Pages takes its time on this site. The one deployment that succeeded
+          # on 2026-08-06 spent 9m24s in progress, against the action's 10 minute
+          # default, so anything marginally slower is cancelled while it is still
+          # working. 30 minutes, and the job caps at 45 so a genuinely stuck
+          # deployment still ends.
+          timeout: 1800000

@@ -7,6 +7,18 @@ on:
     # Review gh actions docs if you want to further define triggers, paths, etc
     # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#on
 
+# GitHub Pages allows a single in-progress deployment, so two pushes landing
+# within a build of each other make the later deploy fail with "due to in
+# progress deployment". A release does exactly that: it merges the release notes
+# PR and then the versioned docs snapshot PR a couple of minutes apart.
+#
+# Queue the runs rather than cancelling them. Cancelling would be cheaper, but
+# release automation watches a specific commit's deploy run and treats a
+# cancelled run as a failure.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   build:
     name: Build Docusaurus

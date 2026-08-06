@@ -44,35 +44,45 @@ if git show "origin/main:versions.json" | jq -e --arg v "$VERSION" 'index($v)' >
 fi
 
 DOCS_BRANCH="add-docs-version-${VERSION}"
-git checkout -b "$DOCS_BRANCH" origin/main
+DOCS_PR_TITLE="docs: add versioned snapshot for ${VERSION}"
 
-yarn install --frozen-lockfile
-yarn docusaurus docs:version "$VERSION"
+# An earlier attempt may have already opened the snapshot PR and then failed to
+# merge it. Reuse it rather than trying to recreate a branch that exists.
+DOCS_PR_NUMBER=$(gh pr list --state open --limit 200 --json number,title \
+    | jq -r "[.[] | select(.title == \"${DOCS_PR_TITLE}\")] | first.number // empty")
 
-git add .
-git commit -m "docs: add versioned snapshot for ${VERSION}"
-git push origin "$DOCS_BRANCH"
+if [[ -n "$DOCS_PR_NUMBER" ]]; then
+    echo "Reusing open snapshot PR #${DOCS_PR_NUMBER}"
+else
+    git checkout -b "$DOCS_BRANCH" origin/main
 
-DOCS_PR_URL=$(gh pr create \
-    --title "docs: add versioned snapshot for ${VERSION}" \
-    --body "Automated versioned docs snapshot for ${VERSION}." \
-    --base main \
-    --head "$DOCS_BRANCH")
+    yarn install --frozen-lockfile
+    yarn docusaurus docs:version "$VERSION"
 
-DOCS_PR_NUMBER=$(basename "$DOCS_PR_URL")
+    git add .
+    git commit -m "${DOCS_PR_TITLE}"
+    git push origin "$DOCS_BRANCH"
 
-gh pr merge "$DOCS_PR_NUMBER" --auto --squash
+    DOCS_PR_URL=$(gh pr create \
+        --title "${DOCS_PR_TITLE}" \
+        --body "Automated versioned docs snapshot for ${VERSION}." \
+        --base main \
+        --head "$DOCS_BRANCH")
 
-TIMEOUT=300
-ELAPSED=0
-while [[ $ELAPSED -lt $TIMEOUT ]]; do
-    STATE=$(gh pr view "$DOCS_PR_NUMBER" --json state --jq '.state')
-    [[ "$STATE" == "MERGED" ]] && break
-    sleep 10
-    ELAPSED=$((ELAPSED + 10))
-done
+    DOCS_PR_NUMBER=$(basename "$DOCS_PR_URL")
+fi
 
+# Merge directly rather than with --auto. The release bot is a bypass actor on
+# the main ruleset, but auto-merge does not exercise bypass: it waits for every
+# merge requirement to be satisfied, including the code owner review that a
+# generated snapshot will never receive. A direct merge does use the bypass,
+# which is how cycle-internal-release-notes.sh has always merged its PRs.
+gh pr merge "$DOCS_PR_NUMBER" --squash --delete-branch
+
+STATE=$(gh pr view "$DOCS_PR_NUMBER" --json state --jq '.state')
 if [[ "$STATE" != "MERGED" ]]; then
-    echo "error: PR #${DOCS_PR_NUMBER} did not merge within ${TIMEOUT}s (state: ${STATE})" >&2
+    echo "error: PR #${DOCS_PR_NUMBER} was not merged (state: ${STATE})" >&2
     exit 1
 fi
+
+echo "Merged versioned docs snapshot PR #${DOCS_PR_NUMBER} for ${VERSION}"

@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version (X.Y.Z)'
+        description: 'Version with the v prefix (e.g. v25.1.6)'
         required: true
   workflow_call:
     inputs:
@@ -21,16 +21,35 @@ jobs:
 
     env:
       VERSION: ${{ inputs.version }}
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
+      # The default GITHUB_TOKEN acts as github-actions[bot], which is not a
+      # bypass actor on the main ruleset, so it cannot merge past the required
+      # code owner review. It also cannot trigger deploy.yml, because pushes made
+      # with GITHUB_TOKEN do not start new workflow runs. The app token is a
+      # bypass actor and does trigger downstream workflows, which is how
+      # cycle-internal-release-notes.yml has always merged its PRs.
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@7bd03711494f032dfa3be3558f7dc8787b0be333 # v3.1.0
+        with:
+          client-id: ${{ vars.PHOENIX_BOT_APP_ID }}
+          private-key: ${{ secrets.PHOENIX_BOT_PRIVATE_KEY }}
+          owner: midokura
+          repositories: phoenix-documentation
+
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
+          repository: midokura/phoenix-documentation
+          token: ${{ steps.generate-token.outputs.token }}
 
       - name: Configure git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - run: bash .github/scripts/publish-release-notes.sh
+      - name: Publish release notes
+        env:
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+        run: bash .github/scripts/publish-release-notes.sh

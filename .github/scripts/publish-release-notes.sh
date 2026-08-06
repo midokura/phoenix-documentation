@@ -22,20 +22,28 @@ PR_NUMBER=$(echo "$PR_JSON" | jq -r '.number')
 PR_STATE=$(echo "$PR_JSON" | jq -r '.state')
 IS_DRAFT=$(echo "$PR_JSON" | jq -r '.isDraft')
 
+# The release pipeline in phoenix-release-ops waits for this PR to be merged
+# before dispatching us, so MERGED is the normal case. Only the merge is
+# skipped: the versioned docs snapshot below still has to happen.
 if [[ "$PR_STATE" == "MERGED" ]]; then
-    echo "PR #${PR_NUMBER} is already merged. Nothing to do."
+    echo "PR #${PR_NUMBER} is already merged, skipping the merge step."
+else
+    if [[ "$IS_DRAFT" == "true" ]]; then
+        echo "error: PR #${PR_NUMBER} is in draft mode" >&2
+        exit 1
+    fi
+
+    gh pr merge "$PR_NUMBER" --squash --delete-branch
+fi
+
+git fetch origin main
+
+if git show "origin/main:versions.json" | jq -e --arg v "$VERSION" 'index($v)' >/dev/null; then
+    echo "Version ${VERSION} is already in versions.json. Nothing left to do."
     exit 0
 fi
 
-if [[ "$IS_DRAFT" == "true" ]]; then
-    echo "error: PR #${PR_NUMBER} is in draft mode" >&2
-    exit 1
-fi
-
-gh pr merge "$PR_NUMBER" --squash --delete-branch
-
 DOCS_BRANCH="add-docs-version-${VERSION}"
-git fetch origin main
 git checkout -b "$DOCS_BRANCH" origin/main
 
 yarn install --frozen-lockfile

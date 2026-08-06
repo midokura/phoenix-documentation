@@ -1,0 +1,69 @@
+name: Create Release Notes PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version with the v prefix (e.g. v25.1.6)'
+        required: true
+  workflow_call:
+    inputs:
+      version:
+        type: string
+        required: true
+    outputs:
+      pr_url:
+        description: 'URL of the release notes PR'
+        value: ${{ jobs.create.outputs.pr_url }}
+      pr_number:
+        description: 'Number of the release notes PR'
+        value: ${{ jobs.create.outputs.pr_number }}
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      pr_url: ${{ steps.create.outputs.pr_url }}
+      pr_number: ${{ steps.create.outputs.pr_number }}
+
+    env:
+      VERSION: ${{ inputs.version }}
+
+    steps:
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@7bd03711494f032dfa3be3558f7dc8787b0be333 # v3.1.0
+        with:
+          client-id: ${{ vars.PHOENIX_BOT_APP_ID }}
+          private-key: ${{ secrets.PHOENIX_BOT_PRIVATE_KEY }}
+          owner: midokura
+          repositories: phoenix-documentation
+
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+          repository: midokura/phoenix-documentation
+          token: ${{ steps.generate-token.outputs.token }}
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create release notes PR
+        id: create
+        env:
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+        run: bash .github/scripts/create-release-notes-pr.sh
+
+      - name: Write summary
+        run: |
+          {
+            echo "## 📝 Release notes PR"
+            echo ""
+            echo "- Version: \`${VERSION}\`"
+            echo "- PR: ${{ steps.create.outputs.pr_url }}"
+          } >> "$GITHUB_STEP_SUMMARY"

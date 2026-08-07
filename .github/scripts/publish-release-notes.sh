@@ -59,6 +59,18 @@ else
     yarn install --frozen-lockfile
     yarn docusaurus docs:version "$VERSION"
 
+    # Only the versions listed in versions.json are built, and the Pages deploy
+    # time scales with them. actions/deploy-pages enforces a MAX_TIMEOUT of
+    # 600000 that cannot be raised, so an unbounded list eventually makes every
+    # deploy fail. The list is newest first, so the oldest are the ones to drop.
+    KEEP_VERSIONS=5
+    if [[ "$(jq 'length' versions.json)" -gt "$KEEP_VERSIONS" ]]; then
+        dropped=$(jq -r --argjson k "$KEEP_VERSIONS" '.[$k:] | join(", ")' versions.json)
+        jq --argjson k "$KEEP_VERSIONS" '.[:$k]' versions.json > versions.json.tmp
+        mv versions.json.tmp versions.json
+        echo "Unpublished older doc versions: ${dropped}"
+    fi
+
     git add .
     git commit -m "${DOCS_PR_TITLE}"
     git push origin "$DOCS_BRANCH"

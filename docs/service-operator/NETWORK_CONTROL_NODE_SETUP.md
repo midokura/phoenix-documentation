@@ -197,6 +197,14 @@ For each switch, you'll set up ONIE to pull the SONiC installer from a temporary
 
 On a machine reachable from the switch management network (can be the bastion):
 
+:::warning[DHCP subnet reachability]
+
+ONIE receives its IP address from DHCP on boot and uses it to reach the firmware HTTP server. The machine running the HTTP server **must** be in a subnet that is routable from the DHCP-assigned ONIE IP. If the DHCP pool and the firmware server are on different subnets with no route between them, `onie-self-update` will fail silently.
+
+Verify that the DHCP range configured for the switch management interface assigns addresses that can reach the bastion (or whichever host runs the HTTP server). See [ROUTER_BOX_CONFIGURATION — DHCP Server](./ROUTER_BOX_CONFIGURATION.md#openwrt-router--dhcp-server) for pool configuration.
+
+:::
+
 Create the directory for ONIE files:
 
 ```bash
@@ -339,6 +347,26 @@ cat /var/log/agent.log
 - Verify HTTP server is accessible from the switch: `curl http://172.20.0.1/boot/firmware/dell-onie/onie-update-full-x86_64-dellemc_s5200_c3538-r0.3.40.5.1-26.bin`
 - Check switch can reach the OpenWRT router (`172.20.0.1`) from the management network
 - Verify the ONIE firmware file exists on the OpenWRT router under `/boot/firmware/dell-onie/`
+
+### ONIE Cannot Reach Firmware Server (DHCP subnet mismatch)
+
+**Symptom:** `onie-self-update` times out or reports a connection error even though the HTTP server is running.
+
+**Root cause:** ONIE receives its IP via DHCP on boot. If the DHCP pool assigns an address in a subnet with no route to the machine hosting the firmware files, the update cannot proceed. This is an environment-specific DHCP configuration issue; it is not enforced or detected by the product.
+
+**Workaround (immediate):** Add a secondary IP on the firmware server host (e.g., the bastion) within the ONIE DHCP range so it becomes reachable:
+
+```bash
+sudo ip addr add 172.30.0.250/16 dev enp1s0
+```
+
+Remove the secondary address after the firmware update completes:
+
+```bash
+sudo ip addr del 172.30.0.250/16 dev enp1s0
+```
+
+**Permanent fix:** Adjust the DHCP pool for the switch management interface so that IPs it assigns have a route to the firmware server, or configure the firmware server to listen on an address within the ONIE DHCP range. See [ROUTER_BOX_CONFIGURATION — DHCP Server](./ROUTER_BOX_CONFIGURATION.md#openwrt-router--dhcp-server).
 
 ### Switches Not Appearing in Fabric
 

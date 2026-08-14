@@ -121,7 +121,23 @@ Expected output: none. All Kolla-managed containers have stopped.
 Do not power off any hosts until this step completes. An interrupted stop leaves Galera in a partial state that requires manual bootstrap to recover.
 :::
 
-### Step 4: Exit the container and power off the hosts
+### Step 4: Disable Kolla systemd unit files
+
+Before exiting the container, disable the Kolla-managed systemd unit files on every host. This prevents OpenStack containers from auto-starting if a node reboots unexpectedly before the cold-start sequence is run — for example during a watchdog-triggered reboot after firmware updates.
+
+```bash
+ansible all \
+  -i /infra-management/inventory.ini \
+  -m shell \
+  -a "systemctl list-unit-files 'kolla-*-container.service' --no-legend --plain \
+      | awk '\$2 == \"enabled\" {print \$1}' | xargs -r systemctl disable --now" \
+  --become \
+  || true
+```
+
+`kolla-ansible deploy` (Step 3 of the start sequence) re-enables the units in the correct order — OVS and Neutron before Octavia — which is the safe startup sequence. Do not re-enable them manually.
+
+### Step 5: Exit the container and power off the hosts
 
 Exit the container shell:
 

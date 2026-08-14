@@ -50,7 +50,7 @@ If not set, the chart default applies (15 days).
 
 ### Retention Period
 
-How long Loki keeps logs. Uses [Go duration format](https://pkg.go.dev/time#ParseDuration) — only `h` (hours) and smaller units are supported (`d`, `w`, `y` are not valid).
+How long Loki keeps logs. Uses [Loki duration format](https://grafana.com/docs/loki/latest/operations/storage/retention/) — `h`, `d`, `w`, and `y` are all supported.
 
 ```yaml
 loki_retention_period: "8760h"   # 1 year

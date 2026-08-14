@@ -90,6 +90,12 @@ openwrt_dhcp_poolshost:
     force: "1"
 ```
 
+:::warning[ONIE reachability requirement]
+
+For any interface used by switches during ONIE boot (typically the switch management or provisioning interface), the DHCP pool range must be in a subnet that has routing to the firmware server (usually the bastion host). ONIE uses the DHCP-assigned IP to fetch the firmware image over HTTP; a subnet mismatch causes silent failures with no clear error on the switch console. See [Switch Network Control Node Setup — ONIE Cannot Reach Firmware Server](./NETWORK_CONTROL_NODE_SETUP.md#onie-cannot-reach-firmware-server-dhcp-subnet-mismatch) for the workaround if this occurs.
+
+:::
+
 ### Example
 
 ```yaml

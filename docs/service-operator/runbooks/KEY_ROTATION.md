@@ -14,6 +14,7 @@ For the full key management policy (lifecycle, approval workflow, audit trail), 
 |---|---|---|---|
 | **SSH keys** (`mido_infra`) | Infrastructure access (all hosts, both environments) | Every 6 months (aligned with release cycle) | No |
 | **TLS certificates** | HAProxy, RabbitMQ, Octavia CA, backend services | 1 year | Brief (service restart) |
+| **Ceph RGW TLS certificate** | S3-compatible object gateway (environments with `ceph_rgw_tls_enabled: true`) | 2 years | No (rolling daemon redeploy) |
 | **WireGuard VPN keys** | Operator VPN peer keys | 1 year | Brief (VPN reconnect) |
 | **Ansible Vault passwords** | Secrets encryption at rest (per environment) | 1 year | No |
 
@@ -23,3 +24,4 @@ For the full key management policy (lifecycle, approval workflow, audit trail), 
 - [Rotate Ansible Vault Passwords](./key-rotation/ANSIBLE_VAULT)
 - [Rotate Openstack TLS certificates](./key-rotation/TLS_CERTIFICATES)
 - [Rotate WireGuard VPN Keys](./key-rotation/VPN_WIREGUARD_KEYS)
+- [Rotate Ceph RGW TLS Certificate](./key-rotation/CEPH_RGW_TLS)

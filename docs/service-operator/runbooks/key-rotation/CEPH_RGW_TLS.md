@@ -79,11 +79,11 @@ git push
 Then upload the new files to the bastion. The bastion expects them under `release-assets/assets/`, which is the directory mounted as `/infra-management` inside the Ansible container:
 
 ```bash
-scp /path/to/phoenix-inventories/<env>/assets/ceph/rgw-tls.crt \
+scp -v /path/to/phoenix-inventories/<env>/assets/ceph/rgw-tls.crt \
     <bastion>:~/release-assets/assets/ceph/
-scp /path/to/phoenix-inventories/<env>/assets/ceph/rgw-tls.key \
+scp -v /path/to/phoenix-inventories/<env>/assets/ceph/rgw-tls.key \
     <bastion>:~/release-assets/assets/ceph/
-scp /path/to/phoenix-inventories/<env>/assets/config/certificates/ca/ceph-rgw.crt \
+scp -v /path/to/phoenix-inventories/<env>/assets/config/certificates/ca/ceph-rgw.crt \
     <bastion>:~/release-assets/assets/config/certificates/ca/
 ```
 

@@ -131,11 +131,11 @@ The pre-rotation files are the ones committed in git before Step 3. If the playb
 2. Re-upload the old files to the bastion — the bastion still holds the new cert from Step 3 and the playbook reads from there, not from git:
 
    ```bash
-   scp /path/to/phoenix-inventories/<env>/assets/ceph/rgw-tls.crt \
+   scp -v /path/to/phoenix-inventories/<env>/assets/ceph/rgw-tls.crt \
        <bastion>:~/release-assets/assets/ceph/
-   scp /path/to/phoenix-inventories/<env>/assets/ceph/rgw-tls.key \
+   scp -v /path/to/phoenix-inventories/<env>/assets/ceph/rgw-tls.key \
        <bastion>:~/release-assets/assets/ceph/
-   scp /path/to/phoenix-inventories/<env>/assets/config/certificates/ca/ceph-rgw.crt \
+   scp -v /path/to/phoenix-inventories/<env>/assets/config/certificates/ca/ceph-rgw.crt \
        <bastion>:~/release-assets/assets/config/certificates/ca/
    ```
 

@@ -130,7 +130,7 @@ ansible all \
   -i /infra-management/inventory.ini \
   -m shell \
   -a "systemctl list-unit-files 'kolla-*-container.service' --no-legend --plain \
-      | awk '\$2 == \"enabled\" {print \$1}' | xargs -r systemctl disable" \
+      | awk '\$2 == \"enabled\" {print \$1}' | xargs -r systemctl disable --now" \
   --become \
   || true
 ```

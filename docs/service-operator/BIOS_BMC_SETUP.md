@@ -1,3 +1,7 @@
+---
+sidebar_position: 32
+---
+
 # Server BIOS and BMC Setup
 
 Required BIOS and BMC settings for all servers in the AIsware cluster. Complete these before installing the operating system.
@@ -47,7 +51,7 @@ Go to BMC setting — Configuration › Fan Mode:
 |---------|-------|
 | Fan Mode | HeavyIO Speed |
 
-![BMC Fan Mode set to HeavyIO Speed](./bmc-fanmode-heavyio.png)
+![BMC Fan Mode set to HeavyIO Speed](/images/bmc-fanmode-heavyio.png)
 
 ## Secure Boot key enrollment
 

@@ -53,7 +53,7 @@ If not set, the chart default applies (15 days).
 How long Loki keeps logs. Uses [Loki duration format](https://grafana.com/docs/loki/latest/operations/storage/retention/) — `h`, `d`, `w`, and `y` are all supported.
 
 ```yaml
-loki_retention_period: "8760h"   # 1 year
+loki_retention_period: "8784h"   # 1 year (366 days, accounts for leap years)
 ```
 
 If not set, the chart default applies (7 days).
@@ -88,7 +88,7 @@ loki_ceph_s3:
 phoenix_observability_storage: "ceph"
 prometheus_pvc_size: "150Gi"
 prometheus_retention_period: "30d"
-loki_retention_period: "8760h"   # 1 year
+loki_retention_period: "8784h"   # 1 year (366 days, accounts for leap years)
 
 # Optional S3 overrides (all have safe defaults):
 # loki_ceph_s3:

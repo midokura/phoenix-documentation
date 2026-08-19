@@ -130,3 +130,37 @@ flowchart TD
     AnotherDiamond -- "No" --> BadEnding["End"]
     AnotherDiamond -- Yes --> Done([Nice work])
 ```
+
+## Tabs
+
+We display tabs in the following way.
+
+Place these lines at the top of your markdown document:
+
+
+````
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+`````
+
+Then place your tabs wherever you need them:
+
+````
+<Tabs groupId="foobar">
+<TabItem value="foo" label="Foo">
+This is the content for the Foo tab
+
+It can contain any kind of markdown syntax.
+</TabItem>
+
+<TabItem value="bar" label="Bar">
+This is the content for the Bar tab
+
+It can also contain any kind of markdown syntax.
+</TabItem>
+</Tabs>
+````
+
+The example tabs code above renders like this:
+
+![tabs](/static/img/styleguide/tabs.png)

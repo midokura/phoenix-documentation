@@ -24,15 +24,15 @@ Typical use cases: uploading model checkpoints and validation datasets before a 
 Run this once on the VM to create a dedicated virtual environment with the required packages.
 
 ```bash
-python3.13 -m venv ~/.venv/s3transfer
-source ~/.venv/s3transfer/bin/activate
+python3.13 -m venv ~/.venv-s3transfer
+source ~/.venv-s3transfer/bin/activate
 pip install boto3 tqdm
 ```
 
 Activate the environment before each session:
 
 ```bash
-source ~/.venv/s3transfer/bin/activate
+source ~/.venv-s3transfer/bin/activate
 ```
 
 Create a reusable client module — save this as `s3client.py` in the same directory as your scripts and fill in your credentials once:

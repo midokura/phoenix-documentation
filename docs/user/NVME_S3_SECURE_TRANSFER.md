@@ -24,7 +24,8 @@ Typical use cases: uploading model checkpoints and validation datasets before a 
 Run this once on the VM to create a dedicated virtual environment with the required packages.
 
 ```bash
-python3.13 -m venv ~/.venv-s3transfer
+sudo apt install python3-venv
+python3 -m venv ~/.venv-s3transfer
 source ~/.venv-s3transfer/bin/activate
 pip install boto3 tqdm
 ```
@@ -43,7 +44,7 @@ import urllib3
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-S3_ENDPOINT = "https://openstack.isys:6780"
+S3_ENDPOINT = "https://openstack.tld:6780"  # from Storage > Settings > Access endpoint
 REGION      = "us-east-1"
 ACCESS_KEY  = "<your-access-key>"   # from Storage > Settings > Access key
 SECRET_KEY  = "<your-secret-key>"   # from Storage > Settings > Secret key
@@ -72,12 +73,14 @@ chmod 600 s3client.py
 ### Single large file (model checkpoint, weights, archive)
 
 ```python
+#!/usr/bin/env python3
+# upload_file.py
 import os
 from pathlib import Path
 from tqdm import tqdm
 import s3client
 
-KEY_FILE = "/data/my-encryption.key"   # adjust to where you stored your key
+KEY_FILE = "/data/my-encryption.key.bin"   # adjust to where you stored your key
 BUCKET   = "my-model-bucket"
 
 # Load encryption key
@@ -108,11 +111,13 @@ upload_file("/data/runs/exp42/checkpoint_epoch10.pt", "exp42/checkpoint_epoch10.
 ### Dataset directory
 
 ```python
+#!/usr/bin/env python3
+# upload_dir.py
 from pathlib import Path
 from tqdm import tqdm
 import s3client
 
-KEY_FILE   = "/data/my-encryption.key"
+KEY_FILE   = "/data/my-encryption.key.bin"
 BUCKET     = "my-model-bucket"
 LOCAL_DIR  = "/data/datasets/imagenet-val"  # adjust to your dataset path
 S3_PREFIX  = "datasets/imagenet-val"        # prefix (folder) inside the bucket
@@ -148,11 +153,13 @@ print("Upload complete.")
 ### Single file
 
 ```python
+#!/usr/bin/env python3
+# download_file.py
 import os
 from tqdm import tqdm
 import s3client
 
-KEY_FILE = "/data/my-encryption.key"
+KEY_FILE = "/data/my-encryption.key.bin"
 BUCKET   = "my-model-bucket"
 
 with open(KEY_FILE, "rb") as f:
@@ -189,11 +196,13 @@ download_file("exp42/checkpoint_epoch10.pt", "/data/runs/exp42/checkpoint_epoch1
 ### Directory (all objects under a prefix)
 
 ```python
+#!/usr/bin/env python3
+# download_dir.py
 import os
 from tqdm import tqdm
 import s3client
 
-KEY_FILE   = "/data/my-encryption.key"
+KEY_FILE   = "/data/my-encryption.key.bin"
 BUCKET     = "my-model-bucket"
 S3_PREFIX  = "datasets/imagenet-val"        # prefix to restore
 LOCAL_DIR  = "/data/datasets/imagenet-val"  # destination on NVMe

@@ -228,7 +228,7 @@ import base64
 key_bytes = os.urandom(32)
 
 # Save this to a file or secrets store — you'll need it every time you access the data
-with open("my-encryption.key", "wb") as f:
+with open("my-encryption.key.bin.bin", "wb") as f:
     f.write(key_bytes)
 
 print("Key (base64):", base64.b64encode(key_bytes).decode())
@@ -244,7 +244,7 @@ The snippets below assume you already have an `s3` client created as shown in th
 import os
 
 # Load the key you generated earlier
-with open("my-encryption.key", "rb") as f:
+with open("my-encryption.key.bin", "rb") as f:
     key_bytes = f.read()
 
 s3.put_object(
@@ -264,7 +264,7 @@ boto3 automatically computes the required key checksum — you only need to pass
 You must provide the same key you used during upload. Without it the request is rejected.
 
 ```python
-with open("my-encryption.key", "rb") as f:
+with open("my-encryption.key.bin", "rb") as f:
     key_bytes = f.read()
 
 response = s3.get_object(
@@ -280,7 +280,7 @@ print(content.decode())
 ### Downloading to a file on disk
 
 ```python
-with open("my-encryption.key", "rb") as f:
+with open("my-encryption.key.bin", "rb") as f:
     key_bytes = f.read()
 
 s3.download_file(
@@ -297,7 +297,7 @@ s3.download_file(
 ### Uploading a local file with encryption
 
 ```python
-with open("my-encryption.key", "rb") as f:
+with open("my-encryption.key.bin", "rb") as f:
     key_bytes = f.read()
 
 s3.upload_file(
@@ -372,7 +372,7 @@ There is no server-side re-encryption operation available — rotating the key r
 import os
 
 # Load the current key
-with open("my-encryption.key", "rb") as f:
+with open("my-encryption.key.bin", "rb") as f:
     old_key = f.read()
 
 # Generate a new key
@@ -397,7 +397,7 @@ s3.put_object(
 )
 
 # Only save the new key and discard the old one after confirming the re-upload succeeded
-with open("my-encryption.key", "wb") as f:
+with open("my-encryption.key.bin", "wb") as f:
     f.write(new_key)
 ```
 

@@ -51,12 +51,6 @@ Go to BMC setting — Configuration › Fan Mode:
 |---------|-------|
 | Fan Mode | HeavyIO Speed |
 
-TEST TO /STATIC
-
-![BMC Fan Mode set to HeavyIO Speed](/static/images/bmc-fanmode-heavyio.png)
-
-TEST TO /IMAGE
-
 [BMC Fan Mode set to HeavyIO Speed](/images/bmc-fanmode-heavyio.png)
 
 ## Secure Boot key enrollment

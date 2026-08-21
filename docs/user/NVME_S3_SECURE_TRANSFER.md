@@ -21,6 +21,8 @@ Typical use cases: uploading model checkpoints and validation datasets before a 
 
 ## One-time setup
 
+### Python
+
 Run this once on the VM to create a dedicated virtual environment with the required packages.
 
 ```bash
@@ -66,11 +68,47 @@ Restrict the file's permissions so only your user can read it:
 chmod 600 s3client.py
 ```
 
+### AWS CLI
+
+Configure a named profile with your S3 credentials:
+
+```bash
+aws configure --profile my-storage
+# AWS Access Key ID: <your-access-key>
+# AWS Secret Access Key: <your-secret-key>
+# Default region name: us-east-1
+# Default output format: json
+```
+
+If you have not yet generated an encryption key, create one with OpenSSL:
+
+```bash
+openssl rand -out /data/my-encryption.key.bin 32
+chmod 600 /data/my-encryption.key.bin
+```
+
+Set two shell variables you will reuse in every command:
+
+```bash
+export S3_ENDPOINT="https://openstack.tld:6780"   # from Storage > Settings > Access endpoint
+export KEY_B64=$(base64 < /data/my-encryption.key.bin)
+```
+
+`KEY_B64` is the base64-encoded form of your binary key file, which the AWS CLI requires for SSE-C. Add both exports to your `~/.bashrc` or re-run them at the start of each session.
+
+:::note
+
+All CLI examples below pass `--no-verify-ssl`. The platform issues certificates from its own internal CA (Certificate Authority), which is not in the default trust store of the AWS CLI. `--no-verify-ssl` bypasses certificate verification but does not disable encryption — your traffic is still encrypted in transit. On a private internal network this is not a security concern. If your environment distributes the platform's CA bundle (a `.crt` or `.pem` file), pass `--ca-bundle /path/to/ca-bundle.crt` instead and omit `--no-verify-ssl`.
+
+:::
+
 ---
 
 ## Uploading data to S3
 
 ### Single large file (model checkpoint, weights, archive)
+
+**Python**
 
 ```python
 #!/usr/bin/env python3
@@ -108,7 +146,18 @@ def upload_file(local_path: str, object_key: str):
 upload_file("/data/runs/exp42/checkpoint_epoch10.pt", "exp42/checkpoint_epoch10.pt")
 ```
 
+**AWS CLI**
+
+```bash
+aws s3 cp /data/runs/exp42/checkpoint_epoch10.pt \
+    s3://my-model-bucket/exp42/checkpoint_epoch10.pt \
+    --sse-c AES256 --sse-c-key "$KEY_B64" \
+    --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
+```
+
 ### Dataset directory
+
+**Python**
 
 ```python
 #!/usr/bin/env python3
@@ -146,11 +195,22 @@ for file_path in tqdm(files, unit="file"):
 print("Upload complete.")
 ```
 
+**AWS CLI**
+
+```bash
+aws s3 sync /data/datasets/imagenet-val \
+    s3://my-model-bucket/datasets/imagenet-val \
+    --sse-c AES256 --sse-c-key "$KEY_B64" \
+    --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
+```
+
 ---
 
 ## Downloading data from S3
 
 ### Single file
+
+**Python**
 
 ```python
 #!/usr/bin/env python3
@@ -193,7 +253,18 @@ def download_file(object_key: str, local_path: str):
 download_file("exp42/checkpoint_epoch10.pt", "/data/runs/exp42/checkpoint_epoch10.pt")
 ```
 
+**AWS CLI**
+
+```bash
+aws s3 cp s3://my-model-bucket/exp42/checkpoint_epoch10.pt \
+    /data/runs/exp42/checkpoint_epoch10.pt \
+    --sse-c AES256 --sse-c-key "$KEY_B64" \
+    --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
+```
+
 ### Directory (all objects under a prefix)
+
+**Python**
 
 ```python
 #!/usr/bin/env python3
@@ -239,11 +310,22 @@ for obj in tqdm(objects, unit="file"):
 print("Download complete.")
 ```
 
+**AWS CLI**
+
+```bash
+aws s3 sync s3://my-model-bucket/datasets/imagenet-val \
+    /data/datasets/imagenet-val \
+    --sse-c AES256 --sse-c-key "$KEY_B64" \
+    --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
+```
+
 ---
 
 ## Verifying a transfer
 
-After uploading or downloading a critical file, verify its integrity by comparing SHA-256 (Secure Hash Algorithm 256-bit) checksums.
+After uploading or downloading a critical file, verify its integrity by comparing SHA-256 (Secure Hash Algorithm 256-bit) checksums. Always store the `.sha256` checksum file alongside the data in S3 so it is available when you restore.
+
+**Python**
 
 Both steps below use the same helper — add it once at the top of each script:
 
@@ -258,7 +340,7 @@ def sha256(path: str) -> str:
     return h.hexdigest()
 ```
 
-**Step 1 — before uploading**, compute and save the checksum:
+**Step 1 — before uploading**, compute, save, and upload the checksum:
 
 ```python
 local_file = "/data/runs/exp42/checkpoint_epoch10.pt"
@@ -269,6 +351,9 @@ with open(hash_file, "w") as f:
     f.write(checksum)
 
 print(f"SHA-256: {checksum}  (saved to {hash_file})")
+
+s3 = s3client.get_client()
+s3.upload_file(hash_file, "my-model-bucket", "exp42/checkpoint_epoch10.pt.sha256")
 ```
 
 **Step 2 — after downloading**, load the saved checksum and compare:
@@ -276,6 +361,9 @@ print(f"SHA-256: {checksum}  (saved to {hash_file})")
 ```python
 restored_file = "/data/runs/exp42/checkpoint_epoch10.pt"
 hash_file     = restored_file + ".sha256"
+
+# If restoring on a different machine, download the checksum file first:
+# s3.download_file("my-model-bucket", "exp42/checkpoint_epoch10.pt.sha256", hash_file)
 
 with open(hash_file) as f:
     original_checksum = f.read().strip()
@@ -286,11 +374,30 @@ else:
     print("WARNING: checksums do not match — transfer may be corrupted.")
 ```
 
-:::note
+**AWS CLI**
 
-Upload the `.sha256` file to S3 alongside the data file — use `s3.upload_file(hash_file, BUCKET, object_key + ".sha256")` in your upload script so the checksum travels with the data and is always available when you restore.
+**Step 1 — before uploading**, compute, save, and upload the checksum:
 
-:::
+```bash
+sha256sum /data/runs/exp42/checkpoint_epoch10.pt \
+    > /data/runs/exp42/checkpoint_epoch10.pt.sha256
+
+aws s3 cp /data/runs/exp42/checkpoint_epoch10.pt.sha256 \
+    s3://my-model-bucket/exp42/checkpoint_epoch10.pt.sha256 \
+    --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
+```
+
+**Step 2 — after downloading**, fetch the checksum file and verify:
+
+```bash
+aws s3 cp s3://my-model-bucket/exp42/checkpoint_epoch10.pt.sha256 \
+    /data/runs/exp42/checkpoint_epoch10.pt.sha256 \
+    --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
+
+sha256sum -c /data/runs/exp42/checkpoint_epoch10.pt.sha256
+```
+
+A passing check prints `OK`; a mismatch prints `FAILED`.
 
 ---
 
@@ -298,6 +405,6 @@ Upload the `.sha256` file to S3 alongside the data file — use `s3.upload_file(
 
 :::warning
 
-The encryption key at `KEY_FILE` is the only thing that can decrypt your data on S3. Back it up to a secure location (such as Azure Key Vault) before starting any long-running experiment. If the key is lost, the data on S3 is permanently unreadable — there is no recovery option.
+Your encryption key file is the only thing that can decrypt your data on S3. Back it up to a secure location (such as Azure Key Vault) before starting any long-running experiment. If the key is lost, the data on S3 is permanently unreadable — there is no recovery option.
 
 :::

@@ -70,6 +70,8 @@ chmod 600 s3client.py
 
 ### AWS CLI
 
+The commands in this guide have been validated with `aws-cli/2.36.30`.
+
 Configure a named profile with your S3 credentials:
 
 ```bash

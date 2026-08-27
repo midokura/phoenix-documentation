@@ -82,6 +82,8 @@ The region must be set to `us-east-1` in your client. This does not affect where
 
 ### AWS (Amazon Web Services) CLI (Command-Line Interface)
 
+See the [AWS CLI installation guide](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) if you need to install it first.
+
 Configure a named profile:
 
 ```bash
@@ -95,7 +97,7 @@ aws configure --profile my-storage
 Use the profile with your endpoint:
 
 ```bash
-export S3_ENDPOINT="https://<your-endpoint>"
+export S3_ENDPOINT="https://<your-endpoint>"   # from Storage > Settings > Access endpoint
 
 # List containers
 aws s3 ls --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
@@ -111,6 +113,21 @@ aws s3 sync ./data s3://my-container/data --profile my-storage --endpoint-url "$
 ```
 
 The platform issues certificates from its own internal CA (Certificate Authority), which is not in the default trust store of the AWS CLI. `--no-verify-ssl` bypasses certificate verification but does not disable encryption — your traffic is still encrypted in transit. On a private internal network this is not a security concern, because a MITM (Man-in-the-Middle) attack would require the attacker to already be inside that network. If your environment distributes the platform's CA bundle (a `.crt` or `.pem` file), pass `--ca-bundle /path/to/ca-bundle.crt` instead and omit `--no-verify-ssl`.
+
+#### Troubleshooting: cryptic error after credential rotation
+
+If your credentials have been rotated or are otherwise stale, the AWS CLI may display a misleading error instead of a clear authentication failure:
+
+```
+aws: [ERROR]: argument of type 'NoneType' is not a container or iterable
+```
+
+This is a known AWS CLI bug triggered by the way this platform's object storage returns authentication errors. The real cause is invalid credentials. Fix it by updating the profile with the current keys from **Storage > Settings**:
+
+```bash
+aws configure set aws_access_key_id <your-new-access-key> --profile my-storage
+aws configure set aws_secret_access_key <your-new-secret-key> --profile my-storage
+```
 
 ### Python (boto3)
 
@@ -228,7 +245,7 @@ import base64
 key_bytes = os.urandom(32)
 
 # Save this to a file or secrets store — you'll need it every time you access the data
-with open("my-encryption.key.bin.bin", "wb") as f:
+with open("my-encryption.key.bin", "wb") as f:
     f.write(key_bytes)
 
 print("Key (base64):", base64.b64encode(key_bytes).decode())
@@ -237,6 +254,13 @@ print("Key (base64):", base64.b64encode(key_bytes).decode())
 Run this once and keep the file safe. Re-use the same `key_bytes` for all uploads you want to decrypt later.
 
 The snippets below assume you already have an `s3` client created as shown in the [Python (boto3)](#python-boto3) section above.
+
+**AWS CLI**
+
+```bash
+openssl rand -out my-encryption.key.bin 32
+chmod 600 my-encryption.key.bin
+```
 
 ### Uploading an encrypted object
 
@@ -259,6 +283,16 @@ print("Uploaded and encrypted.")
 
 boto3 automatically computes the required key checksum — you only need to pass `key_bytes`.
 
+**AWS CLI**
+
+```bash
+export S3_ENDPOINT="https://<your-endpoint>"   # from Storage > Settings > Access endpoint
+export KEY_FILE="my-encryption.key.bin"
+aws s3 cp mydata.txt s3://my-container/secret-data.txt --sse-c AES256 --sse-c-key "fileb://$KEY_FILE" --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
+```
+
+The `fileb://` prefix tells the AWS CLI to read the key file as binary and handle the encoding internally. See the [AWS SSE-C documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerSideEncryptionCustomerKeys.html) for more details.
+
 ### Downloading an encrypted object
 
 You must provide the same key you used during upload. Without it the request is rejected.
@@ -275,6 +309,14 @@ response = s3.get_object(
 )
 content = response["Body"].read()
 print(content.decode())
+```
+
+**AWS CLI**
+
+```bash
+export S3_ENDPOINT="https://<your-endpoint>"   # from Storage > Settings > Access endpoint
+export KEY_FILE="my-encryption.key.bin"
+aws s3 cp s3://my-container/secret-data.txt . --sse-c AES256 --sse-c-key "fileb://$KEY_FILE" --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
 ```
 
 ### Downloading to a file on disk

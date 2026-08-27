@@ -93,10 +93,10 @@ Set two shell variables you will reuse in every command:
 
 ```bash
 export S3_ENDPOINT="https://openstack.tld:6780"   # from Storage > Settings > Access endpoint
-export KEY_B64=$(base64 < /data/my-encryption.key.bin)
+export KEY_FILE="/data/my-encryption.key.bin"
 ```
 
-`KEY_B64` is the base64-encoded form of your binary key file, which the AWS CLI requires for SSE-C. Add both exports to your `~/.bashrc` or re-run them at the start of each session.
+`KEY_FILE` is the path to your binary key file. The `fileb://` prefix used in every CLI command tells the AWS CLI to read it as binary and handle the encoding internally, which avoids the encoding issues that arise when passing a pre-encoded key string. Add both exports to your `~/.bashrc` or re-run them at the start of each session.
 
 :::note
 
@@ -153,7 +153,7 @@ upload_file("/data/runs/exp42/checkpoint_epoch10.pt", "exp42/checkpoint_epoch10.
 ```bash
 aws s3 cp /data/runs/exp42/checkpoint_epoch10.pt \
     s3://my-model-bucket/exp42/checkpoint_epoch10.pt \
-    --sse-c AES256 --sse-c-key "$KEY_B64" \
+    --sse-c AES256 --sse-c-key "fileb://$KEY_FILE" \
     --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
 ```
 
@@ -202,7 +202,7 @@ print("Upload complete.")
 ```bash
 aws s3 sync /data/datasets/imagenet-val \
     s3://my-model-bucket/datasets/imagenet-val \
-    --sse-c AES256 --sse-c-key "$KEY_B64" \
+    --sse-c AES256 --sse-c-key "fileb://$KEY_FILE" \
     --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
 ```
 
@@ -260,7 +260,7 @@ download_file("exp42/checkpoint_epoch10.pt", "/data/runs/exp42/checkpoint_epoch1
 ```bash
 aws s3 cp s3://my-model-bucket/exp42/checkpoint_epoch10.pt \
     /data/runs/exp42/checkpoint_epoch10.pt \
-    --sse-c AES256 --sse-c-key "$KEY_B64" \
+    --sse-c AES256 --sse-c-key "fileb://$KEY_FILE" \
     --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
 ```
 
@@ -317,7 +317,7 @@ print("Download complete.")
 ```bash
 aws s3 sync s3://my-model-bucket/datasets/imagenet-val \
     /data/datasets/imagenet-val \
-    --sse-c AES256 --sse-c-key "$KEY_B64" \
+    --sse-c AES256 --sse-c-key "fileb://$KEY_FILE" \
     --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
 ```
 

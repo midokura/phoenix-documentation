@@ -125,8 +125,8 @@ aws: [ERROR]: argument of type 'NoneType' is not a container or iterable
 This is a known AWS CLI bug triggered by the way this platform's object storage returns authentication errors. The real cause is invalid credentials. Fix it by updating the profile with the current keys from **Storage > Settings**:
 
 ```bash
-aws configure set aws_access_key_id <your-new-access-key> --profile my-storage
-aws configure set aws_secret_access_key <your-new-secret-key> --profile my-storage
+aws configure set aws_access_key_id <your-new-access-key> --profile <your-profile>
+aws configure set aws_secret_access_key <your-new-secret-key> --profile <your-profile>
 ```
 
 ### Python (boto3)

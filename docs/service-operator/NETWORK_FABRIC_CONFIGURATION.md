@@ -8,7 +8,7 @@ Defining the physical connections operators must configure in the Hedgehog netwo
 
 :::note
 
-The AI Factory uses the [Hedgehog Open Network Fabric](https://docs.hedgehog.cloud/latest/user-guide/overview/) for its switching layer. This guide documents the AI Factory conventions on top of it; for the underlying fabric concepts and resource reference, see the public Hedgehog documentation at <https://docs.hedgehog.cloud/latest/user-guide/overview/>.
+The AI Factory uses the [Hedgehog Open Network Fabric](https://docs.hedgehog.cloud/latest/user-guide/overview/) for its switching layer. This guide documents the AI Factory conventions on top of it; for the underlying fabric concepts and resource reference, see the public Hedgehog documentation at https://docs.hedgehog.cloud/latest/user-guide/overview.
 
 :::
 
@@ -282,7 +282,7 @@ hedgehog_unbundled_connections:
 
 | Field | Required | Description |
 |---|---|---|
-| `name` | yes | Unique name of the connection (becomes the `Connection` resource name). Convention is `<server>--<zone>` for eslag connections, `<server>--<switch> for bundled connections, and `<server>--<switch_port>` for unbundled connections. |
+| `name` | yes | Unique name of the connection (becomes the `Connection` resource name). Convention is `<server>--<zone>` for eslag connections, `<server>--<switch>` for bundled connections, and `<server>--<switch_port>` for unbundled connections. |
 | `server` | yes | Name of the server, as registered in `hedgehog_servers`. |
 | `server_interface` | yes | The server's OS interface name for this link (for example, `ens1`, `eth0`). |
 | `switch` | yes | Name of the switch, as registered in `hedgehog_switches`. |
@@ -454,7 +454,7 @@ hedgehog_fabric_connections:
 
 | Field | Required | Description |
 |---|---|---|
-| `name` | yes | Unique name of the connection (one per spine-leaf pair). Convention is <switchA>--<switchB>|
+| `name` | yes | Unique name of the connection (one per spine-leaf pair). Convention is `<switchA>--<switchB>` |
 | `links` | yes | List of links — one entry per physical cable between this spine and leaf. |
 | `links[].leaf.ip` | yes | Point-to-point IP for the leaf end of the link (typically a `/31`). |
 | `links[].leaf.switch` | yes | Name of the leaf switch. |

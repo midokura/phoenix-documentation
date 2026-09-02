@@ -23,8 +23,8 @@ Disks with no `MOUNTPOINTS` and no partitions listed beneath them are unformatte
 
 ```
 NAME        MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
-vda         253:0    0   50G  0 disk
-└─vda1      253:1    0   50G  0 part /
+vda         253:0    0  256G  0 disk
+└─vda1      253:1    0  255G  0 part /
 nvme1n1     259:1    0    7T  0 disk
 ```
 
@@ -91,7 +91,36 @@ UUID=<uuid>  /mnt/data  ext4  defaults  0  2
 Test the fstab entry before rebooting:
 
 ```bash
-sudo mount -a
+sudo mount --all
+```
+
+Your new partition should now be visible in the `mount` or `df` output:
+
+```bash
+mount
+```
+
+For example:
+```
+/dev/vda1 on / type ext4 (rw,relatime,discard,errors=remount-ro,commit=30)
+tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev,inode64)
+/dev/vda16 on /boot type ext4 (rw,relatime)
+/dev/vda15 on /boot/efi type vfat (rw,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro)
+/dev/nvme1n1p1 on /mnt/data type ext4 (rw,relatime,stripe=16)
+```
+
+```bash
+df --human-readable
+```
+
+For example:
+```
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda1       247G  172G   76G  70% /
+tmpfs          1008G     0 1008G   0% /dev/shm
+/dev/vda16      881M  293M  527M  36% /boot
+/dev/nvme1n1p1  7.0T   89M  7.0T   1% /mnt/data
+/dev/vda15      105M  6.2M   99M   6% /boot/efi
 ```
 
 ---

@@ -22,12 +22,12 @@ OS 要件の一覧です。
 ## ストレージ設定
 
 ### ディスクレイアウト
-- 2 台のディスクで RAID1（mdraid）構成
-- 両ディスクに GPT パーティションテーブル
-- 両ディスクに EFI パーティション（FAT32、約 256MB）
-- ルートファイルシステムは RAID1 アレイ上（ext4）
+- 2 台のディスクによる RAID1（mdraid）構成
+- 両方のディスクに GPT パーティションテーブル
+- 両方のディスクに EFI パーティション（FAT32、約 256MB）
+- RAID 1 アレイ上にルートファイルシステム（ext4）
 - スワップ無効
-- 両ディスクから UEFI ブート
+- 両方のディスクから UEFI ブート
 
 ### マウントポイント
 - `/` - RAID1 ルートパーティション
@@ -40,7 +40,7 @@ OS 要件の一覧です。
 - systemd-networkd の `--any` wait-online 動作
 
 ### 物理インターフェース
-- VLAN トランクインターフェース名を `physical0` とする
+- VLANトランクインターフェース名：`physical0`
 
 ### VLAN インターフェース
 - `frontend0` - `physical0` 上の VLAN 101（デフォルトゲートウェイ）
@@ -48,7 +48,7 @@ OS 要件の一覧です。
 
 ## カーネルパラメータ
 
-- `amd_iommu=on` - AMD IOMMU 有効
+- `amd_iommu=on` - AMD IOMMU 有効化
 - `iommu=pt` - IOMMU パススルーモード
 - Nouveau ドライバをブラックリスト登録
 
@@ -65,7 +65,7 @@ OS 要件の一覧です。
 
 ## システム設定
 
-- root ユーザー有効
-- GRUB recordfail タイムアウト: 3 秒
+- rootユーザーを有効化
+- GRUB recordfail タイムアウト：3 秒
 - Docker ディレクトリを事前作成（`/var/lib/docker`）
 - open-iscsi 削除済み

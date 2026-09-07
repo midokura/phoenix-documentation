@@ -23,6 +23,9 @@ Update to v1.27 or higher if at a lower version.
 2. Enter MEBx
 3. Enable by setting a complex password with special charaters, capital letters and numbers (default `admin:admin`)
 4. Access AMT Network Setup and set to a static IP that belongs to the BMC IP subnet.
+5. Under **Network Setup**, set **Network Access State** to `Network Active` (changes network state of ME; when disabling, it will also clear some other settings)
+6. Under **User Consent**, set **User Opt-in** to `NONE` (configures when user consent should be required)
+7. Under **User Consent**, set **Opt-in Configurable from Remote IT** to `Enabled` (enables/disables remote change capability of the user consent feature)
 
 ### Security Settings
 - **Secure Boot**: Disabled during BIOS update and OS install phases, Enabled post-install

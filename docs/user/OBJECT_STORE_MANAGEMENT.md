@@ -503,6 +503,119 @@ print("Cleaned up.")
 
 ---
 
+## Mounting a Container as a Local Filesystem (s3fs)
+
+s3fs is a FUSE driver that mounts an S3-compatible container as a regular directory. This lets you read and write objects using standard tools (`cp`, `rsync`, `find`) without writing any S3-specific code.
+
+:::note
+
+s3fs is not a general-purpose filesystem replacement. Directory listings and metadata operations require one or more S3 API calls each, so they are slower than on a local disk. It works well for bulk file transfers and background workloads; avoid it for databases or applications that perform many small random reads and writes.
+
+:::
+
+### Installing s3fs
+
+```bash
+sudo apt install s3fs        # Ubuntu / Debian
+sudo dnf install s3fs-fuse   # RHEL / Rocky
+```
+
+### Creating the credentials file
+
+s3fs reads credentials from a file in the format `ACCESS_KEY:SECRET_KEY`:
+
+```bash
+echo "<your-access-key>:<your-secret-key>" > ~/.passwd-s3fs
+chmod 600 ~/.passwd-s3fs
+```
+
+Replace the placeholders with the values from **Storage > Settings > Access**.
+
+### Mounting manually
+
+```bash
+sudo mkdir -p /mnt/my-container
+s3fs my-container /mnt/my-container \
+  --use-path-request-style \
+  -o url=https://<your-endpoint>/ \
+  -o passwd_file=~/.passwd-s3fs \
+  -o no_check_certificate \
+  -o ssl_verify_hostname=0
+```
+
+Verify the mount with `ls /mnt/my-container`. Unmount with `fusermount -u /mnt/my-container` (or `sudo umount /mnt/my-container`).
+
+### Mounting at boot via /etc/fstab
+
+For a persistent mount that starts automatically with the system, add an entry to `/etc/fstab`. The line below uses the full set of options validated in production. Omit `use_sse` if you are not using [server-side encryption](#server-side-encryption-sse-c).
+
+```
+s3fs#my-container /mnt/my-container fuse _netdev,allow_other,uid=1000,gid=1000,use_path_request_style,url=https://<your-endpoint>/,use_cache=/tmp/s3fs,multipart_size=100,parallel_count=8,big_writes,kernel_cache,umask=0022,enable_noobj_cache,retries=5,ensure_diskfree=1000,connect_timeout=180,max_dirty_data=1024,max_stat_cache_size=100000,passwd_file=/home/<user>/.passwd-s3fs,use_sse=custom:/home/<user>/.s3fs-sse-c-key.base64.txt,no_check_certificate,ssl_verify_hostname=0 0 0
+```
+
+| Option | Effect |
+|--------|--------|
+| `_netdev` | Delays mount until the network is up |
+| `allow_other` | Lets all users access the mount, not just root |
+| `uid=1000,gid=1000` | Maps all objects to this local user and group |
+| `use_path_request_style` | Required — this endpoint uses path-style URLs |
+| `url=` | Your S3 endpoint from **Storage > Settings** |
+| `use_cache=/tmp/s3fs` | Caches recently accessed objects to local disk |
+| `multipart_size=100` | Splits uploads into 100 MB parts |
+| `parallel_count=8` | Transfers 8 parts concurrently |
+| `big_writes` | Enables larger write buffers for better throughput |
+| `kernel_cache` | Caches file data in the kernel page cache |
+| `enable_noobj_cache` | Caches negative lookups, speeding up repeated `ls` |
+| `retries=5` | Retries failed S3 requests up to 5 times |
+| `ensure_diskfree=1000` | Pauses caching when less than 1 GB remains on the cache disk |
+| `max_dirty_data=1024` | Flushes to S3 when in-memory dirty data reaches 1 GB |
+| `max_stat_cache_size=100000` | Keeps metadata for up to 100 000 objects in memory |
+| `no_check_certificate,ssl_verify_hostname=0` | Skips TLS certificate verification — see the [SSL note in the AWS CLI section](#aws-amazon-web-services-cli-command-line-interface) |
+| `use_sse=custom:<path>` | Enables SSE-C using the base64-encoded key at `<path>` |
+| `passwd_file=` | Path to the `ACCESS_KEY:SECRET_KEY` credentials file |
+
+After editing `/etc/fstab`, reload systemd and mount:
+
+```bash
+sudo systemctl daemon-reload
+sudo mount /mnt/my-container
+```
+
+### SSE-C with s3fs
+
+s3fs expects the SSE-C key as a file containing the raw base64 string. If you already have a binary key from the [SSE-C section](#server-side-encryption-sse-c), convert it:
+
+```bash
+base64 -w0 my-encryption.key.bin > ~/.s3fs-sse-c-key.base64.txt
+chmod 600 ~/.s3fs-sse-c-key.base64.txt
+```
+
+Point `use_sse=custom:` at this file in your fstab or mount command. Objects written with one key cannot be read with a different key, so use the same file consistently.
+
+### Limitations
+
+- **Directory listings are slow**: the first `ls` after a remount takes around 5 s (cold cache); subsequent calls drop to under 1 s once the stat cache is warm
+- **No atomic rename**: renaming a file or directory rewrites the object rather than doing an atomic server-side move, breaking applications that write to a temp file and rename it into place
+- **Random writes rewrite the whole object**: any write that is not a simple append triggers a full re-upload of the object (using multipart copy for large files); avoid workloads with frequent in-place edits
+- **No coordination between clients**: multiple machines mounting the same bucket see no locking; concurrent writes to the same object produce undefined results
+- **No hard links**
+- **inotify only tracks local changes**: modifications made by another client or tool are invisible to inotify watchers on this mount
+- **Eventual consistency**: this platform uses Ceph-backed object storage, which may briefly return stale data after an object is overwritten or deleted by another client
+- **Data is flushed on `close()`, not on write**: writes are buffered locally and uploaded to S3 only when the file is closed (or `fsync` is called); a crash before `close()` means buffered data is lost
+- **Files created by other tools show no permissions**: objects uploaded via the console, AWS CLI, or boto3 lack the `x-amz-meta-mode/uid/gid` headers that s3fs relies on to determine permissions, so they show up with no read, write, or execute bits set; the `uid`, `gid`, and `umask` mount options already set in the fstab above apply a default for these objects
+
+:::warning
+
+`updatedb` (the `locate` database indexer) runs on a cron schedule and will walk all mount points, including s3fs mounts. On a bucket with many objects this generates a large number of S3 API calls, spikes CPU, and may trigger the OOM killer. Add your mount point — and the `use_cache` directory — to `PRUNEPATHS` in `/etc/updatedb.conf`:
+
+```
+PRUNEPATHS="... /mnt/my-container /tmp/s3fs"
+```
+
+:::
+
+---
+
 ## Viewing Usage
 
 **Storage > Settings** shows a usage breakdown for:

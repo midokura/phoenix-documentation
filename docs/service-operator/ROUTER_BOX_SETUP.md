@@ -29,6 +29,7 @@ Update to v1.27 or higher if at a lower version.
 
 ### Security Settings
 - **Secure Boot**: Disabled during BIOS update and OS install phases, Enabled post-install
+- **Advanced** -> **ACPI settings**: Restore on AC Power Loss should be `Always On`
 - Rest of defaults are ok
 
 ## USB Drive Preparation

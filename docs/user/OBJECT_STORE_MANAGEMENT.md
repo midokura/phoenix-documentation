@@ -66,7 +66,7 @@ Force-deleting a container permanently removes all objects inside it. This actio
 
 ## Using an S3 Client
 
-Once you have credentials and a container, you can use any S3-compatible client. The endpoint and region are visible in **Storage > Settings**. All examples in this section can be run directly from a tenant VM — the storage endpoint is reachable from inside the platform network without any additional configuration.
+Once you have credentials and a container, you can use any S3-compatible client. The endpoint and region are visible in **Storage > Settings**. All examples in this section can be run directly from a tenant VM: the storage endpoint is reachable from inside the platform network without any additional configuration.
 
 ### Finding Your Endpoint
 
@@ -78,7 +78,7 @@ The endpoint is only displayed after you have created at least one container. If
 
 :::
 
-The region must be set to `us-east-1` in your client. This does not affect where your data is stored — it is a required field in the S3 protocol, and `us-east-1` is the value configured for this platform. Your data stays on the local infrastructure where the platform is deployed.
+The region must be set to `us-east-1` in your client. This does not affect where your data is stored: it is a required field in the S3 protocol, and `us-east-1` is the value configured for this platform. Your data stays on the local infrastructure where the platform is deployed.
 
 ### AWS (Amazon Web Services) CLI (Command-Line Interface)
 
@@ -112,7 +112,7 @@ aws s3 cp s3://my-container/myfile.txt . --profile my-storage --endpoint-url "$S
 aws s3 sync ./data s3://my-container/data --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
 ```
 
-The platform issues certificates from its own internal CA (Certificate Authority), which is not in the default trust store of the AWS CLI. `--no-verify-ssl` bypasses certificate verification but does not disable encryption — your traffic is still encrypted in transit. On a private internal network this is not a security concern, because a MITM (Man-in-the-Middle) attack would require the attacker to already be inside that network. If your environment distributes the platform's CA bundle (a `.crt` or `.pem` file), pass `--ca-bundle /path/to/ca-bundle.crt` instead and omit `--no-verify-ssl`.
+The platform issues certificates from its own internal CA (Certificate Authority), which is not in the default trust store of the AWS CLI. `--no-verify-ssl` bypasses certificate verification but does not disable encryption: your traffic is still encrypted in transit. On a private internal network this is not a security concern, because a MITM (Man-in-the-Middle) attack would require the attacker to already be inside that network. If your environment distributes the platform's CA bundle (a `.crt` or `.pem` file), pass `--ca-bundle /path/to/ca-bundle.crt` instead and omit `--no-verify-ssl`.
 
 #### Troubleshooting: cryptic error after credential rotation
 
@@ -168,7 +168,7 @@ s3 = boto3.client(
 )
 ```
 
-The connection uses HTTPS, so all traffic between your client and the platform is encrypted in transit — `verify=False` does **not** disable encryption. What it disables is certificate *verification*: the check that the server's TLS certificate was signed by a well-known public Certificate Authority. The platform issues certificates from its own internal CA, which is not in the default trust store of most clients. On a private internal network this is not a security concern, because a MITM attack would require the attacker to already be inside that network. The `urllib3.disable_warnings` call (urllib3 is boto3's underlying HTTP library) suppresses the harmless warnings that `verify=False` triggers. If your environment distributes the platform's CA bundle — a file ending in `.crt` or `.pem` — pass its path as `verify="/path/to/ca-bundle.crt"` instead and remove the `disable_warnings` line.
+The connection uses HTTPS, so all traffic between your client and the platform is encrypted in transit. `verify=False` does **not** disable encryption: it disables certificate *verification*, the check that the server's TLS certificate was signed by a well-known public Certificate Authority. The platform issues certificates from its own internal CA, which is not in the default trust store of most clients. On a private internal network this is not a security concern, because a MITM attack would require the attacker to already be inside that network. The `urllib3.disable_warnings` call (urllib3 is boto3's underlying HTTP library) suppresses the harmless warnings that `verify=False` triggers. If your environment distributes the platform's CA bundle (a file ending in `.crt` or `.pem`), pass its path as `verify="/path/to/ca-bundle.crt"` instead and remove the `disable_warnings` line.
 
 #### Container operations
 
@@ -222,16 +222,16 @@ s3.delete_objects(
 
 ## Server-Side Encryption (SSE-C)
 
-SSE-C lets you encrypt objects using a key you generate and control. The storage service uses your key to encrypt data at rest, but never stores the key itself — only you hold it. This means:
+SSE-C lets you encrypt objects using a key you generate and control. The storage service uses your key to encrypt data at rest but never stores the key itself: only you hold it. This means:
 
-- Nobody but you can read the encrypted objects, even with full server access.
-- If you lose the key, the data is permanently unreadable.
-- You must supply the same key every time you read the object.
-- **SSE-C keys are independent of your S3 credentials.** Rotating your access key and secret key in the console does not affect encrypted objects — you can still read them with the original encryption key and the new S3 credentials.
+- Nobody but you can read the encrypted objects, even with full server access
+- If you lose the key, the data is permanently unreadable
+- You must supply the same key every time you read the object
+- **SSE-C keys are independent of your S3 credentials**: rotating your access key and secret key in the console does not affect encrypted objects; you can still read them with the original encryption key and the new S3 credentials
 
 :::warning
 
-Store your encryption key securely (e.g. a secrets manager, an encrypted file). There is no key recovery mechanism. Losing the key means losing access to all objects encrypted with it.
+Store your encryption key securely (for example, in a secrets manager or an encrypted file). There is no key recovery mechanism. Losing the key means losing access to all objects encrypted with it.
 
 :::
 
@@ -359,7 +359,7 @@ s3.upload_file(
 
 Never hardcode a key in a script. The safest options, in increasing order of robustness:
 
-**Environment variable** — good for one-off scripts and CI (Continuous Integration) pipelines:
+**Environment variable**: good for one-off scripts and CI (Continuous Integration) pipelines:
 
 ```python
 import os, base64
@@ -369,7 +369,7 @@ key_b64 = os.environ["SSE_KEY"]
 enc_key = base64.b64decode(key_b64)
 ```
 
-**Restricted key file** — good for long-lived workloads:
+**Restricted key file**: good for long-lived workloads:
 
 ```bash
 # Generate and save with strict permissions
@@ -386,7 +386,7 @@ with open("my.key", "rb") as f:
 
 #### Using different keys per object or container
 
-You are not limited to one key. Encrypting different containers or objects with different keys limits the impact if a key is ever compromised — only the objects encrypted with that key are exposed.
+You are not limited to one key. Encrypting different containers or objects with different keys limits the impact if a key is ever compromised: only the objects encrypted with that key are exposed.
 
 ```python
 # Each dataset gets its own key
@@ -408,7 +408,7 @@ s3.put_object(Bucket="my-container", Key="dataset-b/file.csv", Body=data_b,
 
 #### Rotating an encryption key
 
-There is no server-side re-encryption operation available — rotating the key requires downloading the object with the old key and re-uploading it with the new one. For large objects this is bandwidth- and time-intensive, so the best strategy is to keep your encryption keys well-protected to minimise how often rotation is needed.
+There is no server-side re-encryption operation available: rotating the key requires downloading the object with the old key and re-uploading it with the new one. For large objects this is bandwidth- and time-intensive, so the best strategy is to keep your encryption keys well-protected to minimise how often rotation is needed.
 
 ```python
 import os
@@ -445,7 +445,7 @@ with open("my-encryption.key.bin", "wb") as f:
 
 ### Complete example script
 
-The following script shows the full flow from scratch — create a container, generate a key, upload an encrypted file, read it back, and clean up.
+The following script shows the full flow from scratch: create a container, generate a key, upload an encrypted file, read it back, and clean up.
 
 ```python
 import os
@@ -558,7 +558,7 @@ s3fs#my-container /mnt/my-container fuse _netdev,allow_other,uid=1000,gid=1000,u
 | `_netdev` | Delays mount until the network is up |
 | `allow_other` | Lets all users access the mount, not just root |
 | `uid=1000,gid=1000` | Maps all objects to this local user and group |
-| `use_path_request_style` | Required — this endpoint uses path-style URLs |
+| `use_path_request_style` | Required: this endpoint uses path-style URLs |
 | `url=` | Your S3 endpoint from **Storage > Settings** |
 | `use_cache=/tmp/s3fs` | Caches recently accessed objects to local disk |
 | `multipart_size=100` | Splits uploads into 100 MB parts |
@@ -570,7 +570,7 @@ s3fs#my-container /mnt/my-container fuse _netdev,allow_other,uid=1000,gid=1000,u
 | `ensure_diskfree=1000` | Pauses caching when less than 1 GB remains on the cache disk |
 | `max_dirty_data=1024` | Flushes to S3 when in-memory dirty data reaches 1 GB |
 | `max_stat_cache_size=100000` | Keeps metadata for up to 100 000 objects in memory |
-| `no_check_certificate,ssl_verify_hostname=0` | Skips TLS certificate verification — see the [SSL note in the AWS CLI section](#aws-amazon-web-services-cli-command-line-interface) |
+| `no_check_certificate,ssl_verify_hostname=0` | Skips TLS certificate verification (see the [SSL note in the AWS CLI section](#aws-amazon-web-services-cli-command-line-interface)) |
 | `use_sse=custom:<path>` | Enables SSE-C using the base64-encoded key at `<path>` |
 | `passwd_file=` | Path to the `ACCESS_KEY:SECRET_KEY` credentials file |
 
@@ -606,7 +606,7 @@ Point `use_sse=custom:` at this file in your fstab or mount command. Objects wri
 
 :::warning
 
-`updatedb` (the `locate` database indexer) runs on a cron schedule and will walk all mount points, including s3fs mounts. On a bucket with many objects this generates a large number of S3 API calls, spikes CPU, and may trigger the OOM killer. Add your mount point — and the `use_cache` directory — to `PRUNEPATHS` in `/etc/updatedb.conf`:
+`updatedb` (the `locate` database indexer) runs on a cron schedule and will walk all mount points, including s3fs mounts. On a bucket with many objects this generates a large number of S3 API calls, spikes CPU, and may trigger the OOM killer. Add your mount point and the `use_cache` directory to `PRUNEPATHS` in `/etc/updatedb.conf`:
 
 ```
 PRUNEPATHS="... /mnt/my-container /tmp/s3fs"
@@ -620,5 +620,5 @@ PRUNEPATHS="... /mnt/my-container /tmp/s3fs"
 
 **Storage > Settings** shows a usage breakdown for:
 
-- **Object Storage**: total objects stored across all containers, with a quota indicator.
-- **Block Storage**: volumes attached to your tenant's servers.
+- **Object Storage**: total objects stored across all containers, with a quota indicator
+- **Block Storage**: volumes attached to your tenant's servers

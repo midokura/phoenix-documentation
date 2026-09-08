@@ -574,6 +574,8 @@ s3fs#my-container /mnt/my-container fuse _netdev,allow_other,uid=1000,gid=1000,u
 | `use_sse=custom:<path>` | Enables SSE-C using the base64-encoded key at `<path>` |
 | `passwd_file=` | Path to the `ACCESS_KEY:SECRET_KEY` credentials file |
 
+For the full list of options, see the [s3fs man page](https://manpages.ubuntu.com/manpages/noble/man1/s3fs.1.html) or run `man s3fs` on Ubuntu.
+
 After editing `/etc/fstab`, reload systemd and mount:
 
 ```bash

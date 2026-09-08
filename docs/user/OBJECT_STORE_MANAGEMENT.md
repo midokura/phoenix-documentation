@@ -66,11 +66,11 @@ Force-deleting a container permanently removes all objects inside it. This actio
 
 ## Using an S3 Client
 
-Once you have credentials and a container, you can use any S3-compatible client. The endpoint and region are visible in **Storage > Settings**. All examples in this section can be run directly from a tenant VM: the storage endpoint is reachable from inside the platform network without any additional configuration.
+Once you have credentials and a container, you can use any S3-compatible client. The endpoint and region are visible in the Console under **Storage > Settings**. All examples in this section can be run directly from a tenant VM: the storage endpoint is reachable from inside the platform network without any additional configuration.
 
 ### Finding Your Endpoint
 
-The S3 endpoint URL is shown in **Storage > Settings** under **Access endpoint**.
+The S3 endpoint URL is shown in the Console under **Storage > Settings > Access endpoint**.
 
 :::note
 
@@ -97,7 +97,7 @@ aws configure --profile my-storage
 Use the profile with your endpoint:
 
 ```bash
-export S3_ENDPOINT="https://<your-endpoint>"   # from Storage > Settings > Access endpoint
+export S3_ENDPOINT="https://<your-endpoint>"   # Console: Storage > Settings > Access endpoint
 
 # List containers
 aws s3 ls --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
@@ -122,7 +122,7 @@ If your credentials have been rotated or are otherwise stale, the AWS CLI may di
 aws: [ERROR]: argument of type 'NoneType' is not a container or iterable
 ```
 
-This is a known AWS CLI bug triggered by the way this platform's object storage returns authentication errors. The real cause is invalid credentials. Fix it by updating the profile with the current keys from **Storage > Settings**:
+This is a known AWS CLI bug triggered by the way this platform's object storage returns authentication errors. The real cause is invalid credentials. Fix it by updating the profile with the current keys from the Console (**Storage > Settings**):
 
 ```bash
 aws configure set aws_access_key_id <your-new-access-key> --profile <your-profile>
@@ -160,7 +160,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 s3 = boto3.client(
     "s3",
-    endpoint_url="https://<your-endpoint>",   # from Storage > Settings > Access endpoint
+    endpoint_url="https://<your-endpoint>",   # Console: Storage > Settings > Access endpoint
     aws_access_key_id="<your-access-key>",
     aws_secret_access_key="<your-secret-key>",
     region_name="us-east-1",
@@ -286,7 +286,7 @@ boto3 automatically computes the required key checksum — you only need to pass
 **AWS CLI**
 
 ```bash
-export S3_ENDPOINT="https://<your-endpoint>"   # from Storage > Settings > Access endpoint
+export S3_ENDPOINT="https://<your-endpoint>"   # Console: Storage > Settings > Access endpoint
 export KEY_FILE="my-encryption.key.bin"
 aws s3 cp mydata.txt s3://my-container/secret-data.txt --sse-c AES256 --sse-c-key "fileb://$KEY_FILE" --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
 ```
@@ -314,7 +314,7 @@ print(content.decode())
 **AWS CLI**
 
 ```bash
-export S3_ENDPOINT="https://<your-endpoint>"   # from Storage > Settings > Access endpoint
+export S3_ENDPOINT="https://<your-endpoint>"   # Console: Storage > Settings > Access endpoint
 export KEY_FILE="my-encryption.key.bin"
 aws s3 cp s3://my-container/secret-data.txt . --sse-c AES256 --sse-c-key "fileb://$KEY_FILE" --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
 ```
@@ -529,7 +529,7 @@ echo "<your-access-key>:<your-secret-key>" > ~/.passwd-s3fs
 chmod 600 ~/.passwd-s3fs
 ```
 
-Replace the placeholders with the values from **Storage > Settings > Access**.
+Replace the placeholders with the values from the Console (**Storage > Settings > Access**).
 
 ### Mounting manually
 
@@ -559,7 +559,7 @@ s3fs#my-container /mnt/my-container fuse _netdev,allow_other,uid=1000,gid=1000,u
 | `allow_other` | Lets all users access the mount, not just root |
 | `uid=1000,gid=1000` | Maps all objects to this local user and group |
 | `use_path_request_style` | Required: this endpoint uses path-style URLs |
-| `url=` | Your S3 endpoint from **Storage > Settings** |
+| `url=` | Your S3 endpoint from the Console (**Storage > Settings > Access endpoint**) |
 | `use_cache=/tmp/s3fs` | Caches recently accessed objects to local disk |
 | `multipart_size=100` | Splits uploads into 100 MB parts |
 | `parallel_count=8` | Transfers 8 parts concurrently |
@@ -620,7 +620,7 @@ PRUNEPATHS="... /mnt/my-container /tmp/s3fs"
 
 ## Viewing Usage
 
-**Storage > Settings** shows a usage breakdown for:
+The Console (**Storage > Settings**) shows a usage breakdown for:
 
 - **Object Storage**: total objects stored across all containers, with a quota indicator
 - **Block Storage**: volumes attached to your tenant's servers

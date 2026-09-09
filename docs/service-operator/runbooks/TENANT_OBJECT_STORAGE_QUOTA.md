@@ -19,7 +19,7 @@ curl -s -X PUT \
   https://<iaas-api>/api/tenants/$TENANT_ID/quota
 ```
 
-All fields are optional and independent: omitted fields are left unchanged. At least one must be present.
+All fields are optional: omitted fields are left unchanged. At least one field must be provided.
 
 | Field | Unit | Description |
 |---|---|---|
@@ -30,6 +30,14 @@ All fields are optional and independent: omitted fields are left unchanged. At l
 | `ram` | MB | (Optional) RAM |
 
 Use `-1` for any field to set it to unlimited.
+
+:::note
+
+Quota setting and enforcement is asynchronous:
+- After applying a quota via the API, it may take several minutes before RGW reflects the change and begins enforcing it
+- Tenants may slightly exceed their quota before being limited
+
+:::
 
 ---
 
@@ -47,7 +55,7 @@ curl -s -H "Authorization: Bearer $TOKEN" \
 
 ---
 
-## Annex: finding the RGW user for a tenant
+## Annex: Checking the object storage quota in Rados Gateway (RGW)
 
 The IaaS Console tenant ID is used as the OpenStack project **name**. The OpenStack project **ID** (a different UUID) is what RGW uses as the UID base.
 
@@ -58,7 +66,7 @@ The IaaS Console tenant ID is used as the OpenStack project **name**. The OpenSt
 RGW exposes the project name as `display_name` on the implicit user. To find which RGW user corresponds to a given tenant ID, scan all users for a matching `display_name`:
 
 ```bash
-for uid in $(radosgw-admin user list | jq -r '.[]'); do
+radosgw-admin user list | jq -r '.[]' | while read -r uid; do
   display=$(radosgw-admin user info --uid "$uid" 2>/dev/null | jq -r .display_name)
   echo "$uid -> $display"
 done
@@ -83,4 +91,5 @@ Expected output when a 40 TiB quota is set:
 ```
 
 `enabled: true` confirms the quota is active. `max_objects: -1` means no object count limit.
+
 

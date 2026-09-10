@@ -60,13 +60,29 @@ ceph health detail
 ssh <any-control-node>
 ```
 
-Then run inside the node:
+Get the database password from `deployment0` (inside the deployment container):
 
 ```bash
-sudo podman exec mariadb mysql -e "SHOW STATUS LIKE 'wsrep_cluster_size'; SHOW STATUS LIKE 'wsrep_local_state_comment'"
+ansible-vault view /infra-management/config/passwords.yml \
+  --vault-password-file /secrets/vault-key.txt \
+  | grep '^database_password'
+```
+
+Then run inside the control node (note: no space between `-p` and the password):
+
+```bash
+sudo podman exec mariadb mysql -u root -p<db-password> -e "SHOW STATUS LIKE 'wsrep_cluster_size'; SHOW STATUS LIKE 'wsrep_local_state_comment'"
 ```
 
 Expected: `wsrep_cluster_size = 3` and `wsrep_local_state_comment = Synced`.
+
+**Verify no ongoing kolla-ansible operations** — run on `deployment0`:
+
+```bash
+ps aux | grep [k]olla-ansible
+```
+
+Expected: no output (the `[k]` trick excludes the `grep` process itself).
 
 ---
 

@@ -59,12 +59,13 @@ curl -s -H "Authorization: Bearer $TOKEN" \
 
 The IaaS Console tenant ID is used as the OpenStack project **name**. The OpenStack project **ID** (a different UUID) is what RGW uses as the UID base.
 
-| IaaS Console tenant ID | OpenStack project name | OpenStack project ID | RGW user UID |
-|---|---|---|---|
-| `<tenant_id>` | `<tenant_id>` | `<project_id>` | `<project_id>$<project_id>` |
-| `GET /api/tenants` | same as tenant ID, `openstack project list` | `openstack project list` | `radosgw-admin user list` |
+|                | IaaS Console tenant ID                               | OpenStack project name                      | OpenStack project ID                | RGW user UID                |
+|----------------|------------------------------------------------------|---------------------------------------------|-------------------------------------|-----------------------------|
+| **Value**      | `<tenant_id>`                                        | `<tenant_id>`                               | `<project_id>`                      | `<project_id>$<project_id>` |
+| **Obtain via** | `GET /api/tenants`                                   | same as tenant ID, `openstack project list` | `openstack project list`            | `radosgw-admin user list`   |
+| **Run on**     | via the Console [REST API](../OPERATOR_API_GUIDE.md) | OpenStack CLI on deployment bastion         | OpenStack CLI on deployment bastion | any storage node            |
 
-RGW exposes the project name as `display_name` on the implicit user. To find which RGW user corresponds to a given tenant ID, scan all users for a matching `display_name`. Run the following commands on a storage node:
+RGW exposes the project name as `display_name` on the implicit user. To find which RGW user corresponds to a given tenant ID, scan all users for a matching `display_name`. Run the following commands on any storage node:
 
 ```bash
 radosgw-admin user list | jq -r '.[]' | while read -r uid; do

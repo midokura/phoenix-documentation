@@ -110,6 +110,16 @@ mokutil --list-enrolled | grep Issuer
 
 ## BIOS settings
 
+:::tip
+
+To reboot directly into the BIOS setup screen from a running OS:
+
+```bash
+systemctl reboot --firmware-setup
+```
+
+:::
+
 ### SuperMicro 5019
 
 | BIOS path | Setting | Value |

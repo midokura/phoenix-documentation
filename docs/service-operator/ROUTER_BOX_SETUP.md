@@ -15,6 +15,16 @@ This document will guide you through all the necessary steps to have a functiona
 
 ## BIOS Configuration
 
+:::tip
+
+To reboot directly into the BIOS setup screen from a running OS:
+
+```bash
+systemctl reboot --firmware-setup
+```
+
+:::
+
 ### BIOS Update
 Update to v1.27 or higher if at a lower version.
 

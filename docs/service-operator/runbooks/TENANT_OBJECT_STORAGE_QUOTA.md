@@ -62,8 +62,9 @@ The IaaS Console tenant ID is used as the OpenStack project **name**. The OpenSt
 | IaaS Console tenant ID | OpenStack project name | OpenStack project ID | RGW user UID |
 |---|---|---|---|
 | `<tenant_id>` | `<tenant_id>` | `<project_id>` | `<project_id>$<project_id>` |
+| `GET /api/tenants` | same as tenant ID, `openstack project list` | `openstack project list` | `radosgw-admin user list` |
 
-RGW exposes the project name as `display_name` on the implicit user. To find which RGW user corresponds to a given tenant ID, scan all users for a matching `display_name`:
+RGW exposes the project name as `display_name` on the implicit user. To find which RGW user corresponds to a given tenant ID, scan all users for a matching `display_name`. Run the following commands on a storage node:
 
 ```bash
 radosgw-admin user list | jq -r '.[]' | while read -r uid; do

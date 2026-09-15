@@ -1,0 +1,8 @@
+{
+  "label": "Runbooks",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "Runbooks for service operators to solve some issues manually."
+  }
+}

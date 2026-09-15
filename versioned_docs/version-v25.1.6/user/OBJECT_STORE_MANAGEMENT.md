@@ -1,0 +1,627 @@
+# Object Store Management
+
+Managing S3-compatible object storage containers and credentials
+
+The platform provides S3-compatible (Simple Storage Service-compatible) object storage for each tenant. You can create named containers (buckets), manage access credentials, and use any standard S3 client to upload, download, and manage objects.
+
+---
+
+## Navigation
+
+Click **Storage** in the left sidebar to open the Shared Storage page. It shows your containers and their sizes. Click **Settings** to manage credentials and view usage.
+
+---
+
+## Managing Credentials
+
+Object storage access uses S3-compatible credentials: an access key and a secret key. You generate these once per tenant and use them with any S3 client.
+
+### Generating Credentials
+
+1. Click **Storage** in the left sidebar.
+2. Click **Settings**.
+3. Under **Access**, click **Generate Credentials**.
+4. Copy both the **Access key** and **Secret key** immediately. The secret key is not shown again after you leave the page.
+
+### Rotating Credentials
+
+Rotating replaces the existing key pair immediately. Any client using the old secret key will lose access at once.
+
+1. In the **Settings** panel, click **Rotate** next to the existing credentials.
+2. Confirm the rotation in the dialog.
+3. Copy and save the new key pair.
+
+### Deleting Credentials
+
+Deleting revokes all S3 access until new credentials are generated.
+
+1. In the **Settings** panel, click **Delete** next to the credentials.
+2. Confirm the deletion.
+
+---
+
+## Managing Containers
+
+Containers are named buckets that hold your objects.
+
+### Creating a Container
+
+1. On the **Storage** page, click **Create Storage**.
+2. Enter a container name.
+3. Click **Create**.
+
+### Deleting a Container
+
+1. On the **Storage** page, click the delete icon on the container row.
+2. If the container is empty, it is deleted immediately.
+3. If the container still has objects, a confirmation dialog appears. Enter the container name and click **Force Delete** to remove it along with all its contents.
+
+:::warning
+
+Force-deleting a container permanently removes all objects inside it. This action cannot be undone.
+
+:::
+
+---
+
+## Using an S3 Client
+
+Once you have credentials and a container, you can use any S3-compatible client. The endpoint and region are visible in the Console under **Storage > Settings**. All examples in this section can be run directly from a tenant VM: the storage endpoint is reachable from inside the platform network without any additional configuration.
+
+### Finding Your Endpoint
+
+The S3 endpoint URL is shown in the Console under **Storage > Settings > Access endpoint**.
+
+:::note
+
+The endpoint is only displayed after you have created at least one container. If you see no endpoint, create a container first and then return to **Settings**.
+
+:::
+
+The region must be set to `us-east-1` in your client. This does not affect where your data is stored: it is a required field in the S3 protocol, and `us-east-1` is the value configured for this platform. Your data stays on the local infrastructure where the platform is deployed.
+
+### AWS (Amazon Web Services) CLI (Command-Line Interface)
+
+See the [AWS CLI installation guide](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) if you need to install it first.
+
+Configure a named profile:
+
+```bash
+aws configure --profile my-storage
+# AWS Access Key ID: <your-access-key>
+# AWS Secret Access Key: <your-secret-key>
+# Default region name: us-east-1
+# Default output format: json
+```
+
+Use the profile with your endpoint:
+
+```bash
+export S3_ENDPOINT="https://<your-endpoint>"   # Console: Storage > Settings > Access endpoint
+
+# List containers
+aws s3 ls --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
+
+# Upload a file
+aws s3 cp myfile.txt s3://my-container/ --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
+
+# Download a file
+aws s3 cp s3://my-container/myfile.txt . --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
+
+# Sync a directory
+aws s3 sync ./data s3://my-container/data --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
+```
+
+The platform issues certificates from its own internal CA (Certificate Authority), which is not in the default trust store of the AWS CLI. `--no-verify-ssl` bypasses certificate verification but does not disable encryption: your traffic is still encrypted in transit. On a private internal network this is not a security concern, because a MITM (Man-in-the-Middle) attack would require the attacker to already be inside that network. If your environment distributes the platform's CA bundle (a `.crt` or `.pem` file), pass `--ca-bundle /path/to/ca-bundle.crt` instead and omit `--no-verify-ssl`.
+
+#### Troubleshooting: cryptic error after credential rotation
+
+If your credentials have been rotated or are otherwise stale, the AWS CLI may display a misleading error instead of a clear authentication failure:
+
+```
+aws: [ERROR]: argument of type 'NoneType' is not a container or iterable
+```
+
+This is a known AWS CLI bug triggered by the way this platform's object storage returns authentication errors. The real cause is invalid credentials. Fix it by updating the profile with the current keys from the Console (**Storage > Settings**):
+
+```bash
+aws configure set aws_access_key_id <your-new-access-key> --profile <your-profile>
+aws configure set aws_secret_access_key <your-new-secret-key> --profile <your-profile>
+```
+
+### Python (boto3)
+
+boto3 is the Python library for interacting with S3-compatible storage. Install it inside a virtual environment. Use whichever tool you prefer:
+
+```bash
+# standard library venv
+python -m venv .venv && source .venv/bin/activate
+
+# conda
+conda create -n my-env python && conda activate my-env
+
+# uv (fast, drop-in pip replacement)
+uv venv && source .venv/bin/activate
+```
+
+Then install:
+
+```bash
+pip install boto3
+```
+
+Create a client pointing to your endpoint:
+
+```python
+import boto3
+import urllib3
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+s3 = boto3.client(
+    "s3",
+    endpoint_url="https://<your-endpoint>",   # Console: Storage > Settings > Access endpoint
+    aws_access_key_id="<your-access-key>",
+    aws_secret_access_key="<your-secret-key>",
+    region_name="us-east-1",
+    verify=False,  # disables certificate verification (see note below)
+)
+```
+
+The connection uses HTTPS, so all traffic between your client and the platform is encrypted in transit. `verify=False` does **not** disable encryption: it disables certificate *verification*, the check that the server's TLS certificate was signed by a well-known public Certificate Authority. The platform issues certificates from its own internal CA, which is not in the default trust store of most clients. On a private internal network this is not a security concern, because a MITM attack would require the attacker to already be inside that network. The `urllib3.disable_warnings` call (urllib3 is boto3's underlying HTTP library) suppresses the harmless warnings that `verify=False` triggers. If your environment distributes the platform's CA bundle (a file ending in `.crt` or `.pem`), pass its path as `verify="/path/to/ca-bundle.crt"` instead and remove the `disable_warnings` line.
+
+#### Container operations
+
+```python
+# Create a container
+s3.create_bucket(Bucket="my-container")
+
+# List all containers
+response = s3.list_buckets()
+for bucket in response["Buckets"]:
+    print(bucket["Name"])
+
+# Delete an empty container
+s3.delete_bucket(Bucket="my-container")
+```
+
+#### Object operations
+
+```python
+# Upload a file from disk
+s3.upload_file("myfile.txt", "my-container", "myfile.txt")
+
+# Upload in-memory content directly
+s3.put_object(Bucket="my-container", Key="hello.txt", Body=b"Hello, world!")
+
+# List objects in a container
+response = s3.list_objects_v2(Bucket="my-container")
+for obj in response.get("Contents", []):
+    print(obj["Key"], obj["Size"])
+
+# Download a file to disk
+s3.download_file("my-container", "myfile.txt", "myfile-downloaded.txt")
+
+# Read an object directly into memory
+response = s3.get_object(Bucket="my-container", Key="hello.txt")
+content = response["Body"].read()   # bytes
+
+# Delete a single object
+s3.delete_object(Bucket="my-container", Key="myfile.txt")
+
+# Delete multiple objects at once
+s3.delete_objects(
+    Bucket="my-container",
+    Delete={
+        "Objects": [{"Key": "file1.txt"}, {"Key": "file2.txt"}],
+    },
+)
+```
+
+---
+
+## Server-Side Encryption (SSE-C)
+
+SSE-C lets you encrypt objects using a key you generate and control. The storage service uses your key to encrypt data at rest but never stores the key itself: only you hold it. This means:
+
+- Nobody but you can read the encrypted objects, even with full server access
+- If you lose the key, the data is permanently unreadable
+- You must supply the same key every time you read the object
+- **SSE-C keys are independent of your S3 credentials**: rotating your access key and secret key in the console does not affect encrypted objects; you can still read them with the original encryption key and the new S3 credentials
+
+:::warning
+
+Store your encryption key securely (for example, in a secrets manager or an encrypted file). There is no key recovery mechanism. Losing the key means losing access to all objects encrypted with it.
+
+:::
+
+### Generating an encryption key
+
+```python
+import os
+import base64
+
+# Generate a random 256-bit (32-byte) AES (Advanced Encryption Standard) key
+key_bytes = os.urandom(32)
+
+# Save this to a file or secrets store — you'll need it every time you access the data
+with open("my-encryption.key.bin", "wb") as f:
+    f.write(key_bytes)
+
+print("Key (base64):", base64.b64encode(key_bytes).decode())
+```
+
+Run this once and keep the file safe. Re-use the same `key_bytes` for all uploads you want to decrypt later.
+
+The snippets below assume you already have an `s3` client created as shown in the [Python (boto3)](#python-boto3) section above.
+
+**AWS CLI**
+
+```bash
+openssl rand -out my-encryption.key.bin 32
+chmod 600 my-encryption.key.bin
+```
+
+### Uploading an encrypted object
+
+```python
+import os
+
+# Load the key you generated earlier
+with open("my-encryption.key.bin", "rb") as f:
+    key_bytes = f.read()
+
+s3.put_object(
+    Bucket="my-container",
+    Key="secret-data.txt",
+    Body=b"This content is encrypted at rest.",
+    SSECustomerAlgorithm="AES256",
+    SSECustomerKey=key_bytes,
+)
+print("Uploaded and encrypted.")
+```
+
+boto3 automatically computes the required key checksum — you only need to pass `key_bytes`.
+
+**AWS CLI**
+
+```bash
+export S3_ENDPOINT="https://<your-endpoint>"   # Console: Storage > Settings > Access endpoint
+export KEY_FILE="my-encryption.key.bin"
+aws s3 cp mydata.txt s3://my-container/secret-data.txt --sse-c AES256 --sse-c-key "fileb://$KEY_FILE" --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
+```
+
+The `fileb://` prefix tells the AWS CLI to read the key file as binary and handle the encoding internally. See the [AWS SSE-C documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerSideEncryptionCustomerKeys.html) for more details.
+
+### Downloading an encrypted object
+
+You must provide the same key you used during upload. Without it the request is rejected.
+
+```python
+with open("my-encryption.key.bin", "rb") as f:
+    key_bytes = f.read()
+
+response = s3.get_object(
+    Bucket="my-container",
+    Key="secret-data.txt",
+    SSECustomerAlgorithm="AES256",
+    SSECustomerKey=key_bytes,
+)
+content = response["Body"].read()
+print(content.decode())
+```
+
+**AWS CLI**
+
+```bash
+export S3_ENDPOINT="https://<your-endpoint>"   # Console: Storage > Settings > Access endpoint
+export KEY_FILE="my-encryption.key.bin"
+aws s3 cp s3://my-container/secret-data.txt . --sse-c AES256 --sse-c-key "fileb://$KEY_FILE" --profile my-storage --endpoint-url "$S3_ENDPOINT" --no-verify-ssl
+```
+
+### Downloading to a file on disk
+
+```python
+with open("my-encryption.key.bin", "rb") as f:
+    key_bytes = f.read()
+
+s3.download_file(
+    "my-container",
+    "secret-data.txt",
+    "secret-data-local.txt",      # local path to save to
+    ExtraArgs={
+        "SSECustomerAlgorithm": "AES256",
+        "SSECustomerKey": key_bytes,
+    },
+)
+```
+
+### Uploading a local file with encryption
+
+```python
+with open("my-encryption.key.bin", "rb") as f:
+    key_bytes = f.read()
+
+s3.upload_file(
+    "mydata.csv",                  # local file to upload
+    "my-container",
+    "mydata.csv",                  # name it will have in the container
+    ExtraArgs={
+        "SSECustomerAlgorithm": "AES256",
+        "SSECustomerKey": key_bytes,
+    },
+)
+```
+
+### Managing encryption keys
+
+#### Storing your key safely
+
+Never hardcode a key in a script. The safest options, in increasing order of robustness:
+
+**Environment variable**: good for one-off scripts and CI (Continuous Integration) pipelines:
+
+```python
+import os, base64
+
+# Set once in your shell: export SSE_KEY=$(python -c "import os,base64; print(base64.b64encode(os.urandom(32)).decode())")
+key_b64 = os.environ["SSE_KEY"]
+enc_key = base64.b64decode(key_b64)
+```
+
+**Restricted key file**: good for long-lived workloads:
+
+```bash
+# Generate and save with strict permissions
+python -c "import os; open('my.key','wb').write(os.urandom(32))"
+chmod 600 my.key
+```
+
+```python
+with open("my.key", "rb") as f:
+    enc_key = f.read()
+```
+
+**Secrets manager** — recommended for production. A secrets manager is a dedicated service for storing and retrieving sensitive values such as passwords and encryption keys. Azure Key Vault is a good fit for this. Store the key as a base64 string secret and retrieve it at runtime via the Azure SDK.
+
+#### Using different keys per object or container
+
+You are not limited to one key. Encrypting different containers or objects with different keys limits the impact if a key is ever compromised: only the objects encrypted with that key are exposed.
+
+```python
+# Each dataset gets its own key
+with open("dataset-a.key", "rb") as f:
+    key_a = f.read()
+
+with open("dataset-b.key", "rb") as f:
+    key_b = f.read()
+
+data_a = open("dataset-a.csv", "rb").read()   # your data
+data_b = open("dataset-b.csv", "rb").read()
+
+s3.put_object(Bucket="my-container", Key="dataset-a/file.csv", Body=data_a,
+              SSECustomerAlgorithm="AES256", SSECustomerKey=key_a)
+
+s3.put_object(Bucket="my-container", Key="dataset-b/file.csv", Body=data_b,
+              SSECustomerAlgorithm="AES256", SSECustomerKey=key_b)
+```
+
+#### Rotating an encryption key
+
+There is no server-side re-encryption operation available: rotating the key requires downloading the object with the old key and re-uploading it with the new one. For large objects this is bandwidth- and time-intensive, so the best strategy is to keep your encryption keys well-protected to minimise how often rotation is needed.
+
+```python
+import os
+
+# Load the current key
+with open("my-encryption.key.bin", "rb") as f:
+    old_key = f.read()
+
+# Generate a new key
+new_key = os.urandom(32)
+
+# Download with the old key
+response = s3.get_object(
+    Bucket="my-container",
+    Key="secret.txt",
+    SSECustomerAlgorithm="AES256",
+    SSECustomerKey=old_key,
+)
+data = response["Body"].read()
+
+# Re-upload with the new key (overwrites the object)
+s3.put_object(
+    Bucket="my-container",
+    Key="secret.txt",
+    Body=data,
+    SSECustomerAlgorithm="AES256",
+    SSECustomerKey=new_key,
+)
+
+# Only save the new key and discard the old one after confirming the re-upload succeeded
+with open("my-encryption.key.bin", "wb") as f:
+    f.write(new_key)
+```
+
+### Complete example script
+
+The following script shows the full flow from scratch: create a container, generate a key, upload an encrypted file, read it back, and clean up.
+
+```python
+import os
+import boto3
+import urllib3
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+S3_ENDPOINT = "https://<your-endpoint>"
+ACCESS_KEY  = "<your-access-key>"
+SECRET_KEY  = "<your-secret-key>"
+BUCKET      = "my-test-bucket"
+OBJECT_KEY  = "hello-encrypted.txt"
+
+s3 = boto3.client(
+    "s3",
+    endpoint_url=S3_ENDPOINT,
+    aws_access_key_id=ACCESS_KEY,
+    aws_secret_access_key=SECRET_KEY,
+    region_name="us-east-1",
+    verify=False,
+)
+
+# 1. Create container
+s3.create_bucket(Bucket=BUCKET)
+print(f"Created bucket: {BUCKET}")
+
+# 2. Generate encryption key (save this — losing it means losing the data)
+enc_key = os.urandom(32)
+
+# 3. Upload encrypted object
+s3.put_object(
+    Bucket=BUCKET,
+    Key=OBJECT_KEY,
+    Body=b"Hello from ISYS! This is encrypted at rest.",
+    SSECustomerAlgorithm="AES256",
+    SSECustomerKey=enc_key,
+)
+print(f"Uploaded encrypted object: {OBJECT_KEY}")
+
+# 4. Read it back (requires the same key)
+response = s3.get_object(
+    Bucket=BUCKET,
+    Key=OBJECT_KEY,
+    SSECustomerAlgorithm="AES256",
+    SSECustomerKey=enc_key,
+)
+print("Retrieved content:", response["Body"].read().decode())
+
+# 5. Delete object and bucket
+s3.delete_object(Bucket=BUCKET, Key=OBJECT_KEY)
+s3.delete_bucket(Bucket=BUCKET)
+print("Cleaned up.")
+```
+
+---
+
+## Mounting a Container as a Local Filesystem (s3fs)
+
+s3fs is a FUSE driver that mounts an S3-compatible container as a regular directory. This lets you read and write objects using standard tools (`cp`, `rsync`, `find`) without writing any S3-specific code.
+
+:::note
+
+s3fs is not a general-purpose filesystem replacement. Directory listings and metadata operations require one or more S3 API calls each, so they are slower than on a local disk. It works well for bulk file transfers and background workloads; avoid it for databases or applications that perform many small random reads and writes.
+
+:::
+
+### Installing s3fs
+
+```bash
+sudo apt install s3fs        # Ubuntu / Debian
+sudo dnf install s3fs-fuse   # RHEL / Rocky
+```
+
+### Creating the credentials file
+
+s3fs reads credentials from a file in the format `ACCESS_KEY:SECRET_KEY`:
+
+```bash
+echo "<your-access-key>:<your-secret-key>" > ~/.passwd-s3fs
+chmod 600 ~/.passwd-s3fs
+```
+
+Replace the placeholders with the values from the Console (**Storage > Settings > Access**).
+
+### Mounting manually
+
+```bash
+sudo mkdir -p /mnt/my-container
+s3fs my-container /mnt/my-container \
+  --use-path-request-style \
+  -o url=https://<your-endpoint>/ \
+  -o passwd_file=~/.passwd-s3fs \
+  -o no_check_certificate \
+  -o ssl_verify_hostname=0
+```
+
+Verify the mount with `ls /mnt/my-container`. Unmount with `fusermount -u /mnt/my-container` (or `sudo umount /mnt/my-container`).
+
+### Mounting at boot via /etc/fstab
+
+For a persistent mount that starts automatically with the system, add an entry to `/etc/fstab`. The line below uses the full set of options validated in production. Omit `use_sse` if you are not using [server-side encryption](#server-side-encryption-sse-c).
+
+```
+s3fs#my-container /mnt/my-container fuse _netdev,allow_other,uid=1000,gid=1000,use_path_request_style,url=https://<your-endpoint>/,use_cache=/tmp/s3fs,multipart_size=100,parallel_count=8,big_writes,kernel_cache,umask=0022,enable_noobj_cache,retries=5,ensure_diskfree=1000,connect_timeout=180,max_dirty_data=1024,max_stat_cache_size=100000,passwd_file=/home/<user>/.passwd-s3fs,use_sse=custom:/home/<user>/.s3fs-sse-c-key.base64.txt,no_check_certificate,ssl_verify_hostname=0 0 0
+```
+
+| Option | Effect |
+|--------|--------|
+| `_netdev` | Delays mount until the network is up |
+| `allow_other` | Lets all users access the mount, not just root |
+| `uid=1000,gid=1000` | Maps all objects to this local user and group |
+| `use_path_request_style` | Required: this endpoint uses path-style URLs |
+| `url=` | Your S3 endpoint from the Console (**Storage > Settings > Access endpoint**) |
+| `use_cache=/tmp/s3fs` | Caches recently accessed objects to local disk |
+| `multipart_size=100` | Splits uploads into 100 MB parts |
+| `parallel_count=8` | Transfers 8 parts concurrently |
+| `big_writes` | Enables larger write buffers for better throughput |
+| `kernel_cache` | Caches file data in the kernel page cache |
+| `enable_noobj_cache` | Caches negative lookups, speeding up repeated `ls` |
+| `retries=5` | Retries failed S3 requests up to 5 times |
+| `ensure_diskfree=1000` | Pauses caching when less than 1 GB remains on the cache disk |
+| `max_dirty_data=1024` | Flushes to S3 when in-memory dirty data reaches 1 GB |
+| `max_stat_cache_size=100000` | Keeps metadata for up to 100 000 objects in memory |
+| `no_check_certificate,ssl_verify_hostname=0` | Skips TLS certificate verification (see the [SSL note in the AWS CLI section](#aws-amazon-web-services-cli-command-line-interface)) |
+| `use_sse=custom:<path>` | Enables SSE-C using the base64-encoded key at `<path>` |
+| `passwd_file=` | Path to the `ACCESS_KEY:SECRET_KEY` credentials file |
+| `bucket_size=` | (Optional) Advertised size of the mounted bucket reported to the OS. Set this to your storage quota so that tools like `df` show a meaningful value instead of the s3fs default. For example, `bucket_size=40TiB` |
+
+For the full list of options, see the [s3fs man page](https://manpages.ubuntu.com/manpages/noble/man1/s3fs.1.html) or run `man s3fs` on Ubuntu.
+
+After editing `/etc/fstab`, reload systemd and mount:
+
+```bash
+sudo systemctl daemon-reload
+sudo mount /mnt/my-container
+```
+
+### SSE-C with s3fs
+
+s3fs expects the SSE-C key as a file containing the raw base64 string. If you already have a binary key from the [SSE-C section](#server-side-encryption-sse-c), convert it:
+
+```bash
+base64 -w0 my-encryption.key.bin > ~/.s3fs-sse-c-key.base64.txt
+chmod 600 ~/.s3fs-sse-c-key.base64.txt
+```
+
+Point `use_sse=custom:` at this file in your fstab or mount command. Objects written with one key cannot be read with a different key, so use the same file consistently.
+
+### Limitations
+
+- **Directory listings are slow**: the first `ls` after a remount takes around 5 s (cold cache); subsequent calls drop to under 1 s once the stat cache is warm
+- **No atomic rename**: renaming a file or directory rewrites the object rather than doing an atomic server-side move, breaking applications that write to a temp file and rename it into place
+- **Random writes rewrite the whole object**: any write that is not a simple append triggers a full re-upload of the object (using multipart copy for large files); avoid workloads with frequent in-place edits
+- **No coordination between clients**: multiple machines mounting the same bucket see no locking; concurrent writes to the same object produce undefined results
+- **No hard links**
+- **inotify only tracks local changes**: modifications made by another client or tool are invisible to inotify watchers on this mount
+- **Eventual consistency**: this platform uses Ceph-backed object storage, which may briefly return stale data after an object is overwritten or deleted by another client
+- **Data is flushed on `close()`, not on write**: writes are buffered locally and uploaded to S3 only when the file is closed (or `fsync` is called); a crash before `close()` means buffered data is lost
+- **Files created by other tools show no permissions**: objects uploaded via the console, AWS CLI, or boto3 lack the `x-amz-meta-mode/uid/gid` headers that s3fs relies on to determine permissions, so they show up with no read, write, or execute bits set; the `uid`, `gid`, and `umask` mount options already set in the fstab above apply a default for these objects
+
+:::warning
+
+`updatedb` (the `locate` database indexer) runs on a cron schedule and will walk all mount points, including s3fs mounts. On a bucket with many objects this generates a large number of S3 API calls, spikes CPU, and may trigger the OOM killer. Add your mount point and the `use_cache` directory to `PRUNEPATHS` in `/etc/updatedb.conf`:
+
+```
+PRUNEPATHS="... /mnt/my-container /tmp/s3fs"
+```
+
+:::
+
+---
+
+## Viewing Usage
+
+The Console (**Storage > Settings**) shows a usage breakdown for:
+
+- **Object Storage**: total objects stored across all containers, with a quota indicator
+- **Block Storage**: volumes attached to your tenant's servers

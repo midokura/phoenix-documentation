@@ -32,7 +32,7 @@ Update to v1.27 or higher if at a lower version.
 1. Access BIOS setup screen
 2. Enter MEBx
 3. Enable by setting a complex password with special charaters, capital letters and numbers (default `admin:admin`)
-4. Access AMT Network Setup and set to a static IP that belongs to the BMC IP subnet.
+4. Access AMT Network Setup and set to a static IP that belongs to the BMC IP subnet, `mgmt`
 5. Under **Network Setup**, set **Network Access State** to `Network Active`
 6. Under **User Consent**, set **User Opt-in** to `NONE`
 7. Under **User Consent**, set **Opt-in Configurable from Remote IT** to `Enabled`
@@ -99,7 +99,7 @@ autoinstall:
       # │   │  ░░░░░  │  │  ░░░░░  │  │  └───┘  │  │  └───┘  │          │
       # │   └─────────┘  └─────────┘  └─────────┘  └─────────┘          │
       # │   enp2s0f0np1  enp2s0f0np0    enp89s0     enp87s0             │
-      # │                                                               │
+      # │                               (AMT)                           │
       # │   ◄─────────────────── LEFT TO RIGHT ───────────────────►     │
       # └───────────────────────────────────────────────────────────────┘
       enp2s0f1np1: { dhcp4: false, dhcp6: false, accept-ra: false, optional: true }

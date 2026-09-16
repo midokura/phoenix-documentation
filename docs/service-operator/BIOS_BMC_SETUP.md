@@ -203,6 +203,7 @@ Boot priority and UEFI Network Drive BBS Priorities: same as 5019 above.
 ## MS-01 (Intel AMT)
 
 The MS-01 uses Intel Active Management Technology (AMT) for out-of-band management instead of a dedicated BMC.
+The port AMT uses is the leftmost Ethernet port (closest to the embedded SFP+ ports).
 
 ### BIOS update
 
@@ -254,6 +255,8 @@ After completing the BIOS settings:
 
 ### Connecting via AMT
 
+AMT can only be reached from a **different physical host** — connecting from the MS-01 itself to its own AMT interface is not reliable.
+
 Use [MeshCommander](https://www.meshcommander.com/) (bundled in the `meshcmd` tool) to connect to an AMT device:
 
 ```bash
@@ -270,3 +273,19 @@ Open http://localhost:3000, then:
    - **Hostname**: `<inventory-name>.<environment-tld>` — the DHCP/DNS entry configured in the routers
    - **Auth / Security**: Digest / TLS
 3. **OK**, then **Connect**
+
+::note
+
+When AMT communicates over the shared Ethernet port, Linux on the same machine will see packets whose
+source MAC address is the same as its own interface address, that it did not send.
+The kernel logs an error for each such packet such as:
+
+```
+received packet on enp89s0 with own address as source address
+```
+
+This is expected behavior. To suppress it, override the interface's MAC address in Linux
+(for example via the `macaddress` key in Netplan) so the kernel no longer considers
+the AMT-sourced MAC as its own.
+
+:::

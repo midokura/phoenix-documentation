@@ -203,6 +203,7 @@ Boot priority and UEFI Network Drive BBS Priorities: same as 5019 above.
 ## MS-01 (Intel AMT)
 
 The MS-01 uses Intel Active Management Technology (AMT) for out-of-band management instead of a dedicated BMC.
+The port AMT uses is the leftmost Ethernet port (closest to the embedded SFP+ ports).
 
 ### BIOS update
 

@@ -49,7 +49,7 @@ slug: v${MINOR_VERSION}
 title: AIsware v${MINOR_VERSION}
 date: $(date +%Y-%m-%d)
 authors: [midoteam]
-tags: [aifactory]
+tags: [aisware]
 ---
 
 Version ${MINOR_VERSION} of AIsware is now available.
@@ -70,7 +70,7 @@ slug: v${MINOR_VERSION}
 title: Upgrade to AIsware v${MINOR_VERSION}
 date: $(date +%Y-%m-%d)
 authors: [midoteam]
-tags: [aifactory]
+tags: [aisware]
 ---
 
 <!-- truncate -->

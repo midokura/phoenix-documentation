@@ -255,6 +255,8 @@ After completing the BIOS settings:
 
 ### Connecting via AMT
 
+AMT can only be reached from a **different physical host** — connecting from the MS-01 itself to its own AMT interface is not reliable.
+
 Use [MeshCommander](https://www.meshcommander.com/) (bundled in the `meshcmd` tool) to connect to an AMT device:
 
 ```bash

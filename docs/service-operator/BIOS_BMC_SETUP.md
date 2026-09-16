@@ -271,3 +271,19 @@ Open http://localhost:3000, then:
    - **Hostname**: `<inventory-name>.<environment-tld>` — the DHCP/DNS entry configured in the routers
    - **Auth / Security**: Digest / TLS
 3. **OK**, then **Connect**
+
+::note
+
+When AMT communicates over the shared Ethernet port, Linux on the same machine will see packets whose
+source MAC address is the same as its own interface address, that it did not send.
+The kernel logs an error for each such packet such as:
+
+```
+received packet on enp89s0 with own address as source address
+```
+
+This is expected behavior. To suppress it, override the interface's MAC address in Linux
+(for example via the `macaddress` key in Netplan) so the kernel no longer considers
+the AMT-sourced MAC as its own.
+
+:::

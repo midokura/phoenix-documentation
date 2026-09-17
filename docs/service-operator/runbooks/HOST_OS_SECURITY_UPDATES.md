@@ -21,6 +21,7 @@ Each physical node role requires a different pre/post sequence because of what i
 | **Storage** | storage0, storage1, storage2 | Ceph OSD, MON, MGR, RGW | Enter Ceph maintenance mode. Re-add to RGW after |
 
 :::warning
+
 **Never update more than one node of the same role at the same time.** Galera requires a majority (2 of 3) to stay healthy. With `osd_replication: 2`, Ceph has only one copy of some data when a storage node is offline. Finish one node and verify cluster health before you move to the next node.
 :::
 

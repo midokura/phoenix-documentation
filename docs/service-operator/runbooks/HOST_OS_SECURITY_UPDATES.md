@@ -26,13 +26,6 @@ Never update more than one node of the same role at the same time. Galera requir
 
 :::
 
-**Hostnames by location:**
-
-| Location | Control nodes | Compute nodes | Storage nodes |
-|---|---|---|---|
-| TYO | control{0,1,2}.phoenix.tyo | gpu{0,1}.phoenix.tyo | storage{0,1,2}.phoenix.tyo |
-| ISYS | control{0,1,2}.isys | gpu{0,1}.isys | storage{0,1,2}.isys |
-
 ---
 
 ## Pre-flight checklist

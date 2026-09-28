@@ -88,7 +88,7 @@ all:
     iaas_console:
       azure_client_id: "6088c67f-45dd-4bca-b08c-c6fbcd26c40b"
       azure_tenant_id: "c36da824-36c5-4f3d-ae7c-a9e880782886"
-      azure_redirect_uri: "https://console.phoenix-gpu.com/api/auth/azure/callback"
+      azure_redirect_uri: "https://console.example.aifactory.midokura.jp/api/auth/azure/callback"
       azure_client_secret: !vault |
         $ANSIBLE_VAULT;1.1;AES256
         ...

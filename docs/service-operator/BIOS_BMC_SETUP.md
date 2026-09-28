@@ -274,6 +274,12 @@ Open http://localhost:3000, then:
    - **Auth / Security**: Digest / TLS
 3. **OK**, then **Connect**
 
+:::note
+The AMT remote screen (KVM) feature requires a physically connected display output.
+Without one, the remote screen will not function properly.
+Use a dummy HDMI or USB-C EDID plug to enable the required active video output.
+:::
+
 ::note
 
 When AMT communicates over the shared Ethernet port, Linux on the same machine will see packets whose

@@ -137,7 +137,11 @@ The alert has cleared and no new `VNI is already used in` errors appear in Loki.
 
 ### No `VNI is already used in` errors in Loki
 
-The heartbeat failure has a different root cause. Collect the full ERROR output for further investigation:
+Check whether `fabric_agent_agent_heartbeats_total` has any data in Prometheus at all:
+
+- **No data** — go to [Scenario B](#scenario-b-no-data-in-prometheus-alert-fires-immediately).
+- **Data exists but is consistently behind real time** — go to [Scenario C](#scenario-c-data-present-but-grafana-shows-a-persistent-time-lag).
+- **Data exists and is current** — collect the full ERROR output for further investigation:
 
 ```
 {job="hedgehog-agent"} |= `ERROR`
@@ -150,3 +154,95 @@ The tenant may have already been cleaned up automatically. Re-run the Loki query
 ### Alert does not clear after 10 minutes
 
 Re-run the Loki query. If a new batch of `VNI is already used in` errors appears with a different VRF prefix, a second tenant creation has raced the same VNI. Repeat Steps 2–4 for the new prefix.
+
+---
+
+## Scenario B: No data in Prometheus (alert fires immediately)
+
+**Symptom:** Searching for `fabric_agent_agent_heartbeats_total` in Prometheus returns no results at all. The alert fires as "No data".
+
+### B.1 Check that Alloy is running on the switches
+
+SSH to each switch (`172.30.0.7` and `172.30.0.8`) and run:
+
+```bash
+ps aux | grep alloy
+```
+
+You should see a line with `/opt/hedgehog/bin/alloy run ...`.
+
+If the process is missing, start it manually. Alloy will not restart on its own if it stops:
+
+```bash
+sudo -u alloy /opt/hedgehog/bin/alloy run \
+  --server.http.listen-addr=<switch-ip>:7043 \
+  --cluster.enabled=false \
+  --disable-reporting \
+  --storage.path=/var/lib/alloy \
+  /etc/sonic/hedgehog/config.alloy &
+```
+
+### B.2 Fix: restart CoreDNS on hedgehog0
+
+If Alloy is running but metrics are still missing, restart CoreDNS on `hedgehog0`.
+
+SSH to `hedgehog0` and run:
+
+```bash
+sudo kubectl --kubeconfig /etc/rancher/k3s/k3s.yaml -n kube-system delete pod -l k8s-app=kube-dns
+```
+
+Wait 30 seconds for the new pod to start.
+
+### B.3 Verify
+
+In Grafana → Explore (Prometheus), run:
+
+```
+fabric_agent_agent_heartbeats_total
+```
+
+Results should appear within a few minutes. The alert clears within ~12 minutes.
+
+:::note
+Metrics from an outage longer than 2 hours will not be recovered.
+:::
+
+---
+
+## Scenario C: Data present but Grafana shows a persistent time lag
+
+**Symptom:** `fabric_agent_*` metrics exist in Prometheus. All data points are behind real time by tens of minutes. The gap does not close on its own.
+
+### C.1 Check the switch clock
+
+SSH to each switch and run:
+
+```bash
+timedatectl status
+```
+
+Look at **Local time** and **RTC time**. If RTC time is more than a few minutes ahead and `System clock synchronized: no`, the clock has drifted behind real time:
+
+```
+Local time: Tue 2026-09-29 11:34:57 UTC
+  RTC time: Tue 2026-09-29 12:19:57       ← clock is 45 minutes behind
+System clock synchronized: no
+```
+
+### C.2 Fix: set the system clock from the hardware clock
+
+Run on both switches (`172.30.0.7` and `172.30.0.8`):
+
+```bash
+sudo hwclock --hctosys
+date   # confirm the time jumped forward
+```
+
+### C.3 Verify
+
+The time lag in Grafana should close within 60 seconds. The alert clears within ~12 minutes.
+
+:::warning
+This is a manual fix. The clock will drift again after a switch reboot.
+:::

@@ -189,10 +189,10 @@ If Alloy is running but metrics are still missing, restart CoreDNS on `hedgehog0
 SSH to `hedgehog0` and run:
 
 ```bash
-sudo kubectl --kubeconfig /etc/rancher/k3s/k3s.yaml -n kube-system delete pod -l k8s-app=kube-dns
+sudo kubectl --kubeconfig /etc/rancher/k3s/k3s.yaml -n kube-system rollout restart deployment/coredns
 ```
 
-Wait 30 seconds for the new pod to start.
+Wait 30 seconds for the new pod to become ready.
 
 ### B.3 Verify
 

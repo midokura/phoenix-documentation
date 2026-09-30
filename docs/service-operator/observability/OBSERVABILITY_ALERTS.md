@@ -327,6 +327,8 @@ The Phoenix observability stack includes alerts organized into the following cat
 
 **Threshold:** `alerts.vmManagement.availabilityThreshold` (default: 99.9%)
 
+**Runbook:** [VM Availability Degraded — Runbook](../runbooks/RECOVER_MANAGEMENT_VM_DISK_CORRUPTION.md)
+
 ---
 
 ### Magnum Service SLOs

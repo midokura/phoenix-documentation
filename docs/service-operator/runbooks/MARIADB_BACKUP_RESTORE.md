@@ -72,7 +72,7 @@ Make sure that the backup was written:
 ssh <controller-node> "sudo ls -lht /var/lib/docker/volumes/mariadb_backup/_data/ | head -10"
 ```
 
-Each backup is a directory with a timestamp (for example, `2026-09-29-12-00-00`). Make sure that a new directory exists and has a non-zero size.
+Each backup is a directory with a timestamp (for example, `2026-09-29-12-00-00`). Make sure that a new directory exists and is non-empty (i.e., contains the backup files such as `ibdata1`, `xtrabackup_checkpoints`, etc.).
 
 ---
 

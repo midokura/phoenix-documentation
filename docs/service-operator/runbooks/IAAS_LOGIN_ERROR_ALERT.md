@@ -41,16 +41,16 @@ Note the exception class and message — this determines which step to follow.
 
 **Symptoms:** `ConnectTimeout`, `ConnectionRefused`, `SSLError`, `ReadTimeout`
 
-The iaas-api pod cannot reach the OAuth provider. Test connectivity from inside the pod:
+The iaas-api pod cannot reach the OAuth provider. Test connectivity from inside the pod (the container has no `curl` — use Python):
 
 ```bash
 # For Google
 kubectl exec -n iaas-console deploy/iaas-api -- \
-  curl -sf --max-time 5 https://accounts.google.com > /dev/null && echo OK || echo FAIL
+  python3 -c "import urllib.request; urllib.request.urlopen('https://accounts.google.com', timeout=5); print('OK')"
 
 # For Azure
 kubectl exec -n iaas-console deploy/iaas-api -- \
-  curl -sf --max-time 5 https://login.microsoftonline.com > /dev/null && echo OK || echo FAIL
+  python3 -c "import urllib.request; urllib.request.urlopen('https://login.microsoftonline.com', timeout=5); print('OK')"
 ```
 
 **If `FAIL`:** egress is blocked. Check whether a recent network or firewall change was applied — escalate to the infrastructure team.

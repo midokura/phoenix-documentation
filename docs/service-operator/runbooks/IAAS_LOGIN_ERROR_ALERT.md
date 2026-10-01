@@ -67,36 +67,26 @@ kubectl exec -n iaas-console deploy/iaas-api -- \
 
 The OAuth client secret stored in Kubernetes is wrong or has expired.
 
-Find which secret holds the OAuth credentials:
+OAuth credentials are stored in the `iaas-api-secrets` Kubernetes secret (mounted via `envFrom`). Check whether the relevant key is set:
 
 ```bash
-kubectl get deploy iaas-api -n iaas-console \
-  -o jsonpath='{range .spec.template.spec.containers[0].env[*]}{.name}{" secret="}{.valueFrom.secretKeyRef.name}{" key="}{.valueFrom.secretKeyRef.key}{"\n"}{end}' \
-  | grep CLIENT_SECRET
+# For Google
+kubectl get secret iaas-api-secrets -n iaas-console \
+  -o jsonpath='{.data.GOOGLE_CLIENT_SECRET}' | base64 -d | wc -c
+
+# For Azure
+kubectl get secret iaas-api-secrets -n iaas-console \
+  -o jsonpath='{.data.AZURE_CLIENT_SECRET}' | base64 -d | wc -c
 ```
 
-Output example:
-```
-GOOGLE_CLIENT_SECRET secret=iaas-api-secrets key=google-client-secret
-```
+**Expected:** non-zero. Zero or an error means the secret is missing or empty.
 
-Note the secret name and key.
-
-Check the secret value is not empty:
+If the secret needs updating, patch it and restart the pod:
 
 ```bash
-SECRET_NAME=<name-from-above>
-KEY=<key-from-above>
-kubectl get secret $SECRET_NAME -n iaas-console \
-  -o jsonpath="{.data.$KEY}" | base64 -d | wc -c
-# Expected: non-zero
-```
-
-If empty or missing, rotate the credential in the provider's developer console and update the secret:
-
-```bash
-kubectl patch secret $SECRET_NAME -n iaas-console \
-  --type=merge -p "{\"data\":{\"$KEY\":\"$(echo -n '<new-value>' | base64)\"}}"
+# Replace <new-value> with the new secret from the provider console
+kubectl patch secret iaas-api-secrets -n iaas-console \
+  --type=merge -p "{\"data\":{\"GOOGLE_CLIENT_SECRET\":\"$(echo -n '<new-value>' | base64 -w0)\"}}"
 
 kubectl rollout restart deploy/iaas-api -n iaas-console
 kubectl rollout status deploy/iaas-api -n iaas-console

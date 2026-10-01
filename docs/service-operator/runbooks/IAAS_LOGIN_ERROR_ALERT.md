@@ -1,120 +1,166 @@
 # IaaS Login System Failure
 
-Responding to `IaaS Login System Failure` alerts caused by a broken OAuth callback
-
-## Purpose
-
-This runbook covers the `IaaS Login System Failure` Grafana alert, which fires when the IaaS Console OAuth callback fails — meaning users are unable to log in.
-
-| Alert | Trigger |
-|---|---|
-| **IaaS Login System Failure** | `iaas_login_errors_total{reason="callback_failed"}` increases in the last 15 minutes |
-
-This alert fires only on **system failures** in the OAuth flow (network errors, provider outages, misconfigured secrets). It does **not** fire for unauthorized access attempts (a user not provisioned in the system), which are handled via support.
+Recover from a broken OAuth login flow in the IaaS Console
 
 ---
 
 ## Prerequisites Checklist
 
-- [ ] Access to Grafana (to view the firing alert and its labels)
+- [ ] Access to Grafana (to view the firing alert and its `provider` label)
 - [ ] Access to Loki (Grafana → Explore, Loki data source)
 - [ ] `kubectl` access to the cluster
 
 ---
 
-## Step 1: Identify the provider
+## Step 1: Identify the provider and find the exception
 
-Open the firing alert in Grafana and check the `provider` label: **google** or **azure**.
+Open the firing alert in Grafana and note the `provider` label value (`google` or `azure`).
 
-This tells you which OAuth integration is broken and where to focus the investigation.
+Then go to **Grafana → Explore**, select **Loki**, and run:
+
+```logql
+{namespace="iaas-console", app="iaas-api"} |= "callback error" | line_format "{{.message}}"
+```
+
+You will see a log line like:
+
+```
+OAuth callback error
+Traceback (most recent call last):
+  ...
+httpx.ConnectTimeout: [Errno 110] Connection timed out
+```
+
+Note the exception class and message — this determines which step to follow.
 
 ---
 
-## Step 2: Check iaas-api logs for the exception
+## Step 2: Act on the exception
 
-In **Grafana → Explore**, select the **Loki** data source and run:
+### Connection error / timeout
 
+**Symptoms:** `ConnectTimeout`, `ConnectionRefused`, `SSLError`, `ReadTimeout`
+
+The iaas-api pod cannot reach the OAuth provider. Test connectivity from inside the pod:
+
+```bash
+# For Google
+kubectl exec -n iaas-console deploy/iaas-api -- \
+  curl -sf --max-time 5 https://accounts.google.com > /dev/null && echo OK || echo FAIL
+
+# For Azure
+kubectl exec -n iaas-console deploy/iaas-api -- \
+  curl -sf --max-time 5 https://login.microsoftonline.com > /dev/null && echo OK || echo FAIL
 ```
-{app="iaas-api"} |= "callback error"
-```
 
-The log entry will contain the full exception. Common patterns:
+**If `FAIL`:** egress is blocked. Check whether a recent network or firewall change was applied — escalate to the infrastructure team.
 
-| Log message | Likely cause |
-|---|---|
-| `Connection refused` / `timeout` | Network issue between iaas-api and the OAuth provider |
-| `invalid_grant` / `invalid_client` | OAuth client secret is wrong or expired |
-| `redirect_uri_mismatch` | Redirect URI in the OAuth app config doesn't match the deployed environment |
-| `SSLError` / `certificate verify failed` | TLS issue on the network path to the provider |
+**If `OK`:** the provider had a transient outage. Check their status page and monitor for recurrence:
+- Google: https://www.google.com/appsstatus
+- Microsoft: https://status.azure.com
 
 ---
 
-## Step 3: Resolve by cause
+### Invalid client / expired secret
 
-### Network / connectivity issue
+**Symptoms:** `invalid_client`, `invalid_grant`, `unauthorized_client`, `401`
 
-1. Check if Google (`accounts.google.com`) or Microsoft (`login.microsoftonline.com`) is reachable from the iaas-api pod:
+The OAuth client secret stored in Kubernetes is wrong or has expired.
 
-   ```bash
-   kubectl exec -n iaas-console deploy/iaas-api -- curl -sf https://accounts.google.com > /dev/null && echo OK
-   ```
+Find the secret name used by the pod:
 
-2. If unreachable, check whether a recent network or firewall change was applied. Escalate to the infrastructure team if the egress path is blocked.
+```bash
+kubectl get deploy iaas-api -n iaas-console \
+  -o jsonpath='{.spec.template.spec.containers[0].envFrom}' | grep -o 'secretRef:[^}]*'
+```
 
-3. Check the provider's status page:
-   - Google: https://www.google.com/appsstatus
-   - Microsoft: https://status.azure.com
+Check the secret exists and is not empty:
 
-### Expired or invalid OAuth client secret
+```bash
+kubectl get secret <secret-name> -n iaas-console \
+  -o jsonpath='{.data.GOOGLE_CLIENT_SECRET}' | base64 -d | wc -c
+# Expected: non-zero
+```
 
-1. Locate the Kubernetes secret used by iaas-api (check `values-<site>.yaml` for the secret name, typically `iaas-api-oauth-secrets`).
+If empty or missing, rotate the secret in the provider's developer console and update it in Kubernetes:
 
-2. Verify the secret exists and is not empty:
+```bash
+kubectl patch secret <secret-name> -n iaas-console \
+  --type=merge -p '{"data":{"GOOGLE_CLIENT_SECRET":"<new-value-base64>"}}'
 
-   ```bash
-   kubectl get secret iaas-api-oauth-secrets -n iaas-console -o jsonpath='{.data}' | base64 -d
-   ```
+kubectl rollout restart deploy/iaas-api -n iaas-console
+kubectl rollout status deploy/iaas-api -n iaas-console
+```
 
-3. If the secret has expired, rotate it in the OAuth provider's developer console and update the Kubernetes secret. Restart the iaas-api pod to pick up the new value:
-
-   ```bash
-   kubectl rollout restart deploy/iaas-api -n iaas-console
-   ```
+---
 
 ### Redirect URI mismatch
 
-1. The log will state the configured redirect URI. Verify it matches the URI registered in the Google Cloud Console or Azure App Registration for this environment.
+**Symptoms:** `redirect_uri_mismatch`, `invalid_redirect_uri`
 
-2. If mismatched, update the OAuth app's allowed redirect URIs to include the correct value.
+The redirect URI configured in the OAuth provider app does not match what the pod is sending. The log line will include the mismatched URI:
+
+```
+redirect_uri_mismatch: The redirect URI in the request did not match a registered redirect URI.
+```
+
+Find what URI the pod is configured to send:
+
+```bash
+kubectl exec -n iaas-console deploy/iaas-api -- \
+  env | grep -E "REDIRECT_URI|GOOGLE_REDIRECT|AZURE_REDIRECT"
+```
+
+Update the allowed redirect URIs in:
+- **Google:** Google Cloud Console → APIs & Services → Credentials → OAuth 2.0 Client
+- **Azure:** Azure Portal → App Registrations → Authentication → Redirect URIs
+
+Add the URI printed above. No pod restart needed — this is a provider-side change.
 
 ---
 
-## Step 4: Verify recovery
+## Step 3: Verify recovery
 
-Once the fix is applied, confirm login works by attempting a login in the IaaS Console UI.
+Attempt a login in the IaaS Console UI and confirm it succeeds end-to-end.
 
-Then confirm the alert clears in Grafana (**Alerting → Alert rules → IaaS Login System Failure** → state returns to **Normal**). Allow up to one scrape interval (1 minute) for the state to update.
+Then confirm the alert clears in Grafana — **Alerting → Alert rules → IaaS Login System Failure** — state returns to **Normal** within one minute.
 
 ---
 
 ## ✓ Done
 
-The alert has cleared and login succeeds end-to-end.
-
 ---
 
 ## Troubleshooting
 
+### No log lines found in Loki
+
+The alert may have fired on a very brief spike already resolved, or the pod restarted and logs are gone. Check recent pod restarts:
+
+```bash
+kubectl get pods -n iaas-console -l app=iaas-api
+kubectl describe pod -n iaas-console -l app=iaas-api | grep -A5 "Last State"
+```
+
+If the pod restarted, check previous container logs:
+
+```logql
+{namespace="iaas-console", app="iaas-api"} |= "callback error"
+```
+
+Set the Loki time range to cover the alert firing time.
+
 ### Alert fires but logs show `not authorized in system`
 
-This is an `unauthorized` event, not a system failure — a user authenticated with OAuth successfully but their email is not provisioned in the IaaS system. The alert should not have fired for this; check whether the `reason` label on the metric is `callback_failed`. If it is `unauthorized`, this is a data issue — ask the user to contact support to get their account provisioned.
+This is a different metric label (`reason="unauthorized"`) and should not have triggered this alert. A user authenticated with OAuth successfully but is not provisioned in the system — no system fix needed. Ask the user to contact support to get their account added.
 
-### Alert clears but users still report login failures
+### `kubectl rollout restart` does not clear the error
 
-The OAuth callback may be succeeding but the user is not provisioned. Search Loki for:
+The new pod may be pulling a cached image. Force a fresh rollout:
 
+```bash
+kubectl rollout restart deploy/iaas-api -n iaas-console
+kubectl rollout status deploy/iaas-api -n iaas-console --timeout=120s
 ```
-{app="iaas-api"} |= "not authorized in system"
-```
 
-This will show the email of the affected user. Add them to the system via the admin panel.
+Then retest login.

@@ -6,8 +6,8 @@ Recover a management cluster VM that is unreachable after a hard crash
 
 ## Prerequisites Checklist
 
-- [ ] SSH access to bastion (172.20.0.250) with the `mido_infra` key
-- [ ] SSH access to a storage node (`storage0`–`storage2`, `10.33.0.61`–`10.33.0.63`) via bastion
+- [ ] SSH access to bastion with the `mido_infra` key
+- [ ] SSH access to a storage node (`storage0`–`storage2`) via bastion
 - [ ] OpenStack CLI on bastion via `platform-setup.sh --shell`
 - [ ] `kubectl` access to the management cluster
 
@@ -26,23 +26,23 @@ Results include a `domain` label (e.g. `instance-0000000f`) and an `instance` la
 From bastion shell, map the domain name to the OpenStack server ID:
 
 ```bash
-openstack server list --all-projects --insecure --host <hypervisor> -f value -c ID | \
-  xargs -I{} openstack server show {} --insecure -c ID -c Name -c "OS-EXT-SRV-ATTR:instance_name"
+openstack server list --all-projects --host <hypervisor> -f value -c ID | \
+  xargs -I{} openstack server show {} -c ID -c Name -c "OS-EXT-SRV-ATTR:instance_name"
 ```
 
 Identify the row matching the domain name, then confirm the stop was not user-initiated:
 
 ```bash
 SERVER_ID=<id-from-above>
-STOP_REQ=$(openstack server event list $SERVER_ID --insecure -f value -c "Request ID" -c "Action" | awk '/stop/{print $1; exit}')
-openstack server event show $SERVER_ID $STOP_REQ --insecure -c action -c user_id -c message
+STOP_REQ=$(openstack server event list $SERVER_ID -f value -c "Request ID" -c "Action" | awk '/stop/{print $1; exit}')
+openstack server event show $SERVER_ID $STOP_REQ -c action -c user_id -c message
 ```
 
 **Expected:** `user_id` is `None` — the stop was triggered internally (OOM kill, hypervisor fault). The disk may be corrupted.
 
 **Do not start the VM yet.** Proceed to Step 2 to repair the disk first.
 
-**If `user_id` is set:** this runbook does not apply — the VM was intentionally stopped. See [VM Availability Degraded runbook](../../runbooks/runbook-vm-availability.md) for other cases.
+**If `user_id` is set:** this runbook does not apply — the VM was intentionally stopped.
 
 ---
 
@@ -51,7 +51,7 @@ openstack server event show $SERVER_ID $STOP_REQ --insecure -c action -c user_id
 List all Cinder volumes attached to the VM:
 
 ```bash
-openstack server show $SERVER_ID --insecure -c volumes_attached
+openstack server show $SERVER_ID -c volumes_attached
 ```
 
 Note any volume IDs — repair each one after the root disk.
@@ -59,7 +59,7 @@ Note any volume IDs — repair each one after the root disk.
 SSH to any storage node from bastion:
 
 ```bash
-ssh -i ~/.ssh/mido_infra.pem ubuntu@10.33.0.61
+ssh -i ~/.ssh/mido_infra.pem ubuntu@storage0
 ```
 
 **Always repair the root disk:**
@@ -106,8 +106,8 @@ sudo rbd device unmap $DEVICE
 ## Step 3: Restart the VM
 
 ```bash
-openstack server start $SERVER_ID --insecure
-openstack console log show $SERVER_ID --insecure | tail -20
+openstack server start $SERVER_ID
+openstack console log show $SERVER_ID | tail -20
 ```
 
 **Expected:** normal Ubuntu boot sequence ending with a login prompt.
@@ -137,8 +137,8 @@ kubectl get pods -A --field-selector=spec.nodeName=<vm-name>
 The VM is still running. Stop it and wait:
 
 ```bash
-openstack server stop $SERVER_ID --insecure
-watch -n5 "openstack server show $SERVER_ID --insecure -c OS-EXT-STS:power_state -f value"
+openstack server stop $SERVER_ID
+watch -n5 "openstack server show $SERVER_ID -c OS-EXT-STS:power_state -f value"
 ```
 
 `power_state = 4` means shutdown. Then retry `rbd status`.
@@ -148,7 +148,7 @@ watch -n5 "openstack server show $SERVER_ID --insecure -c OS-EXT-STS:power_state
 List all volumes attached to the VM to check none were missed:
 
 ```bash
-openstack server show $SERVER_ID --insecure -c volumes_attached
+openstack server show $SERVER_ID -c volumes_attached
 ```
 
 Stop the VM, repeat the Cinder volume repair in Step 2 for the missing volume, then restart.

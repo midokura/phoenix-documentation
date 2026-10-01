@@ -17,6 +17,13 @@ For the full key management policy (lifecycle, approval workflow, audit trail), 
 | **Ceph RGW TLS certificate** | S3-compatible object gateway (environments with `ceph_rgw_tls_enabled: true`) | 2 years | No (rolling daemon redeploy) |
 | **WireGuard VPN keys** | Operator VPN peer keys | 1 year | Brief (VPN reconnect) |
 | **Ansible Vault passwords** | Secrets encryption at rest (per environment) | 1 year | No |
+| **IaaS Console backup key** | PostgreSQL S3 backup encryption (per environment) | Only on suspected compromise — see note | No |
+
+:::note
+
+The IaaS Console backup key is **not** on a scheduled rotation cycle. Rotating it invalidates all existing S3 backups unless the old key is escrowed. Only rotate it if the key is suspected to be compromised. See [IaaS Console Configuration — Rotating the backup key](../IAAS_CONSOLE_CONFIGURATION.md#rotating-the-backup-key).
+
+:::
 
 ## Key Rotation Runbooks
 

@@ -117,7 +117,7 @@ Persist the re-keyed files according to your operator workflow (for example, com
 
 `ansible-vault rekey` in Step 4 re-encrypts all currently active vault files. But historical backups of the configuration repository still use the old vault password. These backups include archived cluster directories, old git snapshots, and off-site configuration archives.
 
-1. Add a **legacy entry** for the old vault password in the credential management system. Label it with the environment name, the rotation date, and the word `legacy` — for example, `<env>-vault-legacy-YYYY-MM-DD`.
+1. Add a **legacy entry** for the old vault password in the credential management system. Label this entry with the environment name, the rotation date, and the word `legacy` — for example, `<env>-vault-legacy-YYYY-MM-DD`.
 2. Record the expiry date for this legacy entry. Use the date on which all configuration backups from before this rotation pass their retention period and are deleted.
 3. Keep the legacy entry until that expiry date. Then remove it from the credential store.
 
@@ -125,7 +125,7 @@ Persist the re-keyed files according to your operator workflow (for example, com
 
 **MariaDB database backups** are produced by `kolla-ansible mariadb_backup` as raw `mariabackup` snapshots. Vault password rotation does not affect these backups because they are not encrypted with the vault password.
 
-**IaaS Console PostgreSQL backups** are encrypted with the `backup-key` stored in the `iaas-api-postgresql` Kubernetes secret. This secret is vault-encrypted in `inventory.yml`. Step 4 re-keys this secret, but the underlying `backup-key` value does not change. Existing S3 backups remain decryptable after vault password rotation. When you rotate the `backup-key`, keep the old key in the credential store until all S3 backups from before the rotation pass their retention period and are deleted. The procedure is in [IaaS Console Configuration — Rotating the backup key](../../IAAS_CONSOLE_CONFIGURATION.md#rotating-the-backup-key).
+**IaaS Console PostgreSQL backups** are encrypted with the `backup-key` stored in the `iaas-api-postgresql` Kubernetes secret. This secret is vault-encrypted in `inventory.yml`. Step 4 re-keys this secret, but the underlying `backup-key` value does not change. Existing S3 backups remain decryptable after vault password rotation. The `backup-key` has a separate annual rotation procedure with its own escrow steps. The full procedure is in [IaaS Console Configuration — Rotating the backup key](../../IAAS_CONSOLE_CONFIGURATION.md#rotating-the-backup-key).
 
 :::
 

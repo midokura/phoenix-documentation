@@ -144,7 +144,7 @@ All four keys must be provided together — a partial configuration will cause t
 
 The `backup-key` encrypts all PostgreSQL backups stored in S3. In `inventory.yml`, this key is stored vault-encrypted. If you rotate the Ansible Vault password, the `backup-key` value does not change. Existing S3 backups remain decryptable. But if you rotate the `backup-key` value itself, the new key cannot decrypt existing S3 backups.
 
-The `backup-key` is not part of the standard rotation schedule. If you suspect that the key is compromised, do these steps to rotate it:
+Rotate the `backup-key` every year. When you rotate it, keep the old key in the credential store until all S3 backups from before the rotation pass their retention period and are deleted. Do these steps to rotate it:
 
 1. Get the current `backup-key` from the cluster secret:
 

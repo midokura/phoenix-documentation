@@ -125,7 +125,7 @@ Persist the re-keyed files according to your operator workflow (for example, com
 
 **MariaDB database backups** are produced by `kolla-ansible mariadb_backup` as raw `mariabackup` snapshots. Vault password rotation does not affect these backups because they are not encrypted with the vault password.
 
-**IaaS Console PostgreSQL backups** are encrypted with the `backup-key` stored in the `iaas-api-postgresql` Kubernetes secret. This secret is vault-encrypted in `inventory.yml`. Step 4 re-keys this secret, but the underlying `backup-key` value does not change. Existing S3 backups remain decryptable after vault password rotation. If the `backup-key` must be rotated, the procedure is in [IaaS Console Configuration — Rotating the backup key](../../IAAS_CONSOLE_CONFIGURATION.md#rotating-the-backup-key).
+**IaaS Console PostgreSQL backups** are encrypted with the `backup-key` stored in the `iaas-api-postgresql` Kubernetes secret. This secret is vault-encrypted in `inventory.yml`. Step 4 re-keys this secret, but the underlying `backup-key` value does not change. Existing S3 backups remain decryptable after vault password rotation. When you rotate the `backup-key`, keep the old key in the credential store until all S3 backups from before the rotation pass their retention period and are deleted. The procedure is in [IaaS Console Configuration — Rotating the backup key](../../IAAS_CONSOLE_CONFIGURATION.md#rotating-the-backup-key).
 
 :::
 

@@ -10,20 +10,14 @@ For the full key management policy (lifecycle, approval workflow, audit trail), 
 
 ## Key Inventory
 
-| Key Type | Scope | Rotation Period | Downtime? |
-|---|---|---|---|
-| **SSH keys** (`mido_infra`) | Infrastructure access (all hosts, both environments) | Every 6 months (aligned with release cycle) | No |
-| **TLS certificates** | HAProxy, RabbitMQ, Octavia CA, backend services | 1 year | Brief (service restart) |
-| **Ceph RGW TLS certificate** | S3-compatible object gateway (environments with `ceph_rgw_tls_enabled: true`) | 2 years | No (rolling daemon redeploy) |
-| **WireGuard VPN keys** | Operator VPN peer keys | 1 year | Brief (VPN reconnect) |
-| **Ansible Vault passwords** | Secrets encryption at rest (per environment) | 1 year | No |
-| **IaaS Console backup key** | PostgreSQL S3 backup encryption (per environment) | Only on suspected compromise — see note | No |
-
-:::note
-
-The IaaS Console backup key is **not** on a scheduled rotation cycle. Rotating it invalidates all existing S3 backups unless the old key is escrowed. Only rotate it if the key is suspected to be compromised. See [IaaS Console Configuration — Rotating the backup key](../IAAS_CONSOLE_CONFIGURATION.md#rotating-the-backup-key).
-
-:::
+| Key Type | Scope | Rotation Period | Downtime? | Keep old key? |
+|---|---|---|---|---|
+| **SSH keys** (`mido_infra`) | Infrastructure access (all hosts, both environments) | Every 6 months (aligned with release cycle) | No | No |
+| **TLS certificates** | HAProxy, RabbitMQ, Octavia CA, backend services | 1 year | Brief (service restart) | No |
+| **Ceph RGW TLS certificate** | S3-compatible object gateway (environments with `ceph_rgw_tls_enabled: true`) | 2 years | No (rolling daemon redeploy) | No |
+| **WireGuard VPN keys** | Operator VPN peer keys | 1 year | Brief (VPN reconnect) | No |
+| **Ansible Vault passwords** | Secrets encryption at rest (per environment) | 1 year | No | Yes — to restore historical config backups |
+| **IaaS Console backup key** | PostgreSQL S3 backup encryption (per environment) | 1 year | No | Yes — to restore existing S3 backups |
 
 ## Key Rotation Runbooks
 
@@ -32,3 +26,4 @@ The IaaS Console backup key is **not** on a scheduled rotation cycle. Rotating i
 - [Rotate Openstack TLS certificates](./key-rotation/TLS_CERTIFICATES)
 - [Rotate WireGuard VPN Keys](./key-rotation/VPN_WIREGUARD_KEYS)
 - [Rotate Ceph RGW TLS Certificate](./key-rotation/CEPH_RGW_TLS)
+- [Rotate IaaS Console Backup Key](../IAAS_CONSOLE_CONFIGURATION.md#rotating-the-backup-key)

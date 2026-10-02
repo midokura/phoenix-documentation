@@ -133,6 +133,18 @@ The Phoenix observability stack includes alerts organized into the following cat
 
 ---
 
+#### 3. IaaS Login System Failure
+
+**Description:** Monitors OAuth callback failures for the IaaS Console login flow. Fires when any `callback_failed` error is recorded — meaning the OAuth exchange with Google or Azure is broken and users cannot log in. Does not fire for unauthorized access attempts (user not provisioned in the system).
+
+**Labels:**
+- `severity: critical`
+- `provider: google | azure`
+
+**Runbook:** [IaaS Login System Failure — Runbook](../runbooks/IAAS_LOGIN_ERROR_ALERT.md)
+
+---
+
 ### IPMI Hardware Health SLOs
 
 **Folder:** "IPMI Hardware Health SLOs"

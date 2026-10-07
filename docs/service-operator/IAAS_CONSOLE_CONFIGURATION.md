@@ -140,6 +140,34 @@ On the next deployment, the original credentials will be restored and existing S
 
 All four keys must be provided together — a partial configuration will cause the playbook to fail. When omitted, the chart generates random credentials as before.
 
+#### Rotating the backup key
+
+The `backup-key` encrypts all PostgreSQL backups stored in S3. In `inventory.yml`, this key is stored vault-encrypted. If you rotate the Ansible Vault password, the `backup-key` value does not change. Existing S3 backups remain decryptable. But if you rotate the `backup-key` value itself, the new key cannot decrypt existing S3 backups.
+
+Do these steps to rotate the `backup-key` every year:
+
+1. Get the current `backup-key` from the cluster secret:
+
+   ```bash
+   kubectl get secret iaas-api-postgresql -n iaas-console -o jsonpath='{.data.backup-key}' | base64 -d
+   ```
+
+2. Add the old `backup-key` to the credential management system with a **legacy label** that includes the rotation date — for example, `iaas-console-backup-key-legacy-YYYY-MM-DD`.
+
+3. Record the expiry date for this legacy entry. Use the date on which all S3 backups from before the rotation pass their retention period and are deleted.
+
+4. Update `inventory.yml` with the new `backup-key` value (vault-encrypted). Then redeploy the IaaS Console. New backups will use the new key.
+
+5. Keep the legacy entry in the credential store until the expiry date. If you need to restore a backup from before the rotation, use the legacy key.
+
+6. Once the expiry date passes and all old backups are deleted, remove the legacy entry from the credential store.
+
+:::caution
+
+Do not delete S3 backups from before the rotation. Delete these backups only after the escrow period ends and you no longer need to restore from them.
+
+:::
+
 ## Console URL
 
 The IaaS Console is served at:

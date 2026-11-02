@@ -599,7 +599,7 @@ Bootstrap automatically rotates all default HedgeHog credentials on first run:
 
 1. **VM SSH access**: Operator keys from `authorized_keys` are installed using the ISO default password (`HHFab.Admin!`). On re-runs, the ISO password no longer works and this step is skipped gracefully.
 2. **VM password**: The `core` user password is changed to `login_password` via `chpasswd`, then the playbook verifies the ISO default is rejected.
-3. **Fabricator CRD**: `spec.config.control.defaultUser` and `spec.config.fabric.defaultSwitchUsers` are patched with the `switch_users` credentials. Passwords are hashed with SHA-256-crypt at runtime — provide plaintext in the inventory.
+3. **Fabricator CRD**: `spec.config.control.defaultUser` and `spec.config.fabric.defaultSwitchUsers` are patched with the `switch_users` credentials. Passwords are hashed with SHA-256-crypt at runtime (5000 rounds, the 63-character `$5$` form the switch agent expects) — provide plaintext in the inventory.
 
 Subsequent bootstrap runs are safe to re-run. The ISO default password no longer works after the first run, so the key-installation step is skipped; the password and CRD patch steps are always applied (idempotent).
 

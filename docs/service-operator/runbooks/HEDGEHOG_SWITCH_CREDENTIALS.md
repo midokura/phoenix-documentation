@@ -29,8 +29,11 @@ Use it only to rotate switch credentials on an existing deployment.
 ## When to run
 
 On an existing deployment, when rotating switch credentials after initial bootstrap.
-Updating after switch installation requires re-provisioning the affected switches to apply
-the new credentials.
+No re-provisioning is needed: the switch agent re-applies the users from the fabric config
+on its next reconcile, so installed switches pick up the new credentials.
+
+Alternatively, update `hedgehog.switch_users` in the inventory and re-run the bootstrap
+playbook, which patches the same fields.
 
 ## Prerequisites
 
@@ -61,7 +64,7 @@ Copy the output — these are the values for the `authorizedKeys` arrays in Step
 
 ## Step 3: Generate password hashes
 
-`openssl passwd -5` produces a SHA-512 crypt hash (the `$5$…` format used in
+`openssl passwd -5` produces a SHA-256 crypt hash (the `$5$…` format used in
 `/etc/shadow`). Generate one hash per switch user:
 
 ```bash
@@ -70,6 +73,16 @@ openssl passwd -5 <new-op-password>
 ```
 
 Note each hash; the full `$5$…` string is used verbatim in the patch commands.
+
+:::warning
+
+Each hash must be exactly 63 characters: `$5$<16-char salt>$<43-char hash>`. The switch
+agent only treats a 63-character `$5$` value as a hash. Anything else, such as a
+`$5$rounds=…$` hash (for example from Python `passlib`, or Ansible `password_hash`
+without `rounds=5000`), is set on the switch as the literal plaintext password.
+Check with `echo -n '<hash>' | wc -c`.
+
+:::
 
 For Step 5 (control node consistency patch), use the hash of the password already set on
 the `core` user during the [VM credential bootstrap](../HEDGEHOG_VM_CREDENTIALS) — not a
@@ -150,5 +163,5 @@ new hashes (not the ISO defaults) and that `authorizedKeys` lists all expected p
 - [ ] `kubectl describe fabricators default -n fab` output shows updated password hashes for `admin` and `op`
 - [ ] `kubectl describe fabricators default -n fab` output shows updated `authorizedKeys` for `admin` and `op`
 - [ ] Fabricator `control.defaultUser` reflects the keys set on the VM during bootstrap
-- [ ] Switches installed after this step accept SSH login with the authorised keys
+- [ ] Each switch accepts SSH login as `admin` and `op` with the new passwords and the authorised keys
 
